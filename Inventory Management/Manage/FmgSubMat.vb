@@ -1,0 +1,281 @@
+﻿Imports ConDB.Main
+Imports System.Data.SqlClient
+Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraGrid.Views.Base
+Imports DevExpress.Data
+
+Public Class FmgSubMat
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+    Dim dtSubMat As DataTable
+    Dim SubMatID As String = "", SubCatID As String = "", MatID As String = ""
+    Enum Stat
+        OK
+        Edit
+        Delete
+        AddList
+        DelList
+    End Enum
+    Private btnStat As Integer
+
+#Region "CODE"
+    Private Sub CompareDT(ByVal DTMain As DataTable, ByVal DTSub As DataTable)
+        Dim r1 = DTMain.AsEnumerable()
+        Dim r2 = DTSub.AsEnumerable()
+        Dim ExceptResult = r1.Except(r2, DataRowComparer.Default)
+
+        If ExceptResult.Count > 0 AndAlso DTSub.Rows.Count > 0 Then
+            btnSave.Enabled = True
+        Else
+            btnSave.Enabled = False
+        End If
+    End Sub
+
+    Private Enum QryMode
+        SubCat
+        slMat
+        matList
+    End Enum
+    Private Sub showDB(Optional Mode As QryMode = QryMode.SubCat)
+        If Mode = QryMode.slMat Then GoTo slMat
+        SQL = "select SubCatID, SubCatName From tbSubCategory"
+        Binding.Name = "subcat"
+        Binding.GetData = SQL
+        With slSubCat.Properties
+            .DataSource = Binding.Result
+            .ValueMember = "SubCatID"
+            .DisplayMember = "SubCatName"
+        End With
+        If Mode = QryMode.SubCat Then Exit Sub
+
+slMat:
+        SQL = "select MatID,MatName from tbMat Where SubCatID = '" & SubCatID & "'"
+        With slMat.Properties
+            .DataSource = dsTbl("mat")
+            .DisplayMember = "MatName"
+            .ValueMember = "MatID"
+        End With
+
+        SQL = "select Mat.MatID, Mat.MatName,SubMat.SubMatID,SubMat.SubMatName "
+        SQL &= "from tbSubMat SubMat inner join tbMat Mat on SubMat.MatID = Mat.matID "
+        SQL &= " where Mat.SubCatID = '" & SubCatID & "'"
+        Binding.Name = "mat"
+        Binding.GetData = SQL
+        With gvList
+            gcList.DataSource = Binding.Result
+            .PopulateColumns()
+            .Columns("MatName").Group()
+            .Columns("MatName").Caption = "ชื่อวัสดุ"
+            .Columns("SubMatName").Caption = "ชื่อวัสดุที่ใช้ร่วม"
+            .Columns("MatID").Visible = False
+            .Columns("SubMatID").Caption = " "
+            .Columns("SubMatID").Width = 70
+            .ExpandAllGroups()
+            '.Columns("MatName").Caption = "ชื่อวัสดุ"
+            '.Columns("SubMatName").Caption = "ชื่อวัสดุที่ใช้ร่วม"
+        End With
+    End Sub
+    Private Sub LoadDef()
+        slSubCat.Properties.NullText = ""
+        slMat.Properties.NullText = ""
+        btnNew.Enabled = False
+        btnAddList.Enabled = False
+        btnDelList.Enabled = False
+        GrpBtn.Enabled = True
+        GrpInput.Enabled = False
+        txtName.Text = ""
+        lblUnitName.Text = "ชื่อผู้ขาย"
+        gvList.OptionsFind.AlwaysVisible = True
+        gcList.Enabled = True
+        btnSave.Enabled = False
+    End Sub
+#End Region
+#Region "Button Control"
+    Private Sub AddList(sender As Object, e As EventArgs) Handles btnAddList.Click
+        Dim dr As DataRow = Nothing
+        Dim dupField As String
+
+        With dtSubMat
+            'chekDuplicate In DT
+            FoundRow = dtSubMat.Select("SubMatName = '" & txtName.Text & "'")
+            If FoundRow.Count > 0 Then
+                MessageBox.Show(txtName.Text & " มีในฐานข้อมูลแล้วไม่สามารถเพิ่มได้อีก", "ซ้ำในฐานข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Exit Sub
+            End If
+            'chekInput
+            If String.IsNullOrWhiteSpace(txtName.Text) Then
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบ", "ข้อมูลไม่ครบ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Exit Sub
+            End If
+            dr = .NewRow
+            dr("MatID") = slMat.EditValue
+            dr("MatName") = slMat.Text
+            dr("SubMatID") = genID()
+            dr("SubMatName") = txtName.Text
+            dupField = "SubMatName"
+            txtName.Text = ""
+
+            For Each DataRow As DataRow In .Rows
+                If String.Equals(dr(dupField), DataRow(dupField)) Then
+                    MessageBox.Show("ไม่สามารถเพิ่มข้อมูลซ้ำกันได้", "ข้อมูลซ้ำกัน", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    Exit Sub
+                End If
+            Next
+            .Rows.Add(dr)
+            .AcceptChanges()
+        End With
+        btnSave.Enabled = True
+        gcList.Refresh()
+    End Sub
+    Private Sub DelList(sender As Object, e As EventArgs) Handles btnDelList.Click
+        If gvList.FocusedRowHandle >= 0 Then
+            dtSubMat.Rows(gvList.FocusedRowHandle).Delete()
+            dtSubMat.AcceptChanges()
+            gcList.Refresh()
+            CompareDT(DS.Tables("submat"), dtSubMat)
+
+            'btnSave.Enabled = If(TBChange(DS.Tables("submat")) = True, True, False)
+        End If
+    End Sub
+    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+        gvList.FindFilterText = Nothing
+        GrpInput.Enabled = True
+        GrpBtn.Enabled = False
+        txtName.Text = ""
+        txtName.ReadOnly = False
+        btnAddList.Visible = True
+        btnAddList.Enabled = True
+        btnDelList.Enabled = False
+        btnDelList.Visible = True
+
+        FoundRow = DS.Tables("submat").Select("MatID='" & slMat.EditValue & "'")
+        If FoundRow.Count > 0 Then
+            dtSubMat = FoundRow.CopyToDataTable
+        Else
+            dtSubMat = DS.Tables("submat").Copy
+            dtSubMat.Clear()
+        End If
+        gcList.DataSource = dtSubMat
+        gvList.OptionsFind.AlwaysVisible = False
+        gvList.Columns("MatID").Visible = False
+        gvList.Columns("SubMatID").Visible = False
+        gvList.Columns("MatName").Group()
+        gvList.ExpandAllGroups()
+    End Sub
+    Private Sub btnCancle_Click(sender As Object, e As EventArgs) Handles btnCancle.Click
+        showDB(QryMode.slMat)
+        LoadDef()
+        btnNew.Enabled = True
+        gvList.FindFilterText = Nothing
+    End Sub
+    Private Sub btnUnit_Remove_Click(sender As Object, e As EventArgs)
+        If MessageBox.Show("ยืนยันการลบข้อมูล " & gvList.GetFocusedValue & " หรือไม่", "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
+            'clearDS
+            clsDS({"chkuse", "del"})
+            'chkUse
+            SQL = "Delete From tbSubMat Where MatID='" & MatID & "' Delete From tbGroupUnit Where mainUnitID='" & SubMatID & "'"
+            dsTbl("del")
+            LoadDef()
+            showDB(QryMode.slMat)
+            gvList.FindFilterText = Nothing
+        End If
+    End Sub
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        Dim tbDest As String = Nothing
+        Dim fieldList() As String = Nothing
+
+        SQL = "Delete From tbSubMat Where MatID='" & slMat.EditValue & "'"
+        dsTbl("del")
+        fieldList = {"MatID", "SubMatName", "SubMatID"}
+        tbDest = "tbSubMat"
+        blkCpy(tbDest, dtSubMat, fieldList)
+        'Edit
+        btnCancle.PerformClick()
+        MessageBox.Show("บันทึกข้อมูลแล้ว", "บันทึกข้อมูลสำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+#End Region
+#Region "Common Control"
+    Private Sub FmgSubMat_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim setting As New setting
+        'If DS IsNot Nothing Then DS.Clear()
+        'FirstQry()
+        'showDB()
+        showDB()
+        LoadDef()
+        gvList.FindFilterText = Nothing
+        loadSuccess = True
+    End Sub
+    Private Sub gvRowCellClick(sender As Object, e As RowCellClickEventArgs) Handles gvList.RowCellClick
+        If gvList.FocusedRowHandle >= 0 Then
+            Dim MatID = gvList.GetRowCellValue(gvList.FocusedRowHandle, "MatID")
+            SubMatID = gvList.GetRowCellValue(gvList.FocusedRowHandle, "SubMatID")
+            txtName.Text = gvList.GetRowCellValue(gvList.FocusedRowHandle, "SubMatName")
+            slMat.EditValue = MatID
+            If GrpInput.Enabled = True Then
+                btnDelList.Enabled = True
+            Else
+                txtName.ReadOnly = True
+                btnAddList.Visible = False
+                btnDelList.Visible = False
+            End If
+        End If
+    End Sub
+    Private Sub gvRowClick(sender As Object, e As RowClickEventArgs) Handles gvList.RowClick
+
+        If IsDBNull(gvList.FocusedValue) Then Exit Sub
+        Dim values As String = gvList.GetFocusedValue
+        Dim vw As ColumnView = gcList.MainView
+        'Dim values As String = gvList.GetRowCellDisplayText(gvList.FocusedRowHandle, "mainName")
+        Dim FieldName As String = "MatName"
+        Dim FieldID As String = "MatID"
+
+        Try
+            Dim RHandle As Integer = 0
+            Dim Col As DevExpress.XtraGrid.Columns.GridColumn = vw.Columns(FieldName)
+            While True
+                RHandle = vw.LocateByValue(RHandle, Col, values)
+                If RHandle = DevExpress.XtraGrid.GridControl.InvalidRowHandle Then
+                    Exit While
+                End If
+                If gvList.GetRowCellValue(RHandle, FieldName) = values Then
+                    slMat.EditValue = gvList.GetRowCellValue(RHandle, FieldID)
+                    MatID = gvList.GetRowCellValue(RHandle, FieldID)
+                    Exit While
+                End If
+                RHandle += 1
+            End While
+        Catch ex As Exception
+        End Try
+
+    End Sub
+    Private Sub txtName_EditValueChanged(sender As Object, e As EventArgs) Handles txtName.EditValueChanged
+        btnDelList.Enabled = False
+    End Sub
+#End Region
+    Private Sub GridView_CustomColumnDisplayText(ByVal sender As Object,
+    ByVal e As CustomColumnDisplayTextEventArgs) Handles gvList.CustomColumnDisplayText
+        If e.Column.FieldName = "SubMatID" Then
+            If e.Value IsNot Nothing Then e.DisplayText = " "
+        End If
+    End Sub
+    Private Sub SearchLookUpEdit_EditValueChanged(sender As Object, e As EventArgs) Handles slSubCat.EditValueChanged, slMat.EditValueChanged
+        If loadSuccess = False Then Exit Sub
+        Dim ctrSl As DevExpress.XtraEditors.SearchLookUpEdit = CType(sender, DevExpress.XtraEditors.SearchLookUpEdit)
+        If ctrSl.Name = slSubCat.Name Then
+            SubCatID = slSubCat.EditValue
+            showDB(QryMode.slMat)
+        End If
+        btnNew.Enabled = If(String.IsNullOrEmpty(slMat.Text) Or
+                                 String.IsNullOrEmpty(slSubCat.Text), False, True)
+    End Sub
+End Class
+Public Class setting
+    Public DSTable As DataTable
+
+End Class
