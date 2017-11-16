@@ -820,7 +820,7 @@ Partial Class FrmMatList
         '
         'LookUpStore
         '
-        Me.LookUpStore.Location = New System.Drawing.Point(441, 6)
+        Me.LookUpStore.Location = New System.Drawing.Point(786, 81)
         Me.LookUpStore.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LookUpStore.Name = "LookUpStore"
         Me.LookUpStore.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -832,10 +832,11 @@ Partial Class FrmMatList
         Me.LookUpStore.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.LookUpStore.Size = New System.Drawing.Size(111, 28)
         Me.LookUpStore.TabIndex = 2
+        Me.LookUpStore.Visible = False
         '
         'LookUpLocation
         '
-        Me.LookUpLocation.Location = New System.Drawing.Point(441, 45)
+        Me.LookUpLocation.Location = New System.Drawing.Point(786, 120)
         Me.LookUpLocation.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LookUpLocation.Name = "LookUpLocation"
         Me.LookUpLocation.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -847,6 +848,7 @@ Partial Class FrmMatList
         Me.LookUpLocation.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.LookUpLocation.Size = New System.Drawing.Size(111, 28)
         Me.LookUpLocation.TabIndex = 0
+        Me.LookUpLocation.Visible = False
         '
         'LabelControl12
         '
@@ -894,7 +896,7 @@ Partial Class FrmMatList
         Me.BtnStore_Add.Enabled = False
         Me.BtnStore_Add.ImageOptions.Image = CType(resources.GetObject("BtnStore_Add.ImageOptions.Image"), System.Drawing.Image)
         Me.BtnStore_Add.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BtnStore_Add.Location = New System.Drawing.Point(558, 9)
+        Me.BtnStore_Add.Location = New System.Drawing.Point(903, 84)
         Me.BtnStore_Add.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnStore_Add.Name = "BtnStore_Add"
         Me.BtnStore_Add.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[True]
@@ -903,6 +905,7 @@ Partial Class FrmMatList
         Me.BtnStore_Add.ToolTip = "เพิ่มข้อมูลตำแหน่งที่เก็บ"
         Me.BtnStore_Add.ToolTipIconType = DevExpress.Utils.ToolTipIconType.Information
         Me.BtnStore_Add.ToolTipTitle = "เพิ่ม"
+        Me.BtnStore_Add.Visible = False
         '
         'BtnLocation_Add
         '
@@ -911,7 +914,7 @@ Partial Class FrmMatList
         Me.BtnLocation_Add.Enabled = False
         Me.BtnLocation_Add.ImageOptions.Image = CType(resources.GetObject("BtnLocation_Add.ImageOptions.Image"), System.Drawing.Image)
         Me.BtnLocation_Add.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BtnLocation_Add.Location = New System.Drawing.Point(558, 46)
+        Me.BtnLocation_Add.Location = New System.Drawing.Point(903, 121)
         Me.BtnLocation_Add.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnLocation_Add.Name = "BtnLocation_Add"
         Me.BtnLocation_Add.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[True]
@@ -920,6 +923,7 @@ Partial Class FrmMatList
         Me.BtnLocation_Add.ToolTip = "เพิ่มข้อมูลสถานที่ตั้ง"
         Me.BtnLocation_Add.ToolTipIconType = DevExpress.Utils.ToolTipIconType.Information
         Me.BtnLocation_Add.ToolTipTitle = "เพิ่ม"
+        Me.BtnLocation_Add.Visible = False
         '
         'bc128
         '
@@ -937,53 +941,53 @@ Partial Class FrmMatList
         'txtQtyPerUnit
         '
         Me.txtQtyPerUnit.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtQtyPerUnit.Location = New System.Drawing.Point(441, 116)
+        Me.txtQtyPerUnit.Location = New System.Drawing.Point(474, 42)
         Me.txtQtyPerUnit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtQtyPerUnit.Name = "txtQtyPerUnit"
         Me.txtQtyPerUnit.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.txtQtyPerUnit.Properties.Appearance.Options.UseFont = True
         Me.txtQtyPerUnit.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtQtyPerUnit.Properties.MaxLength = 5
+        Me.txtQtyPerUnit.Properties.MaxLength = 7
         Me.txtQtyPerUnit.Size = New System.Drawing.Size(111, 28)
         Me.txtQtyPerUnit.TabIndex = 24
         '
         'txtWarn
         '
         Me.txtWarn.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtWarn.Location = New System.Drawing.Point(786, 44)
+        Me.txtWarn.Location = New System.Drawing.Point(474, 116)
         Me.txtWarn.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtWarn.Name = "txtWarn"
         Me.txtWarn.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.txtWarn.Properties.Appearance.Options.UseFont = True
         Me.txtWarn.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtWarn.Properties.MaxLength = 5
-        Me.txtWarn.Size = New System.Drawing.Size(87, 28)
+        Me.txtWarn.Properties.MaxLength = 7
+        Me.txtWarn.Size = New System.Drawing.Size(112, 28)
         Me.txtWarn.TabIndex = 24
         '
         'txtRatio
         '
         Me.txtRatio.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtRatio.Location = New System.Drawing.Point(441, 81)
+        Me.txtRatio.Location = New System.Drawing.Point(474, 7)
         Me.txtRatio.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtRatio.Name = "txtRatio"
         Me.txtRatio.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.txtRatio.Properties.Appearance.Options.UseFont = True
         Me.txtRatio.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtRatio.Properties.MaxLength = 5
+        Me.txtRatio.Properties.MaxLength = 7
         Me.txtRatio.Size = New System.Drawing.Size(111, 28)
         Me.txtRatio.TabIndex = 24
         '
         'txtQtyOfUsing
         '
         Me.txtQtyOfUsing.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtQtyOfUsing.Location = New System.Drawing.Point(786, 7)
+        Me.txtQtyOfUsing.Location = New System.Drawing.Point(474, 79)
         Me.txtQtyOfUsing.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtQtyOfUsing.Name = "txtQtyOfUsing"
         Me.txtQtyOfUsing.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.txtQtyOfUsing.Properties.Appearance.Options.UseFont = True
         Me.txtQtyOfUsing.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtQtyOfUsing.Properties.MaxLength = 5
-        Me.txtQtyOfUsing.Size = New System.Drawing.Size(87, 28)
+        Me.txtQtyOfUsing.Properties.MaxLength = 7
+        Me.txtQtyOfUsing.Size = New System.Drawing.Size(112, 28)
         Me.txtQtyOfUsing.TabIndex = 24
         '
         'LabelControl11
@@ -1005,12 +1009,13 @@ Partial Class FrmMatList
         Me.LabelControl10.Appearance.Options.UseTextOptions = True
         Me.LabelControl10.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl10.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl10.Location = New System.Drawing.Point(301, 51)
+        Me.LabelControl10.Location = New System.Drawing.Point(646, 126)
         Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl10.Name = "LabelControl10"
         Me.LabelControl10.Size = New System.Drawing.Size(127, 20)
         Me.LabelControl10.TabIndex = 21
         Me.LabelControl10.Text = "สถานที่ตั้ง"
+        Me.LabelControl10.Visible = False
         '
         'LabelControl9
         '
@@ -1019,12 +1024,13 @@ Partial Class FrmMatList
         Me.LabelControl9.Appearance.Options.UseTextOptions = True
         Me.LabelControl9.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl9.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl9.Location = New System.Drawing.Point(301, 12)
+        Me.LabelControl9.Location = New System.Drawing.Point(646, 87)
         Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl9.Name = "LabelControl9"
         Me.LabelControl9.Size = New System.Drawing.Size(127, 20)
         Me.LabelControl9.TabIndex = 19
         Me.LabelControl9.Text = "ตำแหน่งที่เก็บ"
+        Me.LabelControl9.Visible = False
         '
         'ChkStatus
         '
@@ -1042,7 +1048,7 @@ Partial Class FrmMatList
         '
         Me.lblQtyPerUnit_Name.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.lblQtyPerUnit_Name.Appearance.Options.UseFont = True
-        Me.lblQtyPerUnit_Name.Location = New System.Drawing.Point(559, 117)
+        Me.lblQtyPerUnit_Name.Location = New System.Drawing.Point(592, 43)
         Me.lblQtyPerUnit_Name.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.lblQtyPerUnit_Name.Name = "lblQtyPerUnit_Name"
         Me.lblQtyPerUnit_Name.Size = New System.Drawing.Size(28, 24)
@@ -1053,7 +1059,7 @@ Partial Class FrmMatList
         '
         Me.LabelControl22.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.LabelControl22.Appearance.Options.UseFont = True
-        Me.LabelControl22.Location = New System.Drawing.Point(879, 48)
+        Me.LabelControl22.Location = New System.Drawing.Point(592, 121)
         Me.LabelControl22.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl22.Name = "LabelControl22"
         Me.LabelControl22.Size = New System.Drawing.Size(38, 24)
@@ -1076,7 +1082,7 @@ Partial Class FrmMatList
         '
         Me.lblRatio_Name.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.lblRatio_Name.Appearance.Options.UseFont = True
-        Me.lblRatio_Name.Location = New System.Drawing.Point(559, 84)
+        Me.lblRatio_Name.Location = New System.Drawing.Point(592, 10)
         Me.lblRatio_Name.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.lblRatio_Name.Name = "lblRatio_Name"
         Me.lblRatio_Name.Size = New System.Drawing.Size(26, 24)
@@ -1090,7 +1096,7 @@ Partial Class FrmMatList
         Me.LabelControl21.Appearance.Options.UseTextOptions = True
         Me.LabelControl21.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl21.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl21.Location = New System.Drawing.Point(626, 47)
+        Me.LabelControl21.Location = New System.Drawing.Point(314, 119)
         Me.LabelControl21.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl21.Name = "LabelControl21"
         Me.LabelControl21.Size = New System.Drawing.Size(149, 20)
@@ -1104,7 +1110,7 @@ Partial Class FrmMatList
         Me.LabelControl5.Appearance.Options.UseTextOptions = True
         Me.LabelControl5.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl5.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl5.Location = New System.Drawing.Point(320, 115)
+        Me.LabelControl5.Location = New System.Drawing.Point(353, 41)
         Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl5.Name = "LabelControl5"
         Me.LabelControl5.Size = New System.Drawing.Size(108, 27)
@@ -1118,7 +1124,7 @@ Partial Class FrmMatList
         Me.LabelControl19.Appearance.Options.UseTextOptions = True
         Me.LabelControl19.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl19.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl19.Location = New System.Drawing.Point(371, 85)
+        Me.LabelControl19.Location = New System.Drawing.Point(404, 11)
         Me.LabelControl19.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl19.Name = "LabelControl19"
         Me.LabelControl19.Size = New System.Drawing.Size(57, 20)
@@ -1129,7 +1135,7 @@ Partial Class FrmMatList
         '
         Me.lblQtyOfUsing_Name.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.lblQtyOfUsing_Name.Appearance.Options.UseFont = True
-        Me.lblQtyOfUsing_Name.Location = New System.Drawing.Point(879, 9)
+        Me.lblQtyOfUsing_Name.Location = New System.Drawing.Point(592, 82)
         Me.lblQtyOfUsing_Name.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.lblQtyOfUsing_Name.Name = "lblQtyOfUsing_Name"
         Me.lblQtyOfUsing_Name.Size = New System.Drawing.Size(26, 24)
@@ -1143,7 +1149,7 @@ Partial Class FrmMatList
         Me.LabelControl7.Appearance.Options.UseTextOptions = True
         Me.LabelControl7.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl7.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl7.Location = New System.Drawing.Point(610, 9)
+        Me.LabelControl7.Location = New System.Drawing.Point(298, 81)
         Me.LabelControl7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl7.Name = "LabelControl7"
         Me.LabelControl7.Size = New System.Drawing.Size(165, 20)

@@ -46,9 +46,8 @@ lchangeMainLookup:
             With .Properties
 
                 SQL = "select SubCatID as 'รหัส', SubCatName as 'ชื่อ' FROM tbsubCategory where catID='" & LookUpCategory.EditValue & "'"
-                Binding.Name = "subcat"
-                Binding.SQL = SQL
-                .DataSource = Binding.Result
+                dsTbl("subcat")
+                .DataSource = DS.Tables("subcat")
                 .DisplayMember = "ชื่อ"
                 .ValueMember = "รหัส"
                 .PopulateColumns()
@@ -126,8 +125,9 @@ lchangeMainLookup:
                 .Columns("itemPrice").Caption = "ราคา"
                 .Columns("matDGOrder").Caption = "ระดับการสั่ง"
                 .Columns("itemDegreeUnit").Caption = "หน่วยสั่งซื้อ"
-                .Columns("locName").Caption = "สถานที่"
-                .Columns("storeName").Caption = "ที่เก็บ"
+                .Columns("locName").Visible = False
+                .Columns("storeName").Visible = False
+
                 .Columns("catName").Caption = "หมวดวัสดุ"
                 .Columns("SubCatName").Caption = "ประเภทวัสดุ"
             End With
@@ -137,7 +137,6 @@ lchangeMainLookup:
 
 #Region "TreeCategory Control"
     Private Sub focusTree(catID As String, SubCatID As String)
-
         For Each mainNode As DevComponents.AdvTree.Node In TreeCategory.Nodes
             If mainNode.Tag = catID Then
                 mainNode.Expand()
@@ -486,8 +485,8 @@ lchangeMainLookup:
             .Columns("QtyOfUsing").Caption = "ประมาณการใช้ต่อเดือน"
             .Columns("QtyPerUnit").Caption = "หน่วยบรรจุ"
             .Columns("QtyPerUnit_Name").Caption = " "
-            .Columns("StoreName").Caption = "สถานที่เก็บ"
-            .Columns("LocName").Caption = "ที่อยู่"
+            .Columns("StoreName").Visible = False
+            .Columns("LocName").Visible = False
             .Columns("QtyOfUsing_Name").Caption = " "
             .Columns("Warn").Caption = "ระดับการแจ้งเตือน (เดือน)"
             .OptionsView.ShowAutoFilterRow = True
@@ -618,6 +617,8 @@ lchangeMainLookup:
                             Try
                                 If .Rows(i)("MatID") = item("รหัสวัสดุ") Then
                                     .Rows(i)("QtyPerUnit") = item("หน่วยบรรจุ")
+                                    .Rows(i)("QtyOfUsing") = item("ประมาณการใช้ต่อเดือน")
+                                    .Rows(i)("Warn") = item("ระดับการแจ้งเตือน (เดือน)")
                                 End If
 
                             Catch ex As Exception

@@ -20,8 +20,6 @@ Public Class FrmMain
             ribGrpSetting.Visible = False
             ribGrpNewSub.Visible = False
         End If
-        _Login.Show()
-        _LoginView.Show()
     End Sub
     Private Sub FrmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         Time.Caption = Me.Size.Height

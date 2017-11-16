@@ -189,6 +189,5 @@ Module ImModule
         End If
     End Sub
     'BindingSet
-    Public Binding As New BindingSet
-
+    Public BindInfo As New BindingSet
 End Module

@@ -9,64 +9,15 @@ Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 Public Class FrmStock
 #Region "Code Side"
     Private Sub getStockSP()
-        'Dim CatID As String = slClick(slSubCat, "CatID")
-        'Dim SubCatID As String = slClick(slSubCat, "SubCatID")
-        Dim catid = 0, subcatid = 0
-        If String.IsNullOrWhiteSpace(catid) Or String.IsNullOrWhiteSpace(subcatid) Then
-            MessageBox.Show("กรุณาเลือก" + Label3.Text, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Exit Sub
-        End If
-        If clbLoc.CheckedItemsCount = 0 Then
-            MessageBox.Show("กรุณาเลือก" + Label1.Text, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Exit Sub
-        End If
 
-        Dim DTResult As New DataTable
-        'เลือก Location
-        Dim LocSelect As New List(Of String)
-        LocExpr = "WHERE"
-        For Each items As DataRowView In clbLoc.CheckedItems
-            LocSelect.Add(items.Row(0))
-        Next
-
-        For Each l In LocSelect
-            If l IsNot LocSelect.Last Then
-                LocExpr += " LocID = '" + l + "' OR" + ""
-            Else
-                LocExpr += " LocID = '" + l + "'"
-            End If
-        Next
-
-        'เลือกประเภท
-        Dim CatSelect As New List(Of String)
-        For Each items As DataRowView In clbSubCat.CheckedItems
-            CatSelect.Add(items.Row(0))
-        Next
-
-        For Each l In CatSelect
-            If CatSelect.Count = 1 Then
-                ParamList.Clear()
-                ParamList.Add(New SqlParameter("@CatExpr", l))
-                ParamList.Add(New SqlParameter("@LocExpr", LocExpr))
-                DTResult = CallSP("GetStock", ParamList)
-            Else
-                ParamList.Clear()
-                ParamList.Add(New SqlParameter("@CatExpr", l))
-                ParamList.Add(New SqlParameter("@LocExpr", LocExpr))
-                If DTResult.Rows.Count = 0 Then
-                    DTResult = CallSP("GetStock", ParamList)
-                Else
-                    For Each item As DataRow In CallSP("GetStock", ParamList).Rows
-                        DTResult.ImportRow(item)
-                    Next
-                End If
-            End If
-        Next
-        Binding.Name = "stock"
-        Binding.Add(DTResult)
-
-        gcMain.DataSource = Binding.GetStock
-        gvMain.PopulateColumns()
+        With BindInfo
+            .Name = "stock"
+            .LocCheked = clbLoc.CheckedItems
+            .CatChecked = clbSubCat.CheckedItems
+            .Excute()
+            gcMain.DataSource = .Result
+        End With
+                gvMain.PopulateColumns()
         gvMain.BestFitColumns()
         GvFormat(gvMain)
     End Sub
@@ -114,11 +65,10 @@ Public Class FrmStock
                 End If
             End If
         Next
-        Binding.Name = "oldstock"
-        Binding.Add(DTResult)
+
 
         gvOldStock.Columns.Clear()
-        gcOldStock.DataSource = Binding.GetStock
+        'gcOldStock.DataSource = Binding.GetStock
         gvOldStock.PopulateColumns()
         GvFormat(gvOldStock)
     End Sub
@@ -319,7 +269,7 @@ Public Class FrmStock
     End Sub
 #End Region
     Dim LocSelect As String
-    Dim LocExpr As String = " WHERE"
+    Dim LocExpr As String
     Dim _XLSGetHeader As Func(Of String) = Function()
                                                SQL = "SELECT MAX(RequestDate) FROM tbRequisition"
                                                dsTbl("get")
@@ -397,14 +347,14 @@ Public Class FrmStock
             End If
 
             If Warn <= 1 Then
-                e.Appearance.BackColor = Color.DarkRed
+                e.Appearance.BackColor = Color.IndianRed
                 e.Appearance.BackColor2 = Color.WhiteSmoke
             ElseIf Warn <= Warn_Month Then
-                e.Appearance.BackColor = Color.Yellow
+                e.Appearance.BackColor = Color.LightGoldenrodYellow
                 e.Appearance.BackColor2 = Color.LightYellow
             Else
-                e.Appearance.BackColor = Color.GreenYellow
-                e.Appearance.BackColor2 = Color.LightGreen
+                e.Appearance.BackColor = Nothing
+                e.Appearance.BackColor2 = Nothing
             End If
         End If
     End Sub

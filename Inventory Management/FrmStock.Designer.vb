@@ -96,7 +96,7 @@ Partial Class FrmStock
         Me.gcMain.MainView = Me.gvMain
         Me.gcMain.Margin = New System.Windows.Forms.Padding(4)
         Me.gcMain.Name = "gcMain"
-        Me.gcMain.Size = New System.Drawing.Size(954, 577)
+        Me.gcMain.Size = New System.Drawing.Size(1439, 577)
         Me.gcMain.TabIndex = 9
         Me.gcMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMain, Me.AdvBandedGridView1, Me.gv2})
         '
@@ -379,7 +379,7 @@ Partial Class FrmStock
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(954, 653)
+        Me.Panel2.Size = New System.Drawing.Size(1439, 653)
         Me.Panel2.TabIndex = 10
         '
         'chkDate
@@ -392,6 +392,7 @@ Partial Class FrmStock
         Me.chkDate.Name = "chkDate"
         Me.chkDate.Size = New System.Drawing.Size(95, 175)
         Me.chkDate.TabIndex = 26
+        Me.chkDate.Visible = False
         '
         'chkDays
         '
@@ -403,6 +404,7 @@ Partial Class FrmStock
         Me.chkDays.Name = "chkDays"
         Me.chkDays.Size = New System.Drawing.Size(111, 175)
         Me.chkDays.TabIndex = 26
+        Me.chkDays.Visible = False
         '
         'GroupControl3
         '
@@ -418,7 +420,7 @@ Partial Class FrmStock
         Me.GroupControl3.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupControl3.Location = New System.Drawing.Point(0, 0)
         Me.GroupControl3.Name = "GroupControl3"
-        Me.GroupControl3.Size = New System.Drawing.Size(954, 76)
+        Me.GroupControl3.Size = New System.Drawing.Size(1439, 76)
         Me.GroupControl3.TabIndex = 15
         Me.GroupControl3.Text = "ข้อมูล ณ ปัจจุบัน ตัด Stock ถึงวันที่ :"
         '
@@ -433,6 +435,7 @@ Partial Class FrmStock
         Me.rdDays.TabStop = True
         Me.rdDays.Text = "ทุกวัน :"
         Me.rdDays.UseVisualStyleBackColor = True
+        Me.rdDays.Visible = False
         '
         'rdDate
         '
@@ -445,6 +448,7 @@ Partial Class FrmStock
         Me.rdDate.TabStop = True
         Me.rdDate.Text = "ทุกวันที่ :"
         Me.rdDate.UseVisualStyleBackColor = True
+        Me.rdDate.Visible = False
         '
         'Label4
         '
@@ -455,6 +459,7 @@ Partial Class FrmStock
         Me.Label4.Size = New System.Drawing.Size(93, 21)
         Me.Label4.TabIndex = 13
         Me.Label4.Text = "บันทึกสต๊อก"
+        Me.Label4.Visible = False
         '
         'SimpleButton2
         '
@@ -466,6 +471,7 @@ Partial Class FrmStock
         Me.SimpleButton2.Size = New System.Drawing.Size(87, 26)
         Me.SimpleButton2.TabIndex = 24
         Me.SimpleButton2.Text = "ลบ"
+        Me.SimpleButton2.Visible = False
         '
         'SimpleButton1
         '
@@ -477,6 +483,7 @@ Partial Class FrmStock
         Me.SimpleButton1.Size = New System.Drawing.Size(87, 26)
         Me.SimpleButton1.TabIndex = 24
         Me.SimpleButton1.Text = "เพิ่ม"
+        Me.SimpleButton1.Visible = False
         '
         'ExpandableSplitter1
         '
@@ -485,6 +492,7 @@ Partial Class FrmStock
         Me.ExpandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
         Me.ExpandableSplitter1.Dock = System.Windows.Forms.DockStyle.Right
         Me.ExpandableSplitter1.ExpandableControl = Me.Panel3
+        Me.ExpandableSplitter1.Expanded = False
         Me.ExpandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(101, Byte), Integer), CType(CType(147, Byte), Integer), CType(CType(207, Byte), Integer))
         Me.ExpandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.ExpandableSplitter1.ExpandLineColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
@@ -505,7 +513,7 @@ Partial Class FrmStock
         Me.ExpandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.ExpandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(CType(CType(227, Byte), Integer), CType(CType(239, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ExpandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.ExpandableSplitter1.Location = New System.Drawing.Point(954, 0)
+        Me.ExpandableSplitter1.Location = New System.Drawing.Point(1439, 0)
         Me.ExpandableSplitter1.Name = "ExpandableSplitter1"
         Me.ExpandableSplitter1.Size = New System.Drawing.Size(19, 653)
         Me.ExpandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007
@@ -521,6 +529,7 @@ Partial Class FrmStock
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(485, 653)
         Me.Panel3.TabIndex = 10
+        Me.Panel3.Visible = False
         '
         'GroupControl2
         '

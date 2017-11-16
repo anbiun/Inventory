@@ -5,14 +5,6 @@ Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.Data
 
 Public Class FmgSubMat
-    Sub New()
-
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-
-    End Sub
     Dim dtSubMat As DataTable
     Dim SubMatID As String = "", SubCatID As String = "", MatID As String = ""
     Enum Stat
@@ -36,7 +28,6 @@ Public Class FmgSubMat
             btnSave.Enabled = False
         End If
     End Sub
-
     Private Enum QryMode
         SubCat
         slMat
@@ -45,10 +36,11 @@ Public Class FmgSubMat
     Private Sub showDB(Optional Mode As QryMode = QryMode.SubCat)
         If Mode = QryMode.slMat Then GoTo slMat
         SQL = "select SubCatID, SubCatName From tbSubCategory"
-        Binding.Name = "subcat"
-        Binding.GetData = SQL
+        BindInfo.Name = "subcat"
+        BindInfo.Qry(SQL)
+
         With slSubCat.Properties
-            .DataSource = Binding.Result
+            .DataSource = BindInfo.Result
             .ValueMember = "SubCatID"
             .DisplayMember = "SubCatName"
         End With
@@ -65,10 +57,11 @@ slMat:
         SQL = "select Mat.MatID, Mat.MatName,SubMat.SubMatID,SubMat.SubMatName "
         SQL &= "from tbSubMat SubMat inner join tbMat Mat on SubMat.MatID = Mat.matID "
         SQL &= " where Mat.SubCatID = '" & SubCatID & "'"
-        Binding.Name = "mat"
-        Binding.GetData = SQL
+
+        BindInfo.Name = "submat"
+        BindInfo.Qry(SQL)
         With gvList
-            gcList.DataSource = Binding.Result
+            gcList.DataSource = BindInfo.Result
             .PopulateColumns()
             .Columns("MatName").Group()
             .Columns("MatName").Caption = "ชื่อวัสดุ"
@@ -77,9 +70,8 @@ slMat:
             .Columns("SubMatID").Caption = " "
             .Columns("SubMatID").Width = 70
             .ExpandAllGroups()
-            '.Columns("MatName").Caption = "ชื่อวัสดุ"
-            '.Columns("SubMatName").Caption = "ชื่อวัสดุที่ใช้ร่วม"
         End With
+
     End Sub
     Private Sub LoadDef()
         slSubCat.Properties.NullText = ""
@@ -138,7 +130,7 @@ slMat:
             dtSubMat.Rows(gvList.FocusedRowHandle).Delete()
             dtSubMat.AcceptChanges()
             gcList.Refresh()
-            CompareDT(DS.Tables("submat"), dtSubMat)
+            CompareDT(BindInfo.Result.DataSource, dtSubMat)
 
             'btnSave.Enabled = If(TBChange(DS.Tables("submat")) = True, True, False)
         End If
@@ -154,11 +146,12 @@ slMat:
         btnDelList.Enabled = False
         btnDelList.Visible = True
 
-        FoundRow = DS.Tables("submat").Select("MatID='" & slMat.EditValue & "'")
+        BindInfo.Name = "submat"
+        FoundRow = BindInfo.Result.DataSource.Select("MatID='" & slMat.EditValue & "'")
         If FoundRow.Count > 0 Then
             dtSubMat = FoundRow.CopyToDataTable
         Else
-            dtSubMat = DS.Tables("submat").Copy
+            dtSubMat = BindInfo.Result.DataSource
             dtSubMat.Clear()
         End If
         gcList.DataSource = dtSubMat
@@ -198,11 +191,16 @@ slMat:
         'Edit
         btnCancle.PerformClick()
         MessageBox.Show("บันทึกข้อมูลแล้ว", "บันทึกข้อมูลสำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        If BindInfo.Find("stock") = True Then
+            BindInfo.Name = "stock"
+            BindInfo.Excute()
+            BindInfo.Result()
+        End If
     End Sub
 #End Region
 #Region "Common Control"
     Private Sub FmgSubMat_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim setting As New setting
         'If DS IsNot Nothing Then DS.Clear()
         'FirstQry()
         'showDB()
@@ -227,7 +225,6 @@ slMat:
         End If
     End Sub
     Private Sub gvRowClick(sender As Object, e As RowClickEventArgs) Handles gvList.RowClick
-
         If IsDBNull(gvList.FocusedValue) Then Exit Sub
         Dim values As String = gvList.GetFocusedValue
         Dim vw As ColumnView = gcList.MainView
@@ -274,8 +271,4 @@ slMat:
         btnNew.Enabled = If(String.IsNullOrEmpty(slMat.Text) Or
                                  String.IsNullOrEmpty(slSubCat.Text), False, True)
     End Sub
-End Class
-Public Class setting
-    Public DSTable As DataTable
-
 End Class
