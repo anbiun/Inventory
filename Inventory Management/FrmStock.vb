@@ -145,10 +145,10 @@ Public Class FrmStock
                         With xlWorkSheet
                             If warn >= 2 Then
                                 .Cells.Range(CellRange).Style = Stock_Normal
-                            ElseIf warn < 2 Then
-                                .Cells.Range(CellRange).Style = Stock_Warning
-                            Else
+                            ElseIf warn <= 1 Then
                                 .Cells.Range(CellRange).Style = Stock_Danger
+                            Else
+                                .Cells.Range(CellRange).Style = Stock_Warning
                             End If
                         End With
 
