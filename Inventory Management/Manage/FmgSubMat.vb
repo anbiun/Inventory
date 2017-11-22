@@ -35,19 +35,19 @@ Public Class FmgSubMat
     End Enum
     Private Sub showDB(Optional Mode As QryMode = QryMode.SubCat)
         If Mode = QryMode.slMat Then GoTo slMat
-        SQL = "select SubCatID, SubCatName From tbSubCategory"
+        SQL = "select CatID+SubCatID IDValue, SubCatName From tbSubCategory"
         BindInfo.Name = "subcat"
         BindInfo.Qry(SQL)
 
         With slSubCat.Properties
             .DataSource = BindInfo.Result
-            .ValueMember = "SubCatID"
+            .ValueMember = "IDValue"
             .DisplayMember = "SubCatName"
         End With
         If Mode = QryMode.SubCat Then Exit Sub
 
 slMat:
-        SQL = "select MatID,MatName from tbMat Where SubCatID = '" & SubCatID & "'"
+        SQL = "select MatID,MatName from tbMat Where CatID+SubCatID = '" & SubCatID & "'"
         With slMat.Properties
             .DataSource = dsTbl("mat")
             .DisplayMember = "MatName"
@@ -56,7 +56,7 @@ slMat:
 
         SQL = "select Mat.MatID, Mat.MatName,SubMat.SubMatID,SubMat.SubMatName "
         SQL &= "from tbSubMat SubMat inner join tbMat Mat on SubMat.MatID = Mat.matID "
-        SQL &= " where Mat.SubCatID = '" & SubCatID & "'"
+        SQL &= " where Mat.CatID+Mat.SubCatID = '" & SubCatID & "'"
 
         BindInfo.Name = "submat"
         BindInfo.Qry(SQL)

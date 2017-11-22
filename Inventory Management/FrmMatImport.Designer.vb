@@ -211,7 +211,7 @@ Partial Class FrmMatImport
         Me.grpMatImport.Controls.Add(Me.lblUnit3)
         Me.grpMatImport.Controls.Add(Me.lblUnit1)
         Me.grpMatImport.Dock = System.Windows.Forms.DockStyle.Top
-        Me.grpMatImport.Location = New System.Drawing.Point(2, 242)
+        Me.grpMatImport.Location = New System.Drawing.Point(2, 258)
         Me.grpMatImport.Name = "grpMatImport"
         Me.grpMatImport.ShowCaption = False
         Me.grpMatImport.Size = New System.Drawing.Size(397, 253)
@@ -377,10 +377,10 @@ Partial Class FrmMatImport
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(2, 495)
+        Me.PnlSave.Location = New System.Drawing.Point(2, 511)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(397, 253)
+        Me.PnlSave.Size = New System.Drawing.Size(397, 237)
         Me.PnlSave.TabIndex = 1
         Me.PnlSave.Visible = False
         '
@@ -475,7 +475,7 @@ Partial Class FrmMatImport
         Me.grpSearch.Location = New System.Drawing.Point(2, 2)
         Me.grpSearch.Name = "grpSearch"
         Me.grpSearch.ShowCaption = False
-        Me.grpSearch.Size = New System.Drawing.Size(397, 240)
+        Me.grpSearch.Size = New System.Drawing.Size(397, 256)
         Me.grpSearch.TabIndex = 16
         '
         'LabelControl11
@@ -637,6 +637,7 @@ Partial Class FrmMatImport
         Me.gvImportOrder.Name = "gvImportOrder"
         Me.gvImportOrder.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
         Me.gvImportOrder.OptionsFind.AlwaysVisible = True
+        Me.gvImportOrder.OptionsView.ColumnAutoWidth = False
         Me.gvImportOrder.OptionsView.ShowGroupPanel = False
         '
         'FrmMatImport

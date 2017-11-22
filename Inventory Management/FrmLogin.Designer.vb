@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmLogin
     'Inherits System.Windows.Forms.Form
     Inherits DevComponents.DotNetBar.Office2007Form
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,240 +20,269 @@ Partial Class FrmLogin
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogin))
+        Dim WindowsUIButtonImageOptions1 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
+        Dim WindowsUIButtonImageOptions2 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.LLBRegister = New System.Windows.Forms.LinkLabel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.BtnCancel = New System.Windows.Forms.Button()
-        Me.BtnOK = New System.Windows.Forms.Button()
         Me.TxtPassword = New System.Windows.Forms.TextBox()
         Me.TxtUser = New System.Windows.Forms.TextBox()
-        Me.PasswordLabel = New System.Windows.Forms.Label()
-        Me.UsernameLabel = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.pnSelectLoc = New DevExpress.XtraEditors.PanelControl()
-        Me.comboLoc = New System.Windows.Forms.ComboBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lbLoc = New System.Windows.Forms.Label()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.WinUIPanel = New DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.btnOK = New DevExpress.XtraEditors.SimpleButton()
+        Me.comboloc = New System.Windows.Forms.ComboBox()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pnSelectLoc, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnSelectLoc.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
+        Me.Label2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Angsana New", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Arial", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.MenuHighlight
         Me.Label2.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label2.Location = New System.Drawing.Point(107, 111)
+        Me.Label2.Location = New System.Drawing.Point(0, 178)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(336, 52)
+        Me.Label2.Size = New System.Drawing.Size(431, 44)
         Me.Label2.TabIndex = 74
-        Me.Label2.Text = "ระบบบันทึกยอดรับของส่งโกดัง"
-        '
-        'LLBRegister
-        '
-        Me.LLBRegister.AutoSize = True
-        Me.LLBRegister.BackColor = System.Drawing.Color.Transparent
-        Me.LLBRegister.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.LLBRegister.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.LLBRegister.LinkColor = System.Drawing.Color.Red
-        Me.LLBRegister.Location = New System.Drawing.Point(180, 278)
-        Me.LLBRegister.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.LLBRegister.Name = "LLBRegister"
-        Me.LLBRegister.Size = New System.Drawing.Size(186, 25)
-        Me.LLBRegister.TabIndex = 73
-        Me.LLBRegister.TabStop = True
-        Me.LLBRegister.Text = "สมัครเข้าใช้งานโปรแกรม"
-        Me.LLBRegister.Visible = False
+        Me.Label2.Text = "ระบบสต๊อควัสดุ"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
+        Me.Label5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Font = New System.Drawing.Font("Angsana New", 18.0!)
-        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Font = New System.Drawing.Font("Arial Black", 18.0!)
+        Me.Label5.ForeColor = System.Drawing.SystemColors.MenuHighlight
         Me.Label5.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label5.Location = New System.Drawing.Point(137, 44)
+        Me.Label5.Location = New System.Drawing.Point(0, 109)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(259, 40)
+        Me.Label5.Size = New System.Drawing.Size(431, 42)
         Me.Label5.TabIndex = 71
         Me.Label5.Text = "บริษัท เจ.แอล. โปรดักส์ จำกัด"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
+        Me.Label6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Font = New System.Drawing.Font("Angsana New", 18.0!)
+        Me.Label6.Font = New System.Drawing.Font("Arial Black", 18.0!)
+        Me.Label6.ForeColor = System.Drawing.SystemColors.MenuHighlight
         Me.Label6.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label6.Location = New System.Drawing.Point(137, 71)
+        Me.Label6.Location = New System.Drawing.Point(0, 70)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(239, 40)
+        Me.Label6.Size = New System.Drawing.Size(431, 42)
         Me.Label6.TabIndex = 72
         Me.Label6.Text = "J.L. PRODUCTS CO.,LTD."
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Top
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
         Me.PictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.PictureBox2.Location = New System.Drawing.Point(25, 48)
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
         Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(104, 59)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.Size = New System.Drawing.Size(431, 68)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox2.TabIndex = 70
         Me.PictureBox2.TabStop = False
         '
-        'BtnCancel
-        '
-        Me.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BtnCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.BtnCancel.Location = New System.Drawing.Point(287, 310)
-        Me.BtnCancel.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnCancel.Name = "BtnCancel"
-        Me.BtnCancel.Size = New System.Drawing.Size(125, 37)
-        Me.BtnCancel.TabIndex = 68
-        Me.BtnCancel.Text = "ยกเลิก"
-        '
-        'BtnOK
-        '
-        Me.BtnOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.BtnOK.Location = New System.Drawing.Point(149, 310)
-        Me.BtnOK.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnOK.Name = "BtnOK"
-        Me.BtnOK.Size = New System.Drawing.Size(125, 37)
-        Me.BtnOK.TabIndex = 67
-        Me.BtnOK.Text = "เข้าสู่ระบบ"
-        '
         'TxtPassword
         '
-        Me.TxtPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.TxtPassword.Location = New System.Drawing.Point(184, 248)
+        Me.TxtPassword.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtPassword.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.TxtPassword.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtPassword.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.TxtPassword.Location = New System.Drawing.Point(122, 268)
         Me.TxtPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtPassword.Name = "TxtPassword"
         Me.TxtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TxtPassword.Size = New System.Drawing.Size(180, 29)
+        Me.TxtPassword.Size = New System.Drawing.Size(216, 34)
         Me.TxtPassword.TabIndex = 66
+        Me.TxtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TxtUser
         '
-        Me.TxtUser.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.TxtUser.Location = New System.Drawing.Point(184, 195)
+        Me.TxtUser.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtUser.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.TxtUser.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtUser.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.TxtUser.Location = New System.Drawing.Point(122, 226)
         Me.TxtUser.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtUser.Name = "TxtUser"
-        Me.TxtUser.Size = New System.Drawing.Size(180, 29)
+        Me.TxtUser.Size = New System.Drawing.Size(216, 34)
         Me.TxtUser.TabIndex = 65
+        Me.TxtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'PasswordLabel
+        'lbLoc
         '
-        Me.PasswordLabel.BackColor = System.Drawing.Color.Transparent
-        Me.PasswordLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.PasswordLabel.Location = New System.Drawing.Point(181, 224)
-        Me.PasswordLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.PasswordLabel.Name = "PasswordLabel"
-        Me.PasswordLabel.Size = New System.Drawing.Size(93, 28)
-        Me.PasswordLabel.TabIndex = 69
-        Me.PasswordLabel.Text = "รหัสผ่าน"
-        Me.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbLoc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbLoc.BackColor = System.Drawing.Color.Transparent
+        Me.lbLoc.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbLoc.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.lbLoc.Location = New System.Drawing.Point(0, 376)
+        Me.lbLoc.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbLoc.Name = "lbLoc"
+        Me.lbLoc.Size = New System.Drawing.Size(431, 26)
+        Me.lbLoc.TabIndex = 64
+        Me.lbLoc.Text = "เลือกคลังวัสดุ"
+        Me.lbLoc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'UsernameLabel
+        'ImageList1
         '
-        Me.UsernameLabel.BackColor = System.Drawing.Color.Transparent
-        Me.UsernameLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.UsernameLabel.Location = New System.Drawing.Point(181, 164)
-        Me.UsernameLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.UsernameLabel.Name = "UsernameLabel"
-        Me.UsernameLabel.Size = New System.Drawing.Size(71, 28)
-        Me.UsernameLabel.TabIndex = 64
-        Me.UsernameLabel.Text = "ชื่อผู้ใช้"
-        Me.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ImageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit
+        Me.ImageList1.ImageSize = New System.Drawing.Size(16, 16)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         '
-        'pnSelectLoc
+        'WinUIPanel
         '
-        Me.pnSelectLoc.Controls.Add(Me.comboLoc)
-        Me.pnSelectLoc.Controls.Add(Me.Label1)
-        Me.pnSelectLoc.Location = New System.Drawing.Point(149, 166)
-        Me.pnSelectLoc.Name = "pnSelectLoc"
-        Me.pnSelectLoc.Size = New System.Drawing.Size(263, 119)
-        Me.pnSelectLoc.TabIndex = 75
+        Me.WinUIPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.WinUIPanel.AppearanceButton.Hovered.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.WinUIPanel.AppearanceButton.Hovered.FontStyleDelta = System.Drawing.FontStyle.Bold
+        Me.WinUIPanel.AppearanceButton.Hovered.Options.UseFont = True
+        Me.WinUIPanel.AppearanceButton.Normal.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.WinUIPanel.AppearanceButton.Normal.Options.UseFont = True
+        Me.WinUIPanel.Buttons.AddRange(New DevExpress.XtraEditors.ButtonPanel.IBaseButton() {New DevExpress.XtraBars.Docking2010.WindowsUIButton("เข้าสู่ระบบ", True, WindowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, True, Nothing, True, False, True, "btnLogin", -1, False), New DevExpress.XtraBars.Docking2010.WindowsUIButton("ยกเลิก", True, WindowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, True, Nothing, True, False, True, "btnCancel", -1, False)})
+        Me.WinUIPanel.Font = New System.Drawing.Font("Book Antiqua", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.WinUIPanel.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.WinUIPanel.Location = New System.Drawing.Point(0, 459)
+        Me.WinUIPanel.Name = "WinUIPanel"
+        Me.WinUIPanel.Size = New System.Drawing.Size(431, 86)
+        Me.WinUIPanel.TabIndex = 77
+        Me.WinUIPanel.Text = "WindowsUIButtonPanel1"
         '
-        'comboLoc
+        'PictureBox1
         '
-        Me.comboLoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboLoc.FormattingEnabled = True
-        Me.comboLoc.Location = New System.Drawing.Point(51, 66)
-        Me.comboLoc.Name = "comboLoc"
-        Me.comboLoc.Size = New System.Drawing.Size(156, 24)
-        Me.comboLoc.TabIndex = 0
+        Me.PictureBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox1.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.PictureBox1.Location = New System.Drawing.Point(86, 226)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 78
+        Me.PictureBox1.TabStop = False
         '
-        'Label1
+        'PictureBox3
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label1.Location = New System.Drawing.Point(81, 26)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(98, 24)
-        Me.Label1.TabIndex = 64
-        Me.Label1.Text = "เลือกคลังวัสดุ"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.PictureBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox3.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
+        Me.PictureBox3.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.PictureBox3.Location = New System.Drawing.Point(86, 268)
+        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox3.TabIndex = 78
+        Me.PictureBox3.TabStop = False
+        '
+        'btnOK
+        '
+        Me.btnOK.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnOK.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.btnOK.Appearance.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnOK.Appearance.ForeColor = System.Drawing.SystemColors.InactiveBorder
+        Me.btnOK.Appearance.Options.UseBackColor = True
+        Me.btnOK.Appearance.Options.UseFont = True
+        Me.btnOK.Appearance.Options.UseForeColor = True
+        Me.btnOK.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.btnOK.Location = New System.Drawing.Point(86, 316)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(252, 32)
+        Me.btnOK.TabIndex = 79
+        Me.btnOK.Text = "ตกลง"
+        '
+        'comboloc
+        '
+        Me.comboloc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.comboloc.BackColor = System.Drawing.SystemColors.Menu
+        Me.comboloc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboloc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.comboloc.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.comboloc.FormattingEnabled = True
+        Me.comboloc.Location = New System.Drawing.Point(122, 405)
+        Me.comboloc.Name = "comboloc"
+        Me.comboloc.Size = New System.Drawing.Size(186, 34)
+        Me.comboloc.TabIndex = 81
         '
         'FrmLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Inventory_Management.My.Resources.Resources.BGM1
-        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(531, 398)
-        Me.Controls.Add(Me.pnSelectLoc)
+        Me.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.ClientSize = New System.Drawing.Size(431, 543)
+        Me.Controls.Add(Me.comboloc)
+        Me.Controls.Add(Me.btnOK)
+        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.LLBRegister)
+        Me.Controls.Add(Me.TxtUser)
+        Me.Controls.Add(Me.TxtPassword)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.WinUIPanel)
+        Me.Controls.Add(Me.lbLoc)
         Me.Controls.Add(Me.PictureBox2)
-        Me.Controls.Add(Me.BtnCancel)
-        Me.Controls.Add(Me.BtnOK)
-        Me.Controls.Add(Me.TxtPassword)
-        Me.Controls.Add(Me.TxtUser)
-        Me.Controls.Add(Me.PasswordLabel)
-        Me.Controls.Add(Me.UsernameLabel)
         Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(449, 590)
         Me.Name = "FrmLogin"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "ระบบบันทึกยอดรับของส่งโกดัง"
+        Me.Text = "ระบบสต๊อคคลังวัสดุ"
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pnSelectLoc, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnSelectLoc.ResumeLayout(False)
-        Me.pnSelectLoc.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents LLBRegister As System.Windows.Forms.LinkLabel
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents BtnCancel As System.Windows.Forms.Button
-    Friend WithEvents BtnOK As System.Windows.Forms.Button
     Friend WithEvents TxtPassword As System.Windows.Forms.TextBox
     Friend WithEvents TxtUser As System.Windows.Forms.TextBox
-    Friend WithEvents PasswordLabel As System.Windows.Forms.Label
-    Friend WithEvents UsernameLabel As System.Windows.Forms.Label
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents pnSelectLoc As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents comboLoc As System.Windows.Forms.ComboBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-
+    Friend WithEvents lbLoc As System.Windows.Forms.Label
+    Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents WinUIPanel As DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents btnOK As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents comboloc As ComboBox
 End Class
