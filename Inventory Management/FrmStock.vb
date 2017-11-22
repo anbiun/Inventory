@@ -98,7 +98,7 @@ Public Class FrmStock
             End With
             Try
                 Dim strFileName As String = Application.StartupPath + "\template_stock.xls"
-                'Dim dtGetAnotherLoc As DataTable = gvMain.DataSource
+                Dim dtGetAnotherLoc As DataTable = QryForExport()
                 Dim xlApp As Excel.Application = New Excel.ApplicationClass()
                 '
                 Dim xlWorkBook As Excel.Workbook = Nothing
@@ -124,12 +124,9 @@ Public Class FrmStock
                 Dim Stock_Normal As Excel.Style = xlWorkSheet.Application.ActiveWorkbook.Styles.Add("ระดับปกติ")
                 Dim Stock_Warning As Excel.Style = xlWorkBook.Application.ActiveWorkbook.Styles.Add("ระดับแจ้งเตือน")
                 Dim Stock_Danger As Excel.Style = xlWorkBook.Application.ActiveWorkbook.Styles.Add("ระดับอันตราย")
-                '.style.Font.Bold = False
-
-                Stock_Normal.Font.Size = 12
-                Stock_Warning.Font.Size = 12
-                Stock_Danger.Font.Size = 12
-                Stock_Warning.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGoldenrodYellow)
+                'style.Font.Bold = False
+                Stock_Normal.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGreen)
+                Stock_Warning.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightYellow)
                 Stock_Danger.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.IndianRed)
 
                 Try
@@ -142,16 +139,13 @@ Public Class FrmStock
                         Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn"))
                         Dim warn_month As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn_Month"))
                         Dim CellRange As String = "A" & 4 + gvRow & ":" & "L" & 4 + gvRow
-                        With xlWorkSheet
-                            If warn >= 2 Then
-                                .Cells.Range(CellRange).Style = Stock_Normal
-                            ElseIf warn < 2 Then
-                                .Cells.Range(CellRange).Style = Stock_Warning
-                            Else
-                                .Cells.Range(CellRange).Style = Stock_Danger
-                            End If
-                        End With
-
+                        If warn > warn_month Then
+                            xlWorkSheet.Cells.Range(CellRange).Style = Stock_Normal
+                        ElseIf warn <= 1 Then
+                            xlWorkSheet.Cells.Range(CellRange).Style = Stock_Danger
+                        Else
+                            xlWorkSheet.Cells.Range(CellRange).Style = Stock_Warning
+                        End If
                         'end
 
                         For i As Integer = 0 To Cols.Count - 1
@@ -579,8 +573,8 @@ Public Class FrmStock
     End Sub
     Private Function QryForExport() As DataTable
         'ข้อมูลสตอคจากคลังอื่น
-        'Dim LocExpr_newFormat As String = LocExpr
-        'LocExpr_newFormat = LocExpr_newFormat.Replace("LocID", "L.LocID")
+        Dim LocExpr_newFormat As String = LocExpr
+        LocExpr_newFormat = LocExpr_newFormat.Replace("LocID", "L.LocID")
         SQL = " SELECT L.LocName, M.MatName,"
         SQL &= " SUM(S.Unit1) Unit1,U1.UnitName Unit1_Name,"
         SQL &= " Sum(S.Unit3) Unit3,U3.UnitName Unit3_Name "
@@ -590,8 +584,7 @@ Public Class FrmStock
         SQL &= " INNER JOIN tbSubCategory SC ON M.SubCatID = SC.SubCatID AND M.CatID = SC.CatID "
         SQL &= " INNER JOIN tbUnit U1 ON U1.UnitID = S.Unit1_ID "
         SQL &= " INNER JOIN tbUnit U3 ON U3.UnitID = SC.Unit3_ID "
-
-        'SQL &= " " + LocExpr_newFormat + ""
+        SQL &= " " + LocExpr_newFormat + ""
         SQL &= " GROUP BY M.MatName,U1.UnitName,U3.UnitName,L.LocName"
         SQL &= " ORDER BY MatName DESC"
         Dim dbg As String = SQL
