@@ -42,8 +42,9 @@ Public Class FrmMain
     Sub InitSkins()
         DevExpress.Skins.SkinManager.EnableFormSkins()
         DevExpress.UserSkins.BonusSkins.Register()
-        UserLookAndFeel.Default.SetSkinStyle("DevExpress Style")
-        UserLookAndFeel.Default.SetSkinStyle("Caramel")
+        'UserLookAndFeel.Default.SetSkinStyle("DevExpress Style")
+        UserLookAndFeel.Default.SetSkinStyle("Office 2013")
+
     End Sub
     Private Sub InitSkinGallery()
         SkinHelper.InitSkinGallery(rgbiSkins, True)
