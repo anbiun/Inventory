@@ -5,6 +5,7 @@ Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Columns
+Imports System.ComponentModel
 'https://www.facebook.com/PattayaEasternnews/videos/vb.570075999701550/1641139075928565/?type=2&theater
 
 Public Class FrmMatImport
@@ -18,6 +19,8 @@ Public Class FrmMatImport
     Dim gvSelect As GridView
     Dim Unit3_Name As String
     Dim Ratio, QtyPerUnit As Double
+    Dim RatioEditList As New List(Of String)
+
     Enum QryMode
         All
         MainUnit
@@ -221,8 +224,9 @@ SubUnit:
         'Make TagID
         SQL = "SELECT MAX(O.tagID) from tbImportOrder O"
         SQL &= " INNER JOIN tbMat M ON O.MatID = M.MatID"
-        SQL &= " WHERE M.SubCatID ='" & slClick(sluSubCat, "SubCatID") & "'"
-        SQL &= " AND M.CatID='" & slClick(sluSubCat, "CatID") & "'"
+        'SQL &= " WHERE M.SubCatID ='" & slClick(sluSubCat, "SubCatID") & "'"
+        'SQL &= " AND M.CatID='" & slClick(sluSubCat, "CatID") & "'"
+        SQL &= " WHERE M.CatID+M.SubCatID = '" & slClick(sluSubCat, "IDValue") & "'"
         SQL &= " AND O.LocID='" & UserInfo.SelectLoc & "'"
         Dim dbSQ As String = SQL
         dsTbl("gettag")
@@ -250,15 +254,16 @@ SubUnit:
             .View.Columns("supplierName").Caption = "รายชื่อผู้ขาย"
         End With
 
-        SQL = "SELECT CatID,SubCatID,SubCatName,GroupTag FROM tbSubCategory"
-        dsTbl("subcat")
+        SQL = "SELECT CatID+SubCatID IDValue,SubCatName,GroupTag FROM tbSubCategory"
+        BindInfo.Name = "subcat"
+        BindInfo.Qry(SQL)
         With sluSubCat.Properties
-            .DataSource = DS.Tables("subcat")
-            .ValueMember = "SubCatID"
+            .DataSource = BindInfo.Result
+            .ValueMember = "IDValue"
             .DisplayMember = "SubCatName"
             .PopulateViewColumns()
-            .View.Columns("CatID").Visible = False
-            .View.Columns("SubCatID").Visible = False
+            '.View.Columns("CatID").Visible = False
+            '.View.Columns("SubCatID").Visible = False
             .View.Columns("GroupTag").Visible = False
         End With
     End Sub
@@ -387,6 +392,7 @@ SubUnit:
 
                 For Each col As GridColumn In gvImportOrder.Columns
                     col.OptionsColumn.AllowEdit = If(col.FieldName = "Notation", True, False)
+                    col.OptionsColumn.AllowEdit = If(col.FieldName = "Ratio", True, False)
                 Next
                 sluMat.Properties.View.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
             Case BtnEdit.Name
@@ -624,8 +630,8 @@ SubUnit:
     End Sub
     Private Sub txtBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtBillNo.TextChanged
         If Permission(UserInfo.Permis) = False Then Exit Sub
-        gcImportList.DataSource = If(String.IsNullOrWhiteSpace(txtBillNo.Text), _
-                                     search("ImportList", "ImportDate='" & ImportDate & "'", ""), _
+        gcImportList.DataSource = If(String.IsNullOrWhiteSpace(txtBillNo.Text),
+                                     search("ImportList", "ImportDate='" & ImportDate & "'", ""),
                                      search("ImportList", "BillNo='" & txtBillNo.Text & "'", ""))
     End Sub
     Private Sub txtTagID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress
@@ -659,8 +665,7 @@ SubUnit:
         SQL &= " SM.SubMatName"
         SQL &= " FROM tbMat AS M INNER JOIN tbSubCategory AS SC ON M.CatID = SC.CatID AND M.SubCatID = SC.SubCatID"
         SQL &= " LEFT OUTER JOIN CombineSubMatName() SM ON M.MatID = SM.matID"
-        SQL &= " WHERE M.CatID = '" & slClick(sluSubCat, "CatID") & "' AND M.SubCatID = '" & slClick(sluSubCat, "SubCatID") & "'"
-
+        SQL &= " WHERE M.CatID+M.SubCatID = '" & slClick(sluSubCat, "IDValue") & "'"
         With sluMat.Properties
             Dim enableCol As String() = {"MatName", "SubCatName", "SubMatName"}
             .ValueMember = "MatID"
@@ -680,10 +685,69 @@ SubUnit:
                 End If
             Next
 
-
         End With
     End Sub
     Private Sub LabelControl3_Click(sender As Object, e As EventArgs) Handles LabelControl3.Click
+
+    End Sub
+
+    Private Sub gvImportOrder_CellValueChanging(sender As Object, e As CellValueChangedEventArgs) Handles gvImportOrder.CellValueChanging
+        'If LoadSuccess = False Then Exit Sub
+        'Dim view As GridView = sender
+
+        'If e.Column.FieldName = "Ratio" AndAlso view.ActiveEditor.EditValue IsNot DBNull.Value Then
+        '    If Not Char.IsDigit(e.Value) Then
+        '        view.SetFocusedRowCellValue(e.Column.FieldName, view.ActiveEditor.OldEditValue)
+        '        Exit Sub
+        '    End If
+        '    If Not RatioEditList.Contains(view.GetFocusedRowCellValue("tagID")) Then
+        '        If MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
+        '            If Not RatioEditList.Contains(view.GetFocusedRowCellValue("tagID")) Then
+        '                RatioEditList.Add(view.GetFocusedRowCellValue("tagID"))
+        '            End If
+        '        Else
+        '            view.SetFocusedRowCellValue(e.Column.FieldName, view.ActiveEditor.OldEditValue)
+        '        End If
+        '    End If
+        'End If
+    End Sub
+    Dim msgResult As DialogResult
+    Private Sub gvImportOrder_CellValueChanged(sender As Object, e As CellValueChangedEventArgs) Handles gvImportOrder.CellValueChanged
+        If e.Column.FieldName = "Ratio" _
+            AndAlso e.Value <> slClick(sluMat, "Ratio") Then
+            msgResult = MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            If msgResult = DialogResult.Yes Then
+                Dim newTotalUnit3 As Double = 0
+                With gvImportOrder
+                    Dim U1 As Double = .GetFocusedRowCellValue("Unit1_Sum")
+                    Dim U3 As Double = .GetFocusedRowCellValue("Unit3_Sum")
+                    If Ratio / U3 = U1 Then
+                        'ไม่มีเศษ
+                        newTotalUnit3 = Math.Abs(U1 * slClick(sluMat, "Ratio") - U3) + (e.Value * U1)
+                    Else
+                        'มีเศษ
+                        newTotalUnit3 = Math.Abs((U1 - 1) * slClick(sluMat, "Ratio") - U3) + (e.Value * (U1 - 1))
+                    End If
+                    Ratio = e.Value
+                End With
+                gvImportOrder.SetFocusedRowCellValue("Unit3_Sum", newTotalUnit3)
+            End If
+            Ratio = slClick(sluMat, "Ratio")
+            gvImportOrder.SetFocusedRowCellValue("Ratio", Ratio)
+            msgResult = DialogResult.None
+        Else
+        End If
+
+        'End If
+        'If e.Value <> gvImportOrder.ActiveEditor.OldEditValue Then
+        '    If msgResult <> DialogResult.No Then
+        '        msgResult = MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        '        If msgResult = DialogResult.No Then
+
+        '        Else
+        '        End If
+        '    End If
+        'End If
 
     End Sub
 End Class

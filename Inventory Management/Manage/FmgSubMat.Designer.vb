@@ -31,8 +31,6 @@ Partial Class FmgSubMat
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
-        Me.tabControl = New DevExpress.XtraTab.XtraTabControl()
-        Me.tabSubMat = New DevExpress.XtraTab.XtraTabPage()
         Me.GrpInput = New DevExpress.XtraEditors.GroupControl()
         Me.lblUnitName = New System.Windows.Forms.Label()
         Me.txtName = New DevExpress.XtraEditors.TextEdit()
@@ -48,9 +46,6 @@ Partial Class FmgSubMat
         Me.GrpBtn.SuspendLayout()
         CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tabControl, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tabControl.SuspendLayout()
-        Me.tabSubMat.SuspendLayout()
         CType(Me.GrpInput, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GrpInput.SuspendLayout()
         CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,10 +58,10 @@ Partial Class FmgSubMat
         'gcList
         '
         Me.gcList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gcList.Location = New System.Drawing.Point(0, 269)
+        Me.gcList.Location = New System.Drawing.Point(0, 182)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(442, 398)
+        Me.gcList.Size = New System.Drawing.Size(442, 485)
         Me.gcList.TabIndex = 7
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -80,21 +75,21 @@ Partial Class FmgSubMat
         '
         'GrpBtn
         '
+        Me.GrpBtn.Controls.Add(Me.GrpInput)
         Me.GrpBtn.Controls.Add(Me.slSubCat)
         Me.GrpBtn.Controls.Add(Me.slMat)
         Me.GrpBtn.Controls.Add(Me.Label2)
         Me.GrpBtn.Controls.Add(Me.Label1)
         Me.GrpBtn.Controls.Add(Me.btnNew)
-        Me.GrpBtn.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GrpBtn.Dock = System.Windows.Forms.DockStyle.Top
         Me.GrpBtn.Location = New System.Drawing.Point(0, 0)
         Me.GrpBtn.Name = "GrpBtn"
-        Me.GrpBtn.Size = New System.Drawing.Size(435, 234)
+        Me.GrpBtn.Size = New System.Drawing.Size(442, 182)
         Me.GrpBtn.TabIndex = 24
-        Me.GrpBtn.Text = "เลือกการทำงาน"
         '
         'slSubCat
         '
-        Me.slSubCat.Location = New System.Drawing.Point(146, 53)
+        Me.slSubCat.Location = New System.Drawing.Point(147, 28)
         Me.slSubCat.Name = "slSubCat"
         Me.slSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slSubCat.Properties.Appearance.Options.UseFont = True
@@ -104,7 +99,7 @@ Partial Class FmgSubMat
         '
         'slMat
         '
-        Me.slMat.Location = New System.Drawing.Point(145, 87)
+        Me.slMat.Location = New System.Drawing.Point(146, 62)
         Me.slMat.Name = "slMat"
         Me.slMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slMat.Properties.Appearance.Options.UseFont = True
@@ -115,7 +110,7 @@ Partial Class FmgSubMat
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(52, 57)
+        Me.Label2.Location = New System.Drawing.Point(53, 32)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(87, 22)
         Me.Label2.TabIndex = 20
@@ -125,7 +120,7 @@ Partial Class FmgSubMat
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(15, 90)
+        Me.Label1.Location = New System.Drawing.Point(16, 65)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(124, 22)
         Me.Label1.TabIndex = 20
@@ -137,32 +132,12 @@ Partial Class FmgSubMat
         Me.btnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNew.Appearance.Options.UseFont = True
         Me.btnNew.ImageOptions.Image = CType(resources.GetObject("btnNew.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnNew.Location = New System.Drawing.Point(322, 88)
+        Me.btnNew.Location = New System.Drawing.Point(323, 63)
         Me.btnNew.Margin = New System.Windows.Forms.Padding(2)
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(87, 30)
         Me.btnNew.TabIndex = 11
         Me.btnNew.Text = "เลือก"
-        '
-        'tabControl
-        '
-        Me.tabControl.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tabControl.Location = New System.Drawing.Point(0, 0)
-        Me.tabControl.Margin = New System.Windows.Forms.Padding(2)
-        Me.tabControl.Name = "tabControl"
-        Me.tabControl.SelectedTabPage = Me.tabSubMat
-        Me.tabControl.Size = New System.Drawing.Size(442, 269)
-        Me.tabControl.TabIndex = 8
-        Me.tabControl.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.tabSubMat})
-        '
-        'tabSubMat
-        '
-        Me.tabSubMat.Controls.Add(Me.GrpInput)
-        Me.tabSubMat.Controls.Add(Me.GrpBtn)
-        Me.tabSubMat.Margin = New System.Windows.Forms.Padding(2)
-        Me.tabSubMat.Name = "tabSubMat"
-        Me.tabSubMat.Size = New System.Drawing.Size(435, 234)
-        Me.tabSubMat.Text = "ข้อมูลเบอร์ร่วม"
         '
         'GrpInput
         '
@@ -171,10 +146,10 @@ Partial Class FmgSubMat
         Me.GrpInput.Controls.Add(Me.btnDelList)
         Me.GrpInput.Controls.Add(Me.btnAddList)
         Me.GrpInput.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GrpInput.Location = New System.Drawing.Point(0, 158)
+        Me.GrpInput.Location = New System.Drawing.Point(2, 98)
         Me.GrpInput.Name = "GrpInput"
         Me.GrpInput.ShowCaption = False
-        Me.GrpInput.Size = New System.Drawing.Size(435, 76)
+        Me.GrpInput.Size = New System.Drawing.Size(438, 82)
         Me.GrpInput.TabIndex = 25
         '
         'lblUnitName
@@ -267,7 +242,7 @@ Partial Class FmgSubMat
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(442, 723)
         Me.Controls.Add(Me.gcList)
-        Me.Controls.Add(Me.tabControl)
+        Me.Controls.Add(Me.GrpBtn)
         Me.Controls.Add(Me.PanelControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximumSize = New System.Drawing.Size(460, 770)
@@ -280,9 +255,6 @@ Partial Class FmgSubMat
         Me.GrpBtn.ResumeLayout(False)
         CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tabControl, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tabControl.ResumeLayout(False)
-        Me.tabSubMat.ResumeLayout(False)
         CType(Me.GrpInput, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrpInput.ResumeLayout(False)
         CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -297,8 +269,6 @@ Partial Class FmgSubMat
     Friend WithEvents gvList As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GrpBtn As DevExpress.XtraEditors.GroupControl
     Friend WithEvents btnNew As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents tabControl As DevExpress.XtraTab.XtraTabControl
-    Friend WithEvents tabSubMat As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents GrpInput As DevExpress.XtraEditors.GroupControl
     Friend WithEvents lblUnitName As System.Windows.Forms.Label
     Friend WithEvents btnAddList As DevExpress.XtraEditors.SimpleButton
