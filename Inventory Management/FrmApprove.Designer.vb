@@ -84,6 +84,7 @@ Partial Class FrmApprove
         Me.gvList.Name = "gvList"
         Me.gvList.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
         Me.gvList.OptionsFind.AlwaysVisible = True
+        Me.gvList.OptionsView.ColumnAutoWidth = False
         Me.gvList.OptionsView.ShowGroupPanel = False
         '
         'Label2
@@ -261,7 +262,7 @@ Partial Class FrmApprove
         Me.pnlLeft.ResumeLayout(False)
         Me.ResumeLayout(False)
 
-End Sub
+    End Sub
     Friend WithEvents GroupControl3 As DevExpress.XtraEditors.GroupControl
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label

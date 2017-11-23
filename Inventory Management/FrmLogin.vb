@@ -60,6 +60,12 @@ Public Class FrmLogin
     End Sub
     Private Sub TxtPassword_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles TxtPassword.KeyDown, TxtUser.KeyDown
         If (e.KeyCode = Keys.Enter) Then
+            For Each ctr As Control In Me.Controls
+                If TypeOf ctr Is TextBox AndAlso String.IsNullOrEmpty(ctr.Text) Then
+                    ctr.Focus()
+                    Exit Sub
+                End If
+            Next
             UserInfo.Login()
             showSelectLoc()
         End If
@@ -84,6 +90,13 @@ Public Class FrmLogin
     End Sub
     Private Sub showSelectLoc()
         loadSuccess = False
+        For Each item As Control In ctrVisible
+            item.Visible = True
+        Next
+        For Each item As Control In ctrEnable
+            item.Enabled = False
+        Next
+
         If UserInfo.Stat > 0 Then
             'pnSelectLoc.Visible = True
             SQL = "SELECT tbLocation.LocID, tbLocation.LocName, tbLocation.LocShort, tbLogin.UserID"
@@ -140,16 +153,7 @@ Public Class FrmLogin
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        For Each item As Control In ctrVisible
-            item.Visible = True
-        Next
-        For Each item As Control In ctrEnable
-            item.Enabled = False
-        Next
-
         UserInfo.Login()
         showSelectLoc()
     End Sub
-
-
 End Class

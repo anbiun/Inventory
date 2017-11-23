@@ -15,7 +15,7 @@ Public Class FrmMatList
 #Region "Function"
     Friend Sub LoadLookUp(NormalMode As Boolean)
         If NormalMode = False Then GoTo lchangeMainLookup
-        Dim LookUpList() As LookUpEdit = {LookUpCategory, LookUpStore, LookUpLocation}
+        Dim LookUpList() As LookUpEdit = {LookUpCategory}
         For Each lu As LookUpEdit In LookUpList
             Dim tbname As String = ""
             With lu.Properties
@@ -23,17 +23,8 @@ Public Class FrmMatList
                     Case LookUpCategory.Name
                         tbname = "tbCategory"
                         SQL = "select catID as 'รหัส',catName as 'ชื่อ' FROM " & tbname & ""
-                    Case LookUpStore.Name
-                        tbname = "tbStore"
-                        SQL = "select storeID as 'รหัส', storeName as 'ชื่อ' FROM " & tbname & ""
-                    Case LookUpLocation.Name
-                        tbname = "tbLocation"
-                        SQL = "select locID as 'รหัส', locName as 'ชื่อ', locShort as 'ชื่อย่อ' FROM " & tbname & ""
                 End Select
-                If DS.Tables(tbname) IsNot Nothing Then
-                    DS.Tables(tbname).Clear()
-                    DS.Tables(tbname).Columns.Clear()
-                End If
+                
                 .DataSource = dsTbl(tbname)
                 .ValueMember = "รหัส"
                 .DisplayMember = "ชื่อ"
@@ -84,8 +75,10 @@ lchangeMainLookup:
     End Sub
     Private Function genMatID()
         Dim MatID, catID, SubCatID As String
-        catID = (LookUpCategory.ItemIndex + 1).ToString("00")
-        SubCatID = (LookUpSubCategory.ItemIndex + 1).ToString("00")
+        catID = LookUpCategory.EditValue
+        '(LookUpCategory.ItemIndex + 1).ToString("00")
+        SubCatID = LookUpSubCategory.EditValue
+            '(LookUpSubCategory.ItemIndex + 1).ToString("00")
 
         If DS.Tables("MatID") IsNot Nothing Then DS.Tables("MatID").Clear()
         SQL = "select max(MatID)+1 as MatID from tbMat where MatID like '%" & catID & SubCatID & "%'"
@@ -113,8 +106,6 @@ lchangeMainLookup:
             With .View
                 .Columns("CatID").Visible = False
                 .Columns("SubCatID").Visible = False
-                .Columns("LocID").Visible = False
-                .Columns("StoreID").Visible = False
                 .Columns("UnitID").Visible = False
                 .Columns("matDGID").Visible = False
                 .Columns("itemDetail").Visible = False
@@ -278,17 +269,15 @@ lchangeMainLookup:
 
         Select Case ModeAddEdit
             Case BtnAddItem.Name
-                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,locID,storeID,QtyOfUsing,QtyPerUnit,Ratio,Warn) " _
+                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,QtyOfUsing,QtyPerUnit,Ratio,Warn) " _
                     & "values ('" & MatID & "','" & MatName & "','" & matType & "'," _
-                    & "'" & matSubType & "','" & matLoc & "','" & matStore & "','" & matQtyOfUsing & "','" & matQtyPerUnit & "','" & matRatio & "','" & matWarn & "')"
+                    & "'" & matSubType & "','" & matQtyOfUsing & "','" & matQtyPerUnit & "','" & matRatio & "','" & matWarn & "')"
             Case BtnEditItem.Name
                 SQL = "update tbMat SET " &
                     "MatID ='" & MatID & "'," &
                     "MatName ='" & MatName & "'," &
                     "catID ='" & matType & "'," &
                     "SubCatID ='" & matSubType & "'," &
-                    "locID ='" & matLoc & "'," &
-                    "storeID ='" & matStore & "'," &
                     "itemDetail ='" & matDetail & "'," &
                     "QtyOfUsing = '" & matQtyOfUsing & "'," &
                     "QtyPerUnit = '" & matQtyPerUnit & "'," &
@@ -455,8 +444,6 @@ lchangeMainLookup:
         LoadLookUp(True)
         LookUpCategory.EditValue = GVMain.GetFocusedRowCellValue("CatID")
         LookUpSubCategory.EditValue = GVMain.GetFocusedRowCellValue("SubCatID")
-        LookUpStore.EditValue = GVMain.GetFocusedRowCellValue("StoreID")
-        LookUpLocation.EditValue = GVMain.GetFocusedRowCellValue("LocID")
         LookUpUnitBuy.EditValue = GVMain.GetFocusedRowCellValue("matDGID")
         ModeAddEdit = remMode
     End Sub
@@ -478,15 +465,11 @@ lchangeMainLookup:
             .PopulateColumns()
             .Columns("CatID").Visible = False
             .Columns("SubCatID").Visible = False
-            .Columns("LocID").Visible = False
-            .Columns("StoreID").Visible = False
             .Columns("MatID").Caption = "รหัสวัสดุ"
             .Columns("MatName").Caption = "ชื่อรายการวัสดุ"
             .Columns("QtyOfUsing").Caption = "ประมาณการใช้ต่อเดือน"
             .Columns("QtyPerUnit").Caption = "หน่วยบรรจุ"
             .Columns("QtyPerUnit_Name").Caption = " "
-            .Columns("StoreName").Visible = False
-            .Columns("LocName").Visible = False
             .Columns("QtyOfUsing_Name").Caption = " "
             .Columns("Warn").Caption = "ระดับการแจ้งเตือน (เดือน)"
             .OptionsView.ShowAutoFilterRow = True
@@ -527,8 +510,6 @@ lchangeMainLookup:
             'SpePrice.Text = .GetFocusedRowCellValue("matDGOrder")
             LookUpCategory.EditValue = .GetFocusedRowCellValue("CatID")
             LookUpSubCategory.EditValue = .GetFocusedRowCellValue("SubCatID")
-            LookUpLocation.EditValue = .GetFocusedRowCellValue("LocID")
-            LookUpStore.EditValue = .GetFocusedRowCellValue("StoreID")
             txtRatio.Value = If(.GetFocusedRowCellValue("Ratio") Is DBNull.Value, 0, .GetFocusedRowCellValue("Ratio"))
             txtWarn.EditValue = If(IsDBNull(.GetFocusedRowCellValue("Warn")), 0, .GetFocusedRowCellValue("Warn"))
             'LookUpUnitBuy.EditValue = .GetFocusedRowCellValue("matDGID")
@@ -686,8 +667,6 @@ lchangeMainLookup:
                 .Remove("QtyOfUsing_Name")
                 .Remove("CatID")
                 .Remove("SubCatID")
-                .Remove("StoreID")
-                .Remove("LocID")
                 .Remove("Ratio")
             End With
             'For Each col As GridColumnStylesCollection

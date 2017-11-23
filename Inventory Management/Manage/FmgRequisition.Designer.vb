@@ -145,6 +145,7 @@ Partial Class FmgRequisition
         Me.gvList.Name = "gvList"
         Me.gvList.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
         Me.gvList.OptionsFind.AlwaysVisible = True
+        Me.gvList.OptionsView.ColumnAutoWidth = False
         Me.gvList.OptionsView.ShowFooter = True
         Me.gvList.OptionsView.ShowGroupPanel = False
         '

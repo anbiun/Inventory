@@ -22,7 +22,6 @@ Partial Class FrmLogin
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogin))
         Dim WindowsUIButtonImageOptions1 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
         Dim WindowsUIButtonImageOptions2 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
@@ -32,9 +31,7 @@ Partial Class FrmLogin
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.TxtPassword = New System.Windows.Forms.TextBox()
         Me.TxtUser = New System.Windows.Forms.TextBox()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.lbLoc = New System.Windows.Forms.Label()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.WinUIPanel = New DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
@@ -69,7 +66,7 @@ Partial Class FrmLogin
         Me.Label5.Font = New System.Drawing.Font("Arial Black", 18.0!)
         Me.Label5.ForeColor = System.Drawing.SystemColors.MenuHighlight
         Me.Label5.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label5.Location = New System.Drawing.Point(0, 109)
+        Me.Label5.Location = New System.Drawing.Point(0, 111)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(431, 42)
@@ -85,7 +82,7 @@ Partial Class FrmLogin
         Me.Label6.Font = New System.Drawing.Font("Arial Black", 18.0!)
         Me.Label6.ForeColor = System.Drawing.SystemColors.MenuHighlight
         Me.Label6.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label6.Location = New System.Drawing.Point(0, 70)
+        Me.Label6.Location = New System.Drawing.Point(0, 72)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(431, 42)
@@ -95,11 +92,12 @@ Partial Class FrmLogin
         '
         'PictureBox2
         '
+        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Top
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
         Me.PictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 2)
         Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(431, 68)
@@ -151,12 +149,6 @@ Partial Class FrmLogin
         Me.lbLoc.Text = "เลือกคลังวัสดุ"
         Me.lbLoc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'ImageList1
-        '
-        Me.ImageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit
-        Me.ImageList1.ImageSize = New System.Drawing.Size(16, 16)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        '
         'WinUIPanel
         '
         Me.WinUIPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
@@ -177,8 +169,6 @@ Partial Class FrmLogin
         '
         'PictureBox1
         '
-        Me.PictureBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl
@@ -192,8 +182,6 @@ Partial Class FrmLogin
         '
         'PictureBox3
         '
-        Me.PictureBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox3.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
         Me.PictureBox3.ImeMode = System.Windows.Forms.ImeMode.NoControl
@@ -250,10 +238,10 @@ Partial Class FrmLogin
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TxtUser)
         Me.Controls.Add(Me.TxtPassword)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.WinUIPanel)
         Me.Controls.Add(Me.lbLoc)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.PictureBox2)
         Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -277,9 +265,7 @@ Partial Class FrmLogin
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents TxtPassword As System.Windows.Forms.TextBox
     Friend WithEvents TxtUser As System.Windows.Forms.TextBox
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents lbLoc As System.Windows.Forms.Label
-    Friend WithEvents ImageList1 As ImageList
     Friend WithEvents WinUIPanel As DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PictureBox3 As PictureBox
