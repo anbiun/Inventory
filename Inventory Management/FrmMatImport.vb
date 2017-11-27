@@ -20,7 +20,7 @@ Public Class FrmMatImport
     Dim Unit3_Name As String
     Dim Ratio, QtyPerUnit As Double
     Dim RatioEditList As New List(Of String)
-
+    Dim Button_Edit As New Buttons
     Enum QryMode
         All
         MainUnit
@@ -135,6 +135,8 @@ SubUnit:
             For Each ctrl As Control In group.Controls
                 If TypeOf (ctrl) Is TextBox Then
                     ctrl.Text = ""
+                ElseIf TypeOf (ctrl) Is MemoEdit Then
+                    ctrl.Text = ""
                 End If
             Next
         Next
@@ -143,8 +145,70 @@ SubUnit:
         FirstQry(QryMode.All)
         gcImportList.DataSource = search("ImportList", "ImportDate='" & ImportDate & "'", "")
         LoadLookUp()
+        Button_Edit.State = Buttons.EState.TurnOff
+
+        BtnEdit.Text = "แก้ไข"
+        BtnDelete.Text = "ลบ"
+        BtnNew.Visible = True
+        sluSubCat.Enabled = True
+    End Sub
+    Private Sub editFunc()
+        If Button_Edit.State = Buttons.EState.TurnOn Then
+            If chkInput(grpSearch) = False Then
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            Else
+                With dtImportList
+                    Dim rw As Integer = gvImportList.FocusedRowHandle
+                    .Rows(rw)("ImportDate") = deImport.EditValue
+                    .Rows(rw)("BillNo") = txtBillNo.Text
+                    .Rows(rw)("SupplierName") = sluSupplier.Text
+                    .Rows(rw)("SupplierID") = sluSupplier.EditValue
+                    .Rows(rw)("Notation") = txtImportNote.EditValue
+                    ImportID = .Rows(rw)("ImportID")
+                    .AcceptChanges()
+                End With
+
+            End If
+            grpSearch.Enabled = False
+            grpMatImport.Enabled = True
+            PnlSave.Visible = True
+
+            'กำหนด Tag ล่าสุด ถ้า Tag ล่าสุดมีในรายการให้ลยย้อนกลับ 1
+            Dim _Lasttag As Func(Of String) = Function()
+                                                  Dim lasInDB As String = getTagID()
+                                                  For Each item As DataRow In dtImportOrder.Rows
+                                                      If item("tagID").ToString.Contains(lasInDB) Then
+                                                          lasInDB += -1
+                                                          Exit For
+                                                      End If
+                                                  Next
+                                                  Return lasInDB
+                                              End Function
+            lblLastTag.Text = _Lasttag()
+            'Dim TagThisMonth As String = Today.ToString("yMM00")
+            'If lblLastTag.Contains(dt)
+            FoundRow = DS.Tables("ImportOrder").Select("ImportID='" & ImportID & "'")
+            dtImportOrder = FoundRow.CopyToDataTable
+            gcImportOrder.DataSource = dtImportOrder
+            Exit Sub
+        End If
+        Dim vw As GridView = gvImportOrder
+        Dim IDValue As String = vw.GetRowCellValue(0, "MatID")
+        sluSubCat.EditValue = Nothing
+        sluSubCat.EditValue = IDValue.Substring(0, 4)
+
+        BtnEdit.Text = "ตกลง"
+        BtnDelete.Text = "ยกเลิก"
+            BtnNew.Visible = False
+            sluSubCat.Enabled = False
+        dtImportList = DS.Tables("ImportList").Select("ImportID = '" & gvImportList.GetFocusedRowCellValue("ImportID") & "'").CopyToDataTable
+        gcImportList.DataSource = dtImportList
+            Button_Edit.State = Buttons.EState.TurnOn
+
     End Sub
     Private Sub RowClickFunc(gv As GridView, Optional ByVal RowNum As Integer = 0)
+        'If Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
         Dim rw As Integer = gv.FocusedRowHandle
         If RowNum <> 0 Then rw = RowNum
         Dim GVList() As GridView = {gvImportList, gvImportOrder}
@@ -194,6 +258,7 @@ SubUnit:
             dsTbl("transfer")
         Next
         MessageBox.Show("บันทึกยอดเข้าคลังเสร็จสมบูรณ์", "บันทึกยอดเข้าคลัง", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        BindInfo.Excute()
     End Sub
     Private Function chkDuplicate(Values As String, Optional tbName As String = "ImportList", Optional findStr As String = "BillNo='")
         FoundRow = DS.Tables(tbName).Select(findStr & Values & "'")
@@ -226,9 +291,8 @@ SubUnit:
         SQL &= " INNER JOIN tbMat M ON O.MatID = M.MatID"
         'SQL &= " WHERE M.SubCatID ='" & slClick(sluSubCat, "SubCatID") & "'"
         'SQL &= " AND M.CatID='" & slClick(sluSubCat, "CatID") & "'"
-        SQL &= " WHERE M.CatID+M.SubCatID = '" & slClick(sluSubCat, "IDValue") & "'"
+        SQL &= " WHERE M.CatID+M.SubCatID LIKE '%" & sluSubCat.EditValue & "'"
         SQL &= " AND O.LocID='" & UserInfo.SelectLoc & "'"
-        Dim dbSQ As String = SQL
         dsTbl("gettag")
 
         If DS.Tables("gettag").Rows.Count > 0 Then
@@ -277,13 +341,6 @@ SubUnit:
         MatID = sluMat.EditValue
         Ratio = slClick(sluMat, "Ratio")
         QtyPerUnit = slClick(sluMat, "QtyPerUnit")
-        If slClick(sluSubCat, "GroupTag") = 2 Then
-            lblUnit1.Text = "จำนวน(ไม่นับเศษ)"
-            lblUnit3.Text = "รวมเป็น"
-        Else
-            lblUnit1.Text = "จำนวน"
-            lblUnit3.Text = "เศษ"
-        End If
     End Sub
     Private Sub LoadLookUnit()
         'Dim vw As GridView = sluMat.Properties.View
@@ -324,13 +381,26 @@ SubUnit:
                     Exit Sub
                 End If
 
+
+                If Button_Edit.State = Buttons.EState.TurnOn Then
+                    Dim delTb() As String = {"tbImportList", "tbImportOrder", "tbStock"}
+                    For Each tbname As String In delTb
+                        SQL = "DELETE FROM " & tbname
+                        SQL &= " WHERE ImportID='" & ImportID & "'"
+                        dsTbl("del")
+                    Next
+                    dtImportList.TableName = "ImportList"
+                    dtImportOrder.TableName = "ImportOrder"
+                End If
+
                 'BulkCopy 3 table
                 Dim tbList() As DataTable = {dtImportList, dtImportOrder}
+
                 Dim fieldList() As String = Nothing
                 For Each tbName As DataTable In tbList
                     Select Case tbName.TableName
                         Case dtImportList.TableName
-                            fieldList = {"ImportDate", "BillNo", "ImportID", "SupplierID", "UserStock_ID", "UserApprove_ID"}
+                            fieldList = {"ImportDate", "BillNo", "ImportID", "SupplierID", "UserStock_ID", "UserApprove_ID", "Notation"}
                         Case dtImportOrder.TableName
                             fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID"}
                     End Select
@@ -339,6 +409,10 @@ SubUnit:
                 Next
 
             Case BtnDelete.Name
+                If Button_Edit.State = Buttons.EState.TurnOn Then
+                    cancelFunc()
+                    Exit Sub
+                End If
                 If MessageBox.Show("ยืนยันการลบ ใบรับของเลขที่ : " & gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "BillNo"), "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
                     ImportID = gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "ImportID")
                     SQL = "delete from tbImportDetail where ImportID ='" & ImportID & "'" _
@@ -354,8 +428,9 @@ SubUnit:
         Select Case btn.Name
             Case BtnNew.Name
                 If chkInput(grpSearch) = False Then Exit Sub
-                If chkDuplicate(Trim(txtBillNo.Text)) = False Then
+                If chkDuplicate(Trim(txtBillNo.Text), "ImportList", "ImportDate='" & deImport.EditValue & "' AND BillNo='") = False Then
                     MessageBox.Show("เลขที่เอกสารนี้มีในระบบแล้ว", "เลขที่ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    cancelFunc()
                     Exit Sub
                 End If
                 lblLastTag.Text = getTagID()
@@ -388,6 +463,7 @@ SubUnit:
                 dtRow("supplierID") = sluSupplier.EditValue
                 dtRow("UserStock_ID") = UserInfo.UserID
                 dtRow("UserStock_Name") = UserInfo.UserName
+                dtRow("Notation") = txtImportNote.Text
                 dtImportList.Rows.Add(dtRow)
 
                 For Each col As GridColumn In gvImportOrder.Columns
@@ -396,11 +472,12 @@ SubUnit:
                 Next
                 sluMat.Properties.View.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
             Case BtnEdit.Name
-                If gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "Stat") = 1 Then
-                    MessageBox.Show("ไม่สามารถดำเนินการใดๆ กับข้อมูลที่มีการโอนยอดเข้าคลังแล้ว", "กรุณาติดต่อผู้จัดการ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                If gvImportOrder.RowCount <= 0 OrElse gvImportOrder.RowCount <= 0 Then
+                    MessageBox.Show("กรุณาเลือกข้อมูลที่ต้องการแก้ไข", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Exit Sub
                 End If
-                MsgBox("ยังไม่เขียนในส่วนนี้")
+                editFunc()
+
                 Exit Sub
                 grpMatImport.Enabled = True
                 PnlSave.Visible = True
@@ -413,6 +490,13 @@ SubUnit:
     End Sub
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         If chkInput(grpMatImport) = False Then Exit Sub
+        If Button_Edit.State = Buttons.EState.TurnOn Then
+            FoundRow = DS.Tables("ImportOrder").Select("ImportID='" & ImportID & "' AND TagID Like '%" & txtTagID.Text & "'")
+            If FoundRow.Count > 0 Then
+                GoTo Edit
+            End If
+        End If
+
         If chkDuplicate(Trim(UserInfo.SelectLoc.Substring(5, 1) & txtTagID.Text), "ImportOrder", "MatID LIKE '" & MatID.Substring(0, 4) & "%' AND TagID Like '%") = False Then
             MessageBox.Show("TagID. นี้เคยลงในระบบแล้ว ไม่สามารถเพิ่มซ้ำได้", "TagID. ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Exit Sub
@@ -420,48 +504,33 @@ SubUnit:
             MessageBox.Show("รูปแบบ TagID ไม่ถูกต้อง", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Exit Sub
         End If
-
+Edit:
         'chk Input 0
         unit3 = txtUnit3.Value
         unit1 = txtUnit1.Value
         If Ratio <= 0 Then MessageBox.Show("กรุณาตรวจสอบค่า Ratio", "Ratio มีค่าเป็น " & Ratio, MessageBoxButtons.OK, MessageBoxIcon.Stop) : Exit Sub
         If unit3 = 0 And unit1 = 0 Then
-            MsgBox("กรุณากรอกจำนวนให้ถูกต้อง")
-            Exit Sub
-        ElseIf slClick(sluSubCat, "GroupTag") = 2 AndAlso unit3 <= 0 Then
-            MessageBox.Show("กรุณากรอกจำนวน" & lblUnit3_name.Text, "จำนวนไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            MessageBox.Show("กรุณากรอกจำนวนให้ถูกต้อง", "จำนวนไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Exit Sub
         Else
-            'หาค่าจริงจาก Ratio ให้ Unit1
-            Dim Mdd As Double
-            unit3 = unit1 * Ratio + unit3
-            Mdd = (unit3 Mod Ratio) / 10
+            If slClick(sluSubCat, "GroupTag") = 1 Then
+                'หาค่าเศษ Unit1 ให้ลัง
+                Dim Mdd As Double
+                unit3 = unit1 * Ratio + unit3
+                Mdd = (unit3 Mod Ratio) / 10
 
-            If Mdd = 0 Then
-                unit1 = unit3 / Ratio
+                If Mdd = 0 Then
+                    unit1 = unit3 / Ratio
+                Else
+                    unit1 = (unit3 \ Ratio) + Mdd
+                End If
+                'AddRow()
             Else
-                unit1 = (unit3 \ Ratio) + Mdd
+                unit1 = Math.Round(txtUnit1.EditValue + (txtUnit3.EditValue / Ratio), 1)
+                unit3 = Math.Round(txtUnit1.EditValue * Ratio + txtUnit3.EditValue, 1)
+                'AddRow()
             End If
-        End If
-
-        If slClick(sluSubCat, "GroupTag") = 2 Then
-            unit1 = txtUnit1.Value
-            unit3 = txtUnit3.Value
             AddRow()
-        ElseIf slClick(sluSubCat, "GroupTag") = 1 Then
-            AddRow()
-        Else
-            For i As Integer = 0 To txtUnit1.EditValue - 1
-                unit1 = 1
-                unit3 = Ratio
-                AddRow()
-            Next
-            'add เศษ
-            If txtUnit3.EditValue <> 0 Then
-                unit1 = 0
-                unit3 = txtUnit3.Value
-                AddRow()
-            End If
         End If
 
         txtUnit1.Value = 0
@@ -487,26 +556,27 @@ SubUnit:
         If findValue <= 0 Then
             With dtImportOrder
                 'chkTagID
-                'If String.IsNullOrWhiteSpace(txtTagID.Text) Then
-                '    MessageBox.Show("กรุณาพิมพ์ TagID.", "กำหนด TagID.", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                '    Exit Sub
-                'End If
-                'TagID &= Trim(txtTagID.Text)
-                'If TagID.Length <= 4 Then
-                '    MsgBox("TagID ไม่ถูกต้อง")
-                '    txtTagID.Focus()
-                '    Exit Sub
-                'End If
-                'If TagID.Substring(0, 4) <> lblLastTag.Text.Substring(0, 4) Then
-                '    MessageBox.Show("TagID. ไม่ถูกกรุณาตรวจสอบ", "TagID. ไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                '    Exit Sub
-                'End If
-                'For rw As Integer = 0 To gvImportOrder.RowCount - 1
-                '    If gvImportOrder.GetRowCellValue(rw, "TagID") = TagID Then
-                '        MessageBox.Show("TagID. นี้อยู่ในรายการแล้ว ไม่สามารถเพิ่มซ้ำได้", "TagID. ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                '        Exit Sub
-                '    End If
-                'Next
+                If String.IsNullOrWhiteSpace(txtTagID.Text) Then
+                    MessageBox.Show("กรุณาพิมพ์ TagID.", "กำหนด TagID.", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    Exit Sub
+                End If
+                TagID &= Trim(txtTagID.Text)
+                If TagID.Length <= 4 Then
+                    MsgBox("TagID ไม่ถูกต้อง")
+                    txtTagID.Focus()
+                    Exit Sub
+                End If
+                If TagID.Substring(0, 4) <> lblLastTag.Text.Substring(0, 4) Then
+                    MessageBox.Show("TagID. ไม่ถูกกรุณาตรวจสอบ", "TagID. ไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    Exit Sub
+                End If
+                For rw As Integer = 0 To gvImportOrder.RowCount - 1
+                    Dim item As String = gvImportOrder.GetRowCellValue(rw, "TagID")
+                    If item.Contains(TagID) Then
+                        MessageBox.Show("TagID. นี้อยู่ในรายการแล้ว ไม่สามารถเพิ่มซ้ำได้", "TagID. ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                        Exit Sub
+                    End If
+                Next
                 '--end chk
                 TagID = slClick(sluMat, "TagID") + UserInfo.SelectLoc.Substring(5, 1) + Trim(txtTagID.Text)
                 dr = .NewRow
@@ -592,9 +662,6 @@ SubUnit:
 
 #Region "Other Control."
     Private Sub FrmMatImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        pnlEdit.Visible = If(Permission(UserInfo.Permis) = True, True, False)
-        grpSearch.Height = If(Permission(UserInfo.Permis) = True, 200, 145)
-
         FirstQry(QryMode.All)
         gcImportList.DataSource = search("ImportList", "ImportDate='" & Today & "'", "")
         gcImportOrder.DataSource = DS.Tables("ImportOrder")
@@ -615,7 +682,8 @@ SubUnit:
         LoadSuccess = True
     End Sub
     Private Sub deImport_EditValueChanged(sender As Object, e As EventArgs) Handles deImport.EditValueChanged
-        If LoadSuccess = False Then Exit Sub
+        If LoadSuccess = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
+
         ImportDate = deImport.EditValue
         gcImportList.DataSource = search("ImportList", "ImportDate='" & ImportDate & "'", "")
         gcImportOrder.DataSource = Nothing
@@ -625,17 +693,22 @@ SubUnit:
         Dim gv As GridView = CType(sender, GridView)
         RowClickFunc(gv)
     End Sub
-    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs)
+    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress
+        Dim txtbox As TextBox = CType(sender, TextBox)
+        If txtbox.Name = txtBillNo.Name Then
+            If e.KeyChar = "-" Then
+                e.Handled = False
+                Exit Sub
+            End If
+        End If
         numOnly(e)
     End Sub
     Private Sub txtBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtBillNo.TextChanged
-        If Permission(UserInfo.Permis) = False Then Exit Sub
+        If Permission(UserInfo.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
+
         gcImportList.DataSource = If(String.IsNullOrWhiteSpace(txtBillNo.Text),
                                      search("ImportList", "ImportDate='" & ImportDate & "'", ""),
                                      search("ImportList", "BillNo='" & txtBillNo.Text & "'", ""))
-    End Sub
-    Private Sub txtTagID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress
-        numOnly(e)
     End Sub
     Private Sub txtPoNo_TextChanged(sender As Object, e As EventArgs)
         'search("PoNo like '" & txtPoNo.Text & "%'")
@@ -656,16 +729,16 @@ SubUnit:
         '    If spiCtr.Value >= Ratio Then spiCtr.Value = Ratio - 1
         'End If
     End Sub
-
     Private Sub luSubCat_EditValueChanged(sender As Object, e As EventArgs) Handles sluSubCat.EditValueChanged
         If LoadSuccess = False Then Exit Sub
 
         SQL = "SELECT SC.SubCatName, M.MatName, M.MatID, M.CatID, M.SubCatID,"
-        SQL &= " M.LocID, M.StoreID, M.ItemDetail, SC.TagID, SC.Unit3_ID, M.Ratio, M.QtyPerUnit,"
+        SQL &= " M.ItemDetail, SC.TagID, SC.Unit3_ID, M.Ratio, M.QtyPerUnit,"
         SQL &= " SM.SubMatName"
         SQL &= " FROM tbMat AS M INNER JOIN tbSubCategory AS SC ON M.CatID = SC.CatID AND M.SubCatID = SC.SubCatID"
         SQL &= " LEFT OUTER JOIN CombineSubMatName() SM ON M.MatID = SM.matID"
-        SQL &= " WHERE M.CatID+M.SubCatID = '" & slClick(sluSubCat, "IDValue") & "'"
+        SQL &= " WHERE M.CatID+M.SubCatID = '" & sluSubCat.EditValue & "'"
+
         With sluMat.Properties
             Dim enableCol As String() = {"MatName", "SubCatName", "SubMatName"}
             .ValueMember = "MatID"
@@ -687,10 +760,6 @@ SubUnit:
 
         End With
     End Sub
-    Private Sub LabelControl3_Click(sender As Object, e As EventArgs) Handles LabelControl3.Click
-
-    End Sub
-
     Private Sub gvImportOrder_CellValueChanging(sender As Object, e As CellValueChangedEventArgs) Handles gvImportOrder.CellValueChanging
         'If LoadSuccess = False Then Exit Sub
         'Dim view As GridView = sender
@@ -711,32 +780,31 @@ SubUnit:
         '    End If
         'End If
     End Sub
-    Dim msgResult As DialogResult
     Private Sub gvImportOrder_CellValueChanged(sender As Object, e As CellValueChangedEventArgs) Handles gvImportOrder.CellValueChanged
-        If e.Column.FieldName = "Ratio" _
-            AndAlso e.Value <> slClick(sluMat, "Ratio") Then
-            msgResult = MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-            If msgResult = DialogResult.Yes Then
-                Dim newTotalUnit3 As Double = 0
-                With gvImportOrder
-                    Dim U1 As Double = .GetFocusedRowCellValue("Unit1_Sum")
-                    Dim U3 As Double = .GetFocusedRowCellValue("Unit3_Sum")
-                    If Ratio / U3 = U1 Then
-                        'ไม่มีเศษ
-                        newTotalUnit3 = Math.Abs(U1 * slClick(sluMat, "Ratio") - U3) + (e.Value * U1)
-                    Else
-                        'มีเศษ
-                        newTotalUnit3 = Math.Abs((U1 - 1) * slClick(sluMat, "Ratio") - U3) + (e.Value * (U1 - 1))
-                    End If
-                    Ratio = e.Value
-                End With
-                gvImportOrder.SetFocusedRowCellValue("Unit3_Sum", newTotalUnit3)
-            End If
-            Ratio = slClick(sluMat, "Ratio")
-            gvImportOrder.SetFocusedRowCellValue("Ratio", Ratio)
-            msgResult = DialogResult.None
-        Else
-        End If
+        'If e.Column.FieldName = "Ratio" _
+        '    AndAlso e.Value <> slClick(sluMat, "Ratio") Then
+        '    msgResult = MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        '    If msgResult = DialogResult.Yes Then
+        '        Dim newTotalUnit3 As Double = 0
+        '        With gvImportOrder
+        '            Dim U1 As Double = .GetFocusedRowCellValue("Unit1_Sum")
+        '            Dim U3 As Double = .GetFocusedRowCellValue("Unit3_Sum")
+        '            If Ratio / U3 = U1 Then
+        '                'ไม่มีเศษ
+        '                newTotalUnit3 = Math.Abs(U1 * slClick(sluMat, "Ratio") - U3) + (e.Value * U1)
+        '            Else
+        '                'มีเศษ
+        '                newTotalUnit3 = Math.Abs((U1 - 1) * slClick(sluMat, "Ratio") - U3) + (e.Value * (U1 - 1))
+        '            End If
+        '            Ratio = e.Value
+        '        End With
+        '        gvImportOrder.SetFocusedRowCellValue("Unit3_Sum", newTotalUnit3)
+        '    End If
+        '    Ratio = slClick(sluMat, "Ratio")
+        '    gvImportOrder.SetFocusedRowCellValue("Ratio", Ratio)
+        '    msgResult = DialogResult.None
+        'Else
+        'End If
 
         'End If
         'If e.Value <> gvImportOrder.ActiveEditor.OldEditValue Then
@@ -750,4 +818,20 @@ SubUnit:
         'End If
 
     End Sub
+End Class
+Public Class Buttons
+    Enum EState
+        TurnOn
+        TurnOff
+    End Enum
+    Private _State As Integer = EState.TurnOff
+    Property State As EState
+        Set(value As EState)
+            _State = value
+        End Set
+        Get
+            Return _State.ToString
+        End Get
+    End Property
+
 End Class

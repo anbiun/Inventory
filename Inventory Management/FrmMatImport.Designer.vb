@@ -54,6 +54,8 @@ Partial Class FrmMatImport
         Me.BtnEdit = New DevExpress.XtraEditors.SimpleButton()
         Me.BtnNew = New DevExpress.XtraEditors.SimpleButton()
         Me.grpSearch = New DevExpress.XtraEditors.GroupControl()
+        Me.txtImportNote = New DevExpress.XtraEditors.MemoEdit()
+        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl4 = New DevExpress.XtraEditors.LabelControl()
@@ -87,6 +89,7 @@ Partial Class FrmMatImport
         Me.pnlEdit.SuspendLayout()
         CType(Me.grpSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpSearch.SuspendLayout()
+        CType(Me.txtImportNote.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.panelTop, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelTop.SuspendLayout()
         CType(Me.gcImportList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -211,7 +214,7 @@ Partial Class FrmMatImport
         Me.grpMatImport.Controls.Add(Me.lblUnit3)
         Me.grpMatImport.Controls.Add(Me.lblUnit1)
         Me.grpMatImport.Dock = System.Windows.Forms.DockStyle.Top
-        Me.grpMatImport.Location = New System.Drawing.Point(2, 258)
+        Me.grpMatImport.Location = New System.Drawing.Point(2, 338)
         Me.grpMatImport.Name = "grpMatImport"
         Me.grpMatImport.ShowCaption = False
         Me.grpMatImport.Size = New System.Drawing.Size(397, 253)
@@ -343,7 +346,7 @@ Partial Class FrmMatImport
         '
         Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl3.Appearance.Options.UseFont = True
-        Me.LabelControl3.Location = New System.Drawing.Point(56, 92)
+        Me.LabelControl3.Location = New System.Drawing.Point(59, 92)
         Me.LabelControl3.Name = "LabelControl3"
         Me.LabelControl3.Size = New System.Drawing.Size(83, 21)
         Me.LabelControl3.TabIndex = 9
@@ -377,10 +380,10 @@ Partial Class FrmMatImport
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(2, 511)
+        Me.PnlSave.Location = New System.Drawing.Point(2, 591)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(397, 237)
+        Me.PnlSave.Size = New System.Drawing.Size(397, 157)
         Me.PnlSave.TabIndex = 1
         Me.PnlSave.Visible = False
         '
@@ -415,12 +418,11 @@ Partial Class FrmMatImport
         Me.pnlEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.pnlEdit.Controls.Add(Me.BtnDelete)
         Me.pnlEdit.Controls.Add(Me.BtnEdit)
-        Me.pnlEdit.Location = New System.Drawing.Point(137, 193)
+        Me.pnlEdit.Location = New System.Drawing.Point(153, 267)
         Me.pnlEdit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlEdit.Name = "pnlEdit"
         Me.pnlEdit.Size = New System.Drawing.Size(193, 42)
         Me.pnlEdit.TabIndex = 0
-        Me.pnlEdit.Visible = False
         '
         'BtnDelete
         '
@@ -452,7 +454,7 @@ Partial Class FrmMatImport
         Me.BtnNew.Appearance.Options.UseFont = True
         Me.BtnNew.ImageOptions.Image = CType(resources.GetObject("BtnNew.ImageOptions.Image"), System.Drawing.Image)
         Me.BtnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.BtnNew.Location = New System.Drawing.Point(171, 159)
+        Me.BtnNew.Location = New System.Drawing.Point(153, 227)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnNew.Name = "BtnNew"
         Me.BtnNew.Size = New System.Drawing.Size(132, 27)
@@ -461,9 +463,11 @@ Partial Class FrmMatImport
         '
         'grpSearch
         '
+        Me.grpSearch.Controls.Add(Me.txtImportNote)
         Me.grpSearch.Controls.Add(Me.BtnNew)
         Me.grpSearch.Controls.Add(Me.txtBillNo)
         Me.grpSearch.Controls.Add(Me.deImport)
+        Me.grpSearch.Controls.Add(Me.LabelControl1)
         Me.grpSearch.Controls.Add(Me.LabelControl11)
         Me.grpSearch.Controls.Add(Me.LabelControl10)
         Me.grpSearch.Controls.Add(Me.LabelControl4)
@@ -475,8 +479,30 @@ Partial Class FrmMatImport
         Me.grpSearch.Location = New System.Drawing.Point(2, 2)
         Me.grpSearch.Name = "grpSearch"
         Me.grpSearch.ShowCaption = False
-        Me.grpSearch.Size = New System.Drawing.Size(397, 256)
+        Me.grpSearch.Size = New System.Drawing.Size(397, 336)
         Me.grpSearch.TabIndex = 16
+        '
+        'txtImportNote
+        '
+        Me.txtImportNote.Location = New System.Drawing.Point(152, 157)
+        Me.txtImportNote.Name = "txtImportNote"
+        Me.txtImportNote.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtImportNote.Properties.Appearance.Options.UseFont = True
+        Me.txtImportNote.Size = New System.Drawing.Size(179, 63)
+        Me.txtImportNote.TabIndex = 10
+        '
+        'LabelControl1
+        '
+        Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl1.Appearance.Options.UseFont = True
+        Me.LabelControl1.Appearance.Options.UseTextOptions = True
+        Me.LabelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.LabelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelControl1.Location = New System.Drawing.Point(43, 153)
+        Me.LabelControl1.Name = "LabelControl1"
+        Me.LabelControl1.Size = New System.Drawing.Size(100, 21)
+        Me.LabelControl1.TabIndex = 9
+        Me.LabelControl1.Text = "หมายเหตุ"
         '
         'LabelControl11
         '
@@ -498,7 +524,7 @@ Partial Class FrmMatImport
         Me.LabelControl10.Appearance.Options.UseTextOptions = True
         Me.LabelControl10.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl10.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl10.Location = New System.Drawing.Point(20, 57)
+        Me.LabelControl10.Location = New System.Drawing.Point(16, 57)
         Me.LabelControl10.Name = "LabelControl10"
         Me.LabelControl10.Size = New System.Drawing.Size(127, 21)
         Me.LabelControl10.TabIndex = 9
@@ -511,7 +537,7 @@ Partial Class FrmMatImport
         Me.LabelControl4.Appearance.Options.UseTextOptions = True
         Me.LabelControl4.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl4.Location = New System.Drawing.Point(54, 22)
+        Me.LabelControl4.Location = New System.Drawing.Point(52, 22)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(91, 21)
         Me.LabelControl4.TabIndex = 9
@@ -671,6 +697,7 @@ Partial Class FrmMatImport
         CType(Me.grpSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpSearch.ResumeLayout(False)
         Me.grpSearch.PerformLayout()
+        CType(Me.txtImportNote.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.panelTop, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelTop.ResumeLayout(False)
         CType(Me.gcImportList, System.ComponentModel.ISupportInitialize).EndInit()
@@ -730,4 +757,6 @@ Partial Class FrmMatImport
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents gcImportOrder As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvImportOrder As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents txtImportNote As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
 End Class

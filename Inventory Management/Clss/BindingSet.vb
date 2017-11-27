@@ -53,6 +53,11 @@ Public Class BindingSet
         End Get
     End Property
     Public Sub Excute()
+        If _LocList.Count <= 0 Or
+                _CatList.Count <= 0 Then
+            Exit Sub
+        End If
+
         Dim LocExpr As String = String.Empty
         Dim DTResult As New DataTable
         'เลือก Location

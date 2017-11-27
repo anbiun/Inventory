@@ -366,7 +366,6 @@ Public Class FrmStock
     End Sub
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click, SimpleButton2.Click, SimpleButton1.Click
         getStockSP()
-
         'getOldStockSP()
     End Sub
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
