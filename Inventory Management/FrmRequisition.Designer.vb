@@ -443,7 +443,7 @@ Partial Class FrmRequisition
         Me.txtUnit3.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUnit3.Properties.Appearance.Options.UseFont = True
         Me.txtUnit3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtUnit3.Properties.MaxLength = 5
+        Me.txtUnit3.Properties.MaxLength = 7
         Me.txtUnit3.Size = New System.Drawing.Size(124, 28)
         Me.txtUnit3.TabIndex = 19
         '
@@ -455,7 +455,7 @@ Partial Class FrmRequisition
         Me.txtUnit1.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUnit1.Properties.Appearance.Options.UseFont = True
         Me.txtUnit1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtUnit1.Properties.MaxLength = 5
+        Me.txtUnit1.Properties.MaxLength = 7
         Me.txtUnit1.Size = New System.Drawing.Size(124, 28)
         Me.txtUnit1.TabIndex = 19
         '

@@ -13,7 +13,8 @@ Public Class FrmRequisition
         Unit1_Name As String, Unit3_Name As String,
         Unit1_ID As String, Unit3_ID As String,
         RequestID As String, dtList As New DataTable,
-        RequestDate As Date, LoadFlag As Boolean = False
+        RequestDate As Date, LoadFlag As Boolean = False,
+        ImReq As New InOutFunc
 #Region "FUNC."
     Private Sub LoadAutoCom()
         'AutuComplete ชื่อผู้เบิก
@@ -139,46 +140,13 @@ Public Class FrmRequisition
         'End If
 
         'หาค่าจริงจาก Ratio ให้ Unit1
-        Unit1_Num = txtUnit1.Value
-        Unit3_Num = txtUnit3.Value
-        Dim Mdd As Double
-        Unit3_Num = Unit1_Num * Ratio + Unit3_Num
-        Mdd = (Unit3_Num Mod Ratio) / 10
-        If Mdd = 0 Then
-            Unit1_Num = Unit3_Num / Ratio
-        Else
-            Unit1_Num = (Unit3_Num \ Ratio) + Mdd
-        End If
-
-        If slClick(sluSubCat, "GroupTag") = 2 Then
-            Unit1_Num = txtUnit1.Value
-            If txtUnit3.Value = 0 Then
-                MessageBox.Show("กรุณากรอก" & lbUnit3Name.Text, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                Exit Sub
-            Else
-                If txtUnit3.Value < Ratio AndAlso txtUnit1.Value > 0 Then
-                    MessageBox.Show("กรอก" & lbUnit3Name.Text & "ไม่ถูกต้อง", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                    Exit Sub
-                End If
-                Unit3_Num = txtUnit3.Value
-            End If
-
-            AddRow()
-        ElseIf slClick(sluSubCat, "GroupTag") = 1 Then
-            AddRow()
-        Else
-            For i As Integer = 0 To txtUnit1.EditValue - 1
-                Unit1_Num = 1
-                Unit3_Num = Ratio
-                AddRow()
-            Next
-            'add เศษ
-            If txtUnit3.EditValue <> 0 Then
-                Unit1_Num = 0
-                Unit3_Num = txtUnit3.Value
-                AddRow()
-            End If
-        End If
+        With ImReq
+            .Unit1 = txtUnit1.Value
+            .Unit3 = txtUnit3.Value
+            .Ratio = Ratio
+            .GroupTag = slClick(sluSubCat, "GroupTag")
+            If .Result = True Then AddRow()
+        End With
 
         txtUnit1.Text = ""
         txtUnit3.Text = ""
@@ -209,10 +177,10 @@ Public Class FrmRequisition
                 dr("TagID") = TagID
                 dr("MatID") = MatID
                 dr("MatName") = MatName
-                dr("Unit1_Num") = Unit1_Num
+                dr("Unit1_Num") = ImReq.Unit1
                 dr("Unit1_ID") = Unit1_ID
                 dr("Unit1_Name") = Unit1_Name
-                dr("Unit3_Num") = Unit3_Num
+                dr("Unit3_Num") = ImReq.Unit3
                 dr("unit3_Name") = Unit3_Name
                 dr("UserRequest") = UserRequest
                 dr("UserStock") = UserStock

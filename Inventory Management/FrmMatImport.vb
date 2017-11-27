@@ -26,6 +26,7 @@ Public Class FrmMatImport
         MainUnit
         SubUnit
     End Enum
+    Dim ImReq As New InOutFunc
 #Region "Function"
     Private Sub gvFormat()
         With gvImportList
@@ -141,6 +142,7 @@ SubUnit:
             Next
         Next
         lblLastTag.Text = ""
+        gcImportList.DataSource = Nothing
         gcImportOrder.DataSource = Nothing
         FirstQry(QryMode.All)
         gcImportList.DataSource = search("ImportList", "ImportDate='" & ImportDate & "'", "")
@@ -419,7 +421,8 @@ SubUnit:
                         & " delete from tbImportList where ImportID ='" & ImportID & "'" _
                         & " delete from tbImportOrder where ImportID ='" & ImportID & "'"
                     dsTbl("del")
-                    FirstQry(QryMode.All)
+                    BindInfo.Excute()
+                    cancelFunc()
                 End If
         End Select
     End Sub
@@ -488,7 +491,25 @@ SubUnit:
                 btnProcess(BtnDelete)
         End Select
     End Sub
+    Function chkUse()
+        Dim tagVal As String = gvImportOrder.GetFocusedRowCellValue("TagID")
+
+        If tagVal IsNot Nothing OrElse Not String.IsNullOrEmpty(tagVal) Then
+            SQL = "SELECT TagID From Logs_Requisition"
+            SQL &= " WHERE TagID='" & tagVal & "'"
+            dsTbl("find")
+            If DS.Tables("find").Rows.Count >= 1 Then
+                MessageBox.Show("ไม่สามารถแก้ไขรายการนี้ได้ เนื่องจากมีการนำไปใช้งานแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Return False
+            End If
+        End If
+        Return True
+    End Function
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        Dim matVal As String = gvImportOrder.GetFocusedRowCellValue("MatID")
+        MatID = slClick(sluMat, "MatID")
+        If MatID = matVal AndAlso chkUse() = False Then  Exit Sub
+        'CallSP("FindAll", New SqlParameter("@SearchSrc", gvImportOrder.GetRowCellValue(gvImportOrder.FocusedRowHandle, "TagID")))
         If chkInput(grpMatImport) = False Then Exit Sub
         If Button_Edit.State = Buttons.EState.TurnOn Then
             FoundRow = DS.Tables("ImportOrder").Select("ImportID='" & ImportID & "' AND TagID Like '%" & txtTagID.Text & "'")
@@ -506,32 +527,13 @@ SubUnit:
         End If
 Edit:
         'chk Input 0
-        unit3 = txtUnit3.Value
-        unit1 = txtUnit1.Value
-        If Ratio <= 0 Then MessageBox.Show("กรุณาตรวจสอบค่า Ratio", "Ratio มีค่าเป็น " & Ratio, MessageBoxButtons.OK, MessageBoxIcon.Stop) : Exit Sub
-        If unit3 = 0 And unit1 = 0 Then
-            MessageBox.Show("กรุณากรอกจำนวนให้ถูกต้อง", "จำนวนไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Exit Sub
-        Else
-            If slClick(sluSubCat, "GroupTag") = 1 Then
-                'หาค่าเศษ Unit1 ให้ลัง
-                Dim Mdd As Double
-                unit3 = unit1 * Ratio + unit3
-                Mdd = (unit3 Mod Ratio) / 10
-
-                If Mdd = 0 Then
-                    unit1 = unit3 / Ratio
-                Else
-                    unit1 = (unit3 \ Ratio) + Mdd
-                End If
-                'AddRow()
-            Else
-                unit1 = Math.Round(txtUnit1.EditValue + (txtUnit3.EditValue / Ratio), 1)
-                unit3 = Math.Round(txtUnit1.EditValue * Ratio + txtUnit3.EditValue, 1)
-                'AddRow()
-            End If
-            AddRow()
-        End If
+        With ImReq
+            .Unit1 = txtUnit1.Value
+            .Unit3 = txtUnit3.Value
+            .Ratio = Ratio
+            .GroupTag = slClick(sluSubCat, "GroupTag")
+            If .Result = True Then AddRow()
+        End With
 
         txtUnit1.Value = 0
         txtUnit3.Value = 0
@@ -582,16 +584,16 @@ Edit:
                 dr = .NewRow
                 dr("ImportOrID") = ImportOrID
                 dr("MatName") = sluMat.Text
-                dr("unit1_sum") = unit1
+                dr("unit1_sum") = ImReq.Unit1
                 dr("unit1_Name") = luUnit1_name.Text
-                dr("unit3_Sum") = unit3
+                dr("unit3_Sum") = ImReq.Unit3
                 dr("unit3_Name") = lblUnit3_name.Text
                 dr("Unit1_ID") = luUnit1_name.EditValue
                 Unit1_ID = dr("Unit1_ID")
                 dr("ImportID") = ImportID
                 dr("MatID") = MatID
                 dr("TagID") = TagID
-                dr("Ratio") = Ratio
+                dr("Ratio") = ImReq.Ratio
                 dr("QtyPerUnit") = QtyPerUnit
                 dr("LocID") = UserInfo.SelectLoc
                 .Rows.Add(dr)
@@ -602,10 +604,11 @@ Edit:
             'get UnitID if has row
             'SumRow
             FoundRow = dtImportOrder.Select("MatID='" & MatID & "'")
+
             For rw As Integer = 0 To dtImportOrder.Rows.Count - 1
                 If dtImportOrder.Rows(rw)("MatID") = MatID Then
-                    dtImportOrder.Rows(rw)("Unit1_Sum") += unit1
-                    dtImportOrder.Rows(rw)("Unit3_Sum") += unit3
+                    dtImportOrder.Rows(rw)("Unit1_Sum") += ImReq.Unit1
+                    dtImportOrder.Rows(rw)("Unit3_Sum") += ImReq.Unit3
                 End If
             Next
             dtImportOrder.AcceptChanges()
@@ -614,6 +617,7 @@ Edit:
         txtTagID.Text = FindMissTag(gvImportOrder, Trim(txtTagID.Text))
     End Sub
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+        If chkUse() = False Then Exit Sub
         If gvSelect Is Nothing Then
             MsgBox("กรุณาเลือกแถวข้อมูลก่อน")
             Exit Sub
