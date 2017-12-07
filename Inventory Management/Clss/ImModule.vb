@@ -11,6 +11,7 @@ Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Grid
 Imports System
 Imports ConDB.Main
+Imports DevExpress.XtraEditors.BaseCheckedListBoxControl
 
 Module ImModule
     Public CategoryTxt As String
@@ -30,6 +31,7 @@ Module ImModule
     Public UserInfo As New UserLogin
     Public ParamList As New List(Of SqlParameter)
     Public Version As String
+    Public tmpSQL As String
     'ตัวแปร
     Friend Enum idFor
         MainCategory
@@ -70,7 +72,7 @@ Module ImModule
             tbName As String = Nothing
         Dim empInt, padNum As Integer
 
-        Sql = "SELECT max(" & tbField & ") as " & tbField & " From " & tbName & ""
+        SQL = "SELECT max(" & tbField & ") as " & tbField & " From " & tbName & ""
         dsTbl(tbName)
         If DS.Tables(tbName) Is Nothing Then
             Return newId
@@ -190,4 +192,33 @@ Module ImModule
     End Sub
     'BindingSet
     Public BindInfo As New BindingSet
+    Public Function LocExpr(checkList As CheckedItemCollection) As String
+        Dim Result As String = String.Empty
+        'เลือก Location
+        Dim LocSelect As New List(Of String)
+        For Each item As DataRowView In checkList
+            LocSelect.Add(item.Row(0))
+        Next
+        For Each item In LocSelect
+            If item IsNot LocSelect.Last Then
+                Result += " LocID = '" + item + "' OR" + ""
+            Else
+                Result += " LocID = '" + item + "'"
+            End If
+        Next
+        Return Result
+    End Function
+    'GridInfo
+    Public List_Caption As New Dictionary(Of String, String)
+    Public Sub Grid_Caption(GridName As GridView)
+        For Each items As DevExpress.XtraGrid.Columns.GridColumn In GridName.Columns
+            If List_Caption.ContainsKey(items.FieldName) Then
+                items.Caption = List_Caption(items.FieldName)
+                items.Visible = True
+            Else
+                items.Visible = False
+            End If
+        Next
+        List_Caption.Clear()
+    End Sub
 End Module

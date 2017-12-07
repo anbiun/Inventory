@@ -7,6 +7,7 @@ Imports System.IO
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 
 Public Class FrmStock
+    Dim LocID As String
 #Region "Code Side"
     Private Sub getStockSP()
 
@@ -17,60 +18,9 @@ Public Class FrmStock
             .Excute()
             gcMain.DataSource = .Result
         End With
-                gvMain.PopulateColumns()
+        gvMain.PopulateColumns()
         gvMain.BestFitColumns()
-        GvFormat(gvMain)
-    End Sub
-    Private Sub getOldStockSP()
-        If loadSuccess = False Then Exit Sub
-        Dim DTResult As New DataTable
-
-        'เลือก Location
-        Dim LocSelect As New List(Of String)
-        LocExpr = "WHERE"
-        For Each items As DataRowView In clbLoc.CheckedItems
-            LocSelect.Add(items.Row(0))
-        Next
-
-        For Each l In LocSelect
-            If l IsNot LocSelect.Last Then
-                LocExpr += " LocID = '" + l + "' OR" + ""
-            Else
-                LocExpr += " LocID = '" + l + "'"
-            End If
-        Next
-
-        'เลือกประเภท
-        Dim CatSelect As New List(Of String)
-        For Each items As DataRowView In clbSubCat.CheckedItems
-            CatSelect.Add(items.Row(0))
-        Next
-
-        For Each l In CatSelect
-            Dim Expr As String = LocExpr.Replace("LocID", "CatID+SubCatID='" & l & "' AND LocID")
-
-            If CatSelect.Count = 1 Then
-                ParamList.Clear()
-                ParamList.Add(New SqlParameter("@Expr", Expr))
-                DTResult = CallSP("GetOldStock", ParamList)
-            Else
-                ParamList.Clear()
-                ParamList.Add(New SqlParameter("@Expr", Expr))
-                If DTResult.Rows.Count = 0 Then
-                    DTResult = CallSP("GetOldStock", ParamList)
-                Else
-                    For Each item As DataRow In CallSP("GetOldStock", ParamList).Rows
-                        DTResult.ImportRow(item)
-                    Next
-                End If
-            End If
-        Next
-
-
-        gvOldStock.Columns.Clear()
-        'gcOldStock.DataSource = Binding.GetStock
-        gvOldStock.PopulateColumns()
-        GvFormat(gvOldStock)
+        GvFormat()
     End Sub
     Private Sub ExportXLS()
         If gvMain.RowCount < 1 Then Exit Sub
@@ -226,56 +176,38 @@ Public Class FrmStock
             End If
         End Try
     End Sub
-    Private Sub GvFormat(gv As GridView)
-        If gv.RowCount <= 0 Then Exit Sub
-        With gv
-            .Columns("SubCatName").Caption = "ประเภท"
-            .Columns("SubCatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-            .Columns("MatName").Caption = "ชื่อวัสดุ"
-            .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-            .Columns("Unit1").Caption = "จำนวน"
-            .Columns("Unit1_Name").Caption = " "
-            .Columns("Unit3").Caption = "ปริมาณทั้งหมด"
-            .Columns("Unit3_Name").Caption = " "
-            .Columns("MatID").Visible = False
-            Dim colList() As String = {"Unit1", "Unit3"}
-            For Each colname As String In colList
-                .Columns(colname).DisplayFormat.FormatType = FormatType.Numeric
-                .Columns(colname).DisplayFormat.FormatString = "#,0.0"
-            Next
-
-            If .Name = gvMain.Name Then
-
-                .Columns("Dozen").Caption = "จำนวนโหล"
-                .Columns("Dozen").DisplayFormat.FormatType = FormatType.Numeric
-                .Columns("Dozen").DisplayFormat.FormatString = "#,0"
-                .Columns("Warn").DisplayFormat.FormatType = FormatType.Numeric
-                .Columns("Warn").DisplayFormat.FormatString = "#,0.0"
-                .Columns("Warn").Caption = "ใช้ได้อีก"
-                .Columns("Warn_Name").Caption = " "
-                .Columns("Warn_Month").Visible = False
-                .Columns("SubMatName").Visible = False
-
-                'tooltip set
-                gcMain.ToolTipController = tooltipGcMain
-            ElseIf .Name = gvOldStock.Name Then
-                .Columns("Unit1_Diff").Caption = "ผลต่าง (จำนวน)"
-                .Columns("Unit3_Diff").Caption = "ผลต่าง (ปริมาณรวม)"
-                .Columns("Unit1_Diff").DisplayFormat.FormatType = FormatType.Numeric
-                .Columns("Unit3_Diff").DisplayFormat.FormatType = FormatType.Numeric
-                .Columns("Unit1_Diff").DisplayFormat.FormatString = "#,0.0"
-                .Columns("Unit3_Diff").DisplayFormat.FormatString = "#,0.0"
-                .Columns("Unit1_DiffName").Caption = " "
-                .Columns("Unit3_DiffName").Caption = " "
-            End If
-
+    Private Sub GvFormat()
+        If gvMain.RowCount <= 0 Then Exit Sub
+        With List_Caption
+            .Clear()
+            .Add("SubCatName", "ประเภท")
+            .Add("MatName", "ชื่อวัสดุ")
+            .Add("Unit1", "จำนวน")
+            .Add("Unit1_Name", " ")
+            .Add("Unit3", "ปริมาณทั้งหมด")
+            .Add("Unit3_Name", " ")
+            .Add("Dozen", "จำนวนโหล")
+            .Add("Warn", "ใช้ได้อีก")
+            .Add("Warn_Name", " ")
+            .Add("JL", "JL")
+            .Add("JLK", "JLK")
+            .Add("KIWI", "KW")
         End With
-        gv.BestFitColumns()
-        gv.OptionsView.ShowAutoFilterRow = True
+        Grid_Caption(gvMain)
+
+        With gvMain
+            .Columns("SubCatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
+            .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
+            Dim ColList As String() = {"Unit1", "Unit3"}
+            For Each items As String In ColList
+                .Columns(items).DisplayFormat.FormatType = FormatType.Numeric
+                .Columns(items).DisplayFormat.FormatString = "#,0.0"
+            Next
+            .BestFitColumns()
+            .OptionsView.ShowAutoFilterRow = True
+        End With
     End Sub
 #End Region
-    Dim LocSelect As String
-    Dim LocExpr As String
     Dim _XLSGetHeader As Func(Of String) = Function()
                                                SQL = "SELECT MAX(RequestDate) FROM tbRequisition"
                                                dsTbl("get")
@@ -284,22 +216,6 @@ Public Class FrmStock
     Dim days As String() = {"จันทร์", "อังคาร", "พุทธ", "พฤหัสบดี", "ศุกร์", "เสาร์", "อาทิตย์"}
     Dim defH As Integer = 25
     Dim sizeH As Integer = 0
-
-    Private Sub GVRow_Click(sender As Object, e As RowCellClickEventArgs) Handles gvMain.RowCellClick, gvOldStock.RowCellClick
-        If e.RowHandle >= 0 Then
-            Dim gvSrc As GridView = If(CType(sender, GridView).Name = gvMain.Name, gvMain, gvOldStock)
-            Dim gvDest As GridView = If(CType(sender, GridView).Name = gvMain.Name, gvOldStock, gvMain)
-
-            Dim mainID As String = gvSrc.GetRowCellValue(e.RowHandle, "MatID")
-            For i As Integer = 0 To gvDest.RowCount - 1
-                If gvDest.GetRowCellValue(i, "MatID") = mainID Then
-                    gvDest.FocusedRowHandle = i
-                    Exit For
-                End If
-            Next
-
-        End If
-    End Sub
     Private Sub FrmStock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadSuccess = False
         SQL = "SELECT CatID,CatName FROM tbCategory"
@@ -321,20 +237,11 @@ Public Class FrmStock
         End With
 
         GroupControl3.Text += " " & _XLSGetHeader()
-        GvFormat(gvMain)
-        chkDays.Items.Clear()
-        For Each item As String In days
-            chkDays.Items.Add(item)
-        Next
-        For i As Integer = 1 To 31
-            chkDate.Items.Add(i)
-        Next
-        rdDate.Checked = True
+        GvFormat()
 
-        chkDays.Height = defH
-        chkDate.Height = defH
         loadSuccess = True
     End Sub
+
     Private Sub btnExPortExcel_Click(sender As Object, e As EventArgs) Handles btnExportExcel.Click
         ExportXLS()
     End Sub
@@ -364,7 +271,7 @@ Public Class FrmStock
             End If
         End If
     End Sub
-    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click, SimpleButton2.Click, SimpleButton1.Click
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         getStockSP()
         'getOldStockSP()
     End Sub
@@ -430,8 +337,8 @@ Public Class FrmStock
     End Function
 
     Private Sub DateEdit_DrawItem(ByVal sender As Object,
-  ByVal e As DevExpress.XtraEditors.Calendar.CustomDrawDayNumberCellEventArgs) _
-  Handles deOldStock.DrawItem
+  ByVal e As DevExpress.XtraEditors.Calendar.CustomDrawDayNumberCellEventArgs)
+
         If Not e.View = DevExpress.XtraEditors.Controls.DateEditCalendarViewType.MonthInfo Then Return
         'return if a given date is not a holiday
         'in this case the default drawing will be performed (e.Handled is false)
@@ -451,130 +358,64 @@ Public Class FrmStock
     End Sub
 
 #Region "Temp"
-    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs)
-        If gvMain.FocusedRowHandle >= 0 Then
-            Dim MatID As String = gvMain.GetRowCellValue(e.RowHandle, "MatID")
-            Dim LocExpr_newFormat As String = Nothing
-            LocExpr_newFormat = LocExpr.Replace("OR", "AND S.MatID='" & MatID & "' OR")
-            LocExpr_newFormat = LocExpr_newFormat.Replace("LocID", "L.LocID")
-            SQL = " SELECT L.LocName, M.MatName,"
-            SQL &= " SUM(S.Unit1) Unit1,U1.UnitName Unit1_Name,"
-            SQL &= " Sum(S.Unit3) Unit3,U3.UnitName Unit3_Name "
-            SQL &= " FROM tbStock S "
-            SQL &= " INNER JOIN tbMat M ON S.MatID = M.MatID "
-            SQL &= " INNER JOIN tbLocation L ON S.LocID = L.LocID "
-            SQL &= " INNER JOIN tbSubCategory SC ON M.SubCatID = SC.SubCatID AND M.CatID = SC.CatID "
-            SQL &= " INNER JOIN tbUnit U1 ON U1.UnitID = S.Unit1_ID "
-            SQL &= " INNER JOIN tbUnit U3 ON U3.UnitID = SC.Unit3_ID "
-            SQL &= " " + LocExpr_newFormat + "AND S.MatID = '" + MatID + "'"
-            SQL &= " GROUP BY M.MatName,U1.UnitName,U3.UnitName,L.LocName"
-            SQL &= " ORDER BY MatName DESC"
-            Dim tmpSq As String = SQL
+    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvMain.RowCellClick, gvAdjust.RowCellClick
+        Dim GV As GridView = CType(sender, GridView)
+        If GV.FocusedRowHandle < 0 Then Exit Sub
+        With GV
+            Dim getCellVal As Func(Of String, String) = Function(cells)
+                                                            Return .GetRowCellValue(e.RowHandle, cells)
+                                                        End Function
+            Select Case .Name
+                Case gvMain.Name
+                    Dim MatID As String = getCellVal("MatID")
+                    SQL = "SELECT * FROM vwAdjust"
+                    SQL &= " WHERE MatID = '" & MatID & "'"
+                    SQL &= " AND " & LocExpr(clbLoc.CheckedItems).Replace("OR", "OR MatID='" & MatID & "' AND")
+                    'Dim tmpSq As String = SQL
+                    gcAdjust.DataSource = dsTbl("AJStock")
+                    If gvAdjust.RowCount > 0 Then
+                        With List_Caption
+                            .Clear()
+                            .Add("MatName", "วัสดุ")
+                            .Add("Unit1", "จำนวน")
+                            .Add("Unit3", "เป็นปริมาณ")
+                            .Add("LocName", "สถานที่")
+                            .Add("Unit1_Name", " ")
+                            .Add("Unit3_Name", " ")
+                            .Add("TagID", "TagID")
+                            .Add("Stat", "สถานะ")
+                        End With
+                        Grid_Caption(gvAdjust)
+                        With gvAdjust
+                            .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
+                            Dim ColList As String() = {"Unit1", "Unit3"}
+                            For Each items As String In ColList
+                                .Columns(items).DisplayFormat.FormatType = FormatType.Numeric
+                                .Columns(items).DisplayFormat.FormatString = "#,0.0"
+                            Next
+                            .BestFitColumns()
+                        End With
+                    End If
+                Case gvAdjust.Name
+                    Dim Unit1 As Double = getCellVal("Unit1")
+                    Dim Unit3 As Double = getCellVal("Unit3")
+                    Unit1 = Math.Round(Unit1, 2)
+                    Unit3 = Math.Round(Unit3, 2)
+                    lbMatName.Text = getCellVal("MatName")
+                    lbTagID.Text = getCellVal("TagID")
+                    lbRatio.Text = getCellVal("Ratio")
 
-            gcOldStock.DataSource = dsTbl("substock")
+                    lbUnit1.Text = Unit1
+                    lbUnit3.Text = Unit3
+                    txtUnit1.EditValue = Unit1
+                    txtUnit3.EditValue = Unit3
 
-            If gvOldStock.RowCount > 0 Then
-                With gvOldStock
-                    .Columns("MatName").Caption = "วัสดุ"
-                    .Columns("Unit1").Caption = "จำนวน"
-                    .Columns("Unit3").Caption = "เป็นปริมาณ"
-                    .Columns("LocName").Caption = "สถานที่"
-                    .Columns("Unit1_Name").Caption = " "
-                    .Columns("Unit3_Name").Caption = " "
-                    .Columns("MatName").BestFit()
-                    .Columns("LocName").BestFit()
-                End With
-            End If
-        End If
-    End Sub
-    Private Sub GetStock()
-        Dim chkItem As New List(Of String)
-        LocExpr = "WHERE"
-        For Each items As DataRowView In clbLoc.CheckedItems
-            chkItem.Add(items.Row(0))
-        Next
+                    lbUnit1_Name.Text = getCellVal("Unit1_Name")
+                    lbUnit3_Name.Text = getCellVal("Unit3_Name")
+                    LocID = getCellVal("LocID")
+            End Select
+        End With
 
-        For Each l In chkItem
-            If l IsNot chkItem.Last Then
-                'LocExpr += " LocID = '" + l + "' AND CatID='" + slClick(slSubCat, "CatID") + "'"
-                'LocExpr += " AND SubCatID='" + slClick(slSubCat, "SubCatID") + "' OR"
-            Else
-                LocExpr += " LocID = '" + l + "'"
-                'LocExpr += " AND SubCatID='" + slClick(slSubCat, "SubCatID") + "'"
-            End If
-        Next
-        SQL = "SELECT * FROM vwStock "
-        SQL &= LocExpr
-
-        Dim dtGetStock, dtResult As New DataTable
-        gcMain.DataSource = dsTbl("getstock")
-        dtGetStock = DS.Tables("getstock").Copy
-        dtResult = dtGetStock.Copy
-        dtResult.Clear()
-
-        Dim dblUnit1_Sum As Double
-        Dim MatID, MatName As String
-        Dim QtyPerUnit As Double
-        Dim QtyOfUsing As Integer = 40
-        Dim Lacking As Double
-
-        Try
-            MatID = dtGetStock(0)("MatID")
-        Catch ex As Exception
-            Exit Sub
-        End Try
-
-        QtyPerUnit = dtGetStock(0)("QtyPerUnit")
-        MatName = dtGetStock(0)("MatName")
-
-        dblUnit1_Sum = dtGetStock.Compute("Sum(Unit1)", "MatID='" & MatID & "' AND QtyPerUnit='" & QtyPerUnit & "'")
-        QtyOfUsing -= dblUnit1_Sum
-        Lacking = dblUnit1_Sum * QtyPerUnit
-
-        Dim dr As DataRow
-        dr = dtResult.NewRow
-        dr("MatName") = MatName
-        dr("Unit1") = dblUnit1_Sum
-        dr("QtyPerUnit") = QtyPerUnit
-        dr("QtyOfUsing") = Lacking
-        dtResult.Rows.Add(dr)
-        For i As Integer = 0 To dtGetStock.Rows.Count - 1
-            If MatID = dtGetStock(i)("MatID") And QtyPerUnit <> dtGetStock(i)("QtyPerUnit") Then
-                MatID = dtGetStock(i)("MatID")
-                QtyPerUnit = dtGetStock(i)("QtyPerUnit")
-                MatName = dtGetStock(i)("MatName")
-
-                dblUnit1_Sum = dtGetStock.Compute("Sum(Unit1)", "MatID='" & MatID & "' AND QtyPerUnit='" & QtyPerUnit & "'")
-                QtyOfUsing -= dblUnit1_Sum
-                Lacking = dblUnit1_Sum * QtyPerUnit
-
-                dr = dtResult.NewRow
-                dr("MatName") = MatName
-                dr("Unit1") = dblUnit1_Sum
-                dr("QtyPerUnit") = QtyPerUnit
-                dr("QtyOfUsing") = Lacking
-                dtResult.Rows.Add(dr)
-
-            ElseIf MatID <> dtGetStock(i)("MatID") Then
-                MatID = dtGetStock(i)("MatID")
-                QtyPerUnit = dtGetStock(i)("QtyPerUnit")
-                MatName = dtGetStock(i)("MatName")
-
-                dblUnit1_Sum = dtGetStock.Compute("Sum(Unit1)", "MatID='" & MatID & "' AND QtyPerUnit='" & QtyPerUnit & "'")
-                QtyOfUsing -= dblUnit1_Sum
-                Lacking = dblUnit1_Sum * QtyPerUnit
-
-                dr = dtResult.NewRow
-                dr("MatName") = MatName
-                dr("Unit1") = dblUnit1_Sum
-                dr("QtyPerUnit") = QtyPerUnit
-                dr("QtyOfUsing") = Lacking
-                dtResult.Rows.Add(dr)
-            End If
-
-        Next
-
-        gcOldStock.DataSource = dtResult
     End Sub
     Private Function QryForExport() As DataTable
         'ข้อมูลสตอคจากคลังอื่น
@@ -597,7 +438,7 @@ Public Class FrmStock
         Return dsTbl("qryforexport")
     End Function
 #End Region
-    Private Sub chkDay_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles chkDays.MouseMove, chkDate.MouseMove
+    Private Sub chkDay_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
         Dim clb As CheckedListBox = CType(sender, CheckedListBox)
 
         loadSuccess = True
@@ -610,17 +451,13 @@ Public Class FrmStock
         End If
     End Sub
 
-    Private Sub chkDay_LostFocus(sender As Object, e As EventArgs) Handles chkDays.LostFocus, chkDate.LostFocus
+    Private Sub chkDay_LostFocus(sender As Object, e As EventArgs)
         loadSuccess = True
         Dim clb As CheckedListBox = CType(sender, CheckedListBox)
         clb.Size = New System.Drawing.Size(clb.Width, defH)
     End Sub
 
-    Private Sub GroupControl3_MouseMove(sender As Object, e As MouseEventArgs) Handles GroupControl3.MouseMove, gcMain.MouseMove
-        chkDay_ExportSettingLeave()
-    End Sub
-
-    Private Sub rdDate_CheckedChanged(sender As Object, e As EventArgs) Handles rdDate.CheckedChanged
+    Private Sub rdDate_CheckedChanged(sender As Object, e As EventArgs)
         'Dim chk As String() = {"5", "10", "11"}
         'If rdDate.Checked = True Then
         '    If chkDate.Contains(chk) Then
@@ -633,8 +470,24 @@ Public Class FrmStock
         '    chkDate.Enabled = False
         'End If
     End Sub
-    Sub chkDay_ExportSettingLeave()
-        chkDays.Height = defH
-        chkDate.Height = defH
+
+    Private Sub btnAdJust_Click(sender As Object, e As EventArgs) Handles btnAdJust.Click
+        If chkInput(grpAdjust) = False Then
+            MessageBox.Show("Check Input", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Exit Sub
+        End If
+        Dim Stat As Integer = If(cbStat.Text = "คงเหลือ", 1, 0)
+        SQL = "UPDATE tbStock"
+        SQL &= " SET Unit1='" & txtUnit1.EditValue & "'"
+        SQL &= " ,Unit3='" & txtUnit3.EditValue & "'"
+        SQL &= " ,Stat='" & Stat & "'"
+        SQL &= " WHERE TagID='" & lbTagID.Text & "'"
+        SQL &= " AND LocID='" & locID & "'"
+        dsTbl("adjust")
+        BindInfo.Excute()
+    End Sub
+
+    Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged
+        txtUnit3.EditValue = CDbl(txtUnit1.EditValue * lbRatio.Text)
     End Sub
 End Class

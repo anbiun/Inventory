@@ -212,7 +212,7 @@ Public Class FrmRequisition
         'btnProcess(btnSave)
         btnCancel.PerformClick()
         QRyStock()
-        loadAutoCom()
+        LoadAutoCom()
     End Sub
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         cancelFunc()
