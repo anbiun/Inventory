@@ -371,7 +371,8 @@ Public Class FrmStock
                     SQL = "SELECT * FROM vwAdjust"
                     SQL &= " WHERE MatID = '" & MatID & "'"
                     SQL &= " AND " & LocExpr(clbLoc.CheckedItems).Replace("OR", "OR MatID='" & MatID & "' AND")
-                    'Dim tmpSq As String = SQL
+                    Dim tmpSq As String = SQL
+                    If clbLoc.CheckedItems.Count <= 0 Then Exit Sub
                     gcAdjust.DataSource = dsTbl("AJStock")
                     If gvAdjust.RowCount > 0 Then
                         With List_Caption

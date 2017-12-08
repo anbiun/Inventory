@@ -260,7 +260,6 @@ SubUnit:
             dsTbl("transfer")
         Next
         MessageBox.Show("บันทึกยอดเข้าคลังเสร็จสมบูรณ์", "บันทึกยอดเข้าคลัง", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        BindInfo.Excute()
     End Sub
     Private Function chkDuplicate(Values As String, Optional tbName As String = "ImportList", Optional findStr As String = "BillNo='")
         FoundRow = DS.Tables(tbName).Select(findStr & Values & "'")
@@ -419,7 +418,8 @@ SubUnit:
                     ImportID = gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "ImportID")
                     SQL = "delete from tbImportDetail where ImportID ='" & ImportID & "'" _
                         & " delete from tbImportList where ImportID ='" & ImportID & "'" _
-                        & " delete from tbImportOrder where ImportID ='" & ImportID & "'"
+                        & " delete from tbImportOrder where ImportID ='" & ImportID & "'" _
+                        & " delete from tbStock where ImportID ='" & ImportID & "'"
                     dsTbl("del")
                     BindInfo.Excute()
                     cancelFunc()
