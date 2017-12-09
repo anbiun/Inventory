@@ -346,6 +346,12 @@
     <Compile Include="FrmTransfer.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Manage\FmgProduct.Designer.vb">
+      <DependentUpon>FmgProduct.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Manage\FmgProduct.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Manage\FmgRequisition.Designer.vb">
       <DependentUpon>FmgRequisition.vb</DependentUpon>
     </Compile>
@@ -539,6 +545,9 @@
     <EmbeddedResource Include="FrmMatImport.resx">
       <DependentUpon>FrmMatImport.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Manage\FmgProduct.resx">
+      <DependentUpon>FmgProduct.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Manage\FmgRequisition.resx">
       <DependentUpon>FmgRequisition.vb</DependentUpon>
     </EmbeddedResource>
@@ -551,6 +560,7 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

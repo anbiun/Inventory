@@ -20,7 +20,7 @@ Partial Class FrmMatList
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMatList))
-        Dim Code128Generator1 As DevExpress.XtraPrinting.BarCode.Code128Generator = New DevExpress.XtraPrinting.BarCode.Code128Generator()
+        Dim Code128Generator2 As DevExpress.XtraPrinting.BarCode.Code128Generator = New DevExpress.XtraPrinting.BarCode.Code128Generator()
         Me.PanelControl2 = New DevExpress.XtraEditors.PanelControl()
         Me.PanelControl5 = New DevExpress.XtraEditors.PanelControl()
         Me.SimpleButton14 = New DevExpress.XtraEditors.SimpleButton()
@@ -61,6 +61,7 @@ Partial Class FrmMatList
         Me.TxtMaterialID = New DevExpress.XtraEditors.TextEdit()
         Me.LookUpUnitBuy = New DevExpress.XtraEditors.LookUpEdit()
         Me.LookUpSubCategory = New DevExpress.XtraEditors.LookUpEdit()
+        Me.luProduct = New DevExpress.XtraEditors.LookUpEdit()
         Me.LookUpCategory = New DevExpress.XtraEditors.LookUpEdit()
         Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
         Me.TxtPrice = New DevExpress.XtraEditors.TextEdit()
@@ -75,7 +76,6 @@ Partial Class FrmMatList
         Me.txtQtyPerUnit = New DevExpress.XtraEditors.SpinEdit()
         Me.txtWarn = New DevExpress.XtraEditors.SpinEdit()
         Me.txtRatio = New DevExpress.XtraEditors.SpinEdit()
-        Me.txtQtyOfUsing = New DevExpress.XtraEditors.SpinEdit()
         Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
@@ -87,7 +87,6 @@ Partial Class FrmMatList
         Me.LabelControl21 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl5 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl19 = New DevExpress.XtraEditors.LabelControl()
-        Me.lblQtyOfUsing_Name = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
@@ -178,6 +177,7 @@ Partial Class FrmMatList
         CType(Me.TxtMaterialID.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LookUpUnitBuy.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LookUpSubCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.luProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LookUpCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TxtPrice.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LookUpStore.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -186,7 +186,6 @@ Partial Class FrmMatList
         CType(Me.txtQtyPerUnit.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWarn.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtRatio.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtQtyOfUsing.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ChkStatus.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraTabPage2.SuspendLayout()
         CType(Me.GCPic4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -685,6 +684,7 @@ Partial Class FrmMatList
         Me.GroupControl4.Controls.Add(Me.TxtMaterialID)
         Me.GroupControl4.Controls.Add(Me.LookUpUnitBuy)
         Me.GroupControl4.Controls.Add(Me.LookUpSubCategory)
+        Me.GroupControl4.Controls.Add(Me.luProduct)
         Me.GroupControl4.Controls.Add(Me.LookUpCategory)
         Me.GroupControl4.Controls.Add(Me.LabelControl6)
         Me.GroupControl4.Controls.Add(Me.TxtPrice)
@@ -699,7 +699,6 @@ Partial Class FrmMatList
         Me.GroupControl4.Controls.Add(Me.txtQtyPerUnit)
         Me.GroupControl4.Controls.Add(Me.txtWarn)
         Me.GroupControl4.Controls.Add(Me.txtRatio)
-        Me.GroupControl4.Controls.Add(Me.txtQtyOfUsing)
         Me.GroupControl4.Controls.Add(Me.LabelControl11)
         Me.GroupControl4.Controls.Add(Me.LabelControl10)
         Me.GroupControl4.Controls.Add(Me.LabelControl9)
@@ -711,7 +710,6 @@ Partial Class FrmMatList
         Me.GroupControl4.Controls.Add(Me.LabelControl21)
         Me.GroupControl4.Controls.Add(Me.LabelControl5)
         Me.GroupControl4.Controls.Add(Me.LabelControl19)
-        Me.GroupControl4.Controls.Add(Me.lblQtyOfUsing_Name)
         Me.GroupControl4.Controls.Add(Me.LabelControl7)
         Me.GroupControl4.Controls.Add(Me.LabelControl3)
         Me.GroupControl4.Controls.Add(Me.LabelControl2)
@@ -774,8 +772,25 @@ Partial Class FrmMatList
         Me.LookUpSubCategory.Properties.AppearanceDropDownHeader.Font = New System.Drawing.Font("Tahoma", 9.0!)
         Me.LookUpSubCategory.Properties.AppearanceDropDownHeader.Options.UseFont = True
         Me.LookUpSubCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.LookUpSubCategory.Properties.NullText = "กรุณาเลือก"
         Me.LookUpSubCategory.Size = New System.Drawing.Size(145, 28)
         Me.LookUpSubCategory.TabIndex = 3
+        '
+        'luProduct
+        '
+        Me.luProduct.Location = New System.Drawing.Point(404, 8)
+        Me.luProduct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.luProduct.Name = "luProduct"
+        Me.luProduct.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.luProduct.Properties.Appearance.Options.UseFont = True
+        Me.luProduct.Properties.AppearanceDropDown.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.luProduct.Properties.AppearanceDropDown.Options.UseFont = True
+        Me.luProduct.Properties.AppearanceDropDownHeader.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.luProduct.Properties.AppearanceDropDownHeader.Options.UseFont = True
+        Me.luProduct.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.luProduct.Properties.NullText = "กรุณาเลือก"
+        Me.luProduct.Size = New System.Drawing.Size(112, 28)
+        Me.luProduct.TabIndex = 2
         '
         'LookUpCategory
         '
@@ -789,6 +804,7 @@ Partial Class FrmMatList
         Me.LookUpCategory.Properties.AppearanceDropDownHeader.Font = New System.Drawing.Font("Tahoma", 9.0!)
         Me.LookUpCategory.Properties.AppearanceDropDownHeader.Options.UseFont = True
         Me.LookUpCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.LookUpCategory.Properties.NullText = "กรุณาเลือก"
         Me.LookUpCategory.Size = New System.Drawing.Size(145, 28)
         Me.LookUpCategory.TabIndex = 2
         '
@@ -796,7 +812,7 @@ Partial Class FrmMatList
         '
         Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.5!)
         Me.LabelControl6.Appearance.Options.UseFont = True
-        Me.LabelControl6.Location = New System.Drawing.Point(935, 53)
+        Me.LabelControl6.Location = New System.Drawing.Point(935, 70)
         Me.LabelControl6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl6.Name = "LabelControl6"
         Me.LabelControl6.Size = New System.Drawing.Size(86, 19)
@@ -807,7 +823,7 @@ Partial Class FrmMatList
         'TxtPrice
         '
         Me.TxtPrice.EditValue = "0"
-        Me.TxtPrice.Location = New System.Drawing.Point(1034, 49)
+        Me.TxtPrice.Location = New System.Drawing.Point(1057, 61)
         Me.TxtPrice.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TxtPrice.Name = "TxtPrice"
         Me.TxtPrice.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
@@ -820,7 +836,7 @@ Partial Class FrmMatList
         '
         'LookUpStore
         '
-        Me.LookUpStore.Location = New System.Drawing.Point(786, 81)
+        Me.LookUpStore.Location = New System.Drawing.Point(1043, 7)
         Me.LookUpStore.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LookUpStore.Name = "LookUpStore"
         Me.LookUpStore.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -836,7 +852,7 @@ Partial Class FrmMatList
         '
         'LookUpLocation
         '
-        Me.LookUpLocation.Location = New System.Drawing.Point(786, 120)
+        Me.LookUpLocation.Location = New System.Drawing.Point(1043, 39)
         Me.LookUpLocation.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LookUpLocation.Name = "LookUpLocation"
         Me.LookUpLocation.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -934,14 +950,14 @@ Partial Class FrmMatList
         Me.bc128.Name = "bc128"
         Me.bc128.Padding = New System.Windows.Forms.Padding(12, 2, 12, 0)
         Me.bc128.Size = New System.Drawing.Size(205, 57)
-        Me.bc128.Symbology = Code128Generator1
+        Me.bc128.Symbology = Code128Generator2
         Me.bc128.TabIndex = 25
         Me.bc128.Visible = False
         '
         'txtQtyPerUnit
         '
         Me.txtQtyPerUnit.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtQtyPerUnit.Location = New System.Drawing.Point(474, 42)
+        Me.txtQtyPerUnit.Location = New System.Drawing.Point(404, 81)
         Me.txtQtyPerUnit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtQtyPerUnit.Name = "txtQtyPerUnit"
         Me.txtQtyPerUnit.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
@@ -954,7 +970,7 @@ Partial Class FrmMatList
         'txtWarn
         '
         Me.txtWarn.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtWarn.Location = New System.Drawing.Point(474, 116)
+        Me.txtWarn.Location = New System.Drawing.Point(403, 116)
         Me.txtWarn.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtWarn.Name = "txtWarn"
         Me.txtWarn.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
@@ -967,7 +983,7 @@ Partial Class FrmMatList
         'txtRatio
         '
         Me.txtRatio.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtRatio.Location = New System.Drawing.Point(474, 7)
+        Me.txtRatio.Location = New System.Drawing.Point(404, 43)
         Me.txtRatio.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtRatio.Name = "txtRatio"
         Me.txtRatio.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
@@ -976,19 +992,6 @@ Partial Class FrmMatList
         Me.txtRatio.Properties.MaxLength = 7
         Me.txtRatio.Size = New System.Drawing.Size(111, 28)
         Me.txtRatio.TabIndex = 24
-        '
-        'txtQtyOfUsing
-        '
-        Me.txtQtyOfUsing.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtQtyOfUsing.Location = New System.Drawing.Point(474, 79)
-        Me.txtQtyOfUsing.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.txtQtyOfUsing.Name = "txtQtyOfUsing"
-        Me.txtQtyOfUsing.Properties.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.txtQtyOfUsing.Properties.Appearance.Options.UseFont = True
-        Me.txtQtyOfUsing.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtQtyOfUsing.Properties.MaxLength = 7
-        Me.txtQtyOfUsing.Size = New System.Drawing.Size(112, 28)
-        Me.txtQtyOfUsing.TabIndex = 24
         '
         'LabelControl11
         '
@@ -1009,7 +1012,7 @@ Partial Class FrmMatList
         Me.LabelControl10.Appearance.Options.UseTextOptions = True
         Me.LabelControl10.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl10.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl10.Location = New System.Drawing.Point(646, 126)
+        Me.LabelControl10.Location = New System.Drawing.Point(903, 45)
         Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl10.Name = "LabelControl10"
         Me.LabelControl10.Size = New System.Drawing.Size(127, 20)
@@ -1024,7 +1027,7 @@ Partial Class FrmMatList
         Me.LabelControl9.Appearance.Options.UseTextOptions = True
         Me.LabelControl9.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl9.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl9.Location = New System.Drawing.Point(646, 87)
+        Me.LabelControl9.Location = New System.Drawing.Point(935, 11)
         Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl9.Name = "LabelControl9"
         Me.LabelControl9.Size = New System.Drawing.Size(127, 20)
@@ -1048,7 +1051,7 @@ Partial Class FrmMatList
         '
         Me.lblQtyPerUnit_Name.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.lblQtyPerUnit_Name.Appearance.Options.UseFont = True
-        Me.lblQtyPerUnit_Name.Location = New System.Drawing.Point(592, 43)
+        Me.lblQtyPerUnit_Name.Location = New System.Drawing.Point(522, 82)
         Me.lblQtyPerUnit_Name.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.lblQtyPerUnit_Name.Name = "lblQtyPerUnit_Name"
         Me.lblQtyPerUnit_Name.Size = New System.Drawing.Size(28, 24)
@@ -1059,7 +1062,7 @@ Partial Class FrmMatList
         '
         Me.LabelControl22.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.LabelControl22.Appearance.Options.UseFont = True
-        Me.LabelControl22.Location = New System.Drawing.Point(592, 121)
+        Me.LabelControl22.Location = New System.Drawing.Point(521, 116)
         Me.LabelControl22.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl22.Name = "LabelControl22"
         Me.LabelControl22.Size = New System.Drawing.Size(38, 24)
@@ -1082,7 +1085,7 @@ Partial Class FrmMatList
         '
         Me.lblRatio_Name.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.lblRatio_Name.Appearance.Options.UseFont = True
-        Me.lblRatio_Name.Location = New System.Drawing.Point(592, 10)
+        Me.lblRatio_Name.Location = New System.Drawing.Point(522, 46)
         Me.lblRatio_Name.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.lblRatio_Name.Name = "lblRatio_Name"
         Me.lblRatio_Name.Size = New System.Drawing.Size(26, 24)
@@ -1096,12 +1099,12 @@ Partial Class FrmMatList
         Me.LabelControl21.Appearance.Options.UseTextOptions = True
         Me.LabelControl21.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl21.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl21.Location = New System.Drawing.Point(314, 119)
+        Me.LabelControl21.Location = New System.Drawing.Point(294, 120)
         Me.LabelControl21.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl21.Name = "LabelControl21"
-        Me.LabelControl21.Size = New System.Drawing.Size(149, 20)
+        Me.LabelControl21.Size = New System.Drawing.Size(104, 20)
         Me.LabelControl21.TabIndex = 14
-        Me.LabelControl21.Text = "ระดับการแจ้งเตือน"
+        Me.LabelControl21.Text = "ระดับแจ้งเตือน"
         '
         'LabelControl5
         '
@@ -1110,7 +1113,7 @@ Partial Class FrmMatList
         Me.LabelControl5.Appearance.Options.UseTextOptions = True
         Me.LabelControl5.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl5.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl5.Location = New System.Drawing.Point(353, 41)
+        Me.LabelControl5.Location = New System.Drawing.Point(290, 79)
         Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl5.Name = "LabelControl5"
         Me.LabelControl5.Size = New System.Drawing.Size(108, 27)
@@ -1124,23 +1127,12 @@ Partial Class FrmMatList
         Me.LabelControl19.Appearance.Options.UseTextOptions = True
         Me.LabelControl19.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl19.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl19.Location = New System.Drawing.Point(404, 11)
+        Me.LabelControl19.Location = New System.Drawing.Point(341, 47)
         Me.LabelControl19.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl19.Name = "LabelControl19"
         Me.LabelControl19.Size = New System.Drawing.Size(57, 20)
         Me.LabelControl19.TabIndex = 14
         Me.LabelControl19.Text = "Ratio"
-        '
-        'lblQtyOfUsing_Name
-        '
-        Me.lblQtyOfUsing_Name.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lblQtyOfUsing_Name.Appearance.Options.UseFont = True
-        Me.lblQtyOfUsing_Name.Location = New System.Drawing.Point(592, 82)
-        Me.lblQtyOfUsing_Name.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.lblQtyOfUsing_Name.Name = "lblQtyOfUsing_Name"
-        Me.lblQtyOfUsing_Name.Size = New System.Drawing.Size(26, 24)
-        Me.lblQtyOfUsing_Name.TabIndex = 14
-        Me.lblQtyOfUsing_Name.Text = "กิโล"
         '
         'LabelControl7
         '
@@ -1149,12 +1141,12 @@ Partial Class FrmMatList
         Me.LabelControl7.Appearance.Options.UseTextOptions = True
         Me.LabelControl7.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl7.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl7.Location = New System.Drawing.Point(298, 81)
+        Me.LabelControl7.Location = New System.Drawing.Point(317, 12)
         Me.LabelControl7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(165, 20)
+        Me.LabelControl7.Size = New System.Drawing.Size(81, 20)
         Me.LabelControl7.TabIndex = 14
-        Me.LabelControl7.Text = "ประมาณการใช้ต่อเดือน"
+        Me.LabelControl7.Text = "เบอร์มีด"
         '
         'LabelControl3
         '
@@ -1948,6 +1940,7 @@ Partial Class FrmMatList
         CType(Me.TxtMaterialID.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LookUpUnitBuy.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LookUpSubCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.luProduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LookUpCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TxtPrice.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LookUpStore.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1956,7 +1949,6 @@ Partial Class FrmMatList
         CType(Me.txtQtyPerUnit.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWarn.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtRatio.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtQtyOfUsing.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ChkStatus.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XtraTabPage2.ResumeLayout(False)
         CType(Me.GCPic4, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2111,10 +2103,8 @@ Partial Class FrmMatList
     Friend WithEvents TxtPrice As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents PnlTree As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents lblQtyOfUsing_Name As DevExpress.XtraEditors.LabelControl
     Friend WithEvents lblQtyPerUnit_Name As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl5 As DevExpress.XtraEditors.LabelControl
-    Private WithEvents txtQtyOfUsing As DevExpress.XtraEditors.SpinEdit
     Private WithEvents txtQtyPerUnit As DevExpress.XtraEditors.SpinEdit
     Private WithEvents txtRatio As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents lblRatio_Name As DevExpress.XtraEditors.LabelControl
@@ -2129,4 +2119,5 @@ Partial Class FrmMatList
     Friend WithEvents pnlCurrentProcess As DevExpress.XtraEditors.PanelControl
     Friend WithEvents btnExcel_Calcel As DevExpress.XtraEditors.SimpleButton
     Public WithEvents TreeCategory As DevComponents.AdvTree.AdvTree
+    Friend WithEvents luProduct As DevExpress.XtraEditors.LookUpEdit
 End Class

@@ -26,6 +26,7 @@ Partial Class FrmStock
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStock))
         Me.gcMain = New DevExpress.XtraGrid.GridControl()
         Me.gvMain = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.tooltipGcMain = New DevExpress.Utils.ToolTipController(Me.components)
         Me.AdvBandedGridView1 = New DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView()
         Me.gv2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.gcAdjust = New DevExpress.XtraGrid.GridControl()
@@ -45,7 +46,6 @@ Partial Class FrmStock
         Me.btnExportExcel = New DevExpress.XtraEditors.SimpleButton()
         Me.lbCat = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.tooltipGcMain = New DevExpress.Utils.ToolTipController(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
@@ -111,8 +111,9 @@ Partial Class FrmStock
         Me.gcMain.MainView = Me.gvMain
         Me.gcMain.Margin = New System.Windows.Forms.Padding(4)
         Me.gcMain.Name = "gcMain"
-        Me.gcMain.Size = New System.Drawing.Size(260, 622)
+        Me.gcMain.Size = New System.Drawing.Size(777, 622)
         Me.gcMain.TabIndex = 9
+        Me.gcMain.ToolTipController = Me.tooltipGcMain
         Me.gcMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMain, Me.AdvBandedGridView1, Me.gv2})
         '
         'gvMain
@@ -137,6 +138,9 @@ Partial Class FrmStock
         Me.gvMain.OptionsView.ColumnAutoWidth = False
         Me.gvMain.OptionsView.ShowGroupPanel = False
         Me.gvMain.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        '
+        'tooltipGcMain
+        '
         '
         'AdvBandedGridView1
         '
@@ -371,9 +375,6 @@ Partial Class FrmStock
         Me.Label3.TabIndex = 13
         Me.Label3.Text = "ประเภทวัสดุ :"
         '
-        'tooltipGcMain
-        '
-        '
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.Panel2)
@@ -392,7 +393,7 @@ Partial Class FrmStock
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(260, 653)
+        Me.Panel2.Size = New System.Drawing.Size(777, 653)
         Me.Panel2.TabIndex = 10
         '
         'GroupControl3
@@ -404,41 +405,44 @@ Partial Class FrmStock
         Me.GroupControl3.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupControl3.Location = New System.Drawing.Point(0, 0)
         Me.GroupControl3.Name = "GroupControl3"
-        Me.GroupControl3.Size = New System.Drawing.Size(260, 31)
+        Me.GroupControl3.Size = New System.Drawing.Size(777, 31)
         Me.GroupControl3.TabIndex = 15
         Me.GroupControl3.Text = "ข้อมูล ณ ปัจจุบัน ตัด Stock ถึงวันที่ :"
         '
         'ExpandableSplitter1
         '
-        Me.ExpandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(101, Byte), Integer), CType(CType(147, Byte), Integer), CType(CType(207, Byte), Integer))
-        Me.ExpandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.ExpandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.ExpandableSplitter1.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.ExpandableSplitter1.BackColor2 = System.Drawing.Color.Empty
+        Me.ExpandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.ExpandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.ExpandableSplitter1.Cursor = System.Windows.Forms.Cursors.NoMoveHoriz
         Me.ExpandableSplitter1.Dock = System.Windows.Forms.DockStyle.Right
         Me.ExpandableSplitter1.ExpandableControl = Me.pnlRight
-        Me.ExpandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(101, Byte), Integer), CType(CType(147, Byte), Integer), CType(CType(207, Byte), Integer))
-        Me.ExpandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.ExpandableSplitter1.ExpandLineColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.ExpandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText
-        Me.ExpandableSplitter1.GripDarkColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.ExpandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText
-        Me.ExpandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(CType(CType(227, Byte), Integer), CType(CType(239, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ExpandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.ExpandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(151, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.ExpandableSplitter1.HotBackColor2 = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(184, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.ExpandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground2
-        Me.ExpandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground
-        Me.ExpandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(101, Byte), Integer), CType(CType(147, Byte), Integer), CType(CType(207, Byte), Integer))
-        Me.ExpandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.ExpandableSplitter1.HotExpandLineColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.ExpandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText
-        Me.ExpandableSplitter1.HotGripDarkColor = System.Drawing.Color.FromArgb(CType(CType(101, Byte), Integer), CType(CType(147, Byte), Integer), CType(CType(207, Byte), Integer))
-        Me.ExpandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.ExpandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(CType(CType(227, Byte), Integer), CType(CType(239, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ExpandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.ExpandableSplitter1.Location = New System.Drawing.Point(260, 0)
+        Me.ExpandableSplitter1.Expanded = False
+        Me.ExpandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(181, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.ExpandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground
+        Me.ExpandableSplitter1.ExpandLineColor = System.Drawing.Color.White
+        Me.ExpandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.ExpandableSplitter1.GripDarkColor = System.Drawing.Color.White
+        Me.ExpandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.ExpandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(252, Byte), Integer), CType(CType(249, Byte), Integer))
+        Me.ExpandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground
+        Me.ExpandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.ExpandableSplitter1.HotBackColor2 = System.Drawing.Color.Empty
+        Me.ExpandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.ExpandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemCheckedBackground
+        Me.ExpandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(181, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.ExpandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground
+        Me.ExpandableSplitter1.HotExpandLineColor = System.Drawing.Color.Empty
+        Me.ExpandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.ExpandableSplitter1.HotGripDarkColor = System.Drawing.Color.Empty
+        Me.ExpandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.ExpandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(252, Byte), Integer), CType(CType(249, Byte), Integer))
+        Me.ExpandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground
+        Me.ExpandableSplitter1.Location = New System.Drawing.Point(777, 0)
         Me.ExpandableSplitter1.Name = "ExpandableSplitter1"
-        Me.ExpandableSplitter1.Size = New System.Drawing.Size(19, 653)
-        Me.ExpandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007
+        Me.ExpandableSplitter1.Size = New System.Drawing.Size(24, 653)
+        Me.ExpandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Mozilla
         Me.ExpandableSplitter1.TabIndex = 11
         Me.ExpandableSplitter1.TabStop = False
         '
@@ -451,6 +455,7 @@ Partial Class FrmStock
         Me.pnlRight.Name = "pnlRight"
         Me.pnlRight.Size = New System.Drawing.Size(522, 653)
         Me.pnlRight.TabIndex = 10
+        Me.pnlRight.Visible = False
         '
         'GroupControl2
         '

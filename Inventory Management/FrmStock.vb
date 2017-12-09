@@ -293,7 +293,7 @@ Public Class FrmStock
             Dim info As GridHitInfo = view.CalcHitInfo(e.ControlMousePosition)
             If info.InRowCell Then
                 Dim MainMat As String = view.GetRowCellDisplayText(info.RowHandle, "MatName")
-                Dim text As String = view.GetRowCellDisplayText(info.RowHandle, "SubMatName")
+                Dim text As String = view.GetRowCellDisplayText(info.RowHandle, "ProductName")
                 Dim cellKey As String = info.RowHandle.ToString() & " - " & info.Column.ToString()
                 e.Info = New DevExpress.Utils.ToolTipControlInfo(cellKey, MainMat & " เบอร์ร่วมคือ : " & If(String.IsNullOrWhiteSpace(text), "ไม่มี", text))
             End If

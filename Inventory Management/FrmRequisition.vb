@@ -287,7 +287,7 @@ Public Class FrmRequisition
     Private Sub QRyStock()
         SQL = "SELECT S.TagID, SC.SubCatName, M.MatName, S.Unit1, U1.UnitName AS Unit1_Name, S.Unit3, U3.UnitName "
         SQL &= "AS Unit3_Name, O.Ratio, S.MatID, S.Unit1_ID, SC.Unit3_ID,SC.SubCatID, "
-        SQL &= "SM.SubMatName "
+        SQL &= "SM.ProductName "
         SQL &= "FROM tbStock AS S "
         SQL &= "INNER JOIN tbMat AS M ON S.MatID = M.MatID "
         SQL &= "INNER JOIN tbUnit AS U1 ON S.Unit1_ID = U1.UnitID "
@@ -318,7 +318,7 @@ Public Class FrmRequisition
             .View.Columns("Unit1_Name").Caption = " "
             .View.Columns("Unit3").Caption = "คงเหลือ"
             .View.Columns("Unit3_Name").Caption = " "
-            .View.Columns("SubMatName").Caption = "เบอร์ร่วม"
+            .View.Columns("ProductName").Caption = "เบอร์ร่วม"
             .View.Columns("TagID").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
             For Each col As GridColumn In .View.Columns
                 If enableCol.Contains(col.FieldName) Then
