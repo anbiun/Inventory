@@ -54,10 +54,11 @@ slMat:
             .ValueMember = "MatID"
         End With
 
-        SQL = "select Mat.MatID, Mat.MatName,SubMat.SubMatID,SubMat.SubMatName "
-        SQL &= "from tbSubMat SubMat inner join tbMat Mat on SubMat.MatID = Mat.matID "
-        SQL &= " where Mat.CatID+Mat.SubCatID = '" & SubCatID & "'"
-
+        SQL = "Select Mat.MatID, Mat.MatName,SubMat.SubMatID,PD.ProductName,PD.QCTarget
+                From tbSubMat SubMat 
+                inner Join tbMat Mat on SubMat.MatID = Mat.matID  
+                inner Join tbProduct PD ON PD.ProductID = SubMat.ProductID
+                where Mat.CatID + Mat.SubCatID = '" & SubCatID & "'"
         BindInfo.Name = "submat"
         BindInfo.Qry(SQL)
         With gvList
@@ -65,7 +66,8 @@ slMat:
             .PopulateColumns()
             .Columns("MatName").Group()
             .Columns("MatName").Caption = "ชื่อวัสดุ"
-            .Columns("SubMatName").Caption = "ชื่อวัสดุที่ใช้ร่วม"
+            .Columns("ProductName").Caption = "เบอร์มีด"
+            .Columns("QCTarget").Caption = "เป้าผลิต"
             .Columns("MatID").Visible = False
             .Columns("SubMatID").Caption = " "
             .Columns("SubMatID").Width = 70
@@ -95,7 +97,7 @@ slMat:
 
         With dtSubMat
             'chekDuplicate In DT
-            FoundRow = dtSubMat.Select("SubMatName = '" & txtName.Text & "'")
+            FoundRow = dtSubMat.Select("ProductName = '" & txtName.Text & "'")
             If FoundRow.Count > 0 Then
                 MessageBox.Show(txtName.Text & " มีในฐานข้อมูลแล้วไม่สามารถเพิ่มได้อีก", "ซ้ำในฐานข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 Exit Sub
@@ -109,8 +111,8 @@ slMat:
             dr("MatID") = slMat.EditValue
             dr("MatName") = slMat.Text
             dr("SubMatID") = genID()
-            dr("SubMatName") = txtName.Text
-            dupField = "SubMatName"
+            dr("ProductName") = txtName.Text
+            dupField = "ProductName"
             txtName.Text = ""
 
             For Each DataRow As DataRow In .Rows
@@ -185,7 +187,7 @@ slMat:
 
         SQL = "Delete From tbSubMat Where MatID='" & slMat.EditValue & "'"
         dsTbl("del")
-        fieldList = {"MatID", "SubMatName", "SubMatID"}
+        fieldList = {"MatID", "ProductName", "SubMatID"}
         tbDest = "tbSubMat"
         blkCpy(tbDest, dtSubMat, fieldList)
         'Edit
@@ -213,7 +215,7 @@ slMat:
         If gvList.FocusedRowHandle >= 0 Then
             Dim MatID = gvList.GetRowCellValue(gvList.FocusedRowHandle, "MatID")
             SubMatID = gvList.GetRowCellValue(gvList.FocusedRowHandle, "SubMatID")
-            txtName.Text = gvList.GetRowCellValue(gvList.FocusedRowHandle, "SubMatName")
+            txtName.Text = gvList.GetRowCellValue(gvList.FocusedRowHandle, "ProductName")
             slMat.EditValue = MatID
             If GrpInput.Enabled = True Then
                 btnDelList.Enabled = True

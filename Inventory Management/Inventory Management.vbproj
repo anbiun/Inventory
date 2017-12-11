@@ -560,7 +560,6 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -638,11 +637,21 @@
   <ItemGroup>
     <Content Include="Capital18-Ethereal-2-Mimetypes-dll.ico" />
     <Content Include="Resources\1488531970_Checklist_clipboard_inventory_list_report_tasks_todo.ico" />
+    <None Include="Resources\apply_16x16.png" />
+    <None Include="Resources\apply_16x161.png" />
+    <None Include="Resources\apply_16x162.png" />
     <Content Include="Resources\BGM1.jpg" />
     <Content Include="Resources\Computer.ico" />
     <None Include="Resources\Get.png" />
     <None Include="Resources\Send.png" />
     <None Include="Resources\Get.bmp" />
+    <None Include="Resources\ImgOK.bmp" />
+    <None Include="Resources\next_16x16.png" />
+    <None Include="Resources\previous_16x16.png" />
+    <None Include="Resources\next_16x161.png" />
+    <None Include="Resources\next_16x162.png" />
+    <None Include="Resources\next_16x163.png" />
+    <None Include="Resources\next_16x164.png" />
     <Content Include="Resources\T.ico" />
     <Content Include="Resources\zip.ico" />
   </ItemGroup>

@@ -395,7 +395,7 @@ lchangeMainLookup:
                 End If
                 ModeAddEdit = BtnEditItem.Name
                 lockMode(False)
-                GVMain.ActiveFilterString = "[MatName] LIKE '%" & TxtMaterialName.Text & "%'"
+                GVMain.ActiveFilterString = "[MatName] = '" & TxtMaterialName.Text & "'"
             Case BtnDeleteItem.Name
                 If String.IsNullOrEmpty(oldMatID) Then
                     MessageBox.Show("กรุณาเลือกข้อมูลก่อน", "ไม่สามารถลบได้", MessageBoxButtons.OK, MessageBoxIcon.Warning)

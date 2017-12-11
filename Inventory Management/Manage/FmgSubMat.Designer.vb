@@ -26,16 +26,16 @@ Partial Class FmgSubMat
         Me.gcList = New DevExpress.XtraGrid.GridControl()
         Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GrpBtn = New DevExpress.XtraEditors.GroupControl()
-        Me.slSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
-        Me.slMat = New DevExpress.XtraEditors.SearchLookUpEdit()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
         Me.GrpInput = New DevExpress.XtraEditors.GroupControl()
         Me.lblUnitName = New System.Windows.Forms.Label()
         Me.txtName = New DevExpress.XtraEditors.TextEdit()
         Me.btnDelList = New DevExpress.XtraEditors.SimpleButton()
         Me.btnAddList = New DevExpress.XtraEditors.SimpleButton()
+        Me.slSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.slMat = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
         Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
         Me.btnCancle = New DevExpress.XtraEditors.SimpleButton()
         Me.btnSave = New DevExpress.XtraEditors.SimpleButton()
@@ -44,11 +44,11 @@ Partial Class FmgSubMat
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GrpBtn, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GrpBtn.SuspendLayout()
-        CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GrpInput, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GrpInput.SuspendLayout()
         CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl3.SuspendLayout()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,58 +87,6 @@ Partial Class FmgSubMat
         Me.GrpBtn.Size = New System.Drawing.Size(442, 182)
         Me.GrpBtn.TabIndex = 24
         '
-        'slSubCat
-        '
-        Me.slSubCat.Location = New System.Drawing.Point(147, 28)
-        Me.slSubCat.Name = "slSubCat"
-        Me.slSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.slSubCat.Properties.Appearance.Options.UseFont = True
-        Me.slSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.slSubCat.Size = New System.Drawing.Size(172, 28)
-        Me.slSubCat.TabIndex = 21
-        '
-        'slMat
-        '
-        Me.slMat.Location = New System.Drawing.Point(146, 62)
-        Me.slMat.Name = "slMat"
-        Me.slMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.slMat.Properties.Appearance.Options.UseFont = True
-        Me.slMat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.slMat.Size = New System.Drawing.Size(172, 28)
-        Me.slMat.TabIndex = 21
-        '
-        'Label2
-        '
-        Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(53, 32)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(87, 22)
-        Me.Label2.TabIndex = 20
-        Me.Label2.Text = "ประเภท :"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'Label1
-        '
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(16, 65)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(124, 22)
-        Me.Label1.TabIndex = 20
-        Me.Label1.Text = "ชื่อวัสดุหลัก :"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'btnNew
-        '
-        Me.btnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNew.Appearance.Options.UseFont = True
-        Me.btnNew.ImageOptions.Image = CType(resources.GetObject("btnNew.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnNew.Location = New System.Drawing.Point(323, 63)
-        Me.btnNew.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(87, 30)
-        Me.btnNew.TabIndex = 11
-        Me.btnNew.Text = "เลือก"
-        '
         'GrpInput
         '
         Me.GrpInput.Controls.Add(Me.lblUnitName)
@@ -175,7 +123,8 @@ Partial Class FmgSubMat
         '
         Me.btnDelList.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelList.Appearance.Options.UseFont = True
-        Me.btnDelList.ImageOptions.Image = CType(resources.GetObject("btnDelList.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelList.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.btnDelList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.next_16x164
         Me.btnDelList.Location = New System.Drawing.Point(146, 42)
         Me.btnDelList.Margin = New System.Windows.Forms.Padding(2)
         Me.btnDelList.Name = "btnDelList"
@@ -187,13 +136,69 @@ Partial Class FmgSubMat
         '
         Me.btnAddList.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAddList.Appearance.Options.UseFont = True
-        Me.btnAddList.ImageOptions.Image = CType(resources.GetObject("btnAddList.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAddList.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.btnAddList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.next_16x163
         Me.btnAddList.Location = New System.Drawing.Point(280, 42)
         Me.btnAddList.Margin = New System.Windows.Forms.Padding(2)
         Me.btnAddList.Name = "btnAddList"
         Me.btnAddList.Size = New System.Drawing.Size(130, 27)
         Me.btnAddList.TabIndex = 11
         Me.btnAddList.Text = "เพิ่มรายการ"
+        '
+        'slSubCat
+        '
+        Me.slSubCat.Location = New System.Drawing.Point(147, 28)
+        Me.slSubCat.Name = "slSubCat"
+        Me.slSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.slSubCat.Properties.Appearance.Options.UseFont = True
+        Me.slSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slSubCat.Properties.NullText = "กรุณาเลือก"
+        Me.slSubCat.Size = New System.Drawing.Size(172, 28)
+        Me.slSubCat.TabIndex = 21
+        '
+        'slMat
+        '
+        Me.slMat.Location = New System.Drawing.Point(146, 62)
+        Me.slMat.Name = "slMat"
+        Me.slMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.slMat.Properties.Appearance.Options.UseFont = True
+        Me.slMat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slMat.Properties.NullText = "กรุณาเลือก"
+        Me.slMat.Size = New System.Drawing.Size(172, 28)
+        Me.slMat.TabIndex = 21
+        '
+        'Label2
+        '
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(53, 32)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(87, 22)
+        Me.Label2.TabIndex = 20
+        Me.Label2.Text = "ประเภท :"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(16, 65)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(124, 22)
+        Me.Label1.TabIndex = 20
+        Me.Label1.Text = "ชื่อวัสดุหลัก :"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'btnNew
+        '
+        Me.btnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnNew.Appearance.Options.UseFont = True
+        Me.btnNew.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.btnNew.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.apply_16x162
+        Me.btnNew.Location = New System.Drawing.Point(323, 27)
+        Me.btnNew.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnNew.Name = "btnNew"
+        Me.btnNew.Size = New System.Drawing.Size(87, 63)
+        Me.btnNew.TabIndex = 11
+        Me.btnNew.Text = "เลือก"
         '
         'GroupControl3
         '
@@ -209,6 +214,7 @@ Partial Class FmgSubMat
         '
         'btnCancle
         '
+        Me.btnCancle.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnCancle.ImageOptions.Image = CType(resources.GetObject("btnCancle.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCancle.Location = New System.Drawing.Point(4, 5)
         Me.btnCancle.Margin = New System.Windows.Forms.Padding(2)
@@ -219,6 +225,7 @@ Partial Class FmgSubMat
         '
         'btnSave
         '
+        Me.btnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
         Me.btnSave.Location = New System.Drawing.Point(112, 7)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(2)
@@ -253,11 +260,11 @@ Partial Class FmgSubMat
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GrpBtn, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrpBtn.ResumeLayout(False)
-        CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GrpInput, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrpInput.ResumeLayout(False)
         CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl3.ResumeLayout(False)
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()

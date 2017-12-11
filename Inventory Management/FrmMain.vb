@@ -99,7 +99,7 @@ Public Class FrmMain
         showFrom(FmgRequisition)
     End Sub
     Private Sub btnSubMat_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnSubMat.ItemClick
-        showFrom(FmgSubMat)
+        FmgSubMat.Show()
     End Sub
     Private Sub FrmMain_Close(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Application.Exit()
@@ -125,6 +125,6 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnProduct_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnProduct.ItemClick
-        showFrom(FmgProduct)
+        FmgProduct.Show()
     End Sub
 End Class
