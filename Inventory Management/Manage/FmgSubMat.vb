@@ -35,6 +35,15 @@ Public Class FmgSubMat
     End Enum
     Private Sub showDB(Optional Mode As QryMode = QryMode.SubCat)
         If Mode = QryMode.slMat Then GoTo slMat
+        SQL = "select ProductID, ProductName from tbProduct"
+        BindInfo.Name = "product"
+        BindInfo.Qry(SQL)
+        With slProduct.Properties
+            .DataSource = BindInfo.Result
+            .ValueMember = "ProductID"
+            .DisplayMember = "ProductName"
+        End With
+
         SQL = "select CatID+SubCatID IDValue, SubCatName From tbSubCategory"
         BindInfo.Name = "subcat"
         BindInfo.Qry(SQL)
@@ -45,7 +54,6 @@ Public Class FmgSubMat
             .DisplayMember = "SubCatName"
         End With
         If Mode = QryMode.SubCat Then Exit Sub
-
 slMat:
         SQL = "select MatID,MatName from tbMat Where CatID+SubCatID = '" & SubCatID & "'"
         With slMat.Properties
@@ -54,7 +62,7 @@ slMat:
             .ValueMember = "MatID"
         End With
 
-        SQL = "Select Mat.MatID, Mat.MatName,SubMat.SubMatID,PD.ProductName,PD.QCTarget
+        SQL = "Select Mat.MatID, Mat.MatName,SubMat.SubMatID,PD.ProductName,PD.QCTarget,PD.ProductID
                 From tbSubMat SubMat 
                 inner Join tbMat Mat on SubMat.MatID = Mat.matID  
                 inner Join tbProduct PD ON PD.ProductID = SubMat.ProductID
@@ -76,15 +84,8 @@ slMat:
 
     End Sub
     Private Sub LoadDef()
-        slSubCat.Properties.NullText = ""
-        slMat.Properties.NullText = ""
-        btnNew.Enabled = False
-        btnAddList.Enabled = False
-        btnDelList.Enabled = False
-        GrpBtn.Enabled = True
         GrpInput.Enabled = False
-        txtName.Text = ""
-        lblUnitName.Text = "ชื่อผู้ขาย"
+        GrpBtn.Enabled = True
         gvList.OptionsFind.AlwaysVisible = True
         gcList.Enabled = True
         btnSave.Enabled = False
@@ -97,13 +98,13 @@ slMat:
 
         With dtSubMat
             'chekDuplicate In DT
-            FoundRow = dtSubMat.Select("ProductName = '" & txtName.Text & "'")
+            FoundRow = dtSubMat.Select("ProductName = '" & slProduct.Text & "'")
             If FoundRow.Count > 0 Then
-                MessageBox.Show(txtName.Text & " มีในฐานข้อมูลแล้วไม่สามารถเพิ่มได้อีก", "ซ้ำในฐานข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                MessageBox.Show(slProduct.Text & " มีในฐานข้อมูลแล้วไม่สามารถเพิ่มได้อีก", "ซ้ำในฐานข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 Exit Sub
             End If
             'chekInput
-            If String.IsNullOrWhiteSpace(txtName.Text) Then
+            If String.IsNullOrWhiteSpace(slProduct.EditValue) Then
                 MessageBox.Show("กรุณากรอกข้อมูลให้ครบ", "ข้อมูลไม่ครบ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 Exit Sub
             End If
@@ -111,9 +112,9 @@ slMat:
             dr("MatID") = slMat.EditValue
             dr("MatName") = slMat.Text
             dr("SubMatID") = genID()
-            dr("ProductName") = txtName.Text
+            dr("ProductName") = slProduct.Text
+            dr("ProductID") = slProduct.EditValue
             dupField = "ProductName"
-            txtName.Text = ""
 
             For Each DataRow As DataRow In .Rows
                 If String.Equals(dr(dupField), DataRow(dupField)) Then
@@ -133,7 +134,6 @@ slMat:
             dtSubMat.AcceptChanges()
             gcList.Refresh()
             CompareDT(BindInfo.Result.DataSource, dtSubMat)
-
             'btnSave.Enabled = If(TBChange(DS.Tables("submat")) = True, True, False)
         End If
     End Sub
@@ -141,15 +141,11 @@ slMat:
         gvList.FindFilterText = Nothing
         GrpInput.Enabled = True
         GrpBtn.Enabled = False
-        txtName.Text = ""
-        txtName.ReadOnly = False
-        btnAddList.Visible = True
-        btnAddList.Enabled = True
-        btnDelList.Enabled = False
-        btnDelList.Visible = True
+        gvList.Columns("QCTarget").Visible = False
 
         BindInfo.Name = "submat"
         FoundRow = BindInfo.Result.DataSource.Select("MatID='" & slMat.EditValue & "'")
+
         If FoundRow.Count > 0 Then
             dtSubMat = FoundRow.CopyToDataTable
         Else
@@ -187,7 +183,7 @@ slMat:
 
         SQL = "Delete From tbSubMat Where MatID='" & slMat.EditValue & "'"
         dsTbl("del")
-        fieldList = {"MatID", "ProductName", "SubMatID"}
+        fieldList = {"MatID", "ProductID", "SubMatID"}
         tbDest = "tbSubMat"
         blkCpy(tbDest, dtSubMat, fieldList)
         'Edit
@@ -215,15 +211,8 @@ slMat:
         If gvList.FocusedRowHandle >= 0 Then
             Dim MatID = gvList.GetRowCellValue(gvList.FocusedRowHandle, "MatID")
             SubMatID = gvList.GetRowCellValue(gvList.FocusedRowHandle, "SubMatID")
-            txtName.Text = gvList.GetRowCellValue(gvList.FocusedRowHandle, "ProductName")
+            slProduct.EditValue = gvList.GetRowCellValue(gvList.FocusedRowHandle, "ProductID")
             slMat.EditValue = MatID
-            If GrpInput.Enabled = True Then
-                btnDelList.Enabled = True
-            Else
-                txtName.ReadOnly = True
-                btnAddList.Visible = False
-                btnDelList.Visible = False
-            End If
         End If
     End Sub
     Private Sub gvRowClick(sender As Object, e As RowClickEventArgs) Handles gvList.RowClick
@@ -253,7 +242,7 @@ slMat:
         End Try
 
     End Sub
-    Private Sub txtName_EditValueChanged(sender As Object, e As EventArgs) Handles txtName.EditValueChanged
+    Private Sub txtName_EditValueChanged(sender As Object, e As EventArgs)
         btnDelList.Enabled = False
     End Sub
 #End Region

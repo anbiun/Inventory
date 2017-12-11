@@ -738,20 +738,19 @@ Edit:
 
         SQL = "SELECT SC.SubCatName, M.MatName, M.MatID, M.CatID, M.SubCatID,"
         SQL &= " M.ItemDetail, SC.TagID, SC.Unit3_ID, M.Ratio, M.QtyPerUnit,"
-        SQL &= " SM.SubMatName"
+        SQL &= " SM.ProductName"
         SQL &= " FROM tbMat AS M INNER JOIN tbSubCategory AS SC ON M.CatID = SC.CatID AND M.SubCatID = SC.SubCatID"
         SQL &= " LEFT OUTER JOIN CombineSubMatName() SM ON M.MatID = SM.matID"
         SQL &= " WHERE M.CatID+M.SubCatID = '" & sluSubCat.EditValue & "'"
-
         With sluMat.Properties
-            Dim enableCol As String() = {"MatName", "SubCatName", "SubMatName"}
+            Dim enableCol As String() = {"MatName", "SubCatName", "ProductName"}
             .ValueMember = "MatID"
             .DisplayMember = "MatName"
             .DataSource = dsTbl("sluMat")
             .PopulateViewColumns()
             .View.Columns("SubCatName").Caption = "ประเภทวัสดุ"
             .View.Columns("MatName").Caption = "ชื่อวัสดุ"
-            .View.Columns("SubMatName").Caption = "เบอร์ร่วม"
+            .View.Columns("ProductName").Caption = "เบอร์ร่วม"
 
             'Hide SluMat Columns
             For Each col As GridColumn In sluMat.Properties.View.Columns

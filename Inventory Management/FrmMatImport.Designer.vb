@@ -59,7 +59,7 @@ Partial Class FrmMatImport
         Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl4 = New DevExpress.XtraEditors.LabelControl()
-        Me.panelTop = New DevExpress.XtraEditors.PanelControl()
+        Me.PnlLeft = New DevExpress.XtraEditors.PanelControl()
         Me.gcImportList = New DevExpress.XtraGrid.GridControl()
         Me.gvImportList = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -90,8 +90,8 @@ Partial Class FrmMatImport
         CType(Me.grpSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpSearch.SuspendLayout()
         CType(Me.txtImportNote.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.panelTop, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.panelTop.SuspendLayout()
+        CType(Me.PnlLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PnlLeft.SuspendLayout()
         CType(Me.gcImportList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvImportList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -122,7 +122,7 @@ Partial Class FrmMatImport
         Me.deImport.Properties.Appearance.Options.UseFont = True
         Me.deImport.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deImport.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deImport.Size = New System.Drawing.Size(178, 28)
+        Me.deImport.Size = New System.Drawing.Size(207, 28)
         Me.deImport.TabIndex = 0
         '
         'lblUnit3_name
@@ -155,7 +155,7 @@ Partial Class FrmMatImport
         Me.sluSupplier.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.sluSupplier.Properties.NullText = ""
         Me.sluSupplier.Properties.View = Me.GridView3
-        Me.sluSupplier.Size = New System.Drawing.Size(178, 28)
+        Me.sluSupplier.Size = New System.Drawing.Size(207, 28)
         Me.sluSupplier.TabIndex = 3
         '
         'GridView3
@@ -192,7 +192,7 @@ Partial Class FrmMatImport
         Me.txtBillNo.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBillNo.MaxLength = 15
         Me.txtBillNo.Name = "txtBillNo"
-        Me.txtBillNo.Size = New System.Drawing.Size(178, 28)
+        Me.txtBillNo.Size = New System.Drawing.Size(207, 28)
         Me.txtBillNo.TabIndex = 1
         '
         'grpMatImport
@@ -214,10 +214,10 @@ Partial Class FrmMatImport
         Me.grpMatImport.Controls.Add(Me.lblUnit3)
         Me.grpMatImport.Controls.Add(Me.lblUnit1)
         Me.grpMatImport.Dock = System.Windows.Forms.DockStyle.Top
-        Me.grpMatImport.Location = New System.Drawing.Point(2, 338)
+        Me.grpMatImport.Location = New System.Drawing.Point(2, 323)
         Me.grpMatImport.Name = "grpMatImport"
         Me.grpMatImport.ShowCaption = False
-        Me.grpMatImport.Size = New System.Drawing.Size(397, 253)
+        Me.grpMatImport.Size = New System.Drawing.Size(374, 253)
         Me.grpMatImport.TabIndex = 9
         '
         'txtUnit3
@@ -346,7 +346,7 @@ Partial Class FrmMatImport
         '
         Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl3.Appearance.Options.UseFont = True
-        Me.LabelControl3.Location = New System.Drawing.Point(59, 92)
+        Me.LabelControl3.Location = New System.Drawing.Point(56, 92)
         Me.LabelControl3.Name = "LabelControl3"
         Me.LabelControl3.Size = New System.Drawing.Size(83, 21)
         Me.LabelControl3.TabIndex = 9
@@ -362,7 +362,7 @@ Partial Class FrmMatImport
         Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.sluSubCat.Properties.NullText = ""
         Me.sluSubCat.Properties.View = Me.GridView1
-        Me.sluSubCat.Size = New System.Drawing.Size(178, 28)
+        Me.sluSubCat.Size = New System.Drawing.Size(207, 28)
         Me.sluSubCat.TabIndex = 7
         '
         'GridView1
@@ -380,10 +380,10 @@ Partial Class FrmMatImport
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(2, 591)
+        Me.PnlSave.Location = New System.Drawing.Point(2, 576)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(397, 157)
+        Me.PnlSave.Size = New System.Drawing.Size(374, 172)
         Me.PnlSave.TabIndex = 1
         Me.PnlSave.Visible = False
         '
@@ -454,7 +454,7 @@ Partial Class FrmMatImport
         Me.BtnNew.Appearance.Options.UseFont = True
         Me.BtnNew.ImageOptions.Image = CType(resources.GetObject("BtnNew.ImageOptions.Image"), System.Drawing.Image)
         Me.BtnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.BtnNew.Location = New System.Drawing.Point(153, 227)
+        Me.BtnNew.Location = New System.Drawing.Point(152, 227)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnNew.Name = "BtnNew"
         Me.BtnNew.Size = New System.Drawing.Size(132, 27)
@@ -479,16 +479,16 @@ Partial Class FrmMatImport
         Me.grpSearch.Location = New System.Drawing.Point(2, 2)
         Me.grpSearch.Name = "grpSearch"
         Me.grpSearch.ShowCaption = False
-        Me.grpSearch.Size = New System.Drawing.Size(397, 336)
+        Me.grpSearch.Size = New System.Drawing.Size(374, 321)
         Me.grpSearch.TabIndex = 16
         '
         'txtImportNote
         '
-        Me.txtImportNote.Location = New System.Drawing.Point(152, 157)
+        Me.txtImportNote.Location = New System.Drawing.Point(153, 157)
         Me.txtImportNote.Name = "txtImportNote"
         Me.txtImportNote.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImportNote.Properties.Appearance.Options.UseFont = True
-        Me.txtImportNote.Size = New System.Drawing.Size(179, 63)
+        Me.txtImportNote.Size = New System.Drawing.Size(208, 63)
         Me.txtImportNote.TabIndex = 10
         '
         'LabelControl1
@@ -498,7 +498,7 @@ Partial Class FrmMatImport
         Me.LabelControl1.Appearance.Options.UseTextOptions = True
         Me.LabelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl1.Location = New System.Drawing.Point(43, 153)
+        Me.LabelControl1.Location = New System.Drawing.Point(40, 153)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(100, 21)
         Me.LabelControl1.TabIndex = 9
@@ -511,7 +511,7 @@ Partial Class FrmMatImport
         Me.LabelControl11.Appearance.Options.UseTextOptions = True
         Me.LabelControl11.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl11.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl11.Location = New System.Drawing.Point(97, 126)
+        Me.LabelControl11.Location = New System.Drawing.Point(94, 126)
         Me.LabelControl11.Name = "LabelControl11"
         Me.LabelControl11.Size = New System.Drawing.Size(46, 21)
         Me.LabelControl11.TabIndex = 9
@@ -524,7 +524,7 @@ Partial Class FrmMatImport
         Me.LabelControl10.Appearance.Options.UseTextOptions = True
         Me.LabelControl10.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl10.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl10.Location = New System.Drawing.Point(16, 57)
+        Me.LabelControl10.Location = New System.Drawing.Point(13, 57)
         Me.LabelControl10.Name = "LabelControl10"
         Me.LabelControl10.Size = New System.Drawing.Size(127, 21)
         Me.LabelControl10.TabIndex = 9
@@ -537,22 +537,22 @@ Partial Class FrmMatImport
         Me.LabelControl4.Appearance.Options.UseTextOptions = True
         Me.LabelControl4.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl4.Location = New System.Drawing.Point(52, 22)
+        Me.LabelControl4.Location = New System.Drawing.Point(49, 22)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(91, 21)
         Me.LabelControl4.TabIndex = 9
         Me.LabelControl4.Text = "วันที่นำเข้า"
         '
-        'panelTop
+        'PnlLeft
         '
-        Me.panelTop.Controls.Add(Me.PnlSave)
-        Me.panelTop.Controls.Add(Me.grpMatImport)
-        Me.panelTop.Controls.Add(Me.grpSearch)
-        Me.panelTop.Dock = System.Windows.Forms.DockStyle.Left
-        Me.panelTop.Location = New System.Drawing.Point(0, 0)
-        Me.panelTop.Name = "panelTop"
-        Me.panelTop.Size = New System.Drawing.Size(401, 750)
-        Me.panelTop.TabIndex = 17
+        Me.PnlLeft.Controls.Add(Me.PnlSave)
+        Me.PnlLeft.Controls.Add(Me.grpMatImport)
+        Me.PnlLeft.Controls.Add(Me.grpSearch)
+        Me.PnlLeft.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PnlLeft.Location = New System.Drawing.Point(0, 0)
+        Me.PnlLeft.Name = "PnlLeft"
+        Me.PnlLeft.Size = New System.Drawing.Size(378, 750)
+        Me.PnlLeft.TabIndex = 17
         '
         'gcImportList
         '
@@ -563,7 +563,7 @@ Partial Class FrmMatImport
         Me.gcImportList.MainView = Me.gvImportList
         Me.gcImportList.Margin = New System.Windows.Forms.Padding(4)
         Me.gcImportList.Name = "gcImportList"
-        Me.gcImportList.Size = New System.Drawing.Size(736, 213)
+        Me.gcImportList.Size = New System.Drawing.Size(759, 213)
         Me.gcImportList.TabIndex = 8
         Me.gcImportList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvImportList, Me.GridView2})
         '
@@ -625,9 +625,9 @@ Partial Class FrmMatImport
         Me.GroupControl1.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl1.Controls.Add(Me.gcImportList)
         Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupControl1.Location = New System.Drawing.Point(401, 0)
+        Me.GroupControl1.Location = New System.Drawing.Point(378, 0)
         Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(740, 242)
+        Me.GroupControl1.Size = New System.Drawing.Size(763, 242)
         Me.GroupControl1.TabIndex = 19
         Me.GroupControl1.Text = "ข้อมูลใบรับของ"
         '
@@ -640,9 +640,9 @@ Partial Class FrmMatImport
         Me.GroupControl2.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl2.Controls.Add(Me.gcImportOrder)
         Me.GroupControl2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupControl2.Location = New System.Drawing.Point(401, 242)
+        Me.GroupControl2.Location = New System.Drawing.Point(378, 242)
         Me.GroupControl2.Name = "GroupControl2"
-        Me.GroupControl2.Size = New System.Drawing.Size(740, 508)
+        Me.GroupControl2.Size = New System.Drawing.Size(763, 508)
         Me.GroupControl2.TabIndex = 20
         Me.GroupControl2.Text = "รายการในใบรับของ"
         '
@@ -652,7 +652,7 @@ Partial Class FrmMatImport
         Me.gcImportOrder.Location = New System.Drawing.Point(2, 27)
         Me.gcImportOrder.MainView = Me.gvImportOrder
         Me.gcImportOrder.Name = "gcImportOrder"
-        Me.gcImportOrder.Size = New System.Drawing.Size(736, 479)
+        Me.gcImportOrder.Size = New System.Drawing.Size(759, 479)
         Me.gcImportOrder.TabIndex = 9
         Me.gcImportOrder.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvImportOrder})
         '
@@ -673,7 +673,7 @@ Partial Class FrmMatImport
         Me.ClientSize = New System.Drawing.Size(1141, 750)
         Me.Controls.Add(Me.GroupControl2)
         Me.Controls.Add(Me.GroupControl1)
-        Me.Controls.Add(Me.panelTop)
+        Me.Controls.Add(Me.PnlLeft)
         Me.Name = "FrmMatImport"
         Me.Text = "นำเข้าวัสดุ"
         CType(Me.luUnit1_name.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -698,8 +698,8 @@ Partial Class FrmMatImport
         Me.grpSearch.ResumeLayout(False)
         Me.grpSearch.PerformLayout()
         CType(Me.txtImportNote.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.panelTop, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.panelTop.ResumeLayout(False)
+        CType(Me.PnlLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PnlLeft.ResumeLayout(False)
         CType(Me.gcImportList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvImportList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -729,7 +729,7 @@ Partial Class FrmMatImport
     Friend WithEvents BtnNew As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents BtnEdit As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents grpSearch As DevExpress.XtraEditors.GroupControl
-    Friend WithEvents panelTop As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents PnlLeft As DevExpress.XtraEditors.PanelControl
     Friend WithEvents btnRemove As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnAdd As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents gcImportList As DevExpress.XtraGrid.GridControl

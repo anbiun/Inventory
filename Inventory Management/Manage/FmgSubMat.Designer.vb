@@ -27,10 +27,10 @@ Partial Class FmgSubMat
         Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GrpBtn = New DevExpress.XtraEditors.GroupControl()
         Me.GrpInput = New DevExpress.XtraEditors.GroupControl()
-        Me.lblUnitName = New System.Windows.Forms.Label()
-        Me.txtName = New DevExpress.XtraEditors.TextEdit()
         Me.btnDelList = New DevExpress.XtraEditors.SimpleButton()
         Me.btnAddList = New DevExpress.XtraEditors.SimpleButton()
+        Me.slProduct = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.slSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.slMat = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -46,7 +46,7 @@ Partial Class FmgSubMat
         Me.GrpBtn.SuspendLayout()
         CType(Me.GrpInput, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GrpInput.SuspendLayout()
-        CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.slProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,10 +58,10 @@ Partial Class FmgSubMat
         'gcList
         '
         Me.gcList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gcList.Location = New System.Drawing.Point(0, 182)
+        Me.gcList.Location = New System.Drawing.Point(0, 158)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(442, 485)
+        Me.gcList.Size = New System.Drawing.Size(442, 509)
         Me.gcList.TabIndex = 7
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -75,7 +75,6 @@ Partial Class FmgSubMat
         '
         'GrpBtn
         '
-        Me.GrpBtn.Controls.Add(Me.GrpInput)
         Me.GrpBtn.Controls.Add(Me.slSubCat)
         Me.GrpBtn.Controls.Add(Me.slMat)
         Me.GrpBtn.Controls.Add(Me.Label2)
@@ -84,40 +83,22 @@ Partial Class FmgSubMat
         Me.GrpBtn.Dock = System.Windows.Forms.DockStyle.Top
         Me.GrpBtn.Location = New System.Drawing.Point(0, 0)
         Me.GrpBtn.Name = "GrpBtn"
-        Me.GrpBtn.Size = New System.Drawing.Size(442, 182)
+        Me.GrpBtn.ShowCaption = False
+        Me.GrpBtn.Size = New System.Drawing.Size(442, 82)
         Me.GrpBtn.TabIndex = 24
         '
         'GrpInput
         '
-        Me.GrpInput.Controls.Add(Me.lblUnitName)
-        Me.GrpInput.Controls.Add(Me.txtName)
         Me.GrpInput.Controls.Add(Me.btnDelList)
         Me.GrpInput.Controls.Add(Me.btnAddList)
-        Me.GrpInput.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GrpInput.Location = New System.Drawing.Point(2, 98)
+        Me.GrpInput.Controls.Add(Me.slProduct)
+        Me.GrpInput.Controls.Add(Me.Label3)
+        Me.GrpInput.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GrpInput.Location = New System.Drawing.Point(0, 82)
         Me.GrpInput.Name = "GrpInput"
         Me.GrpInput.ShowCaption = False
-        Me.GrpInput.Size = New System.Drawing.Size(438, 82)
+        Me.GrpInput.Size = New System.Drawing.Size(442, 76)
         Me.GrpInput.TabIndex = 25
-        '
-        'lblUnitName
-        '
-        Me.lblUnitName.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUnitName.Location = New System.Drawing.Point(11, 12)
-        Me.lblUnitName.Name = "lblUnitName"
-        Me.lblUnitName.Size = New System.Drawing.Size(128, 22)
-        Me.lblUnitName.TabIndex = 20
-        Me.lblUnitName.Text = "ชื่อวัสดุใช้ร่วม :"
-        Me.lblUnitName.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtName
-        '
-        Me.txtName.Location = New System.Drawing.Point(145, 9)
-        Me.txtName.Name = "txtName"
-        Me.txtName.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtName.Properties.Appearance.Options.UseFont = True
-        Me.txtName.Size = New System.Drawing.Size(264, 28)
-        Me.txtName.TabIndex = 23
         '
         'btnDelList
         '
@@ -145,9 +126,30 @@ Partial Class FmgSubMat
         Me.btnAddList.TabIndex = 11
         Me.btnAddList.Text = "เพิ่มรายการ"
         '
+        'slProduct
+        '
+        Me.slProduct.Location = New System.Drawing.Point(144, 5)
+        Me.slProduct.Name = "slProduct"
+        Me.slProduct.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.slProduct.Properties.Appearance.Options.UseFont = True
+        Me.slProduct.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slProduct.Properties.NullText = "กรุณาเลือก"
+        Me.slProduct.Size = New System.Drawing.Size(172, 28)
+        Me.slProduct.TabIndex = 21
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(14, 8)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(124, 22)
+        Me.Label3.TabIndex = 20
+        Me.Label3.Text = "เบอร์มีด :"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
         'slSubCat
         '
-        Me.slSubCat.Location = New System.Drawing.Point(147, 28)
+        Me.slSubCat.Location = New System.Drawing.Point(146, 12)
         Me.slSubCat.Name = "slSubCat"
         Me.slSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slSubCat.Properties.Appearance.Options.UseFont = True
@@ -158,7 +160,7 @@ Partial Class FmgSubMat
         '
         'slMat
         '
-        Me.slMat.Location = New System.Drawing.Point(146, 62)
+        Me.slMat.Location = New System.Drawing.Point(145, 46)
         Me.slMat.Name = "slMat"
         Me.slMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slMat.Properties.Appearance.Options.UseFont = True
@@ -170,7 +172,7 @@ Partial Class FmgSubMat
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(53, 32)
+        Me.Label2.Location = New System.Drawing.Point(52, 16)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(87, 22)
         Me.Label2.TabIndex = 20
@@ -180,7 +182,7 @@ Partial Class FmgSubMat
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(16, 65)
+        Me.Label1.Location = New System.Drawing.Point(15, 49)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(124, 22)
         Me.Label1.TabIndex = 20
@@ -193,7 +195,7 @@ Partial Class FmgSubMat
         Me.btnNew.Appearance.Options.UseFont = True
         Me.btnNew.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnNew.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.apply_16x162
-        Me.btnNew.Location = New System.Drawing.Point(323, 27)
+        Me.btnNew.Location = New System.Drawing.Point(322, 11)
         Me.btnNew.Margin = New System.Windows.Forms.Padding(2)
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(87, 63)
@@ -249,12 +251,14 @@ Partial Class FmgSubMat
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(442, 723)
         Me.Controls.Add(Me.gcList)
-        Me.Controls.Add(Me.GrpBtn)
         Me.Controls.Add(Me.PanelControl1)
+        Me.Controls.Add(Me.GrpInput)
+        Me.Controls.Add(Me.GrpBtn)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximumSize = New System.Drawing.Size(460, 770)
         Me.MinimumSize = New System.Drawing.Size(460, 770)
         Me.Name = "FmgSubMat"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "ข้อมูลเบอร์ร่วม"
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
@@ -262,7 +266,7 @@ Partial Class FmgSubMat
         Me.GrpBtn.ResumeLayout(False)
         CType(Me.GrpInput, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrpInput.ResumeLayout(False)
-        CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.slProduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.slMat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -277,9 +281,7 @@ Partial Class FmgSubMat
     Friend WithEvents GrpBtn As DevExpress.XtraEditors.GroupControl
     Friend WithEvents btnNew As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents GrpInput As DevExpress.XtraEditors.GroupControl
-    Friend WithEvents lblUnitName As System.Windows.Forms.Label
     Friend WithEvents btnAddList As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents txtName As DevExpress.XtraEditors.TextEdit
     Friend WithEvents btnDelList As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents GroupControl3 As DevExpress.XtraEditors.GroupControl
     Friend WithEvents btnCancle As DevExpress.XtraEditors.SimpleButton
@@ -291,4 +293,6 @@ Partial Class FmgSubMat
     Friend WithEvents slSubCat As DevExpress.XtraEditors.SearchLookUpEdit
     'Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents slProduct As DevExpress.XtraEditors.SearchLookUpEdit
+    Friend WithEvents Label3 As Label
 End Class
