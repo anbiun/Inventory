@@ -65,8 +65,8 @@ Public Class FrmRequisition
         For rw As Integer = 0 To gvList.RowCount - 1
             If TagID = gvList.GetRowCellValue(rw, "TagID") Then
                 'PriceSum = PriceSum + CDbl(gvDes.GetRowCellValue(rw, "Price"))
-                Unit1_Sum = CDbl(gvList.GetRowCellValue(rw, "Unit1_Num")) + Unit1_Num
-                Unit3_Sum = CDbl(gvList.GetRowCellValue(rw, "Unit3_Num")) + Unit3_Num
+                Unit1_Sum = CDbl(gvList.GetRowCellValue(rw, "Unit1_Num")) + ImReq.Unit1
+                Unit3_Sum = CDbl(gvList.GetRowCellValue(rw, "Unit3_Num")) + ImReq.Unit3
             End If
         Next
         If Unit1_Sum > slClick(slTagID, "Unit1") Or Unit3_Sum > slClick(slTagID, "Unit3") Then

@@ -414,8 +414,9 @@ SubUnit:
                     cancelFunc()
                     Exit Sub
                 End If
+                ImportID = gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "ImportID")
+                If ImportID = Nothing Then Exit Sub
                 If MessageBox.Show("ยืนยันการลบ ใบรับของเลขที่ : " & gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "BillNo"), "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
-                    ImportID = gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "ImportID")
                     SQL = "delete from tbImportDetail where ImportID ='" & ImportID & "'" _
                         & " delete from tbImportList where ImportID ='" & ImportID & "'" _
                         & " delete from tbImportOrder where ImportID ='" & ImportID & "'" _
@@ -430,7 +431,7 @@ SubUnit:
         Dim btn As SimpleButton = CType(sender, SimpleButton)
         Select Case btn.Name
             Case BtnNew.Name
-                If chkInput(grpSearch) = False Then Exit Sub
+                If chkInput(grpSearch, txtImportNote.Name) = False Then Exit Sub
                 If chkDuplicate(Trim(txtBillNo.Text), "ImportList", "ImportDate='" & deImport.EditValue & "' AND BillNo='") = False Then
                     MessageBox.Show("เลขที่เอกสารนี้มีในระบบแล้ว", "เลขที่ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     cancelFunc()

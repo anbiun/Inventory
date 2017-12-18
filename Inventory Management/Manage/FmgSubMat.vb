@@ -89,6 +89,8 @@ slMat:
         gvList.OptionsFind.AlwaysVisible = True
         gcList.Enabled = True
         btnSave.Enabled = False
+        btnNew.Enabled = If(String.IsNullOrEmpty(slMat.Text) Or
+                                 String.IsNullOrEmpty(slSubCat.Text), False, True)
     End Sub
 #End Region
 #Region "Button Control"
@@ -162,7 +164,6 @@ slMat:
     Private Sub btnCancle_Click(sender As Object, e As EventArgs) Handles btnCancle.Click
         showDB(QryMode.slMat)
         LoadDef()
-        btnNew.Enabled = True
         gvList.FindFilterText = Nothing
     End Sub
     Private Sub btnUnit_Remove_Click(sender As Object, e As EventArgs)

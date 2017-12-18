@@ -198,7 +198,7 @@ Public Class FrmStock
         With gvMain
             .Columns("SubCatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
             .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-            Dim ColList As String() = {"Unit1", "Unit3"}
+            Dim ColList As String() = {"Unit1", "Unit3", "Dozen"}
             For Each items As String In ColList
                 .Columns(items).DisplayFormat.FormatType = FormatType.Numeric
                 .Columns(items).DisplayFormat.FormatString = "#,0.0"

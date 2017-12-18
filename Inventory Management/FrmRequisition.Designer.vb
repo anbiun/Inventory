@@ -170,7 +170,7 @@ Partial Class FrmRequisition
         Me.txtRequestNo.Name = "txtRequestNo"
         Me.txtRequestNo.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRequestNo.Properties.Appearance.Options.UseFont = True
-        Me.txtRequestNo.Size = New System.Drawing.Size(124, 28)
+        Me.txtRequestNo.Size = New System.Drawing.Size(193, 28)
         Me.txtRequestNo.TabIndex = 2
         '
         'Label4
@@ -192,7 +192,7 @@ Partial Class FrmRequisition
         Me.deDate.Properties.Appearance.Options.UseFont = True
         Me.deDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deDate.Size = New System.Drawing.Size(124, 28)
+        Me.deDate.Size = New System.Drawing.Size(193, 28)
         Me.deDate.TabIndex = 1
         '
         'Label5
@@ -235,7 +235,7 @@ Partial Class FrmRequisition
         Me.slTagID.Properties.Appearance.Options.UseFont = True
         Me.slTagID.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.slTagID.Properties.View = Me.SearchLookUpEdit1View
-        Me.slTagID.Size = New System.Drawing.Size(125, 28)
+        Me.slTagID.Size = New System.Drawing.Size(192, 28)
         Me.slTagID.TabIndex = 18
         '
         'SearchLookUpEdit1View
@@ -286,7 +286,7 @@ Partial Class FrmRequisition
         Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.sluSubCat.Properties.NullText = ""
         Me.sluSubCat.Properties.View = Me.GridView1
-        Me.sluSubCat.Size = New System.Drawing.Size(123, 28)
+        Me.sluSubCat.Size = New System.Drawing.Size(192, 28)
         Me.sluSubCat.TabIndex = 0
         '
         'GridView1
@@ -315,7 +315,7 @@ Partial Class FrmRequisition
         Me.lbUserStock.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.lbUserStock.Location = New System.Drawing.Point(125, 178)
         Me.lbUserStock.Name = "lbUserStock"
-        Me.lbUserStock.Size = New System.Drawing.Size(124, 24)
+        Me.lbUserStock.Size = New System.Drawing.Size(193, 24)
         Me.lbUserStock.TabIndex = 13
         Me.lbUserStock.Text = "ปริมาณ"
         '
@@ -326,7 +326,7 @@ Partial Class FrmRequisition
         Me.txtUserRequest.Name = "txtUserRequest"
         Me.txtUserRequest.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUserRequest.Properties.Appearance.Options.UseFont = True
-        Me.txtUserRequest.Size = New System.Drawing.Size(124, 28)
+        Me.txtUserRequest.Size = New System.Drawing.Size(193, 28)
         Me.txtUserRequest.TabIndex = 3
         '
         'lbUnit3Name

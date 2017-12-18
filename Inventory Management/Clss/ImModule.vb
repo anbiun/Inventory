@@ -109,10 +109,10 @@ Module ImModule
 
         Return False
     End Function
-    Friend Function chkInput(grpBox As GroupControl) As Boolean
+    Friend Function chkInput(grpBox As GroupControl, Optional Without As String = Nothing) As Boolean
         For Each ctr As Control In grpBox.Controls
             If TypeOf ctr Is TextBox Or TypeOf ctr Is TextEdit Then
-                If String.IsNullOrEmpty(ctr.Text) Then
+                If String.IsNullOrEmpty(ctr.Text) And ctr.Name <> Without Then
                     ctr.Focus()
                     Return False
                 End If
