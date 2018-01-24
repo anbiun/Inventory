@@ -595,8 +595,8 @@ lchangeMainLookup:
     Private Sub btnExport_Excel_Click(sender As Object, e As EventArgs) Handles btnExcel_Export.Click, btnExcel_Import.Click, btnExcel_Save.Click, btnExcel_Calcel.Click
         'ฟังชั่น Export Excel
         Dim btn As SimpleButton = CType(sender, SimpleButton)
-        Dim ExportInfo As New ExcelExport
-        ExportInfo.FilterSet = ExcelExport.FilterOption.Excel_97
+        Dim ExportInfo As New export.ExcelExport
+        ExportInfo.FilterSet = export.ExcelExport.FilterOption.Excel_97
 
         If btn.Name = btnExcel_Import.Name Then
             'นำข้อมูลเข้า

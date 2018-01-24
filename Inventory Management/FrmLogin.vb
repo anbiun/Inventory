@@ -156,4 +156,5 @@ Public Class FrmLogin
         UserInfo.Login()
         showSelectLoc()
     End Sub
+
 End Class

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FmgProduct
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class FmgQCTarget
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,9 +20,9 @@ Partial Class FmgProduct
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FmgProduct))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FmgQCTarget))
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtProduct = New DevExpress.XtraEditors.TextEdit()
         Me.gcList = New DevExpress.XtraGrid.GridControl()
@@ -31,8 +31,8 @@ Partial Class FmgProduct
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.grpImport = New DevExpress.XtraEditors.GroupControl()
-        Me.txtTarget = New DevExpress.XtraEditors.SpinEdit()
         Me.btnOK = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtTarget = New DevExpress.XtraEditors.SpinEdit()
         Me.btnAddList = New DevExpress.XtraEditors.SimpleButton()
         Me.grpSave = New DevExpress.XtraEditors.GroupControl()
         Me.btnCancel = New DevExpress.XtraEditors.SimpleButton()
@@ -43,7 +43,7 @@ Partial Class FmgProduct
         Me.btnRemove = New DevExpress.XtraEditors.SimpleButton()
         Me.btnEdit = New DevExpress.XtraEditors.SimpleButton()
         Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.txtQuatername = New DevExpress.XtraEditors.TextEdit()
         CType(Me.txtProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,6 +54,7 @@ Partial Class FmgProduct
         Me.grpSave.SuspendLayout()
         CType(Me.grpMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpMenu.SuspendLayout()
+        CType(Me.txtQuatername.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label2
@@ -84,7 +85,7 @@ Partial Class FmgProduct
         Me.gcList.Location = New System.Drawing.Point(0, 198)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(649, 481)
+        Me.gcList.Size = New System.Drawing.Size(649, 451)
         Me.gcList.TabIndex = 24
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -93,7 +94,9 @@ Partial Class FmgProduct
         Me.gvList.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
         Me.gvList.GridControl = Me.gcList
         Me.gvList.Name = "gvList"
+        Me.gvList.OptionsBehavior.Editable = False
         Me.gvList.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
+        Me.gvList.OptionsLayout.Columns.AddNewColumns = False
         Me.gvList.OptionsView.ShowGroupPanel = False
         '
         'btnDelList
@@ -153,20 +156,6 @@ Partial Class FmgProduct
         Me.grpImport.TabIndex = 30
         Me.grpImport.Text = "GroupControl1"
         '
-        'txtTarget
-        '
-        Me.txtTarget.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.txtTarget.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtTarget.Location = New System.Drawing.Point(294, 45)
-        Me.txtTarget.Name = "txtTarget"
-        Me.txtTarget.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTarget.Properties.Appearance.Options.UseFont = True
-        Me.txtTarget.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.txtTarget.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtTarget.Properties.MaxLength = 7
-        Me.txtTarget.Size = New System.Drawing.Size(100, 30)
-        Me.txtTarget.TabIndex = 30
-        '
         'btnOK
         '
         Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom
@@ -182,6 +171,20 @@ Partial Class FmgProduct
         Me.btnOK.Size = New System.Drawing.Size(353, 27)
         Me.btnOK.TabIndex = 27
         Me.btnOK.Text = "แก้ไข"
+        '
+        'txtTarget
+        '
+        Me.txtTarget.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.txtTarget.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtTarget.Location = New System.Drawing.Point(294, 45)
+        Me.txtTarget.Name = "txtTarget"
+        Me.txtTarget.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTarget.Properties.Appearance.Options.UseFont = True
+        Me.txtTarget.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.txtTarget.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.txtTarget.Properties.MaxLength = 7
+        Me.txtTarget.Size = New System.Drawing.Size(100, 30)
+        Me.txtTarget.TabIndex = 30
         '
         'btnAddList
         '
@@ -345,21 +348,37 @@ Partial Class FmgProduct
         Me.btnNew.TabIndex = 27
         Me.btnNew.Text = "ข้อมูลใหม่"
         '
-        'FmgProduct
+        'txtQuatername
+        '
+        Me.txtQuatername.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtQuatername.Location = New System.Drawing.Point(0, 649)
+        Me.txtQuatername.Name = "txtQuatername"
+        Me.txtQuatername.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQuatername.Properties.Appearance.Options.UseFont = True
+        Me.txtQuatername.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtQuatername.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.txtQuatername.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.txtQuatername.Size = New System.Drawing.Size(649, 30)
+        Me.txtQuatername.TabIndex = 31
+        Me.txtQuatername.ToolTip = "test"
+        Me.txtQuatername.ToolTipTitle = "title"
+        '
+        'FmgQCTarget
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
         Me.ClientSize = New System.Drawing.Size(649, 737)
         Me.Controls.Add(Me.gcList)
+        Me.Controls.Add(Me.txtQuatername)
         Me.Controls.Add(Me.grpSave)
         Me.Controls.Add(Me.grpImport)
         Me.Controls.Add(Me.grpMenu)
         Me.MaximumSize = New System.Drawing.Size(667, 784)
         Me.MinimumSize = New System.Drawing.Size(667, 784)
-        Me.Name = "FmgProduct"
+        Me.Name = "FmgQCTarget"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "ข้อมูลสินค้า"
+        Me.Text = "เป้าผลิต"
         Me.TopMost = True
         CType(Me.txtProduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
@@ -371,6 +390,7 @@ Partial Class FmgProduct
         Me.grpSave.ResumeLayout(False)
         CType(Me.grpMenu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpMenu.ResumeLayout(False)
+        CType(Me.txtQuatername.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -394,6 +414,6 @@ Partial Class FmgProduct
     Friend WithEvents btnExport As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnImport As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnAddList As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnOK As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents txtQuatername As DevExpress.XtraEditors.TextEdit
 End Class

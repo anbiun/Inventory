@@ -67,6 +67,7 @@ Partial Class FrmMain
         Me.btnLogs_Import = New DevExpress.XtraBars.BarButtonItem()
         Me.btn_ListTag = New DevExpress.XtraBars.BarButtonItem()
         Me.btnLogs_Transfer = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnProduct = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection(Me.components)
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribGrpNewSub = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -79,7 +80,6 @@ Partial Class FrmMain
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.XtraTabbedMdiManager1 = New DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(Me.components)
-        Me.btnProduct = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.appMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ribbonImageCollection, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -413,6 +413,14 @@ Partial Class FrmMain
         Me.btnLogs_Transfer.ItemAppearance.Normal.Options.UseForeColor = True
         Me.btnLogs_Transfer.Name = "btnLogs_Transfer"
         '
+        'btnProduct
+        '
+        Me.btnProduct.Caption = "เป้าผลิต"
+        Me.btnProduct.Id = 82
+        Me.btnProduct.ImageOptions.Image = CType(resources.GetObject("btnProduct.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnProduct.ImageOptions.LargeImage = CType(resources.GetObject("btnProduct.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnProduct.Name = "btnProduct"
+        '
         'ribbonImageCollectionLarge
         '
         Me.ribbonImageCollectionLarge.ImageSize = New System.Drawing.Size(32, 32)
@@ -502,12 +510,6 @@ Partial Class FrmMain
         Me.XtraTabbedMdiManager1.FloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabbedMdiManager1.FloatOnDrag = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabbedMdiManager1.MdiParent = Me
-        '
-        'btnProduct
-        '
-        Me.btnProduct.Caption = "ข้อมูลสินค้า"
-        Me.btnProduct.Id = 82
-        Me.btnProduct.Name = "btnProduct"
         '
         'FrmMain
         '

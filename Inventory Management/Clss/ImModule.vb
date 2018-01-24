@@ -140,6 +140,26 @@ Module ImModule
         DV = New DataView(DS.Tables(table), values, sort, DataViewRowState.CurrentRows)
         Return DV
     End Function
+    Friend Enum _Croptype
+        Number
+        Text
+    End Enum
+    Friend Function Crop(CropType As _Croptype, ValueForCrop As String) As String
+        Dim pattern As String = Nothing
+        If CropType = _Croptype.Number Then
+            pattern = "[0-9]"
+        Else
+            pattern = "[A-Z,a-z]"
+        End If
+        Dim matches As MatchCollection
+        matches = Regex.Matches(ValueForCrop, pattern)
+        Dim result As String = Nothing
+        For Each objMatch As Match In matches
+            result += objMatch.Value
+        Next
+        Return result
+    End Function
+
 
     'ไม่ได้ใช้
     Public Function convertDate(values As DateTime)

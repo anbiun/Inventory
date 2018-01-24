@@ -304,6 +304,12 @@
     <Compile Include="Clss\ExcelExport.vb" />
     <Compile Include="Clss\InOutFunc.vb" />
     <Compile Include="Clss\UserLogin.vb" />
+    <Compile Include="dlgProgress.Designer.vb">
+      <DependentUpon>dlgProgress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgProgress.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DlogStockLow.Designer.vb">
       <DependentUpon>DlogStockLow.vb</DependentUpon>
     </Compile>
@@ -346,10 +352,10 @@
     <Compile Include="FrmTransfer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manage\FmgProduct.Designer.vb">
-      <DependentUpon>FmgProduct.vb</DependentUpon>
+    <Compile Include="Manage\FmgQCTarget.Designer.vb">
+      <DependentUpon>FmgQCTarget.vb</DependentUpon>
     </Compile>
-    <Compile Include="Manage\FmgProduct.vb">
+    <Compile Include="Manage\FmgQCTarget.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Manage\FmgRequisition.Designer.vb">
@@ -471,6 +477,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="dlgProgress.resx">
+      <DependentUpon>dlgProgress.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlogStockLow.resx">
       <DependentUpon>DlogStockLow.vb</DependentUpon>
     </EmbeddedResource>
@@ -545,8 +554,8 @@
     <EmbeddedResource Include="FrmMatImport.resx">
       <DependentUpon>FrmMatImport.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manage\FmgProduct.resx">
-      <DependentUpon>FmgProduct.vb</DependentUpon>
+    <EmbeddedResource Include="Manage\FmgQCTarget.resx">
+      <DependentUpon>FmgQCTarget.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manage\FmgRequisition.resx">
       <DependentUpon>FmgRequisition.vb</DependentUpon>

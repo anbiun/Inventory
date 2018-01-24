@@ -125,6 +125,6 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnProduct_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnProduct.ItemClick
-        FmgProduct.Show()
+        FmgQCTarget.Show()
     End Sub
 End Class
