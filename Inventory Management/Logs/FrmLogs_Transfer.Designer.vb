@@ -23,139 +23,94 @@ Partial Class FrmLogs_Transfer
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogs_Transfer))
-        Me.gcMain = New DevExpress.XtraGrid.GridControl()
-        Me.gvMain = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.AdvBandedGridView1 = New DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView()
-        Me.gv2 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.chkLocList = New DevExpress.XtraEditors.CheckedListBoxControl()
-        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
-        Me.slSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
+        Me.rdDate_By = New System.Windows.Forms.RadioButton()
+        Me.rdDate_All = New System.Windows.Forms.RadioButton()
+        Me.slCat = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.SearchLookUpEdit1View = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        CType(Me.gcMain, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.gvMain, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.AdvBandedGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.gv2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelControl1.SuspendLayout()
-        CType(Me.chkLocList, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.clbSubCat = New DevExpress.XtraEditors.CheckedListBoxControl()
+        Me.clbLoc = New DevExpress.XtraEditors.CheckedListBoxControl()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lbCat = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.deSDate = New DevExpress.XtraEditors.DateEdit()
+        Me.lbEDate = New System.Windows.Forms.Label()
+        Me.deEDate = New DevExpress.XtraEditors.DateEdit()
+        Me.lbSDate = New System.Windows.Forms.Label()
+        Me.gcList = New DevExpress.XtraGrid.GridControl()
+        Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
+        CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupControl1.SuspendLayout()
+        CType(Me.slCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.clbSubCat, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.clbLoc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.deSDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.deSDate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.deEDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.deEDate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gcList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'gcMain
+        'GroupControl1
         '
-        Me.gcMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gcMain.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(4)
-        Me.gcMain.Location = New System.Drawing.Point(0, 0)
-        Me.gcMain.MainView = Me.gvMain
-        Me.gcMain.Margin = New System.Windows.Forms.Padding(4)
-        Me.gcMain.Name = "gcMain"
-        Me.gcMain.Size = New System.Drawing.Size(738, 592)
-        Me.gcMain.TabIndex = 13
-        Me.gcMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMain, Me.AdvBandedGridView1, Me.gv2})
+        Me.GroupControl1.Controls.Add(Me.rdDate_By)
+        Me.GroupControl1.Controls.Add(Me.rdDate_All)
+        Me.GroupControl1.Controls.Add(Me.slCat)
+        Me.GroupControl1.Controls.Add(Me.btnSearch)
+        Me.GroupControl1.Controls.Add(Me.clbSubCat)
+        Me.GroupControl1.Controls.Add(Me.clbLoc)
+        Me.GroupControl1.Controls.Add(Me.Label1)
+        Me.GroupControl1.Controls.Add(Me.lbCat)
+        Me.GroupControl1.Controls.Add(Me.Label3)
+        Me.GroupControl1.Controls.Add(Me.deSDate)
+        Me.GroupControl1.Controls.Add(Me.lbEDate)
+        Me.GroupControl1.Controls.Add(Me.deEDate)
+        Me.GroupControl1.Controls.Add(Me.lbSDate)
+        Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.GroupControl1.Location = New System.Drawing.Point(675, 0)
+        Me.GroupControl1.Name = "GroupControl1"
+        Me.GroupControl1.Size = New System.Drawing.Size(253, 592)
+        Me.GroupControl1.TabIndex = 20
         '
-        'gvMain
+        'rdDate_By
         '
-        Me.gvMain.Appearance.HeaderPanel.Font = New System.Drawing.Font("Tahoma", 9.5!)
-        Me.gvMain.Appearance.HeaderPanel.Options.UseFont = True
-        Me.gvMain.Appearance.HeaderPanel.Options.UseTextOptions = True
-        Me.gvMain.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.gvMain.Appearance.Row.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.gvMain.Appearance.Row.Options.UseFont = True
-        Me.gvMain.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
-        Me.gvMain.GridControl = Me.gcMain
-        Me.gvMain.Name = "gvMain"
-        Me.gvMain.OptionsBehavior.Editable = False
-        Me.gvMain.OptionsFind.AllowFindPanel = False
-        Me.gvMain.OptionsFind.ClearFindOnClose = False
-        Me.gvMain.OptionsFind.FindDelay = 100
-        Me.gvMain.OptionsFind.FindFilterColumns = "ชื่อประเภท"
-        Me.gvMain.OptionsFind.FindNullPrompt = "ค้นหา"
-        Me.gvMain.OptionsFind.ShowClearButton = False
-        Me.gvMain.OptionsFind.ShowFindButton = False
-        Me.gvMain.OptionsView.ColumnAutoWidth = False
-        Me.gvMain.OptionsView.ShowGroupPanel = False
-        Me.gvMain.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        Me.rdDate_By.AutoSize = True
+        Me.rdDate_By.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdDate_By.Location = New System.Drawing.Point(16, 408)
+        Me.rdDate_By.Name = "rdDate_By"
+        Me.rdDate_By.Size = New System.Drawing.Size(126, 25)
+        Me.rdDate_By.TabIndex = 33
+        Me.rdDate_By.TabStop = True
+        Me.rdDate_By.Text = "ค้นหาระบุวันที่"
+        Me.rdDate_By.UseVisualStyleBackColor = True
         '
-        'AdvBandedGridView1
+        'rdDate_All
         '
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.Font = New System.Drawing.Font("Tahoma", 9.5!)
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.Options.UseFont = True
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.Options.UseTextOptions = True
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.AdvBandedGridView1.Appearance.Row.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.AdvBandedGridView1.Appearance.Row.Options.UseFont = True
-        Me.AdvBandedGridView1.FixedLineWidth = 1
-        Me.AdvBandedGridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
-        Me.AdvBandedGridView1.GridControl = Me.gcMain
-        Me.AdvBandedGridView1.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
-        Me.AdvBandedGridView1.Name = "AdvBandedGridView1"
-        Me.AdvBandedGridView1.OptionsBehavior.Editable = False
-        Me.AdvBandedGridView1.OptionsFind.AllowFindPanel = False
-        Me.AdvBandedGridView1.OptionsFind.ClearFindOnClose = False
-        Me.AdvBandedGridView1.OptionsFind.FindDelay = 100
-        Me.AdvBandedGridView1.OptionsFind.FindFilterColumns = "ชื่อประเภท"
-        Me.AdvBandedGridView1.OptionsFind.FindNullPrompt = "ค้นหา"
-        Me.AdvBandedGridView1.OptionsFind.ShowClearButton = False
-        Me.AdvBandedGridView1.OptionsFind.ShowFindButton = False
-        Me.AdvBandedGridView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        Me.rdDate_All.AutoSize = True
+        Me.rdDate_All.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdDate_All.Location = New System.Drawing.Point(16, 377)
+        Me.rdDate_All.Name = "rdDate_All"
+        Me.rdDate_All.Size = New System.Drawing.Size(106, 25)
+        Me.rdDate_All.TabIndex = 33
+        Me.rdDate_All.TabStop = True
+        Me.rdDate_All.Text = "ไม่ระบุวันที่"
+        Me.rdDate_All.UseVisualStyleBackColor = True
         '
-        'gv2
+        'slCat
         '
-        Me.gv2.GridControl = Me.gcMain
-        Me.gv2.Name = "gv2"
-        '
-        'PanelControl1
-        '
-        Me.PanelControl1.Controls.Add(Me.chkLocList)
-        Me.PanelControl1.Controls.Add(Me.LabelControl2)
-        Me.PanelControl1.Controls.Add(Me.slSubCat)
-        Me.PanelControl1.Controls.Add(Me.LabelControl1)
-        Me.PanelControl1.Controls.Add(Me.btnSearch)
-        Me.PanelControl1.Controls.Add(Me.SimpleButton1)
-        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PanelControl1.Location = New System.Drawing.Point(738, 0)
-        Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(190, 592)
-        Me.PanelControl1.TabIndex = 14
-        '
-        'chkLocList
-        '
-        Me.chkLocList.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkLocList.Appearance.Options.UseFont = True
-        Me.chkLocList.CheckOnClick = True
-        Me.chkLocList.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkLocList.Location = New System.Drawing.Point(12, 134)
-        Me.chkLocList.Name = "chkLocList"
-        Me.chkLocList.Size = New System.Drawing.Size(175, 81)
-        Me.chkLocList.TabIndex = 23
-        '
-        'LabelControl2
-        '
-        Me.LabelControl2.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl2.Appearance.Options.UseFont = True
-        Me.LabelControl2.Location = New System.Drawing.Point(12, 105)
-        Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(73, 23)
-        Me.LabelControl2.TabIndex = 13
-        Me.LabelControl2.Text = "เลือกคลัง"
-        '
-        'slSubCat
-        '
-        Me.slSubCat.EditValue = "เลือกประเภท"
-        Me.slSubCat.Location = New System.Drawing.Point(12, 57)
-        Me.slSubCat.Name = "slSubCat"
-        Me.slSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.slSubCat.Properties.Appearance.Options.UseFont = True
-        Me.slSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.slSubCat.Properties.NullText = "เลือกประเภท"
-        Me.slSubCat.Properties.View = Me.SearchLookUpEdit1View
-        Me.slSubCat.Size = New System.Drawing.Size(173, 28)
-        Me.slSubCat.TabIndex = 12
+        Me.slCat.EditValue = ""
+        Me.slCat.Location = New System.Drawing.Point(23, 57)
+        Me.slCat.Name = "slCat"
+        Me.slCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.slCat.Properties.Appearance.Options.UseFont = True
+        Me.slCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slCat.Properties.NullText = "กรุณาเลือกหมวดวัสดุ"
+        Me.slCat.Properties.View = Me.SearchLookUpEdit1View
+        Me.slCat.Size = New System.Drawing.Size(212, 28)
+        Me.slCat.TabIndex = 32
         '
         'SearchLookUpEdit1View
         '
@@ -164,69 +119,177 @@ Partial Class FrmLogs_Transfer
         Me.SearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = False
         Me.SearchLookUpEdit1View.OptionsView.ShowGroupPanel = False
         '
-        'LabelControl1
-        '
-        Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl1.Appearance.Options.UseFont = True
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 28)
-        Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(101, 23)
-        Me.LabelControl1.TabIndex = 13
-        Me.LabelControl1.Text = "เลือกประเภท"
-        '
         'btnSearch
         '
-        Me.btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.btnSearch.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSearch.Appearance.Options.UseFont = True
         Me.btnSearch.ImageOptions.Image = CType(resources.GetObject("btnSearch.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnSearch.Location = New System.Drawing.Point(12, 221)
+        Me.btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter
+        Me.btnSearch.Location = New System.Drawing.Point(24, 517)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(173, 43)
-        Me.btnSearch.TabIndex = 0
+        Me.btnSearch.Size = New System.Drawing.Size(211, 43)
+        Me.btnSearch.TabIndex = 31
         Me.btnSearch.Text = "ค้นหา"
         '
-        'SimpleButton1
+        'clbSubCat
         '
-        Me.SimpleButton1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SimpleButton1.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(12, 544)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(173, 43)
-        Me.SimpleButton1.TabIndex = 0
-        Me.SimpleButton1.Text = "Export Excel"
+        Me.clbSubCat.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.clbSubCat.Appearance.Options.UseFont = True
+        Me.clbSubCat.CheckOnClick = True
+        Me.clbSubCat.Cursor = System.Windows.Forms.Cursors.Default
+        Me.clbSubCat.Location = New System.Drawing.Point(23, 114)
+        Me.clbSubCat.Name = "clbSubCat"
+        Me.clbSubCat.Size = New System.Drawing.Size(212, 146)
+        Me.clbSubCat.TabIndex = 29
+        '
+        'clbLoc
+        '
+        Me.clbLoc.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.clbLoc.Appearance.Options.UseFont = True
+        Me.clbLoc.CheckOnClick = True
+        Me.clbLoc.Cursor = System.Windows.Forms.Cursors.Default
+        Me.clbLoc.Location = New System.Drawing.Point(23, 289)
+        Me.clbLoc.Name = "clbLoc"
+        Me.clbLoc.Size = New System.Drawing.Size(212, 81)
+        Me.clbLoc.TabIndex = 30
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.8!)
+        Me.Label1.Location = New System.Drawing.Point(12, 263)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(89, 23)
+        Me.Label1.TabIndex = 26
+        Me.Label1.Text = "คลังวัสดุ :"
+        '
+        'lbCat
+        '
+        Me.lbCat.AutoSize = True
+        Me.lbCat.Font = New System.Drawing.Font("Tahoma", 10.8!)
+        Me.lbCat.Location = New System.Drawing.Point(12, 31)
+        Me.lbCat.Name = "lbCat"
+        Me.lbCat.Size = New System.Drawing.Size(101, 23)
+        Me.lbCat.TabIndex = 27
+        Me.lbCat.Text = "หมวดวัสดุ :"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 10.8!)
+        Me.Label3.Location = New System.Drawing.Point(12, 88)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(117, 23)
+        Me.Label3.TabIndex = 28
+        Me.Label3.Text = "ประเภทวัสดุ :"
+        '
+        'deSDate
+        '
+        Me.deSDate.EditValue = Nothing
+        Me.deSDate.Location = New System.Drawing.Point(71, 439)
+        Me.deSDate.Name = "deSDate"
+        Me.deSDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deSDate.Properties.Appearance.Options.UseFont = True
+        Me.deSDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deSDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deSDate.Size = New System.Drawing.Size(164, 28)
+        Me.deSDate.TabIndex = 15
+        '
+        'lbEDate
+        '
+        Me.lbEDate.AutoSize = True
+        Me.lbEDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.lbEDate.Location = New System.Drawing.Point(38, 475)
+        Me.lbEDate.Name = "lbEDate"
+        Me.lbEDate.Size = New System.Drawing.Size(27, 24)
+        Me.lbEDate.TabIndex = 13
+        Me.lbEDate.Text = "ถึง"
+        '
+        'deEDate
+        '
+        Me.deEDate.EditValue = Nothing
+        Me.deEDate.Location = New System.Drawing.Point(71, 473)
+        Me.deEDate.Name = "deEDate"
+        Me.deEDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deEDate.Properties.Appearance.Options.UseFont = True
+        Me.deEDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deEDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deEDate.Size = New System.Drawing.Size(164, 28)
+        Me.deEDate.TabIndex = 15
+        '
+        'lbSDate
+        '
+        Me.lbSDate.AutoSize = True
+        Me.lbSDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.lbSDate.Location = New System.Drawing.Point(22, 441)
+        Me.lbSDate.Name = "lbSDate"
+        Me.lbSDate.Size = New System.Drawing.Size(43, 24)
+        Me.lbSDate.TabIndex = 13
+        Me.lbSDate.Text = "วันที่"
+        '
+        'gcList
+        '
+        Me.gcList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gcList.Location = New System.Drawing.Point(0, 0)
+        Me.gcList.MainView = Me.gvList
+        Me.gcList.Name = "gcList"
+        Me.gcList.Size = New System.Drawing.Size(675, 592)
+        Me.gcList.TabIndex = 21
+        Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
+        '
+        'gvList
+        '
+        Me.gvList.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
+        Me.gvList.GridControl = Me.gcList
+        Me.gvList.Name = "gvList"
+        Me.gvList.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
+        Me.gvList.OptionsFind.AlwaysVisible = True
+        Me.gvList.OptionsView.ColumnAutoWidth = False
+        Me.gvList.OptionsView.ShowFooter = True
+        Me.gvList.OptionsView.ShowGroupPanel = False
         '
         'FrmLogs_Transfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(928, 592)
-        Me.Controls.Add(Me.gcMain)
-        Me.Controls.Add(Me.PanelControl1)
+        Me.Controls.Add(Me.gcList)
+        Me.Controls.Add(Me.GroupControl1)
         Me.Name = "FrmLogs_Transfer"
-        Me.Text = "FrmLogs_Transfer"
-        CType(Me.gcMain, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.gvMain, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.AdvBandedGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.gv2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelControl1.ResumeLayout(False)
-        Me.PanelControl1.PerformLayout()
-        CType(Me.chkLocList, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.slSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "ประวัติโอนย้าน"
+        CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupControl1.ResumeLayout(False)
+        Me.GroupControl1.PerformLayout()
+        CType(Me.slCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.clbSubCat, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.clbLoc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.deSDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.deSDate.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.deEDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.deEDate.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents gcMain As DevExpress.XtraGrid.GridControl
-    Friend WithEvents gvMain As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents AdvBandedGridView1 As DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView
-    Friend WithEvents gv2 As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents chkLocList As DevExpress.XtraEditors.CheckedListBoxControl
-    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents slSubCat As DevExpress.XtraEditors.SearchLookUpEdit
+    Friend WithEvents GroupControl1 As DevExpress.XtraEditors.GroupControl
+    Friend WithEvents rdDate_By As RadioButton
+    Friend WithEvents rdDate_All As RadioButton
+    Friend WithEvents slCat As DevExpress.XtraEditors.SearchLookUpEdit
     Friend WithEvents SearchLookUpEdit1View As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents btnSearch As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents clbSubCat As DevExpress.XtraEditors.CheckedListBoxControl
+    Friend WithEvents clbLoc As DevExpress.XtraEditors.CheckedListBoxControl
+    Friend WithEvents Label1 As Label
+    Friend WithEvents lbCat As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents deSDate As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents lbEDate As Label
+    Friend WithEvents deEDate As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents lbSDate As Label
+    Friend WithEvents gcList As DevExpress.XtraGrid.GridControl
+    Friend WithEvents gvList As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

@@ -41,7 +41,7 @@ Public Class FrmMatList
         End With
 
         With luProduct
-            SQL = "SELECT ProductID,ProductName from tbProduct"
+            SQL = "SELECT ProductID,ProductName from tbQCTarget"
             .Properties.DataSource = dsTbl("product")
             .Properties.ValueMember = "ProductID"
             .Properties.DisplayMember = "ProductName"

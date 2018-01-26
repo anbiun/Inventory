@@ -28,10 +28,11 @@ Partial Class dlgProgress
         'Progressbar
         '
         Me.Progressbar.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Progressbar.EditValue = "100"
+        Me.Progressbar.EditValue = "0"
         Me.Progressbar.Location = New System.Drawing.Point(0, 80)
         Me.Progressbar.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.Progressbar.Name = "Progressbar"
+        Me.Progressbar.Properties.Appearance.Font = New System.Drawing.Font("Noto Sans Thai UI", 7.8!)
         Me.Progressbar.Properties.ShowTitle = True
         Me.Progressbar.Properties.Tag = ""
         Me.Progressbar.ShowProgressInTaskBar = True
@@ -43,6 +44,7 @@ Partial Class dlgProgress
         '
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Noto Sans Thai UI", 13.8!, System.Drawing.FontStyle.Bold)
+        Me.Label1.ForeColor = System.Drawing.SystemColors.Highlight
         Me.Label1.Location = New System.Drawing.Point(0, 0)
         Me.Label1.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label1.Name = "Label1"
@@ -54,6 +56,7 @@ Partial Class dlgProgress
         'lbProg
         '
         Me.lbProg.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lbProg.ForeColor = System.Drawing.SystemColors.Highlight
         Me.lbProg.Location = New System.Drawing.Point(0, 35)
         Me.lbProg.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.lbProg.Name = "lbProg"
@@ -67,14 +70,16 @@ Partial Class dlgProgress
         Me.Appearance.BackColor = System.Drawing.Color.White
         Me.Appearance.Options.UseBackColor = True
         Me.Appearance.Options.UseFont = True
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(14.0!, 32.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(301, 107)
+        Me.ControlBox = False
         Me.Controls.Add(Me.lbProg)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Progressbar)
         Me.Font = New System.Drawing.Font("Noto Sans Thai UI", 13.8!)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Office2003
         Me.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.Name = "dlgProgress"

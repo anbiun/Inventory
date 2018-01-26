@@ -50,7 +50,7 @@ Public Class FmgQCTarget
             .FormatString = "#,0"
         End With
         gvList.OptionsView.ShowAutoFilterRow = True
-        gvList.Columns("ProductID").MaxWidth = gvList.Columns("ProductID").GetBestWidth
+        'gvList.Columns("ProductID").MaxWidth = gvList.Columns("ProductID").GetBestWidth
     End Sub
     Private Sub LoadDef()
         ShowDB()

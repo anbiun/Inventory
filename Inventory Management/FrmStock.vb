@@ -5,9 +5,24 @@ Imports DevExpress.XtraGrid.Views.Grid
 Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.IO
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
+Imports System.ComponentModel
 
 Public Class FrmStock
     Dim LocID As String
+    Dim bw As BackgroundWorker = New BackgroundWorker
+    Dim frmProg As New dlgProgress
+    Dim SavePath As String
+    Dim GvSource As New GridView
+    Sub New()
+        ' This call is required by the designer.
+        InitializeComponent()
+        bw.WorkerReportsProgress = True
+        bw.WorkerSupportsCancellation = True
+        AddHandler bw.DoWork, AddressOf bw_DoWork
+        AddHandler bw.ProgressChanged, AddressOf bw_ProgressChanged
+        AddHandler bw.RunWorkerCompleted, AddressOf bw_RunWorkerCompleted
+        ' Add any initialization after the InitializeComponent() call.
+    End Sub
 #Region "Code Side"
     Private Sub getStockSP()
 
@@ -29,22 +44,28 @@ Public Class FrmStock
         saveFileDialog1.Title = "Save an Excel File"
         saveFileDialog1.ShowDialog()
         If saveFileDialog1.FileName <> "" Then
-
-            Dim GvSource = gvMain
+            frmProg = New dlgProgress
+            SavePath = saveFileDialog1.FileName
+            frmProg.SetMaxValue(gvMain.RowCount - 1)
+            frmProg.Show()
+            GvSource = gvMain
+            'bw.RunWorkerAsync()
+            'Excel Variable
             Dim Cols As New Dictionary(Of String, String)
             With Cols
-                .Add("A4", "MatName")
-                .Add("B4", "Unit1")
-                .Add("C4", "Unit1_Name")
-                .Add("D4", "Unit3")
-                .Add("E4", "Unit3_Name")
-                .Add("F4", "Dozen")
-                .Add("G4", "โหล")
-                .Add("H4", "Warn")
-                .Add("I4", "เดือน")
-                .Add("J4", "JL")
-                .Add("K4", "KIWI")
-                .Add("L4", "JLK")
+                .Add("A4", "SubCatName")
+                .Add("B4", "MatName")
+                .Add("C4", "Unit1")
+                .Add("D4", "Unit1_Name")
+                .Add("E4", "Unit3")
+                .Add("F4", "Unit3_Name")
+                .Add("G4", "Dozen")
+                .Add("H4", "โหล")
+                .Add("I4", "Warn")
+                .Add("J4", "เดือน")
+                .Add("K4", "JL")
+                .Add("L4", "KIWI")
+                .Add("M4", "JLK")
             End With
             Try
                 Dim strFileName As String = Application.StartupPath + "\template_stock.xls"
@@ -59,9 +80,9 @@ Public Class FrmStock
                 '' * to open existing file *
 
                 xlWorkBook = xlApp.Workbooks.Open(strFileName, misValue, misValue, misValue _
-                                                  , misValue, misValue, misValue, misValue _
-                                                 , misValue, misValue, misValue, misValue _
-                                                , misValue, misValue, misValue)
+                                                      , misValue, misValue, misValue, misValue _
+                                                     , misValue, misValue, misValue, misValue _
+                                                    , misValue, misValue, misValue)
 
                 '' * to add the new one *
                 'xlWorkBook = xlApp.Workbooks.Add()
@@ -74,13 +95,9 @@ Public Class FrmStock
                 Dim Stock_Normal As Excel.Style = xlWorkSheet.Application.ActiveWorkbook.Styles.Add("ระดับปกติ")
                 Dim Stock_Warning As Excel.Style = xlWorkBook.Application.ActiveWorkbook.Styles.Add("ระดับแจ้งเตือน")
                 Dim Stock_Danger As Excel.Style = xlWorkBook.Application.ActiveWorkbook.Styles.Add("ระดับอันตราย")
-                '.style.Font.Bold = False
 
-                Stock_Normal.Font.Size = 12
-                Stock_Warning.Font.Size = 12
-                Stock_Danger.Font.Size = 12
-                Stock_Warning.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGoldenrodYellow)
-                Stock_Danger.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.IndianRed)
+                Stock_Warning.Interior.Color = Color.FromArgb(255, 235, 156)
+                Stock_Danger.Interior.Color = Color.FromArgb(255, 199, 206)
 
                 Try
                     xlApp.ScreenUpdating = False
@@ -91,7 +108,7 @@ Public Class FrmStock
                         'Cell Colour
                         Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn"))
                         Dim warn_month As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn_Month"))
-                        Dim CellRange As String = "A" & 4 + gvRow & ":" & "L" & 4 + gvRow
+                        Dim CellRange As String = "A" & 4 + gvRow & ":" & "M" & 4 + gvRow
                         With xlWorkSheet
                             If warn >= 2 Then
                                 .Cells.Range(CellRange).Style = Stock_Normal
@@ -123,36 +140,38 @@ Public Class FrmStock
                                 xlRange.Value2 = Cols.Values(i)
                             End Try
                         Next
+                        frmProg.SetProgress(gvRow)
                     Next
 
                     xlRange = CType(xlWorkSheet.Cells.Range("A1:C1,E1:L1"), Excel.Range)
                     xlRange.EntireColumn.AutoFit()
                     xlApp.ScreenUpdating = True
-                    xlWorkBook.SaveAs(saveFileDialog1.FileName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue)
+                    xlWorkBook.SaveAs(SavePath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue)
                     xlWorkBook.Close(True, misValue, misValue)
                     xlApp.Quit()
 
                 Catch ex As System.Exception
                     MessageBox.Show(ex.Message & vbNewLine & "\n\n=======  WRITE TO EXCEL ERROR:  ======\n\n" & vbNewLine &
-                                ex.StackTrace)
+                                    ex.StackTrace)
                 Finally
                     releaseObject(xlRange)
                     releaseObject(xlWorkSheet)
                     releaseObject(xlWorkBook)
                     releaseObject(xlApp)
+                    frmProg.Close()
                 End Try
             Catch exl As System.Exception
                 MessageBox.Show(exl.Message &
-                    vbNewLine & "\n\n=======   ERROR TO ACESS EXCEL:  ======\n\n" & vbNewLine &
-                    exl.StackTrace)
+                        vbNewLine & "\n\n=======   ERROR TO ACESS EXCEL:  ======\n\n" & vbNewLine &
+                        exl.StackTrace)
             End Try
-            If MessageBox.Show("นำข้อมูลออก Excel แล้ว " & saveFileDialog1.FileName & vbNewLine &
-                                                    "ต้องการเปิดไฟล์หรือไม่ ?", "นำออกข้อมูลสำเร็จ", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
+            If MessageBox.Show("นำข้อมูลออก Excel แล้ว " & SavePath & vbNewLine &
+                                                                      "ต้องการเปิดไฟล์หรือไม่ ?", "นำออกข้อมูลสำเร็จ", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
                 Dim Pinfo As New ProcessStartInfo
                 Pinfo.UseShellExecute = False
                 Pinfo.FileName = "EXCEL.EXE"
-                Pinfo.Arguments = saveFileDialog1.FileName
-                Process.Start("EXCEL.EXE", """" + saveFileDialog1.FileName + """")
+                Pinfo.Arguments = SavePath
+                Process.Start("EXCEL.EXE", """" + SavePath + """")
             End If
         End If
     End Sub
@@ -178,6 +197,15 @@ Public Class FrmStock
     End Sub
     Private Sub GvFormat()
         If gvMain.RowCount <= 0 Then Exit Sub
+        Dim addMontList As Func(Of String) = Function()
+                                                 Dim monthname As String
+                                                 Dim fisrtMontofyear As Date = "01/01/" & (Today.ToString("yyyy"))
+                                                 For i = 0 To 12 - 1
+                                                     monthname = DateAdd(DateInterval.Month, i, fisrtMontofyear).ToString("MMMM")
+                                                     List_Caption.Add(monthname, monthname)
+                                                 Next
+                                                 Return Nothing
+                                             End Function
         With List_Caption
             .Clear()
             .Add("SubCatName", "ประเภท")
@@ -192,7 +220,9 @@ Public Class FrmStock
             .Add("JL", "JL")
             .Add("JLK", "JLK")
             .Add("KIWI", "KW")
+            .Add("qcnote", " ")
         End With
+        addMontList()
         Grid_Caption(gvMain)
 
         With gvMain
@@ -241,7 +271,6 @@ Public Class FrmStock
 
         loadSuccess = True
     End Sub
-
     Private Sub btnExPortExcel_Click(sender As Object, e As EventArgs) Handles btnExportExcel.Click
         ExportXLS()
     End Sub
@@ -335,7 +364,6 @@ Public Class FrmStock
         'If dt.Day = 25 And dt.Month = 12 Then Return True
         Return False
     End Function
-
     Private Sub DateEdit_DrawItem(ByVal sender As Object,
   ByVal e As DevExpress.XtraEditors.Calendar.CustomDrawDayNumberCellEventArgs)
 
@@ -483,12 +511,29 @@ Public Class FrmStock
         SQL &= " ,Unit3='" & txtUnit3.EditValue & "'"
         SQL &= " ,Stat='" & Stat & "'"
         SQL &= " WHERE TagID='" & lbTagID.Text & "'"
-        SQL &= " AND LocID='" & locID & "'"
+        SQL &= " AND LocID='" & LocID & "'"
         dsTbl("adjust")
         BindInfo.Excute()
     End Sub
 
     Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged
         txtUnit3.EditValue = CDbl(txtUnit1.EditValue * lbRatio.Text)
+    End Sub
+    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
+
+    End Sub
+    Private Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs)
+        If e.Cancelled = True Then
+            'Me.Text = "Canceled!"
+        ElseIf e.Error IsNot Nothing Then
+            ''Me.Text = "Error: " & e.Error.Message
+        Else
+            'MsgBox("Done!")
+
+        End If
+    End Sub
+    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs)
+        frmProg.SetProgress(e.ProgressPercentage)
+        'dlgPro.Progressbar.Text = e.ProgressPercentage.ToString & " / " & Gridsource.RowCount - 1
     End Sub
 End Class
