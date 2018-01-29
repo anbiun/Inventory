@@ -412,12 +412,6 @@
     <Compile Include="FrmExcelImport.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMatStock.Designer.vb">
-      <DependentUpon>FrmMatStock.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmMatStock.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FrmMain.Designer.vb">
       <DependentUpon>FrmMain.vb</DependentUpon>
     </Compile>
@@ -495,21 +489,6 @@
     <EmbeddedResource Include="Logs\FrmLogs_Transfer.resx">
       <DependentUpon>FrmLogs_Transfer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMatStock.da.resx">
-      <DependentUpon>FrmMatStock.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMatStock.de.resx">
-      <DependentUpon>FrmMatStock.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMatStock.ja.resx">
-      <DependentUpon>FrmMatStock.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMatStock.th-TH.resx">
-      <DependentUpon>FrmMatStock.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMatStock.th.resx">
-      <DependentUpon>FrmMatStock.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmPrintnTransfer.resx">
       <DependentUpon>FrmPrintnTransfer.vb</DependentUpon>
     </EmbeddedResource>
@@ -540,9 +519,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmExcelImport.resx">
       <DependentUpon>FrmExcelImport.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMatStock.resx">
-      <DependentUpon>FrmMatStock.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.vb</DependentUpon>

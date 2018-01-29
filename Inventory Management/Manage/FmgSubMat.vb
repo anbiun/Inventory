@@ -35,7 +35,7 @@ Public Class FmgSubMat
     End Enum
     Private Sub showDB(Optional Mode As QryMode = QryMode.SubCat)
         If Mode = QryMode.slMat Then GoTo slMat
-        SQL = "select ProductID, ProductName from tbQCTarget"
+        SQL = "select ProductID, ProductName from tbProduct"
         BindInfo.Name = "product"
         BindInfo.Qry(SQL)
         With slProduct.Properties
@@ -65,7 +65,7 @@ slMat:
         SQL = "Select Mat.MatID, Mat.MatName,SubMat.SubMatID,PD.ProductName,PD.QCTarget,PD.ProductID
                 From tbSubMat SubMat 
                 inner Join tbMat Mat on SubMat.MatID = Mat.matID  
-                inner Join tbQCTarget PD ON PD.ProductID = SubMat.ProductID
+                inner Join tbProduct PD ON PD.ProductID = SubMat.ProductID
                 where Mat.CatID + Mat.SubCatID = '" & SubCatID & "'"
         BindInfo.Name = "submat"
         BindInfo.Qry(SQL)

@@ -118,7 +118,7 @@ Public Class FmgSupplier
                 Exit Sub
             End If
         End If
-        fieldList = {"subpplierID", "supplierName"}
+        fieldList = {"supplierID", "supplierName"}
         tbDest = "tbSupplier"
         blkCpy(tbDest, dtSupplier, fieldList)
         btnCancle.PerformClick()

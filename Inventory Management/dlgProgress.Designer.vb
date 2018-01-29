@@ -32,7 +32,7 @@ Partial Class dlgProgress
         Me.Progressbar.Location = New System.Drawing.Point(0, 80)
         Me.Progressbar.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.Progressbar.Name = "Progressbar"
-        Me.Progressbar.Properties.Appearance.Font = New System.Drawing.Font("Noto Sans Thai UI", 7.8!)
+        Me.Progressbar.Properties.Appearance.Font = New System.Drawing.Font("Noto Sans", 10.8!)
         Me.Progressbar.Properties.ShowTitle = True
         Me.Progressbar.Properties.Tag = ""
         Me.Progressbar.ShowProgressInTaskBar = True
@@ -79,7 +79,6 @@ Partial Class dlgProgress
         Me.Controls.Add(Me.Progressbar)
         Me.Font = New System.Drawing.Font("Noto Sans Thai UI", 13.8!)
         Me.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Office2003
         Me.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.Name = "dlgProgress"

@@ -137,7 +137,6 @@ Namespace export
 
 
         End Function
-
         Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
             Dim worker As BackgroundWorker = CType(sender, BackgroundWorker)
             Try
@@ -238,6 +237,7 @@ Namespace export
         End Sub
     End Class
 End Namespace
+
 Namespace import
     Public Class ExcelExport
         Public Table_Import As New DataTable
