@@ -197,33 +197,33 @@ Public Class FrmStock
     End Sub
     Private Sub GvFormat()
         If gvMain.RowCount <= 0 Then Exit Sub
+        gridInfo = New GridCaption
         Dim addMontList As Func(Of String) = Function()
                                                  Dim monthname As String
                                                  Dim fisrtMontofyear As Date = "01/01/" & (Today.ToString("yyyy"))
                                                  For i = 0 To 12 - 1
                                                      monthname = DateAdd(DateInterval.Month, i, fisrtMontofyear).ToString("MMMM")
-                                                     List_Caption.Add(monthname, monthname)
+                                                     gridInfo.Add(monthname)
                                                  Next
                                                  Return Nothing
                                              End Function
-        With List_Caption
-            .Clear()
-            .Add("SubCatName", "ประเภท")
-            .Add("MatName", "ชื่อวัสดุ")
-            .Add("Unit1", "จำนวน")
-            .Add("Unit1_Name", " ")
-            .Add("Unit3", "ปริมาณทั้งหมด")
-            .Add("Unit3_Name", " ")
-            .Add("Dozen", "จำนวนโหล")
-            .Add("Warn", "ใช้ได้อีก")
-            .Add("Warn_Name", " ")
-            .Add("JL", "JL")
-            .Add("JLK", "JLK")
-            .Add("KIWI", "KW")
-            .Add("qcnote", " ")
+        With gridInfo
+            .Add("SubCatName")
+            .Add("MatName")
+            .Add("Unit1")
+            .Add("Unit1_Name")
+            .Add("Unit3")
+            .Add("Unit3_Name")
+            .Add("Dozen")
+            .Add("Warn")
+            .Add("Warn_Name")
+            .Add("JL")
+            .Add("JLK")
+            .Add("KIWI")
+            .Add("qcnote")
+            addMontList()
+            .SetCaption(gvMain)
         End With
-        addMontList()
-        Grid_Caption(gvMain)
 
         With gvMain
             .Columns("SubCatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
@@ -403,18 +403,18 @@ Public Class FrmStock
                     If clbLoc.CheckedItems.Count <= 0 Then Exit Sub
                     gcAdjust.DataSource = dsTbl("AJStock")
                     If gvAdjust.RowCount > 0 Then
-                        With List_Caption
-                            .Clear()
-                            .Add("MatName", "วัสดุ")
-                            .Add("Unit1", "จำนวน")
-                            .Add("Unit3", "เป็นปริมาณ")
-                            .Add("LocName", "สถานที่")
-                            .Add("Unit1_Name", " ")
-                            .Add("Unit3_Name", " ")
-                            .Add("TagID", "TagID")
-                            .Add("Stat", "สถานะ")
+                        gridInfo = New GridCaption
+                        With gridInfo
+                            .Add("MatName")
+                            .Add("Unit1")
+                            .Add("Unit3")
+                            .Add("LocName")
+                            .Add("Unit1_Name")
+                            .Add("Unit3_Name")
+                            .Add("TagID")
+                            .Add("Stat")
+                            .SetCaption(gvAdjust)
                         End With
-                        Grid_Caption(gvAdjust)
                         With gvAdjust
                             .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
                             Dim ColList As String() = {"Unit1", "Unit3"}

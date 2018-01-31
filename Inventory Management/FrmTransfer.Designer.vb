@@ -37,8 +37,11 @@ Partial Class FrmTransfer
         Me.slTagID = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.SearchLookUpEdit1View = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grpRequest = New DevExpress.XtraEditors.GroupControl()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
         Me.lbUserStock = New System.Windows.Forms.Label()
+        Me.slLocDest = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.lbUnit3Name = New System.Windows.Forms.Label()
         Me.lbVol = New System.Windows.Forms.Label()
         Me.lbUnit1Name = New System.Windows.Forms.Label()
@@ -51,9 +54,6 @@ Partial Class FrmTransfer
         Me.txtUnit3 = New DevExpress.XtraEditors.SpinEdit()
         Me.txtUnit1 = New DevExpress.XtraEditors.SpinEdit()
         Me.pnlLeft = New System.Windows.Forms.Panel()
-        Me.slLocDest = New DevExpress.XtraEditors.SearchLookUpEdit()
-        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl3.SuspendLayout()
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,6 +65,8 @@ Partial Class FrmTransfer
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grpRequest, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpRequest.SuspendLayout()
+        CType(Me.slLocDest.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PnlSave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlSave.SuspendLayout()
         CType(Me.grpMat, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -74,8 +76,6 @@ Partial Class FrmTransfer
         CType(Me.txtUnit3.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlLeft.SuspendLayout()
-        CType(Me.slLocDest.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupControl3
@@ -134,7 +134,7 @@ Partial Class FrmTransfer
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label2.Location = New System.Drawing.Point(59, 137)
+        Me.Label2.Location = New System.Drawing.Point(57, 138)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 24)
         Me.Label2.TabIndex = 13
@@ -144,7 +144,7 @@ Partial Class FrmTransfer
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label3.Location = New System.Drawing.Point(57, 74)
+        Me.Label3.Location = New System.Drawing.Point(55, 74)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(95, 24)
         Me.Label3.TabIndex = 13
@@ -186,7 +186,7 @@ Partial Class FrmTransfer
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label5.Location = New System.Drawing.Point(109, 40)
+        Me.Label5.Location = New System.Drawing.Point(107, 40)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(43, 24)
         Me.Label5.TabIndex = 13
@@ -222,7 +222,7 @@ Partial Class FrmTransfer
         Me.slTagID.Properties.Appearance.Options.UseFont = True
         Me.slTagID.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.slTagID.Properties.View = Me.SearchLookUpEdit1View
-        Me.slTagID.Size = New System.Drawing.Size(124, 28)
+        Me.slTagID.Size = New System.Drawing.Size(192, 28)
         Me.slTagID.TabIndex = 18
         '
         'SearchLookUpEdit1View
@@ -251,6 +251,16 @@ Partial Class FrmTransfer
         Me.grpRequest.Size = New System.Drawing.Size(348, 220)
         Me.grpRequest.TabIndex = 19
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.Label1.Location = New System.Drawing.Point(48, 108)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(102, 24)
+        Me.Label1.TabIndex = 13
+        Me.Label1.Text = "คลังปลายทาง"
+        '
         'btnNew
         '
         Me.btnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
@@ -273,6 +283,25 @@ Partial Class FrmTransfer
         Me.lbUserStock.Size = New System.Drawing.Size(124, 24)
         Me.lbUserStock.TabIndex = 13
         Me.lbUserStock.Text = "ปริมาณ"
+        '
+        'slLocDest
+        '
+        Me.slLocDest.EditValue = ""
+        Me.slLocDest.Location = New System.Drawing.Point(160, 106)
+        Me.slLocDest.Name = "slLocDest"
+        Me.slLocDest.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.slLocDest.Properties.Appearance.Options.UseFont = True
+        Me.slLocDest.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slLocDest.Properties.View = Me.GridView1
+        Me.slLocDest.Size = New System.Drawing.Size(124, 28)
+        Me.slLocDest.TabIndex = 18
+        '
+        'GridView1
+        '
+        Me.GridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView1.Name = "GridView1"
+        Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView1.OptionsView.ShowGroupPanel = False
         '
         'lbUnit3Name
         '
@@ -413,35 +442,6 @@ Partial Class FrmTransfer
         Me.pnlLeft.Size = New System.Drawing.Size(348, 742)
         Me.pnlLeft.TabIndex = 22
         '
-        'slLocDest
-        '
-        Me.slLocDest.EditValue = ""
-        Me.slLocDest.Location = New System.Drawing.Point(160, 106)
-        Me.slLocDest.Name = "slLocDest"
-        Me.slLocDest.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.slLocDest.Properties.Appearance.Options.UseFont = True
-        Me.slLocDest.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.slLocDest.Properties.View = Me.GridView1
-        Me.slLocDest.Size = New System.Drawing.Size(124, 28)
-        Me.slLocDest.TabIndex = 18
-        '
-        'GridView1
-        '
-        Me.GridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView1.Name = "GridView1"
-        Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView1.OptionsView.ShowGroupPanel = False
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 108)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(140, 24)
-        Me.Label1.TabIndex = 13
-        Me.Label1.Text = "คลังที่เก็บปลายทาง"
-        '
         'FrmTransfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -463,6 +463,8 @@ Partial Class FrmTransfer
         CType(Me.grpRequest, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpRequest.ResumeLayout(False)
         Me.grpRequest.PerformLayout()
+        CType(Me.slLocDest.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PnlSave, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlSave.ResumeLayout(False)
         CType(Me.grpMat, System.ComponentModel.ISupportInitialize).EndInit()
@@ -474,8 +476,6 @@ Partial Class FrmTransfer
         CType(Me.txtUnit3.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlLeft.ResumeLayout(False)
-        CType(Me.slLocDest.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

@@ -70,16 +70,12 @@ Public Class FrmApprove
             .ValueMember = "TransferID"
             .PopulateViewColumns()
 
-            .View.Columns("TransferNo").Caption = "เลขที่เอกสาร"
+            .View.Columns("TransferNo").Visible = False
             .View.Columns("TransferID").Caption = "รหัสเอกสาร"
             .View.Columns("TransferDate").Caption = "วันที่โอนย้าย"
             .View.Columns("LocID_Src_Name").Caption = "คลังวัสดุต้นทาง"
             .View.Columns("LocID_Dest_Name").Caption = "คลังวัสดุปลายทาง"
             .View.ExpandAllGroups()
-            'Dim colname() As String = {"LocID_Src", "LocID_Dest"}
-            'For Each values As String In colname
-            '    .View.Columns(values).Visible = False
-            'Next
             .View.BestFitColumns()
         End With
         slTransferNo.Properties.NullText = ""
@@ -107,13 +103,21 @@ Public Class FrmApprove
         Next
     End Sub
     Private Sub GVFomat()
+
         With gvList
             .PopulateColumns()
-            .Columns("MatName").Caption = "วัสดุ"
-            .Columns("Unit1_Num").Caption = "จำนวน"
-            .Columns("Unit1_Name").Caption = " "
-            .Columns("Unit3_Num").Caption = "รวมเป็นปริมาณ"
-            .Columns("Unit3_Name").Caption = " "
+            .Columns("MatName").Caption = getString("matname")
+            .Columns("Unit1_Num").Caption = getString("unit1_num")
+            .Columns("Unit1_Name").Caption = getString("unit1_name")
+            .Columns("Unit3_Num").Caption = getString("Unit3_num")
+            .Columns("Unit3_Name").Caption = getString("unit3_name")
+            .Columns("ApproveDate").Caption = getString("approvedate")
+            .Columns("UserApprove").Caption = getString("userapprove")
+            .Columns("ApproveNote").Caption = getString("approvenote")
+            .Columns("TransferID").Visible = False
+            .Columns("LocID").Visible = False
+            .Columns("ApproveID").Visible = False
+            .Columns("ApproveStat").Visible = False
             .BestFitColumns()
         End With
     End Sub
@@ -129,8 +133,8 @@ Public Class FrmApprove
 #Region "FormLoad"
     Private Sub FrmApprove_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         With ApproveTB
-            .FAccept = "Accept"
-            .FNotFound = "NotFound"
+            .FAccept = "รับของ"
+            .FNotFound = "ไม่พบ"
             .FStat = "ApproveStat"
             .FNote = "ApproveNote"
         End With
@@ -169,9 +173,11 @@ Public Class FrmApprove
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
         grpRequest.Enabled = False
         PnlSave.Visible = True
+
         gcList.DataSource = getTable(TransferID)
         gcList.Refresh()
         gvList.PopulateColumns()
+        GVFomat()
         ApproveTB.CreateCheckCol(gcList, gvList)
 
         For Each col As GridColumn In gvList.Columns

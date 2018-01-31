@@ -6,7 +6,7 @@ Imports DevExpress.Data
 
 Public Class FmgSubMat
     Dim dtSubMat As DataTable
-    Dim SubMatID As String = "", SubCatID As String = "", MatID As String = ""
+    Dim SubMatID As String = "", SubCatID As String = "", MatID As String = Nothing
     Enum Stat
         OK
         Edit
@@ -42,6 +42,9 @@ Public Class FmgSubMat
             .DataSource = BindInfo.Result
             .ValueMember = "ProductID"
             .DisplayMember = "ProductName"
+            .PopulateViewColumns()
+            .View.Columns("ProductID").Visible = False
+            .View.Columns("ProductName").Caption = getString("ProductName")
         End With
 
         SQL = "select CatID+SubCatID IDValue, SubCatName From tbSubCategory"
@@ -52,6 +55,9 @@ Public Class FmgSubMat
             .DataSource = BindInfo.Result
             .ValueMember = "IDValue"
             .DisplayMember = "SubCatName"
+            .PopulateViewColumns()
+            .View.Columns("IDValue").Visible = False
+            .View.Columns("SubCatName").Caption = getString("subcatname")
         End With
         If Mode = QryMode.SubCat Then Exit Sub
 slMat:
@@ -60,7 +66,11 @@ slMat:
             .DataSource = dsTbl("mat")
             .DisplayMember = "MatName"
             .ValueMember = "MatID"
+            .PopulateViewColumns()
+            .View.Columns("MatID").Visible = False
+            .View.Columns("MatName").Caption = getString("MatName")
         End With
+        slMat.EditValue = Nothing
 
         SQL = "Select Mat.MatID, Mat.MatName,SubMat.SubMatID,PD.ProductName,PD.QCTarget,PD.ProductID
                 From tbSubMat SubMat 
@@ -73,12 +83,13 @@ slMat:
             gcList.DataSource = BindInfo.Result
             .PopulateColumns()
             .Columns("MatName").Group()
-            .Columns("MatName").Caption = "ชื่อวัสดุ"
-            .Columns("ProductName").Caption = "เบอร์มีด"
-            .Columns("QCTarget").Caption = "เป้าผลิต"
+            .Columns("MatName").Caption = getString("MatName")
+            .Columns("ProductName").Caption = getString("ProductName")
+            .Columns("QCTarget").Caption = getString("qctarget")
             .Columns("MatID").Visible = False
             .Columns("SubMatID").Caption = " "
             .Columns("SubMatID").Width = 70
+            .Columns("ProductID").Visible = False
             .ExpandAllGroups()
         End With
 
@@ -89,8 +100,8 @@ slMat:
         gvList.OptionsFind.AlwaysVisible = True
         gcList.Enabled = True
         btnSave.Enabled = False
-        btnNew.Enabled = If(String.IsNullOrEmpty(slMat.Text) Or
-                                 String.IsNullOrEmpty(slSubCat.Text), False, True)
+        btnRemove.Enabled = If(slMat.EditValue = Nothing, False, True)
+        btnNew.Enabled = If(slMat.EditValue = Nothing, False, True)
     End Sub
 #End Region
 #Region "Button Control"
@@ -165,6 +176,7 @@ slMat:
         showDB(QryMode.slMat)
         LoadDef()
         gvList.FindFilterText = Nothing
+        slMat.EditValue = Nothing
     End Sub
     Private Sub btnUnit_Remove_Click(sender As Object, e As EventArgs)
         If MessageBox.Show("ยืนยันการลบข้อมูล " & gvList.GetFocusedValue & " หรือไม่", "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
@@ -197,6 +209,16 @@ slMat:
             BindInfo.Result()
         End If
     End Sub
+    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+        If MessageBox.Show("ยืนยันการลบข้อมูลเบอร์ร่วม " & slMat.Text, "ยืนยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
+            SQL = "DELETE From tbSubMat WHERE MatID='" & MatID & "'"
+            dsTbl("del")
+            showDB(QryMode.slMat)
+            LoadDef()
+            gvList.FindFilterText = Nothing
+            slMat.EditValue = Nothing
+        End If
+    End Sub
 #End Region
 #Region "Common Control"
     Private Sub FmgSubMat_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -217,30 +239,34 @@ slMat:
         End If
     End Sub
     Private Sub gvRowClick(sender As Object, e As RowClickEventArgs) Handles gvList.RowClick
-        If IsDBNull(gvList.FocusedValue) Then Exit Sub
-        Dim values As String = gvList.GetFocusedValue
-        Dim vw As ColumnView = gcList.MainView
-        'Dim values As String = gvList.GetRowCellDisplayText(gvList.FocusedRowHandle, "mainName")
-        Dim FieldName As String = "MatName"
-        Dim FieldID As String = "MatID"
+        MatID = getGroupValue(gvList, gcList, "MatName", "MatID")
+        If String.IsNullOrWhiteSpace(MatID) Then Exit Sub
+        slMat.EditValue = MatID
 
-        Try
-            Dim RHandle As Integer = 0
-            Dim Col As DevExpress.XtraGrid.Columns.GridColumn = vw.Columns(FieldName)
-            While True
-                RHandle = vw.LocateByValue(RHandle, Col, values)
-                If RHandle = DevExpress.XtraGrid.GridControl.InvalidRowHandle Then
-                    Exit While
-                End If
-                If gvList.GetRowCellValue(RHandle, FieldName) = values Then
-                    slMat.EditValue = gvList.GetRowCellValue(RHandle, FieldID)
-                    MatID = gvList.GetRowCellValue(RHandle, FieldID)
-                    Exit While
-                End If
-                RHandle += 1
-            End While
-        Catch ex As Exception
-        End Try
+        'If IsDBNull(gvList.FocusedValue) Then Exit Sub
+        'Dim values As String = gvList.GetFocusedValue
+        'Dim vw As ColumnView = gcList.MainView
+        ''dim values as string = gvlist.getrowcelldisplaytext(gvlist.focusedrowhandle, "mainname")
+        'Dim fieldname As String = "matname"
+        'Dim fieldid As String = "matid"
+
+        'Try
+        '    Dim rhandle As Integer = 0
+        '    Dim col As DevExpress.XtraGrid.Columns.GridColumn = vw.Columns(fieldname)
+        '    While True
+        '        rhandle = vw.LocateByValue(rhandle, col, values)
+        '        If rhandle = DevExpress.XtraGrid.GridControl.InvalidRowHandle Then
+        '            Exit While
+        '        End If
+        '        If gvList.GetRowCellValue(rhandle, fieldname) = values Then
+        '            slMat.EditValue = gvList.GetRowCellValue(rhandle, fieldid)
+        '            MatID = gvList.GetRowCellValue(rhandle, fieldid)
+        '            Exit While
+        '        End If
+        '        rhandle += 1
+        '    End While
+        'Catch ex As Exception
+        'End Try
 
     End Sub
     Private Sub txtName_EditValueChanged(sender As Object, e As EventArgs)
@@ -259,8 +285,25 @@ slMat:
         If ctrSl.Name = slSubCat.Name Then
             SubCatID = slSubCat.EditValue
             showDB(QryMode.slMat)
+        Else
+            MatID = ctrSl.EditValue
         End If
-        btnNew.Enabled = If(String.IsNullOrEmpty(slMat.Text) Or
-                                 String.IsNullOrEmpty(slSubCat.Text), False, True)
+        If MatID = Nothing Or gvList.RowCount <= 0 Then
+            btnRemove.Enabled = False
+        Else
+            For i As Integer = 0 To gvList.RowCount - 1
+                Dim tmpMat As String
+                tmpMat = gvList.GetRowCellValue(i, "MatID")
+                If tmpMat = MatID Then
+                    btnRemove.Enabled = True
+                    Exit For
+                End If
+                btnRemove.Enabled = False
+            Next
+        End If
+
+        btnNew.Enabled = If(slMat.EditValue = Nothing, False, True)
+        'btnNew.Enabled = If(String.IsNullOrEmpty(slMat.Text) Or
+        'String.IsNullOrEmpty(slSubCat.Text), False, True)
     End Sub
 End Class

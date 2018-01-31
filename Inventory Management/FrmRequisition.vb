@@ -50,7 +50,7 @@ Public Class FrmRequisition
             .View.Columns("CatID").Visible = False
             .View.Columns("SubCatID").Visible = False
             .View.Columns("GroupTag").Visible = False
-
+            .View.Columns("SubCatName").Caption = getString("subcatname")
             .PopulateViewColumns()
         End With
     End Sub
@@ -99,6 +99,7 @@ Public Class FrmRequisition
             .Columns("Unit3_Name").Caption = " "
             .Columns("RequestNo").Caption = "เลขที่ใบเบิกวัสดุ"
             .Columns("RequestDate").Caption = "วันที่"
+            .Columns("LocID").Visible = False
             .BestFitColumns()
         End With
     End Sub
@@ -218,6 +219,7 @@ Public Class FrmRequisition
         cancelFunc()
     End Sub
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+        If chkInput(grpRequest) = False Then Exit Sub
         SQL = "SELECT RequestNo FROM tbRequisition"
         SQL &= " WHERE RequestNo = '" & RequestNo & "'"
         dsTbl("find")
@@ -313,7 +315,7 @@ Public Class FrmRequisition
             .ValueMember = "TagID"
             .PopulateViewColumns()
             .View.Columns("MatName").Caption = "ชื่อวัสดุ"
-            .View.Columns("SubCatName").Caption = "ประเภท"
+            .View.Columns("SubCatName").Caption = getString("subcatname")
             .View.Columns("Unit1").Caption = "คงเหลือ"
             .View.Columns("Unit1_Name").Caption = " "
             .View.Columns("Unit3").Caption = "คงเหลือ"

@@ -109,7 +109,6 @@ Public Class FrmLogs_Import
                 End If
             Next
             .Columns("Notation").Caption = "หมายเหตุ"
-            .Columns("ImportID").Caption = "รหัสแจ้งแก้ไข"
             .Columns("BillNo").Caption = "เลขที่บิล"
             .Columns("LocName").Caption = "สถานที่"
             .Columns("MatName").Caption = "ชื่อวัสดุ"
@@ -120,8 +119,6 @@ Public Class FrmLogs_Import
             .Columns("ImportDate").Caption = "วันที่นำเข้า"
             .Columns("UserName").Caption = "ผู้บันทึกรายการ"
             .Columns("SupplierName").Caption = "ผู้ขาย"
-            ' .Columns("UserStock").Caption = "ผู้จ่ายวัสดุ"
-            '.Columns("Stat").Caption = "สถานะ"
             .Columns("SaveDate").Caption = "วันที่บันทึกข้อมูล"
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
@@ -144,9 +141,6 @@ Public Class FrmLogs_Import
             RequestNo = gvList.GetFocusedValue
         End If
     End Sub
-    Private Sub txtTagID_EditValueChanged(sender As Object, e As EventArgs)
-        'gcList.DataSource = Find("requisition", "TagID Like '%" & Trim(txtTagID.Text) & "%'")
-    End Sub
     Private Sub BtnDel_Click(sender As Object, e As EventArgs)
         SQL = "SELECT RequestNo From tbRequisition WHERE RequestNo='" & RequestNo & "'"
         SQL &= " AND Stat='1'"
@@ -165,14 +159,6 @@ Public Class FrmLogs_Import
             MsgBox("เลขที่ใบเบิกไม่ถูกต้อง (" & RequestNo & ")", MsgBoxStyle.Critical)
         End If
         FirstQry()
-    End Sub
-    Private Sub btnRef_Click(sender As Object, e As EventArgs)
-
-        'FirstQry()
-        'Dim dtRequisition As DataTable = DS.Tables("requisition").Copy
-        'gcList.DataSource = dtRequisition
-        'gvList.Columns("RequestNo").Group()
-        'gvList.ExpandAllGroups()
     End Sub
     Private Sub btnLogs_Click(sender As Object, e As EventArgs)
         SQL = "select L.*,M.MatName from Logs_Requisition L INNER JOIN tbMat M ON L.MatID = M.MatID ORDER BY LogNo"
@@ -195,14 +181,8 @@ Public Class FrmLogs_Import
         SQL = "select * from vwRequisition"
         gcList.DataSource = Nothing
         gcList.DataSource = dsTbl("requisition")
-
         gvList.PopulateColumns()
-
     End Sub
 #End Region
-
-
-
-
 
 End Class

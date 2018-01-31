@@ -14,15 +14,6 @@ Public Class FmgQCTarget
     Dim ProductID As String
     Dim _pdname As String
     Dim _qctarget As Double
-    Property ProductName As String
-        Set(value As String)
-            _pdname = value
-            txtProduct.Text = value
-        End Set
-        Get
-            Return _pdname
-        End Get
-    End Property
     Property QCTarget As Double
         Set(value As Double)
             _qctarget = value
@@ -37,19 +28,19 @@ Public Class FmgQCTarget
         dsTbl("product")
         dtQCTarget = DS.Tables("product").Copy
         gcList.DataSource = dtQCTarget
-        With List_Caption
-            .Clear()
-            .Add("QCTarget", "เป้าผลิต")
-            .Add("ProductID", "รหัสแก้ไข")
-            .Add("ProductName", "เบอร์มืด")
-            .Add("Unit", " ")
+        gridInfo = New GridCaption
+        With gridInfo
+            .Add("QCTarget")
+            .Add("ProductName")
+            .Add("Unit")
+            .SetCaption(gvList)
         End With
-        Grid_Caption(gvList)
         With gvList.Columns("QCTarget").DisplayFormat
             .FormatType = FormatType.Numeric
             .FormatString = "#,0"
         End With
         gvList.OptionsView.ShowAutoFilterRow = True
+        txtQuatername.Text = DS.Tables("product")(0)("QCName")
         'gvList.Columns("ProductID").MaxWidth = gvList.Columns("ProductID").GetBestWidth
     End Sub
     Private Sub LoadDef()
@@ -61,14 +52,14 @@ Public Class FmgQCTarget
         grpSave.Enabled = False
         btnEdit.Enabled = False
         btnRemove.Enabled = False
-
+        Me.TopMost = True
     End Sub
     Private Sub FmgProduct_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadDef()
     End Sub
     Private Sub RowCellClick(sender As Object, e As RowCellClickEventArgs) Handles gvList.RowCellClick
         If e.RowHandle < 0 Then Exit Sub
-        ProductName = gvList.GetRowCellValue(e.RowHandle, "ProductName")
+        _pdname = gvList.GetRowCellValue(e.RowHandle, "ProductName")
         QCTarget = gvList.GetRowCellValue(e.RowHandle, "QCTarget")
         ProductID = gvList.GetRowCellValue(e.RowHandle, "ProductID")
 
@@ -122,15 +113,24 @@ Public Class FmgQCTarget
                         .AcceptChanges()
                     End With
                 Case = btnSave.Name
-                    'If String.IsNullOrWhiteSpace(txtQuatername.Text) Then
-                    '    txtQuatername.Text = InputBox("โปรดตั้งชื่อเป้าผลิต", "Quatername")
-                    'End If
+                    If String.IsNullOrWhiteSpace(txtQuatername.Text) Then
+                        Me.TopMost = False
+                        Dim Quatername As String = InputBox("โปรดตั้งชื่อเป้าผลิต", "Quatername", "เป้าผลิตปี " & Today.Year)
+                        If Not String.IsNullOrWhiteSpace(Quatername) Then
+                            txtQuatername.Text = Quatername
+                        Else
+                            txtQuatername.SelectAll()
+                            Exit Sub
+                        End If
+                    End If
                     If Not String.IsNullOrWhiteSpace(txtQuatername.Text) AndAlso
                         MessageBox.Show("ยืนยันบันทึกข้อมูล", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.No Then Exit Sub
                     Dim field As String() = {"ProductID", "ProductName", "QCTarget"}
                     SQL = "delete from tbProduct"
                     dsTbl("del")
                     blkCpy("tbProduct", dtQCTarget, field)
+                    SQL = "UPDATE tbProduct SET QCName='" & txtQuatername.Text & " (บันทึกเมื่อ : " & Today.ToShortDateString & ")'"
+                    dsTbl("update")
                     LoadDef()
             End Select
         End With
@@ -206,6 +206,5 @@ Public Class FmgQCTarget
             'If Fin btnSave.enable
         End With
     End Sub
-
 #End Region
 End Class

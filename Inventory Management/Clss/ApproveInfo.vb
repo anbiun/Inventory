@@ -20,7 +20,7 @@ Public Class ApproveInfo
         Dim EdtrBtn As EditorButton
         EdtrBtn = New EditorButton()
         EdtrBtn.Kind = ButtonPredefines.Glyph
-        EdtrBtn.Image = CType(My.Resources.edit_16x16, System.Drawing.Image)
+        EdtrBtn.Image = CType(My.Resources.apply_16x16, System.Drawing.Image)
         'lObj_EdtrBtn.Image = CType(My.Resources.GetObject("BtnClose.Image"), System.Drawing.Image)
         EdtrBtn.Appearance.BackColor = Color.Azure
         EdtrBtn.Caption = "Accept"
@@ -79,6 +79,7 @@ Public Class ApproveInfo
             view.SetRowCellValue(e.RowHandle, FStat, StatVal)
             view.SetRowCellValue(e.RowHandle, FNote, String.Empty)
         End If
+        view.RefreshData()
     End Sub
     Friend Sub CellChange(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs)
         Dim view As GridView = sender

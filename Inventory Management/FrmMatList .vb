@@ -471,20 +471,20 @@ lchangeMainLookup:
         End If
 
         gcMain.DataSource = dsTbl("showingrid")
-        With List_Caption
-            .Clear()
-            .Add("MatID", "รหัสวัสดุ")
-            .Add("MatName", "ชื่อรายการวัสดุ")
-            .Add("QtyPerUnit", "หน่วยบรรจุ")
-            .Add("QtyPerUnit_Name", " ")
-            .Add("Warn", "ระดับการแจ้งเตือน (เดือน)")
-            .Add("QtyOfUsing", "ประมาณการใช้ต่อเดือน")
-            .Add("QtyOfUsing_Name", " ")
-            .Add("Ratio", "Ratio")
-            .Add("Ratio_Name", " ")
-            .Add("ProductName", "เบอร์มีด")
+        gridInfo = New GridCaption
+        With gridInfo
+            .Add("matid")
+            .Add("matname")
+            .Add("qtyperunit")
+            .Add("qtyperunit_name")
+            .Add("Warn")
+            .Add("QtyOfUsing")
+            .Add("QtyOfUsing_Name")
+            .Add("Ratio")
+            .Add("Ratio_Name")
+            .Add("ProductName")
+            .SetCaption(GVMain)
         End With
-        Grid_Caption(GVMain)
         GVMain.OptionsView.ShowAutoFilterRow = True
         GVMain.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
 

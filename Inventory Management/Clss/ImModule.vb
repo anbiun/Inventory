@@ -12,7 +12,8 @@ Imports DevExpress.XtraGrid.Views.Grid
 Imports System
 Imports ConDB.Main
 Imports DevExpress.XtraEditors.BaseCheckedListBoxControl
-
+Imports DevExpress.XtraGrid.Views.Base
+Imports DevExpress.XtraGrid
 Module ImModule
     Public CategoryTxt As String
     Public CategoryValue As String
@@ -159,7 +160,35 @@ Module ImModule
         Next
         Return result
     End Function
+    Public Function getGroupValue(gridname As Object, gridcontrol As Object, inpField As String, outpField As String)
+        Dim gvList As GridView = gridname
+        Dim gcList As GridControl = gridcontrol
+        Dim result As String = String.Empty
+        If IsDBNull(gvList.FocusedValue) Then
+            Return Nothing
+        End If
+        Dim values As String = gvList.GetFocusedValue
+        Dim vw As ColumnView = gcList.MainView
 
+        Try
+            Dim rhandle As Integer = 0
+            Dim col As DevExpress.XtraGrid.Columns.GridColumn = vw.Columns(inpField)
+            While True
+                rhandle = vw.LocateByValue(rhandle, col, values)
+                If rhandle = DevExpress.XtraGrid.GridControl.InvalidRowHandle Then
+                    Exit While
+                End If
+                If gvList.GetRowCellValue(rhandle, inpField) = values Then
+                    result = gvList.GetRowCellValue(rhandle, outpField)
+                    Exit While
+                End If
+                rhandle += 1
+            End While
+        Catch ex As Exception
+            Return Nothing
+        End Try
+        Return result
+    End Function
 
     'ไม่ได้ใช้
     Public Function convertDate(values As DateTime)
@@ -229,16 +258,26 @@ Module ImModule
         Return Result
     End Function
     'GridInfo
-    Public List_Caption As New Dictionary(Of String, String)
-    Public Sub Grid_Caption(GridName As GridView)
-        For Each items As DevExpress.XtraGrid.Columns.GridColumn In GridName.Columns
-            If List_Caption.ContainsKey(items.FieldName) Then
-                items.Caption = List_Caption(items.FieldName)
+    Public gridInfo As New GridCaption
+    Public getString As Func(Of String, String) = Function(StringKey As String)
+                                                      Dim strlist As New StringList
+                                                      Return strlist.GetVal(StringKey)
+                                                  End Function
+End Module
+Public Class GridCaption
+    Private StringKey As New List(Of String)
+    Sub Add(keys As String)
+        StringKey.Add(keys)
+    End Sub
+    Sub SetCaption(GridViewName As GridView)
+        For Each items As DevExpress.XtraGrid.Columns.GridColumn In GridViewName.Columns
+            If StringKey.Contains(items.FieldName, StringComparer.OrdinalIgnoreCase) Then
+                items.Caption = getString(items.FieldName)
                 items.Visible = True
             Else
+                items.Caption = getString(items.FieldName)
                 items.Visible = False
             End If
         Next
-        List_Caption.Clear()
     End Sub
-End Module
+End Class

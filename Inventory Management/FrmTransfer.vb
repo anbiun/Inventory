@@ -54,7 +54,7 @@ Public Class FrmTransfer
             .View.Columns("Unit3").Caption = "คงเหลือ"
             .View.Columns("Unit3_Name").Caption = " "
             .View.ExpandAllGroups()
-            Dim colname() As String = {"MatID", "Unit1_ID", "Unit3_ID"}
+            Dim colname() As String = {"MatID", "Unit1_ID", "Unit3_ID", "Ratio", "LocID"}
             For Each values As String In colname
                 .View.Columns(values).Visible = False
             Next

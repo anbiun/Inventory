@@ -85,7 +85,7 @@ Partial Class FmgQCTarget
         Me.gcList.Location = New System.Drawing.Point(0, 198)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(649, 451)
+        Me.gcList.Size = New System.Drawing.Size(649, 444)
         Me.gcList.TabIndex = 24
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -207,10 +207,10 @@ Partial Class FmgQCTarget
         Me.grpSave.Controls.Add(Me.btnCancel)
         Me.grpSave.Controls.Add(Me.btnSave)
         Me.grpSave.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.grpSave.Location = New System.Drawing.Point(0, 679)
+        Me.grpSave.Location = New System.Drawing.Point(0, 672)
         Me.grpSave.Name = "grpSave"
         Me.grpSave.ShowCaption = False
-        Me.grpSave.Size = New System.Drawing.Size(649, 58)
+        Me.grpSave.Size = New System.Drawing.Size(649, 65)
         Me.grpSave.TabIndex = 31
         Me.grpSave.Text = "GroupControl2"
         '
@@ -224,7 +224,7 @@ Partial Class FmgQCTarget
         Me.btnCancel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnCancel.ImageOptions.Image = CType(resources.GetObject("btnCancel.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCancel.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter
-        Me.btnCancel.Location = New System.Drawing.Point(143, 2)
+        Me.btnCancel.Location = New System.Drawing.Point(143, 5)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(115, 54)
@@ -241,7 +241,7 @@ Partial Class FmgQCTarget
         Me.btnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
         Me.btnSave.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter
-        Me.btnSave.Location = New System.Drawing.Point(386, 2)
+        Me.btnSave.Location = New System.Drawing.Point(386, 5)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(2)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(115, 54)
@@ -351,17 +351,19 @@ Partial Class FmgQCTarget
         'txtQuatername
         '
         Me.txtQuatername.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtQuatername.Location = New System.Drawing.Point(0, 649)
+        Me.txtQuatername.Location = New System.Drawing.Point(0, 642)
         Me.txtQuatername.Name = "txtQuatername"
         Me.txtQuatername.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQuatername.Properties.Appearance.ForeColor = System.Drawing.Color.Blue
         Me.txtQuatername.Properties.Appearance.Options.UseFont = True
+        Me.txtQuatername.Properties.Appearance.Options.UseForeColor = True
         Me.txtQuatername.Properties.Appearance.Options.UseTextOptions = True
         Me.txtQuatername.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.txtQuatername.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.txtQuatername.Size = New System.Drawing.Size(649, 30)
         Me.txtQuatername.TabIndex = 31
-        Me.txtQuatername.ToolTip = "test"
-        Me.txtQuatername.ToolTipTitle = "title"
+        Me.txtQuatername.ToolTip = "โปรดตั้งชื่อเป้าผลิตไว้เตือนความจำ"
+        Me.txtQuatername.ToolTipTitle = "ตั้งชื่อเป้าผลิต"
         '
         'FmgQCTarget
         '

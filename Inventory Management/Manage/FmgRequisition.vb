@@ -27,6 +27,9 @@ Public Class FmgRequisition
             .DataSource = DS.Tables("category")
             .ValueMember = "CatID"
             .DisplayMember = "CatName"
+            .PopulateViewColumns()
+            .View.Columns("CatID").Visible = False
+            .View.Columns("CatName").Caption = getString("catname")
         End With
 
         SQL = "Select LocID,LocName FROM tbLocation"
@@ -102,8 +105,12 @@ Public Class FmgRequisition
 
     Private Sub GVFormat()
         With gvList
+            .Columns("LocID").Visible = False
+            .Columns("SubCatID").Visible = False
+            .Columns("CatID").Visible = False
+            .Columns("Stat").Visible = False
+            .Columns("MatID").Visible = False
             .Columns("RequestNo").Caption = "เลขที่ใบเบิก"
-            .Columns("MatID").Caption = "รหัสวัสดุ"
             .Columns("MatName").Caption = "ชื่อวัสดุ"
             .Columns("Unit1_Num").Caption = "จำนวน"
             .Columns("Unit1_Name").Caption = " "
@@ -112,7 +119,6 @@ Public Class FmgRequisition
             .Columns("RequestDate").Caption = "วันที่เบิกวัสดุ"
             .Columns("UserRequest").Caption = "ผู้เบิกวัสดุ"
             .Columns("UserStock").Caption = "ผู้จ่ายวัสดุ"
-            .Columns("Stat").Caption = "สถานะ"
             .Columns("SaveDate").Caption = "วันที่บันทึกข้อมูล"
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"

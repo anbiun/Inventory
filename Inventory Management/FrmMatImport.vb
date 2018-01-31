@@ -41,6 +41,7 @@ Public Class FrmMatImport
             .Columns("Stat").Visible = False
             .Columns("UserStock_ID").Visible = False
             .Columns("UserApprove_ID").Visible = False
+            .Columns("Notation").Caption = getString("notation")
             .BestFitColumns()
         End With
 
@@ -55,7 +56,10 @@ Public Class FrmMatImport
             .Columns("ImportID").Visible = False
             .Columns("ImportOrID").Caption = "รหัสแจ้งแก้ไข"
             .Columns("Unit1_ID").Visible = False
-            .Columns("Notation").Caption = "หมายเหตุ"
+            .Columns("Notation").Caption = getString("notation")
+            .Columns("Ratio").Visible = False
+            .Columns("QtyPerUnit").Visible = False
+            .Columns("LocID").Visible = False
             .BestFitColumns()
         End With
 
@@ -315,8 +319,9 @@ SubUnit:
             .DataSource = DS.Tables("Supplier")
             .PopulateViewColumns()
             .View.Columns("supplierID").Caption = "รหัส"
+            .View.Columns("supplierID").Visible = False
             .View.Columns("supplierID").Width = 25
-            .View.Columns("supplierName").Caption = "รายชื่อผู้ขาย"
+            .View.Columns("supplierName").Caption = getString("supplierName")
         End With
 
         SQL = "SELECT CatID+SubCatID IDValue,SubCatName,GroupTag FROM tbSubCategory"
@@ -327,8 +332,8 @@ SubUnit:
             .ValueMember = "IDValue"
             .DisplayMember = "SubCatName"
             .PopulateViewColumns()
-            '.View.Columns("CatID").Visible = False
-            '.View.Columns("SubCatID").Visible = False
+            .View.Columns("IDValue").Visible = False
+            .View.Columns("SubCatName").Caption = getString("SubCatName")
             .View.Columns("GroupTag").Visible = False
         End With
     End Sub

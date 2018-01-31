@@ -322,8 +322,8 @@ Partial Class FrmMain
         '
         Me.btnMatStock.Caption = "วัสดุคงคลัง"
         Me.btnMatStock.Id = 10
-        Me.btnMatStock.ImageOptions.ImageUri.Uri = "Chart"
-        Me.btnMatStock.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.FolderClosed
+        Me.btnMatStock.ImageOptions.Image = CType(resources.GetObject("btnMatStock.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMatStock.ImageOptions.LargeImage = CType(resources.GetObject("btnMatStock.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMatStock.Name = "btnMatStock"
         '
         'BarButtonItem3
@@ -343,7 +343,8 @@ Partial Class FrmMain
         '
         Me.btnSupplier.Caption = "ข้อมูลผู้ขาย"
         Me.btnSupplier.Id = 70
-        Me.btnSupplier.ImageOptions.ImageUri.Uri = "ListBullets"
+        Me.btnSupplier.ImageOptions.Image = CType(resources.GetObject("btnSupplier.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSupplier.ImageOptions.LargeImage = CType(resources.GetObject("btnSupplier.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSupplier.Name = "btnSupplier"
         '
         'btnCF
@@ -402,6 +403,7 @@ Partial Class FrmMain
         Me.btn_ListTag.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Maroon
         Me.btn_ListTag.ItemAppearance.Normal.Options.UseForeColor = True
         Me.btn_ListTag.Name = "btn_ListTag"
+        Me.btn_ListTag.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         '
         'btnLogs_Transfer
         '
@@ -409,8 +411,6 @@ Partial Class FrmMain
         Me.btnLogs_Transfer.Id = 81
         Me.btnLogs_Transfer.ImageOptions.Image = CType(resources.GetObject("btnLogs_Transfer.ImageOptions.Image"), System.Drawing.Image)
         Me.btnLogs_Transfer.ImageOptions.LargeImage = CType(resources.GetObject("btnLogs_Transfer.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnLogs_Transfer.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Maroon
-        Me.btnLogs_Transfer.ItemAppearance.Normal.Options.UseForeColor = True
         Me.btnLogs_Transfer.Name = "btnLogs_Transfer"
         '
         'btnProduct
