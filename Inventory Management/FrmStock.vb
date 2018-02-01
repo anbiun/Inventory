@@ -233,6 +233,7 @@ Public Class FrmStock
                 .Columns(items).DisplayFormat.FormatType = FormatType.Numeric
                 .Columns(items).DisplayFormat.FormatString = "#,0.0"
             Next
+            .Columns("Warn").Caption = getString("warn1")
             .BestFitColumns()
             .OptionsView.ShowAutoFilterRow = True
         End With
