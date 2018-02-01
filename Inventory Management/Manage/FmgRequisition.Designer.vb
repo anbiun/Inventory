@@ -42,6 +42,14 @@ Partial Class FmgRequisition
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lbCat = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.PanelControl10 = New DevExpress.XtraEditors.PanelControl()
+        Me.cbPageSize = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.LabelControl18 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtDisplayPageNo = New DevExpress.XtraEditors.LabelControl()
+        Me.BtnNextPage = New DevExpress.XtraEditors.SimpleButton()
+        Me.BtnPreviousPage = New DevExpress.XtraEditors.SimpleButton()
+        Me.BtnLastPage = New DevExpress.XtraEditors.SimpleButton()
+        Me.BtnFirstPage = New DevExpress.XtraEditors.SimpleButton()
         CType(Me.deSDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deSDate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deEDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -56,6 +64,9 @@ Partial Class FmgRequisition
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.clbSubCat, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.clbLoc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PanelControl10, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl10.SuspendLayout()
+        CType(Me.cbPageSize.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BtnDel
@@ -121,6 +132,7 @@ Partial Class FmgRequisition
         Me.GroupControl3.AppearanceCaption.Options.UseFont = True
         Me.GroupControl3.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl3.Controls.Add(Me.gcList)
+        Me.GroupControl3.Controls.Add(Me.PanelControl10)
         Me.GroupControl3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupControl3.Location = New System.Drawing.Point(253, 0)
         Me.GroupControl3.Name = "GroupControl3"
@@ -134,7 +146,7 @@ Partial Class FmgRequisition
         Me.gcList.Location = New System.Drawing.Point(2, 31)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(757, 771)
+        Me.gcList.Size = New System.Drawing.Size(757, 740)
         Me.gcList.TabIndex = 7
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -279,6 +291,106 @@ Partial Class FmgRequisition
         Me.Label3.TabIndex = 28
         Me.Label3.Text = "ประเภทวัสดุ :"
         '
+        'PanelControl10
+        '
+        Me.PanelControl10.Controls.Add(Me.cbPageSize)
+        Me.PanelControl10.Controls.Add(Me.LabelControl18)
+        Me.PanelControl10.Controls.Add(Me.txtDisplayPageNo)
+        Me.PanelControl10.Controls.Add(Me.BtnNextPage)
+        Me.PanelControl10.Controls.Add(Me.BtnPreviousPage)
+        Me.PanelControl10.Controls.Add(Me.BtnLastPage)
+        Me.PanelControl10.Controls.Add(Me.BtnFirstPage)
+        Me.PanelControl10.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.PanelControl10.Location = New System.Drawing.Point(2, 771)
+        Me.PanelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PanelControl10.Name = "PanelControl10"
+        Me.PanelControl10.Size = New System.Drawing.Size(757, 31)
+        Me.PanelControl10.TabIndex = 8
+        '
+        'cbPageSize
+        '
+        Me.cbPageSize.EditValue = "5"
+        Me.cbPageSize.Location = New System.Drawing.Point(89, 4)
+        Me.cbPageSize.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cbPageSize.Name = "cbPageSize"
+        Me.cbPageSize.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.cbPageSize.Properties.Appearance.Options.UseFont = True
+        Me.cbPageSize.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cbPageSize.Properties.Items.AddRange(New Object() {"5", "10", "25", "50", "100"})
+        Me.cbPageSize.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cbPageSize.Size = New System.Drawing.Size(65, 24)
+        Me.cbPageSize.TabIndex = 10
+        '
+        'LabelControl18
+        '
+        Me.LabelControl18.Appearance.Font = New System.Drawing.Font("Tahoma", 9.55!)
+        Me.LabelControl18.Appearance.Options.UseFont = True
+        Me.LabelControl18.Location = New System.Drawing.Point(9, 5)
+        Me.LabelControl18.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl18.Name = "LabelControl18"
+        Me.LabelControl18.Size = New System.Drawing.Size(79, 19)
+        Me.LabelControl18.TabIndex = 8
+        Me.LabelControl18.Text = "จำนวนหน้า:"
+        '
+        'txtDisplayPageNo
+        '
+        Me.txtDisplayPageNo.Appearance.Font = New System.Drawing.Font("Tahoma", 9.5!)
+        Me.txtDisplayPageNo.Appearance.Options.UseFont = True
+        Me.txtDisplayPageNo.Location = New System.Drawing.Point(359, 4)
+        Me.txtDisplayPageNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtDisplayPageNo.Name = "txtDisplayPageNo"
+        Me.txtDisplayPageNo.Size = New System.Drawing.Size(28, 19)
+        Me.txtDisplayPageNo.TabIndex = 9
+        Me.txtDisplayPageNo.Text = "หน้า"
+        '
+        'BtnNextPage
+        '
+        Me.BtnNextPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.BtnNextPage.Appearance.Options.UseFont = True
+        Me.BtnNextPage.ImageOptions.Image = CType(resources.GetObject("BtnNextPage.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnNextPage.Location = New System.Drawing.Point(435, 2)
+        Me.BtnNextPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnNextPage.Name = "BtnNextPage"
+        Me.BtnNextPage.Size = New System.Drawing.Size(94, 26)
+        Me.BtnNextPage.TabIndex = 4
+        Me.BtnNextPage.Text = "หน้าถัดไป"
+        '
+        'BtnPreviousPage
+        '
+        Me.BtnPreviousPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.BtnPreviousPage.Appearance.Options.UseFont = True
+        Me.BtnPreviousPage.ImageOptions.Image = CType(resources.GetObject("BtnPreviousPage.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnPreviousPage.Location = New System.Drawing.Point(257, 2)
+        Me.BtnPreviousPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnPreviousPage.Name = "BtnPreviousPage"
+        Me.BtnPreviousPage.Size = New System.Drawing.Size(87, 26)
+        Me.BtnPreviousPage.TabIndex = 5
+        Me.BtnPreviousPage.Text = "หน้าก่อน"
+        '
+        'BtnLastPage
+        '
+        Me.BtnLastPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.BtnLastPage.Appearance.Options.UseFont = True
+        Me.BtnLastPage.ImageOptions.Image = CType(resources.GetObject("BtnLastPage.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnLastPage.Location = New System.Drawing.Point(534, 2)
+        Me.BtnLastPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnLastPage.Name = "BtnLastPage"
+        Me.BtnLastPage.Size = New System.Drawing.Size(101, 26)
+        Me.BtnLastPage.TabIndex = 6
+        Me.BtnLastPage.Text = "หน้าสุดท้าย"
+        '
+        'BtnFirstPage
+        '
+        Me.BtnFirstPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.BtnFirstPage.Appearance.Options.UseFont = True
+        Me.BtnFirstPage.ImageOptions.Image = CType(resources.GetObject("BtnFirstPage.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnFirstPage.Location = New System.Drawing.Point(161, 2)
+        Me.BtnFirstPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnFirstPage.Name = "BtnFirstPage"
+        Me.BtnFirstPage.Size = New System.Drawing.Size(91, 26)
+        Me.BtnFirstPage.TabIndex = 7
+        Me.BtnFirstPage.Text = "หน้าแรก"
+        '
         'FmgRequisition
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -303,6 +415,10 @@ Partial Class FmgRequisition
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.clbSubCat, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.clbLoc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PanelControl10, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelControl10.ResumeLayout(False)
+        Me.PanelControl10.PerformLayout()
+        CType(Me.cbPageSize.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -325,4 +441,12 @@ Partial Class FmgRequisition
     Friend WithEvents Label1 As Label
     Friend WithEvents lbCat As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents PanelControl10 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents cbPageSize As DevExpress.XtraEditors.ComboBoxEdit
+    Friend WithEvents LabelControl18 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtDisplayPageNo As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents BtnNextPage As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BtnPreviousPage As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BtnLastPage As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BtnFirstPage As DevExpress.XtraEditors.SimpleButton
 End Class

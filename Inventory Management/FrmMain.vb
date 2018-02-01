@@ -32,11 +32,7 @@ Public Class FrmMain
     End Sub
     Private Sub showFrom(frmName As Form)
 
-        'For Each f In Me.MdiChildren
-        '    If f.Name <> frmName.Name Then f.Dispose()
-        'Next
         frmName.MdiParent = Me
-        'frmName.WindowState = FormWindowState.Maximized
         frmName.Show()
     End Sub
     Sub InitSkins()

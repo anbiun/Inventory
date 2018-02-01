@@ -40,7 +40,8 @@ Public Class FmgQCTarget
             .FormatString = "#,0"
         End With
         gvList.OptionsView.ShowAutoFilterRow = True
-        txtQuatername.Text = DS.Tables("product")(0)("QCName")
+
+        txtQuatername.Text = If(IsDBNull(DS.Tables("product")(0)("QCName")), "", DS.Tables("product")(0)("QCName"))
         'gvList.Columns("ProductID").MaxWidth = gvList.Columns("ProductID").GetBestWidth
     End Sub
     Private Sub LoadDef()
@@ -69,7 +70,6 @@ Public Class FmgQCTarget
 #Region "BUTTON"
     Private Sub BtnClick(sender As Object, e As EventArgs) Handles btnNew.Click, btnEdit.Click, btnRemove.Click,
         btnDelList.Click, btnSave.Click, btnCancel.Click, btnAddList.Click, btnOK.Click
-
         Dim btn As SimpleButton = CType(sender, SimpleButton)
         With btn
             Select Case .Name

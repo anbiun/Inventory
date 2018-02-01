@@ -3,7 +3,7 @@ Imports System.Data.SqlClient
 Imports DevExpress.XtraGrid
 
 Public Class FmgRequisition
-
+    Dim pgcontrol As New ClsPaging
 #Region "Code Sub Func."
     Private Function getExpr(control As DevExpress.XtraEditors.CheckedListBoxControl, field As String)
         Dim chkList As New List(Of String)
@@ -98,6 +98,9 @@ Public Class FmgRequisition
         If clbSubCat.CheckedItemsCount = 0 Or clbLoc.CheckedItemsCount = 0 Then Exit Sub
         Find()
         GVFormat()
+        pgcontrol.setGrid = gcList
+        pgcontrol.setSource = gcList.DataSource
+        pgcontrol.LoadPage()
     End Sub
 #End Region
 
@@ -206,4 +209,7 @@ Public Class FmgRequisition
 
     End Sub
 
+    Private Sub BtnNextPage_Click(sender As Object, e As EventArgs) Handles BtnNextPage.Click
+        pgcontrol.NextPage()
+    End Sub
 End Class

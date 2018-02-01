@@ -11,6 +11,16 @@ Public Class ClsPaging
     Private pageSize As Integer
     Private maxRec As Integer
     Private pageCount As Integer
+    Public WriteOnly Property setGrid
+        Set(value)
+            gridControl = value
+        End Set
+    End Property
+    Public WriteOnly Property setSource
+        Set(value)
+            dtSource = value
+        End Set
+    End Property
 
     Public Sub LoadPage()
         Dim i As Integer
