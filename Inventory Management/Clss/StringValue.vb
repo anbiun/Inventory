@@ -66,6 +66,9 @@
                 .Add("approveStat", "สถานะรับของ")
                 .Add("Locname", "คลังวัสดุ")
 #End Region
+#Region "ทั่วไป"
+                .Add("err_pagesize", "จำนวนหน้ามากกว่าจำนวนข้อมูล")
+#End Region
 
             Catch ex As Exception
                 Dim st As New StackTrace(True)

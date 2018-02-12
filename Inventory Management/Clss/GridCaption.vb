@@ -1,7 +1,5 @@
 ﻿Imports DevExpress.XtraGrid.Views.Grid
-
 Public Class GridCaption
-
     Public HIDE As New selectColum
     Public ONLY As New selectColum
     Public SHOW As New selectColum

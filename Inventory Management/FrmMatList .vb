@@ -471,7 +471,6 @@ lchangeMainLookup:
         End If
 
         gcMain.DataSource = dsTbl("showingrid")
-        gridInfo = New GridCaption
         With gridInfo
             .hide.columns("subcatid")
             .hide.columns("catID")

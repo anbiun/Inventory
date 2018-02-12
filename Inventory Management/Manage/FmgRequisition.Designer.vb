@@ -32,13 +32,15 @@ Partial Class FmgRequisition
         Me.gcList = New DevExpress.XtraGrid.GridControl()
         Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.PanelControl10 = New DevExpress.XtraEditors.PanelControl()
-        Me.cbPageSize = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.BtnNextPage = New DevExpress.XtraEditors.SimpleButton()
+        Me.BtnLastPage = New DevExpress.XtraEditors.SimpleButton()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.LabelControl18 = New DevExpress.XtraEditors.LabelControl()
         Me.txtDisplayPageNo = New DevExpress.XtraEditors.LabelControl()
-        Me.BtnNextPage = New DevExpress.XtraEditors.SimpleButton()
-        Me.BtnPreviousPage = New DevExpress.XtraEditors.SimpleButton()
-        Me.BtnLastPage = New DevExpress.XtraEditors.SimpleButton()
+        Me.cbPageSize = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.BtnFirstPage = New DevExpress.XtraEditors.SimpleButton()
+        Me.BtnPreviousPage = New DevExpress.XtraEditors.SimpleButton()
         Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
         Me.rdDate_By = New System.Windows.Forms.RadioButton()
         Me.rdDate_All = New System.Windows.Forms.RadioButton()
@@ -50,8 +52,6 @@ Partial Class FmgRequisition
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lbCat = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
         CType(Me.deSDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deSDate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deEDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,6 +62,8 @@ Partial Class FmgRequisition
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl10, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl10.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         CType(Me.cbPageSize.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl1.SuspendLayout()
@@ -69,8 +71,6 @@ Partial Class FmgRequisition
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.clbSubCat, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.clbLoc, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'BtnDel
@@ -78,7 +78,7 @@ Partial Class FmgRequisition
         Me.BtnDel.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnDel.Appearance.Options.UseFont = True
         Me.BtnDel.ImageOptions.Image = CType(resources.GetObject("BtnDel.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnDel.Location = New System.Drawing.Point(24, 567)
+        Me.BtnDel.Location = New System.Drawing.Point(24, 616)
         Me.BtnDel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnDel.Name = "BtnDel"
         Me.BtnDel.Size = New System.Drawing.Size(211, 35)
@@ -176,19 +176,54 @@ Partial Class FmgRequisition
         Me.PanelControl10.Size = New System.Drawing.Size(757, 31)
         Me.PanelControl10.TabIndex = 8
         '
-        'cbPageSize
+        'Panel2
         '
-        Me.cbPageSize.EditValue = "5"
-        Me.cbPageSize.Location = New System.Drawing.Point(88, 1)
-        Me.cbPageSize.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cbPageSize.Name = "cbPageSize"
-        Me.cbPageSize.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.cbPageSize.Properties.Appearance.Options.UseFont = True
-        Me.cbPageSize.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cbPageSize.Properties.Items.AddRange(New Object() {"5", "10", "25", "50", "100"})
-        Me.cbPageSize.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cbPageSize.Size = New System.Drawing.Size(65, 24)
-        Me.cbPageSize.TabIndex = 10
+        Me.Panel2.AutoSize = True
+        Me.Panel2.Controls.Add(Me.BtnNextPage)
+        Me.Panel2.Controls.Add(Me.BtnLastPage)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel2.Location = New System.Drawing.Point(402, 2)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(227, 27)
+        Me.Panel2.TabIndex = 12
+        '
+        'BtnNextPage
+        '
+        Me.BtnNextPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.BtnNextPage.Appearance.Options.UseFont = True
+        Me.BtnNextPage.ImageOptions.Image = CType(resources.GetObject("BtnNextPage.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnNextPage.Location = New System.Drawing.Point(3, 0)
+        Me.BtnNextPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnNextPage.Name = "BtnNextPage"
+        Me.BtnNextPage.Size = New System.Drawing.Size(104, 26)
+        Me.BtnNextPage.TabIndex = 4
+        Me.BtnNextPage.Text = "หน้าถัดไป"
+        '
+        'BtnLastPage
+        '
+        Me.BtnLastPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.BtnLastPage.Appearance.Options.UseFont = True
+        Me.BtnLastPage.ImageOptions.Image = CType(resources.GetObject("BtnLastPage.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnLastPage.Location = New System.Drawing.Point(113, 0)
+        Me.BtnLastPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnLastPage.Name = "BtnLastPage"
+        Me.BtnLastPage.Size = New System.Drawing.Size(111, 26)
+        Me.BtnLastPage.TabIndex = 6
+        Me.BtnLastPage.Text = "หน้าสุดท้าย"
+        '
+        'Panel1
+        '
+        Me.Panel1.AutoSize = True
+        Me.Panel1.Controls.Add(Me.LabelControl18)
+        Me.Panel1.Controls.Add(Me.txtDisplayPageNo)
+        Me.Panel1.Controls.Add(Me.cbPageSize)
+        Me.Panel1.Controls.Add(Me.BtnFirstPage)
+        Me.Panel1.Controls.Add(Me.BtnPreviousPage)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel1.Location = New System.Drawing.Point(2, 2)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(400, 27)
+        Me.Panel1.TabIndex = 11
         '
         'LabelControl18
         '
@@ -212,41 +247,19 @@ Partial Class FmgRequisition
         Me.txtDisplayPageNo.TabIndex = 9
         Me.txtDisplayPageNo.Text = "หน้า"
         '
-        'BtnNextPage
+        'cbPageSize
         '
-        Me.BtnNextPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.BtnNextPage.Appearance.Options.UseFont = True
-        Me.BtnNextPage.ImageOptions.Image = CType(resources.GetObject("BtnNextPage.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnNextPage.Location = New System.Drawing.Point(3, 0)
-        Me.BtnNextPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.BtnNextPage.Name = "BtnNextPage"
-        Me.BtnNextPage.Size = New System.Drawing.Size(104, 26)
-        Me.BtnNextPage.TabIndex = 4
-        Me.BtnNextPage.Text = "หน้าถัดไป"
-        '
-        'BtnPreviousPage
-        '
-        Me.BtnPreviousPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.BtnPreviousPage.Appearance.Options.UseFont = True
-        Me.BtnPreviousPage.ImageOptions.Image = CType(resources.GetObject("BtnPreviousPage.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnPreviousPage.Location = New System.Drawing.Point(266, 0)
-        Me.BtnPreviousPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.BtnPreviousPage.Name = "BtnPreviousPage"
-        Me.BtnPreviousPage.Size = New System.Drawing.Size(97, 26)
-        Me.BtnPreviousPage.TabIndex = 5
-        Me.BtnPreviousPage.Text = "หน้าก่อน"
-        '
-        'BtnLastPage
-        '
-        Me.BtnLastPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.BtnLastPage.Appearance.Options.UseFont = True
-        Me.BtnLastPage.ImageOptions.Image = CType(resources.GetObject("BtnLastPage.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnLastPage.Location = New System.Drawing.Point(113, 0)
-        Me.BtnLastPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.BtnLastPage.Name = "BtnLastPage"
-        Me.BtnLastPage.Size = New System.Drawing.Size(111, 26)
-        Me.BtnLastPage.TabIndex = 6
-        Me.BtnLastPage.Text = "หน้าสุดท้าย"
+        Me.cbPageSize.EditValue = "1"
+        Me.cbPageSize.Location = New System.Drawing.Point(88, 1)
+        Me.cbPageSize.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cbPageSize.Name = "cbPageSize"
+        Me.cbPageSize.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.cbPageSize.Properties.Appearance.Options.UseFont = True
+        Me.cbPageSize.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cbPageSize.Properties.Items.AddRange(New Object() {"1", "5", "10", "25", "50", "100"})
+        Me.cbPageSize.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cbPageSize.Size = New System.Drawing.Size(65, 24)
+        Me.cbPageSize.TabIndex = 10
         '
         'BtnFirstPage
         '
@@ -259,6 +272,18 @@ Partial Class FmgRequisition
         Me.BtnFirstPage.Size = New System.Drawing.Size(101, 26)
         Me.BtnFirstPage.TabIndex = 7
         Me.BtnFirstPage.Text = "หน้าแรก"
+        '
+        'BtnPreviousPage
+        '
+        Me.BtnPreviousPage.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.BtnPreviousPage.Appearance.Options.UseFont = True
+        Me.BtnPreviousPage.ImageOptions.Image = CType(resources.GetObject("BtnPreviousPage.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnPreviousPage.Location = New System.Drawing.Point(266, 0)
+        Me.BtnPreviousPage.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnPreviousPage.Name = "BtnPreviousPage"
+        Me.BtnPreviousPage.Size = New System.Drawing.Size(97, 26)
+        Me.BtnPreviousPage.TabIndex = 5
+        Me.BtnPreviousPage.Text = "หน้าก่อน"
         '
         'GroupControl1
         '
@@ -390,31 +415,6 @@ Partial Class FmgRequisition
         Me.Label3.TabIndex = 28
         Me.Label3.Text = "ประเภทวัสดุ :"
         '
-        'Panel1
-        '
-        Me.Panel1.AutoSize = True
-        Me.Panel1.Controls.Add(Me.LabelControl18)
-        Me.Panel1.Controls.Add(Me.txtDisplayPageNo)
-        Me.Panel1.Controls.Add(Me.cbPageSize)
-        Me.Panel1.Controls.Add(Me.BtnFirstPage)
-        Me.Panel1.Controls.Add(Me.BtnPreviousPage)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel1.Location = New System.Drawing.Point(2, 2)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(400, 27)
-        Me.Panel1.TabIndex = 11
-        '
-        'Panel2
-        '
-        Me.Panel2.AutoSize = True
-        Me.Panel2.Controls.Add(Me.BtnNextPage)
-        Me.Panel2.Controls.Add(Me.BtnLastPage)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel2.Location = New System.Drawing.Point(402, 2)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(227, 27)
-        Me.Panel2.TabIndex = 12
-        '
         'FmgRequisition
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -435,6 +435,9 @@ Partial Class FmgRequisition
         CType(Me.PanelControl10, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl10.ResumeLayout(False)
         Me.PanelControl10.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         CType(Me.cbPageSize.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl1.ResumeLayout(False)
@@ -443,9 +446,6 @@ Partial Class FmgRequisition
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.clbSubCat, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.clbLoc, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

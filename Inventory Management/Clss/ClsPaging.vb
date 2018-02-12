@@ -30,10 +30,16 @@ Public Class ClsPaging
     End Property
 
     Public Sub LoadPage()
+        If pageSize = 0 Then
+            MessageBox.Show(getString("err_pagesize"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
         Dim i As Integer
         Dim startRec As Integer = recNo
         Dim endRec As Integer
         Dim dtTemp As DataTable
+
         'Duplicate or clone the source table to create the temporary table.
         dtTemp = dtSource.Clone
         If currentPage = pageCount Then
