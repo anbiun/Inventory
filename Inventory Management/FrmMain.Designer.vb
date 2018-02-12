@@ -101,8 +101,8 @@ Partial Class FrmMain
         Me.ribbonControl.Name = "ribbonControl"
         Me.ribbonControl.PageHeaderItemLinks.Add(Me.iAbout)
         Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1})
-        Me.ribbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010
-        Me.ribbonControl.Size = New System.Drawing.Size(1033, 180)
+        Me.ribbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.MacOffice
+        Me.ribbonControl.Size = New System.Drawing.Size(1033, 162)
         Me.ribbonControl.StatusBar = Me.ribbonStatusBar
         '
         'appMenu

@@ -15,11 +15,8 @@ Public Class FrmMain
         siInfo.Caption = "| Current IP : " & varIP
         siInfo.Caption &= " | Database : " & varDB
         siInfo.Caption &= " | Location : " & UserInfo.SelectLoc & "(" & UserInfo.LocName & ")"
-        If UserInfo.Permis = 0 Then
-            ribGrpApprove.Visible = False
-            ribGrpSetting.Visible = False
-            ribGrpNewSub.Visible = False
-        End If
+
+        Permission(UserInfo.Permis)
     End Sub
     Private Sub FrmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         Time.Caption = Me.Size.Height
@@ -31,7 +28,6 @@ Public Class FrmMain
         'Me.InitGrid()
     End Sub
     Private Sub showFrom(frmName As Form)
-
         frmName.MdiParent = Me
         frmName.Show()
     End Sub
@@ -62,17 +58,9 @@ Public Class FrmMain
         showFrom(FrmStock)
     End Sub
     Private Sub btnUnitManager_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnUnitManager.ItemClick
-        'For Each frm As Form In MdiChildren
-        '    If frm.Name <> FmgUnit.Name Then frm.Close()
-        'Next
-        'FmgUnit.ShowDialog()
         showFrom(FmgUnit)
     End Sub
     Private Sub btnSupplier_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnSupplier.ItemClick
-        'For Each frm As Form In MdiChildren
-        '    If frm.Name <> FmgSupplier.Name Then frm.Close()
-        'Next
-        'FmgSupplier.ShowDialog()
         showFrom(FmgSupplier)
     End Sub
     Private Sub btnLogOut_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnLogOut.ItemClick

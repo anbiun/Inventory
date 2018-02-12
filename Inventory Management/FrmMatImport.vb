@@ -29,22 +29,31 @@ Public Class FrmMatImport
     Dim ImReq As New InOutFunc
 #Region "Function"
     Private Sub gvFormat()
-        With gvImportList
-            .PopulateColumns()
-            .Columns("ImportDate").Caption = "วันที่นำเข้า"
-            .Columns("BillNo").Caption = "เลขที่ใบส่งของ"
-            .Columns("supplierName").Caption = "ผู้ขาย"
-            .Columns("supplierID").Visible = False
-            .Columns("ImportID").Caption = "รหัสแจ้งแก้ไข"
-            .Columns("UserStock_Name").Caption = "ผู้รับของ"
-            .Columns("UserApprove_Name").Visible = False
-            .Columns("Stat").Visible = False
-            .Columns("UserStock_ID").Visible = False
-            .Columns("UserApprove_ID").Visible = False
-            .Columns("Notation").Caption = getString("notation")
-            .BestFitColumns()
+        gridInfo = New GridCaption
+        With gridInfo
+            .HIDE.Columns("UserStock_ID")
+            .HIDE.Columns("UserApprove_ID")
+            .HIDE.Columns("UserApprove")
+            .HIDE.Columns("supplierID")
+            .HIDE.Columns("ImportID")
+            .HIDE.Columns("Stat")
+            .HIDE.Columns("userapprove_name")
+            .SetCaption(gvImportList)
+            With .HIDE
+                .Columns("matID")
+                .Columns("importorid")
+                .Columns("Unit1_id")
+                .Columns("Importid")
+                .Columns("qtyperunit")
+                .Columns("locid")
+                .Columns("เรโช")
+                .Columns("หมายเหตุ")
+            End With
+
+            .SetCaption(gvImportOrder)
         End With
 
+        Exit Sub
         With gvImportOrder
             .PopulateColumns()
             .Columns("MatName").Caption = "ชื่อวัสดุ"
@@ -109,14 +118,6 @@ SubUnit:
         'gvSrc = gvImportDetail
         gvDes = gvImportOrder
         Dim unit1Sum, unit3Sum As Double
-
-        'For rw As Integer = 0 To gvSrc.RowCount - 1
-        '    If MatID = gvSrc.GetRowCellValue(rw, "MatID") Then
-        '        'PriceSum = PriceSum + CDbl(gvDes.GetRowCellValue(rw, "Price"))
-        '        unit1Sum = unit1Sum + CDbl(gvSrc.GetRowCellValue(rw, "Unit1"))
-        '        unit3Sum = unit3Sum + CDbl(gvSrc.GetRowCellValue(rw, "Unit3"))
-        '    End If
-        'Next
 
         For rw As Integer = 0 To gvDes.RowCount - 1
             If MatID = gvDes.GetRowCellValue(rw, "MatID") Then
@@ -689,6 +690,7 @@ Edit:
         deImport.EditValue = ImportDate
         BtnDelete.Enabled = True
         'rbPerQty.Checked = True
+        Permission(UserInfo.Permis)
         LoadSuccess = True
     End Sub
     Private Sub deImport_EditValueChanged(sender As Object, e As EventArgs) Handles deImport.EditValueChanged

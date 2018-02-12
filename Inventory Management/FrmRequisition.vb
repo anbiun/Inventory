@@ -16,6 +16,27 @@ Public Class FrmRequisition
         RequestDate As Date, LoadFlag As Boolean = False,
         ImReq As New InOutFunc
 #Region "FUNC."
+    Private Function genReqNo() As String
+        Dim Reqno As String = deDate.EditValue
+        If deDate.EditValue IsNot Nothing Then
+            Reqno = CDate(Reqno).ToString("ddMM-")
+        Else
+            Reqno = Today.ToString("ddMM")
+        End If
+        SQL = "select Top 1 RequestNo from tbRequisition"
+        SQL &= " where RequestNo Like '" & Reqno & "%'"
+        SQL &= " ORDER BY RequestNo desc"
+        dsTbl("dbreqno")
+        Dim dbReqno As String = If(DS.Tables("dbreqno").Rows.Count > 0, DS.Tables("dbreqno")(0)(0), String.Empty)
+        If String.IsNullOrEmpty(dbReqno) Then
+            Reqno &= "01"
+        Else
+            Reqno = dbReqno.Replace("-", "")
+            Reqno = CInt(Reqno + 1).ToString("0000-00")
+        End If
+
+        Return Reqno
+    End Function
     Private Sub LoadAutoCom()
         'AutuComplete ชื่อผู้เบิก
         Dim collection As New AutoCompleteStringCollection()
@@ -110,6 +131,7 @@ Public Class FrmRequisition
         txtRequestNo.Text = ""
         txtUserRequest.Text = ""
         dtList.Clear()
+        txtRequestNo.Text = genReqNo()
     End Sub
 #End Region
 
@@ -121,7 +143,6 @@ Public Class FrmRequisition
         lbUserStock.Text = UserInfo.UserName
         UserStock = UserInfo.UserID
         LoadAutoCom()
-
         LoadFlag = True
     End Sub
 #End Region
@@ -206,10 +227,12 @@ Public Class FrmRequisition
     End Sub
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim fieldList() As String = Nothing
-        fieldList = {"RequestID", "MatID", "Unit1_ID", "UserRequest", "UserStock",
-                     "Unit1_Num", "Unit3_Num", "RequestNo", "RequestDate", "TagID", "LocID"}
-        blkCpy("tbRequisition", dtList, fieldList)
-        MsgBox("successfully", MsgBoxStyle.Information)
+        If MessageBox.Show("ยืนยันการบันทึกข้อมูล โปรดตรวจสอบอีกครั้งให้ถูกต้อง", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+            fieldList = {"RequestID", "MatID", "Unit1_ID", "UserRequest", "UserStock",
+                                 "Unit1_Num", "Unit3_Num", "RequestNo", "RequestDate", "TagID", "LocID"}
+            blkCpy("tbRequisition", dtList, fieldList)
+        End If
+
         'btnProcess(btnSave)
         btnCancel.PerformClick()
         QRyStock()
@@ -239,6 +262,7 @@ Public Class FrmRequisition
 #Region "Other Control"
     Private Sub deDate_EditValueChanged(sender As Object, e As EventArgs) Handles deDate.EditValueChanged
         RequestDate = deDate.EditValue
+        txtRequestNo.Text = genReqNo()
     End Sub
     Private Sub slTagID_EditValueChanged(sender As Object, e As EventArgs) Handles slTagID.EditValueChanged
         slTagID.Properties.View.ExpandAllGroups()

@@ -97,15 +97,30 @@ Module ImModule
     End Sub
     Public Function Permission(_permis As UserGroup)
         Select Case _permis
+            Case UserGroup.StockUser
+                FrmMatImport.grpSearch.Visible = True
+                FrmMatImport.pnlEdit.Visible = False
+                FmgRequisition.BtnDel.Visible = False
+                'FrmMain.btnTransfer.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+                With FrmMain
+                    .ribGrpApprove.Visible = True
+                    .btnMatStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                    .ribGrpSetting.Visible = False
+                    .ribGrpNewSub.Visible = False
+                End With
+                Return False
+            Case UserGroup.ApproveUser
+                FrmMatImport.pnlEdit.Visible = True
+                With FrmMain
+                    .ribGrpNewSub.Visible = False
+                    .btnMatStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                    .ribGrpSetting.Visible = False
+                End With
+                Return True
             Case UserGroup.Admin
                 FrmMatImport.pnlEdit.Visible = True
                 Return True
-            Case UserGroup.StockUser
-                Return False
-                'FrmMatImport.gvImportOrder.Columns("TagID").Visible = False
-            Case UserGroup.ApproveUser
-                FrmMatImport.pnlEdit.Visible = True
-                Return True
+
         End Select
 
         Return False
@@ -259,25 +274,9 @@ Module ImModule
     End Function
     'GridInfo
     Public gridInfo As New GridCaption
+    Private strList As New StringList
     Public getString As Func(Of String, String) = Function(StringKey As String)
-                                                      Dim strlist As New StringList
-                                                      Return strlist.GetVal(StringKey)
+                                                      Return strList.GetVal(StringKey)
                                                   End Function
 End Module
-Public Class GridCaption
-    Private StringKey As New List(Of String)
-    Sub Add(keys As String)
-        StringKey.Add(keys)
-    End Sub
-    Sub SetCaption(GridViewName As GridView)
-        For Each items As DevExpress.XtraGrid.Columns.GridColumn In GridViewName.Columns
-            If StringKey.Contains(items.FieldName, StringComparer.OrdinalIgnoreCase) Then
-                items.Caption = getString(items.FieldName)
-                items.Visible = True
-            Else
-                items.Caption = getString(items.FieldName)
-                items.Visible = False
-            End If
-        Next
-    End Sub
-End Class
+

@@ -30,7 +30,8 @@ Public Class FrmLogs_Import
             .View.Columns("CatName").Caption = "หมวดวัสดุ"
         End With
 
-        Sql = "Select LocID,LocName FROM tbLocation"
+        SQL = "Select LocID,LocName FROM tbLocation"
+        SQL &= If(UserInfo.permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
         dsTbl("location")
         With clbLoc
             .DataSource = DS.Tables("location")
@@ -45,7 +46,7 @@ Public Class FrmLogs_Import
     Private Sub LoadDef()
         clbLoc.CheckAll()
         rdDate_All.Checked = True
-        deSDate.EditValue = Today
+        deSDate.EditValue = DateAdd(DateInterval.Day, -7, Today)
         deEDate.EditValue = Today
         deSDate.Enabled = False
         deEDate.Enabled = False
@@ -101,36 +102,26 @@ Public Class FrmLogs_Import
         GVFormat()
     End Sub
     Private Sub GVFormat()
-        Dim DisableCol As String() = {"LocID", "CatID", "SubCatID", "SupplierID"}
+        gridInfo = New GridCaption
+        With gridInfo
+            .HIDE.Columns("LocID")
+            .HIDE.Columns("CatID")
+            .HIDE.Columns("SubCatID")
+            .HIDE.Columns("SupplierID")
+            .SetCaption(gvList)
+        End With
         With gvList
-            For Each col As DevExpress.XtraGrid.Columns.GridColumn In .Columns
-                If DisableCol.Contains(col.FieldName) Then
-                    col.Visible = False
-                End If
-            Next
-            .Columns("Notation").Caption = "หมายเหตุ"
-            .Columns("BillNo").Caption = "เลขที่บิล"
-            .Columns("LocName").Caption = "สถานที่"
-            .Columns("MatName").Caption = "ชื่อวัสดุ"
-            .Columns("Unit1").Caption = "จำนวน"
-            .Columns("Unit1_Name").Caption = " "
-            .Columns("Unit3").Caption = "เป็นปริมาณ"
-            .Columns("Unit3_Name").Caption = " "
-            .Columns("ImportDate").Caption = "วันที่นำเข้า"
-            .Columns("UserName").Caption = "ผู้บันทึกรายการ"
-            .Columns("SupplierName").Caption = "ผู้ขาย"
-            .Columns("SaveDate").Caption = "วันที่บันทึกข้อมูล"
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
-            .BestFitColumns()
-            gvList.Columns("Unit1").Summary.Clear()
-            gvList.Columns("Unit1").Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Unit1", "รวม : {0}")
-            gvList.Columns("Unit3").Summary.Clear()
-            gvList.Columns("Unit3").Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Unit3", "รวม : {0}")
+            .Columns("Unit1").Summary.Clear()
+            .Columns("Unit1").Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Unit1", "รวม : {0}")
+            .Columns("Unit3").Summary.Clear()
+            .Columns("Unit3").Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Unit3", "รวม : {0}")
             .Columns("ImportDate").Group()
             .Columns("ImportDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
             .ExpandAllGroups()
             .OptionsView.ShowAutoFilterRow = True
+            .BestFitColumns()
         End With
     End Sub
     Private Sub gcList_Click(sender As Object, e As EventArgs) Handles gcList.Click

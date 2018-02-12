@@ -4,6 +4,7 @@ Imports DevExpress.XtraGrid
 
 Public Class FmgRequisition
     Dim pgcontrol As New ClsPaging
+    Private dtResult As New DataTable
 #Region "Code Sub Func."
     Private Function getExpr(control As DevExpress.XtraEditors.CheckedListBoxControl, field As String)
         Dim chkList As New List(Of String)
@@ -21,6 +22,7 @@ Public Class FmgRequisition
         Return ret
     End Function
     Private Sub FirstQry()
+        
         SQL = "Select CatID,CatName FROM tbCategory"
         dsTbl("category")
         With slCat.Properties
@@ -33,6 +35,8 @@ Public Class FmgRequisition
         End With
 
         SQL = "Select LocID,LocName FROM tbLocation"
+        SQL &= If(UserInfo.Permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
+        Dim abc = SQL
         dsTbl("location")
         With clbLoc
             .DataSource = DS.Tables("location")
@@ -47,7 +51,7 @@ Public Class FmgRequisition
     Private Sub LoadDef()
         clbLoc.CheckAll()
         rdDate_All.Checked = True
-        deSDate.EditValue = Today
+        deSDate.EditValue = DateAdd(DateInterval.Day, -7, Today)
         deEDate.EditValue = Today
         deSDate.Enabled = False
         deEDate.Enabled = False
@@ -65,15 +69,23 @@ Public Class FmgRequisition
             SQL &= " WHERE RequestDate >='" & convertDate(deSDate.EditValue) & "'"
             SQL &= " AND RequestDate <='" & convertDate(deEDate.EditValue) & "'"
         End If
-        SQL &= "SELECT * FROM #Cat ORDER By SaveDate"
-        gcList.DataSource = dsTbl("requisition")
+        SQL &= "SELECT * FROM #Cat ORDER By SaveDate DESC"
+        dtResult = dsTbl("requisition")
+        'gcList.DataSource = dsTbl("requisition")
     End Sub
 #End Region
 #Region "Common Controls"
     Private Sub FmgRequisition_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadSuccess = False
+        With pgcontrol
+            .setControl.PageDisplayCtrl = txtDisplayPageNo
+            .setControl.GridCtrl = gcList
+            .setSource = Nothing
+        End With
+
         FirstQry()
         LoadDef()
+        Permission(UserInfo.Permis)
         loadSuccess = True
     End Sub
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
@@ -97,35 +109,29 @@ Public Class FmgRequisition
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         If clbSubCat.CheckedItemsCount = 0 Or clbLoc.CheckedItemsCount = 0 Then Exit Sub
         Find()
+        pgcontrol.setSource = dtResult
+        pgcontrol.setPageNum = cbPageSize.EditValue
+        If pgcontrol.getCurrentPage = 1 Then
+            pgcontrol.LoadPage()
+        Else
+            pgcontrol.FirstPage()
+        End If
         GVFormat()
-        pgcontrol.setGrid = gcList
-        pgcontrol.setSource = gcList.DataSource
-        pgcontrol.LoadPage()
     End Sub
 #End Region
-
     Dim RequestNo As String
-
     Private Sub GVFormat()
+        gridInfo = New GridCaption
+        With gridInfo
+            .hide.columns("Stat")
+            .hide.columns("locid")
+            .hide.columns("subcatID")
+            .hide.columns("catid")
+            .SetCaption(gvList)
+        End With
         With gvList
-            .Columns("LocID").Visible = False
-            .Columns("SubCatID").Visible = False
-            .Columns("CatID").Visible = False
-            .Columns("Stat").Visible = False
-            .Columns("MatID").Visible = False
-            .Columns("RequestNo").Caption = "เลขที่ใบเบิก"
-            .Columns("MatName").Caption = "ชื่อวัสดุ"
-            .Columns("Unit1_Num").Caption = "จำนวน"
-            .Columns("Unit1_Name").Caption = " "
-            .Columns("Unit3_Num").Caption = "เป็นปริมาณ"
-            .Columns("Unit3_Name").Caption = " "
-            .Columns("RequestDate").Caption = "วันที่เบิกวัสดุ"
-            .Columns("UserRequest").Caption = "ผู้เบิกวัสดุ"
-            .Columns("UserStock").Caption = "ผู้จ่ายวัสดุ"
-            .Columns("SaveDate").Caption = "วันที่บันทึกข้อมูล"
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
-            .BestFitColumns()
             gvList.Columns("Unit1_Num").Summary.Clear()
             gvList.Columns("Unit1_Num").Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Unit1_Num", "รวม : {0}")
             gvList.Columns("Unit3_Num").Summary.Clear()
@@ -134,11 +140,10 @@ Public Class FmgRequisition
             .Columns("RequestDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
             .ExpandAllGroups()
             .OptionsView.ShowAutoFilterRow = True
+            .BestFitColumns()
+            .TopRowIndex = 0
         End With
     End Sub
-    'Private Sub txtFind_EditValueChanged(sender As Object, e As EventArgs)
-    '    gcList.DataSource = Find("requisition", "TagID Like '%" & txtFind.Text & "%'")
-    'End Sub
     Private Sub gcList_Click(sender As Object, e As EventArgs) Handles gcList.Click
         Dim rw As Integer = gvList.FocusedRowHandle
         If rw >= 0 Then
@@ -147,11 +152,6 @@ Public Class FmgRequisition
             RequestNo = gvList.GetFocusedValue
         End If
     End Sub
-
-    Private Sub txtTagID_EditValueChanged(sender As Object, e As EventArgs)
-        'gcList.DataSource = Find("requisition", "TagID Like '%" & Trim(txtTagID.Text) & "%'")
-    End Sub
-
     Private Sub BtnDel_Click(sender As Object, e As EventArgs) Handles BtnDel.Click
         SQL = "SELECT RequestNo From tbRequisition WHERE RequestNo='" & RequestNo & "'"
         SQL &= " AND Stat='1'"
@@ -170,17 +170,11 @@ Public Class FmgRequisition
             MsgBox("เลขที่ใบเบิกไม่ถูกต้อง (" & RequestNo & ")", MsgBoxStyle.Critical)
         End If
         FirstQry()
+        Find()
+        pgcontrol.setSource = dtResult
+        pgcontrol.LoadPage()
+
     End Sub
-
-    Private Sub btnRef_Click(sender As Object, e As EventArgs)
-
-        'FirstQry()
-        'Dim dtRequisition As DataTable = DS.Tables("requisition").Copy
-        'gcList.DataSource = dtRequisition
-        'gvList.Columns("RequestNo").Group()
-        'gvList.ExpandAllGroups()
-    End Sub
-
     Private Sub btnLogs_Click(sender As Object, e As EventArgs)
         SQL = "select L.*,M.MatName from Logs_Requisition L INNER JOIN tbMat M ON L.MatID = M.MatID ORDER BY LogNo"
         gcList.DataSource = dsTbl("logsrequisiton")
@@ -188,7 +182,6 @@ Public Class FmgRequisition
         gvList.Columns("RequestNo").Group()
         gvList.ExpandAllGroups()
     End Sub
-
     Private Sub btnExPortExcel_Click(sender As Object, e As EventArgs)
         Dim saveFileDialog1 As New SaveFileDialog()
         saveFileDialog1.Filter = "Excel xlsx |*.xlsx"
@@ -198,18 +191,42 @@ Public Class FmgRequisition
             gcList.ExportToXlsx(saveFileDialog1.FileName)
         End If
     End Sub
-
     Private Sub btnEdit_Click(sender As Object, e As EventArgs)
         gvList.Columns.Clear()
         SQL = "select * from vwRequisition"
         gcList.DataSource = Nothing
         gcList.DataSource = dsTbl("requisition")
-
         gvList.PopulateColumns()
-
     End Sub
 
-    Private Sub BtnNextPage_Click(sender As Object, e As EventArgs) Handles BtnNextPage.Click
-        pgcontrol.NextPage()
+    Private Sub cbPageSize_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPageSize.SelectedIndexChanged
+        If loadSuccess = False Or dtResult.Rows.Count <= 0 Then Exit Sub
+        If pgcontrol.getCurrentPage = 1 Then
+            pgcontrol.setPageNum = cbPageSize.EditValue
+            pgcontrol.LoadPage()
+        Else
+            pgcontrol.setPageNum = cbPageSize.EditValue
+            pgcontrol.FirstPage()
+        End If
+        GVFormat()
+
+    End Sub
+    Private Sub PGControl_ButtonClick(sender As Object, e As EventArgs) Handles BtnFirstPage.Click, BtnLastPage.Click, BtnNextPage.Click, BtnPreviousPage.Click
+        Dim btn As DevExpress.XtraEditors.SimpleButton = CType(sender, DevExpress.XtraEditors.SimpleButton)
+        If dtResult.Rows.Count <= 0 Then Exit Sub
+        With pgcontrol
+            Select Case btn.Name
+                Case BtnFirstPage.Name
+                    .FirstPage()
+                Case BtnLastPage.Name
+                    .LastPage()
+                Case BtnNextPage.Name
+                    .NextPage()
+                Case BtnPreviousPage.Name
+                    .PreviousPage()
+            End Select
+        End With
+        GVFormat()
+
     End Sub
 End Class
