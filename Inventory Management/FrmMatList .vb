@@ -473,16 +473,9 @@ lchangeMainLookup:
         gcMain.DataSource = dsTbl("showingrid")
         gridInfo = New GridCaption
         With gridInfo
-            .Add("matid")
-            .Add("matname")
-            .Add("qtyperunit")
-            .Add("qtyperunit_name")
-            .Add("Warn")
-            .Add("QtyOfUsing")
-            .Add("QtyOfUsing_Name")
-            .Add("Ratio")
-            .Add("Ratio_Name")
-            .Add("ProductName")
+            .hide.columns("subcatid")
+            .hide.columns("catID")
+            .hide.columns("productid")
             .SetCaption(GVMain)
         End With
         GVMain.OptionsView.ShowAutoFilterRow = True

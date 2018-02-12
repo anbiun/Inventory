@@ -4,7 +4,6 @@ Imports DevExpress.Utils
 
 Public Class DlogStockLow
     Friend dtName As DataTable
-    Dim _test As New clssGridStyle
     Sub New()
         FrmMain.InitSkins()
         InitializeComponent()

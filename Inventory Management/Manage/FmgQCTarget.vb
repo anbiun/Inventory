@@ -29,12 +29,9 @@ Public Class FmgQCTarget
         dtQCTarget = DS.Tables("product").Copy
         gcList.DataSource = dtQCTarget
         gridInfo = New GridCaption
-        With gridInfo
-            .Add("QCTarget")
-            .Add("ProductName")
-            .Add("Unit")
-            .SetCaption(gvList)
-        End With
+        gridInfo.hide.columns("productid")
+        gridInfo.hide.columns("qcname")       
+        gridInfo.SetCaption(gvList)
         With gvList.Columns("QCTarget").DisplayFormat
             .FormatType = FormatType.Numeric
             .FormatString = "#,0"

@@ -166,6 +166,7 @@ Partial Class FrmRequisition
         'txtRequestNo
         '
         Me.txtRequestNo.AllowDrop = True
+        Me.txtRequestNo.Enabled = False
         Me.txtRequestNo.Location = New System.Drawing.Point(124, 106)
         Me.txtRequestNo.Name = "txtRequestNo"
         Me.txtRequestNo.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -343,7 +344,7 @@ Partial Class FrmRequisition
         '
         Me.lbVol.AutoSize = True
         Me.lbVol.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbVol.Location = New System.Drawing.Point(28, 49)
+        Me.lbVol.Location = New System.Drawing.Point(49, 49)
         Me.lbVol.Name = "lbVol"
         Me.lbVol.Size = New System.Drawing.Size(38, 24)
         Me.lbVol.TabIndex = 13
@@ -363,7 +364,7 @@ Partial Class FrmRequisition
         '
         Me.lbQty.AutoSize = True
         Me.lbQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbQty.Location = New System.Drawing.Point(5, 12)
+        Me.lbQty.Location = New System.Drawing.Point(30, 14)
         Me.lbQty.Name = "lbQty"
         Me.lbQty.Size = New System.Drawing.Size(61, 24)
         Me.lbQty.TabIndex = 13

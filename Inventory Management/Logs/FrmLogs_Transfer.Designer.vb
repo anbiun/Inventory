@@ -159,9 +159,9 @@ Partial Class FrmLogs_Transfer
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.8!)
         Me.Label1.Location = New System.Drawing.Point(12, 263)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(89, 23)
+        Me.Label1.Size = New System.Drawing.Size(145, 23)
         Me.Label1.TabIndex = 26
-        Me.Label1.Text = "คลังวัสดุ :"
+        Me.Label1.Text = "คลังวัสดุต้นทาง :"
         '
         'lbCat
         '
@@ -257,7 +257,7 @@ Partial Class FrmLogs_Transfer
         Me.Controls.Add(Me.GroupControl1)
         Me.Name = "FrmLogs_Transfer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "ประวัติโอนย้าน"
+        Me.Text = "ประวัติโอนย้าย"
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl1.ResumeLayout(False)
         Me.GroupControl1.PerformLayout()

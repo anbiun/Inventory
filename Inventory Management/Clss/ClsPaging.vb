@@ -2,22 +2,29 @@
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraEditors
 Public Class ClsPaging
-    Private comboPageSize As ComboBoxEdit
-    Private labelDisplay As LabelControl
-    Private gridControl As GridControl
     Private dtSource As DataTable
     Private recNo As Integer
     Private currentPage As Integer
     Private pageSize As Integer
     Private maxRec As Integer
     Private pageCount As Integer
-    Public WriteOnly Property setGrid
+    Public setControl As New controlsetting
+
+    Public WriteOnly Property setPageNum
         Set(value)
-            gridControl = value
+            recNo = 0
+            pageSize = dtSource.Rows.Count \ value
+            pageCount = value
         End Set
+    End Property
+    Public ReadOnly Property getCurrentPage
+        Get
+            Return currentPage
+        End Get
     End Property
     Public WriteOnly Property setSource
         Set(value)
+            recNo = 0
             dtSource = value
         End Set
     End Property
@@ -30,7 +37,7 @@ Public Class ClsPaging
         'Duplicate or clone the source table to create the temporary table.
         dtTemp = dtSource.Clone
         If currentPage = pageCount Then
-            endRec = maxRec
+            endRec = dtSource.Rows.Count
         Else
             endRec = pageSize * currentPage
         End If
@@ -41,11 +48,11 @@ Public Class ClsPaging
                 recNo = recNo + 1
             End If
         Next
-        gridControl.DataSource = dtTemp
+        setControl.GridCtrl.DataSource = dtTemp
         DisplayPageInfo()
     End Sub
     Private Sub DisplayPageInfo()
-        labelDisplay.Text = "หน้า " & currentPage.ToString & "/ " & pageCount.ToString
+        setControl.PageDisplayCtrl.Text = "หน้า " & currentPage & " / " & pageCount
     End Sub
     Public Sub LastPage()
         If currentPage = pageCount Then
@@ -87,21 +94,35 @@ Public Class ClsPaging
         End If
         LoadPage()
     End Sub
-    Public Sub Innitial(ByVal GridControlData As GridControl, ByVal LabelDisplyPage As LabelControl, ByVal DropPageSize As ComboBoxEdit, ByVal DT As DataTable)
-        gridControl = GridControlData
-        labelDisplay = LabelDisplyPage
-        comboPageSize = DropPageSize
-        pageSize = comboPageSize.Text
-        'dtSource = GetData()
-        dtSource = DT
-        maxRec = dtSource.Rows.Count
-        pageCount = maxRec \ pageSize
-        If (maxRec Mod pageSize) > 0 Then
-            'pageCount = pageCount - 1
-            pageCount = pageCount + 1
-        End If
-        currentPage = 1
-        recNo = 0
-        LoadPage()
-    End Sub
+
+    Public Class controlsetting
+        Private _gridControl As GridControl
+        Private _comboPageNum As ComboBoxEdit
+        Private _labelDisplay As LabelControl
+        Public Property GridCtrl As GridControl
+            Set(value As GridControl)
+                _gridControl = value
+            End Set
+            Get
+                Return _gridControl
+            End Get
+        End Property
+        Public Property PageNumCtrl As ComboBoxEdit
+            Set(value As ComboBoxEdit)
+                _comboPageNum = value
+            End Set
+            Get
+                Return _comboPageNum
+            End Get
+        End Property
+        Public Property PageDisplayCtrl As LabelControl
+            Set(value As LabelControl)
+                _labelDisplay = value
+            End Set
+            Get
+                Return _labelDisplay
+            End Get
+        End Property
+    End Class
 End Class
+

@@ -9,20 +9,9 @@ Imports System.ComponentModel
 
 Public Class FrmStock
     Dim LocID As String
-    Dim bw As BackgroundWorker = New BackgroundWorker
     Dim frmProg As New dlgProgress
     Dim SavePath As String
     Dim GvSource As New GridView
-    Sub New()
-        ' This call is required by the designer.
-        InitializeComponent()
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
-        AddHandler bw.DoWork, AddressOf bw_DoWork
-        AddHandler bw.ProgressChanged, AddressOf bw_ProgressChanged
-        AddHandler bw.RunWorkerCompleted, AddressOf bw_RunWorkerCompleted
-        ' Add any initialization after the InitializeComponent() call.
-    End Sub
 #Region "Code Side"
     Private Sub getStockSP()
 
@@ -198,30 +187,11 @@ Public Class FrmStock
     Private Sub GvFormat()
         If gvMain.RowCount <= 0 Then Exit Sub
         gridInfo = New GridCaption
-        Dim addMontList As Func(Of String) = Function()
-                                                 Dim monthname As String
-                                                 Dim fisrtMontofyear As Date = "01/01/" & (Today.ToString("yyyy"))
-                                                 For i = 0 To 12 - 1
-                                                     monthname = DateAdd(DateInterval.Month, i, fisrtMontofyear).ToString("MMMM")
-                                                     gridInfo.Add(monthname)
-                                                 Next
-                                                 Return Nothing
-                                             End Function
         With gridInfo
-            .Add("SubCatName")
-            .Add("MatName")
-            .Add("Unit1")
-            .Add("Unit1_Name")
-            .Add("Unit3")
-            .Add("Unit3_Name")
-            .Add("Dozen")
-            .Add("Warn")
-            .Add("Warn_Name")
-            .Add("JL")
-            .Add("JLK")
-            .Add("KIWI")
-            .Add("qcnote")
-            addMontList()
+            .HIDE.Columns("warn_month")
+            .HIDE.Columns("matID1")
+            .HIDE.Columns("matid")
+            .HIDE.Columns("productname")
             .SetCaption(gvMain)
         End With
 
@@ -269,7 +239,7 @@ Public Class FrmStock
 
         GroupControl3.Text += " " & _XLSGetHeader()
         GvFormat()
-
+        cbStat.SelectedIndex = 0
         loadSuccess = True
     End Sub
     Private Sub btnExPortExcel_Click(sender As Object, e As EventArgs) Handles btnExportExcel.Click
@@ -406,14 +376,6 @@ Public Class FrmStock
                     If gvAdjust.RowCount > 0 Then
                         gridInfo = New GridCaption
                         With gridInfo
-                            .Add("MatName")
-                            .Add("Unit1")
-                            .Add("Unit3")
-                            .Add("LocName")
-                            .Add("Unit1_Name")
-                            .Add("Unit3_Name")
-                            .Add("TagID")
-                            .Add("Stat")
                             .SetCaption(gvAdjust)
                         End With
                         With gvAdjust
@@ -434,11 +396,13 @@ Public Class FrmStock
                     lbMatName.Text = getCellVal("MatName")
                     lbTagID.Text = getCellVal("TagID")
                     lbRatio.Text = getCellVal("Ratio")
+                    lbQtyPerUnit.Text = getCellVal("QtyPerUnit")
+
 
                     lbUnit1.Text = Unit1
                     lbUnit3.Text = Unit3
                     txtUnit1.EditValue = Unit1
-                    txtUnit3.EditValue = Unit3
+                    txtUnit2.EditValue = Unit3
 
                     lbUnit1_Name.Text = getCellVal("Unit1_Name")
                     lbUnit3_Name.Text = getCellVal("Unit3_Name")
@@ -480,13 +444,11 @@ Public Class FrmStock
             clb.Size = New System.Drawing.Size(clb.Width, sizeH)
         End If
     End Sub
-
     Private Sub chkDay_LostFocus(sender As Object, e As EventArgs)
         loadSuccess = True
         Dim clb As CheckedListBox = CType(sender, CheckedListBox)
         clb.Size = New System.Drawing.Size(clb.Width, defH)
     End Sub
-
     Private Sub rdDate_CheckedChanged(sender As Object, e As EventArgs)
         'Dim chk As String() = {"5", "10", "11"}
         'If rdDate.Checked = True Then
@@ -500,7 +462,6 @@ Public Class FrmStock
         '    chkDate.Enabled = False
         'End If
     End Sub
-
     Private Sub btnAdJust_Click(sender As Object, e As EventArgs) Handles btnAdJust.Click
         If chkInput(grpAdjust) = False Then
             MessageBox.Show("Check Input", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -508,33 +469,30 @@ Public Class FrmStock
         End If
         Dim Stat As Integer = If(cbStat.Text = "คงเหลือ", 1, 0)
         SQL = "UPDATE tbStock"
-        SQL &= " SET Unit1='" & txtUnit1.EditValue & "'"
-        SQL &= " ,Unit3='" & txtUnit3.EditValue & "'"
+        SQL &= " SET Unit1='" & CDbl(lbU1.Text) & "'"
+        SQL &= " ,Unit3='" & CDbl(lbU2.Text) & "'"
         SQL &= " ,Stat='" & Stat & "'"
         SQL &= " WHERE TagID='" & lbTagID.Text & "'"
         SQL &= " AND LocID='" & LocID & "'"
         dsTbl("adjust")
         BindInfo.Excute()
     End Sub
+    Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged, txtUnit2.EditValueChanged, txtUnit3.EditValueChanged
+        Dim spiCtr As DevExpress.XtraEditors.SpinEdit = CType(sender, DevExpress.XtraEditors.SpinEdit)
+        Dim Unit1, Unit2, Unit3 As Double
+        Unit1 = txtUnit1.EditValue
+        Unit2 = txtUnit2.EditValue
+        Unit3 = txtUnit3.EditValue
 
-    Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged
-        txtUnit3.EditValue = CDbl(txtUnit1.EditValue * lbRatio.Text)
-    End Sub
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
-
-    End Sub
-    Private Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs)
-        If e.Cancelled = True Then
-            'Me.Text = "Canceled!"
-        ElseIf e.Error IsNot Nothing Then
-            ''Me.Text = "Error: " & e.Error.Message
-        Else
-            'MsgBox("Done!")
-
+        If spiCtr.Name = txtUnit2.Name Then
+            Unit3 += (Unit2 * (lbQtyPerUnit.Text * 12))
+        ElseIf spiCtr.Name = txtUnit1.Name Then
+            Unit3 += (Unit1 * ((lbQtyPerUnit.Text * 12) * lbRatio.Text))
         End If
+        lbU1.Text = CDbl((Unit3 / (lbQtyPerUnit.Text * 12)) / lbRatio.Text).ToString("#,0.0")
+        lbU2.Text = CDbl(Unit3 / (lbQtyPerUnit.Text * 12)).ToString("#,0.0")
+        lbU3.Text = CDbl(Unit3).ToString("#,0.0")
+
     End Sub
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs)
-        frmProg.SetProgress(e.ProgressPercentage)
-        'dlgPro.Progressbar.Text = e.ProgressPercentage.ToString & " / " & Gridsource.RowCount - 1
-    End Sub
+
 End Class

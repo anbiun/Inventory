@@ -53,14 +53,20 @@ Partial Class FrmStock
         Me.pnlRight = New System.Windows.Forms.Panel()
         Me.GroupControl2 = New DevExpress.XtraEditors.GroupControl()
         Me.grpAdjust = New DevExpress.XtraEditors.GroupControl()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lbU3 = New System.Windows.Forms.Label()
+        Me.lbU2 = New System.Windows.Forms.Label()
+        Me.lbU1 = New System.Windows.Forms.Label()
         Me.cbStat = New System.Windows.Forms.ComboBox()
         Me.lbUnit3 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnAdJust = New DevExpress.XtraEditors.SimpleButton()
         Me.txtUnit3 = New DevExpress.XtraEditors.SpinEdit()
+        Me.txtUnit2 = New DevExpress.XtraEditors.SpinEdit()
         Me.lbUnit1_Name = New System.Windows.Forms.Label()
         Me.txtUnit1 = New DevExpress.XtraEditors.SpinEdit()
         Me.txtNotation = New DevExpress.XtraEditors.MemoEdit()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.lbUnit3_Name = New System.Windows.Forms.Label()
         Me.lbUnit1 = New System.Windows.Forms.Label()
         Me.lbQty = New System.Windows.Forms.Label()
@@ -69,8 +75,10 @@ Partial Class FrmStock
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lbTagID = New System.Windows.Forms.Label()
+        Me.lbQtyPerUnit = New System.Windows.Forms.Label()
         Me.lbRatio = New System.Windows.Forms.Label()
         Me.lbMatName = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -99,6 +107,7 @@ Partial Class FrmStock
         CType(Me.grpAdjust, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpAdjust.SuspendLayout()
         CType(Me.txtUnit3.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtUnit2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNotation.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -111,7 +120,7 @@ Partial Class FrmStock
         Me.gcMain.MainView = Me.gvMain
         Me.gcMain.Margin = New System.Windows.Forms.Padding(4)
         Me.gcMain.Name = "gcMain"
-        Me.gcMain.Size = New System.Drawing.Size(777, 622)
+        Me.gcMain.Size = New System.Drawing.Size(1029, 622)
         Me.gcMain.TabIndex = 9
         Me.gcMain.ToolTipController = Me.tooltipGcMain
         Me.gcMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMain, Me.AdvBandedGridView1, Me.gv2})
@@ -178,7 +187,7 @@ Partial Class FrmStock
         Me.gcAdjust.MainView = Me.gvAdjust
         Me.gcAdjust.Margin = New System.Windows.Forms.Padding(4)
         Me.gcAdjust.Name = "gcAdjust"
-        Me.gcAdjust.Size = New System.Drawing.Size(522, 401)
+        Me.gcAdjust.Size = New System.Drawing.Size(773, 401)
         Me.gcAdjust.TabIndex = 10
         Me.gcAdjust.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvAdjust, Me.AdvBandedGridView2, Me.GridView2})
         '
@@ -383,7 +392,7 @@ Partial Class FrmStock
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(241, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(801, 653)
+        Me.Panel1.Size = New System.Drawing.Size(1052, 653)
         Me.Panel1.TabIndex = 19
         '
         'Panel2
@@ -393,7 +402,7 @@ Partial Class FrmStock
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(777, 653)
+        Me.Panel2.Size = New System.Drawing.Size(1029, 653)
         Me.Panel2.TabIndex = 10
         '
         'GroupControl3
@@ -405,7 +414,7 @@ Partial Class FrmStock
         Me.GroupControl3.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupControl3.Location = New System.Drawing.Point(0, 0)
         Me.GroupControl3.Name = "GroupControl3"
-        Me.GroupControl3.Size = New System.Drawing.Size(777, 31)
+        Me.GroupControl3.Size = New System.Drawing.Size(1029, 31)
         Me.GroupControl3.TabIndex = 15
         Me.GroupControl3.Text = "ข้อมูล ณ ปัจจุบัน ตัด Stock ถึงวันที่ :"
         '
@@ -439,9 +448,9 @@ Partial Class FrmStock
         Me.ExpandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
         Me.ExpandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer))
         Me.ExpandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground
-        Me.ExpandableSplitter1.Location = New System.Drawing.Point(777, 0)
+        Me.ExpandableSplitter1.Location = New System.Drawing.Point(1029, 0)
         Me.ExpandableSplitter1.Name = "ExpandableSplitter1"
-        Me.ExpandableSplitter1.Size = New System.Drawing.Size(24, 653)
+        Me.ExpandableSplitter1.Size = New System.Drawing.Size(23, 653)
         Me.ExpandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Mozilla
         Me.ExpandableSplitter1.TabIndex = 11
         Me.ExpandableSplitter1.TabStop = False
@@ -453,7 +462,7 @@ Partial Class FrmStock
         Me.pnlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.pnlRight.Location = New System.Drawing.Point(279, 0)
         Me.pnlRight.Name = "pnlRight"
-        Me.pnlRight.Size = New System.Drawing.Size(522, 653)
+        Me.pnlRight.Size = New System.Drawing.Size(773, 653)
         Me.pnlRight.TabIndex = 10
         Me.pnlRight.Visible = False
         '
@@ -465,28 +474,36 @@ Partial Class FrmStock
         Me.GroupControl2.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl2.Controls.Add(Me.grpAdjust)
         Me.GroupControl2.Controls.Add(Me.lbTagID)
+        Me.GroupControl2.Controls.Add(Me.lbQtyPerUnit)
         Me.GroupControl2.Controls.Add(Me.lbRatio)
         Me.GroupControl2.Controls.Add(Me.lbMatName)
+        Me.GroupControl2.Controls.Add(Me.Label12)
         Me.GroupControl2.Controls.Add(Me.Label5)
         Me.GroupControl2.Controls.Add(Me.Label6)
         Me.GroupControl2.Controls.Add(Me.Label4)
         Me.GroupControl2.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupControl2.Location = New System.Drawing.Point(0, 0)
         Me.GroupControl2.Name = "GroupControl2"
-        Me.GroupControl2.Size = New System.Drawing.Size(522, 252)
+        Me.GroupControl2.Size = New System.Drawing.Size(773, 252)
         Me.GroupControl2.TabIndex = 14
         Me.GroupControl2.Text = "ปรับยอด"
         '
         'grpAdjust
         '
+        Me.grpAdjust.Controls.Add(Me.Label11)
+        Me.grpAdjust.Controls.Add(Me.lbU3)
+        Me.grpAdjust.Controls.Add(Me.lbU2)
+        Me.grpAdjust.Controls.Add(Me.lbU1)
         Me.grpAdjust.Controls.Add(Me.cbStat)
         Me.grpAdjust.Controls.Add(Me.lbUnit3)
         Me.grpAdjust.Controls.Add(Me.Label7)
         Me.grpAdjust.Controls.Add(Me.btnAdJust)
         Me.grpAdjust.Controls.Add(Me.txtUnit3)
+        Me.grpAdjust.Controls.Add(Me.txtUnit2)
         Me.grpAdjust.Controls.Add(Me.lbUnit1_Name)
         Me.grpAdjust.Controls.Add(Me.txtUnit1)
         Me.grpAdjust.Controls.Add(Me.txtNotation)
+        Me.grpAdjust.Controls.Add(Me.Label10)
         Me.grpAdjust.Controls.Add(Me.lbUnit3_Name)
         Me.grpAdjust.Controls.Add(Me.lbUnit1)
         Me.grpAdjust.Controls.Add(Me.lbQty)
@@ -498,12 +515,62 @@ Partial Class FrmStock
         Me.grpAdjust.Location = New System.Drawing.Point(2, 98)
         Me.grpAdjust.Name = "grpAdjust"
         Me.grpAdjust.ShowCaption = False
-        Me.grpAdjust.Size = New System.Drawing.Size(518, 152)
+        Me.grpAdjust.Size = New System.Drawing.Size(769, 152)
         Me.grpAdjust.TabIndex = 25
         Me.grpAdjust.Text = "GroupControl4"
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.Label11.Location = New System.Drawing.Point(405, 88)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(73, 24)
+        Me.Label11.TabIndex = 27
+        Me.Label11.Text = "ผลลัพทธ์"
+        '
+        'lbU3
+        '
+        Me.lbU3.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.lbU3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lbU3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lbU3.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbU3.ForeColor = System.Drawing.Color.White
+        Me.lbU3.Location = New System.Drawing.Point(485, 120)
+        Me.lbU3.Name = "lbU3"
+        Me.lbU3.Size = New System.Drawing.Size(91, 25)
+        Me.lbU3.TabIndex = 26
+        Me.lbU3.Text = "Label2"
+        '
+        'lbU2
+        '
+        Me.lbU2.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.lbU2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lbU2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lbU2.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbU2.ForeColor = System.Drawing.Color.White
+        Me.lbU2.Location = New System.Drawing.Point(485, 93)
+        Me.lbU2.Name = "lbU2"
+        Me.lbU2.Size = New System.Drawing.Size(91, 25)
+        Me.lbU2.TabIndex = 26
+        Me.lbU2.Text = "Label2"
+        '
+        'lbU1
+        '
+        Me.lbU1.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.lbU1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lbU1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lbU1.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbU1.ForeColor = System.Drawing.Color.White
+        Me.lbU1.Location = New System.Drawing.Point(485, 66)
+        Me.lbU1.Name = "lbU1"
+        Me.lbU1.Size = New System.Drawing.Size(91, 25)
+        Me.lbU1.TabIndex = 26
+        Me.lbU1.Text = "Label2"
+        '
         'cbStat
         '
+        Me.cbStat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStat.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbStat.FormattingEnabled = True
         Me.cbStat.Items.AddRange(New Object() {"คงเหลือ", "หมดแล้ว"})
@@ -540,17 +607,17 @@ Partial Class FrmStock
         Me.btnAdJust.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdJust.Appearance.Options.UseFont = True
         Me.btnAdJust.ImageOptions.Image = CType(resources.GetObject("btnAdJust.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnAdJust.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter
-        Me.btnAdJust.Location = New System.Drawing.Point(410, 66)
+        Me.btnAdJust.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter
+        Me.btnAdJust.Location = New System.Drawing.Point(277, 118)
         Me.btnAdJust.Name = "btnAdJust"
-        Me.btnAdJust.Size = New System.Drawing.Size(90, 76)
+        Me.btnAdJust.Size = New System.Drawing.Size(122, 29)
         Me.btnAdJust.TabIndex = 24
         Me.btnAdJust.Text = "บันทึก"
         '
         'txtUnit3
         '
         Me.txtUnit3.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtUnit3.Location = New System.Drawing.Point(307, 34)
+        Me.txtUnit3.Location = New System.Drawing.Point(484, 34)
         Me.txtUnit3.Name = "txtUnit3"
         Me.txtUnit3.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUnit3.Properties.Appearance.Options.UseFont = True
@@ -558,6 +625,18 @@ Partial Class FrmStock
         Me.txtUnit3.Properties.MaxLength = 7
         Me.txtUnit3.Size = New System.Drawing.Size(92, 28)
         Me.txtUnit3.TabIndex = 19
+        '
+        'txtUnit2
+        '
+        Me.txtUnit2.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtUnit2.Location = New System.Drawing.Point(307, 34)
+        Me.txtUnit2.Name = "txtUnit2"
+        Me.txtUnit2.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtUnit2.Properties.Appearance.Options.UseFont = True
+        Me.txtUnit2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.txtUnit2.Properties.MaxLength = 7
+        Me.txtUnit2.Size = New System.Drawing.Size(92, 28)
+        Me.txtUnit2.TabIndex = 19
         '
         'lbUnit1_Name
         '
@@ -587,6 +666,16 @@ Partial Class FrmStock
         Me.txtNotation.Name = "txtNotation"
         Me.txtNotation.Size = New System.Drawing.Size(274, 47)
         Me.txtNotation.TabIndex = 11
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.Label10.Location = New System.Drawing.Point(486, 8)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(87, 24)
+        Me.Label10.TabIndex = 13
+        Me.Label10.Text = "จำนวนดวง"
         '
         'lbUnit3_Name
         '
@@ -674,6 +763,19 @@ Partial Class FrmStock
         Me.lbTagID.TabIndex = 12
         Me.lbTagID.Text = "Label2"
         '
+        'lbQtyPerUnit
+        '
+        Me.lbQtyPerUnit.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.lbQtyPerUnit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lbQtyPerUnit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lbQtyPerUnit.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbQtyPerUnit.ForeColor = System.Drawing.Color.White
+        Me.lbQtyPerUnit.Location = New System.Drawing.Point(411, 66)
+        Me.lbQtyPerUnit.Name = "lbQtyPerUnit"
+        Me.lbQtyPerUnit.Size = New System.Drawing.Size(90, 25)
+        Me.lbQtyPerUnit.TabIndex = 12
+        Me.lbQtyPerUnit.Text = "Label2"
+        '
         'lbRatio
         '
         Me.lbRatio.BackColor = System.Drawing.SystemColors.ActiveBorder
@@ -681,7 +783,7 @@ Partial Class FrmStock
         Me.lbRatio.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lbRatio.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbRatio.ForeColor = System.Drawing.Color.White
-        Me.lbRatio.Location = New System.Drawing.Point(412, 65)
+        Me.lbRatio.Location = New System.Drawing.Point(411, 37)
         Me.lbRatio.Name = "lbRatio"
         Me.lbRatio.Size = New System.Drawing.Size(90, 25)
         Me.lbRatio.TabIndex = 12
@@ -700,6 +802,16 @@ Partial Class FrmStock
         Me.lbMatName.TabIndex = 12
         Me.lbMatName.Text = "Label2"
         '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Tahoma", 10.8!)
+        Me.Label12.Location = New System.Drawing.Point(327, 65)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(78, 23)
+        Me.Label12.TabIndex = 13
+        Me.Label12.Text = "QtyPer :"
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -714,7 +826,7 @@ Partial Class FrmStock
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Tahoma", 10.8!)
-        Me.Label6.Location = New System.Drawing.Point(337, 65)
+        Me.Label6.Location = New System.Drawing.Point(340, 37)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(65, 23)
         Me.Label6.TabIndex = 13
@@ -734,7 +846,7 @@ Partial Class FrmStock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1042, 653)
+        Me.ClientSize = New System.Drawing.Size(1293, 653)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.GroupControl1)
         Me.Name = "FrmStock"
@@ -767,6 +879,7 @@ Partial Class FrmStock
         Me.grpAdjust.ResumeLayout(False)
         Me.grpAdjust.PerformLayout()
         CType(Me.txtUnit3.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtUnit2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNotation.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -800,7 +913,7 @@ Partial Class FrmStock
     Friend WithEvents ExpandableSplitter1 As DevComponents.DotNetBar.ExpandableSplitter
     Friend WithEvents GroupControl2 As DevExpress.XtraEditors.GroupControl
     Friend WithEvents GroupControl3 As DevExpress.XtraEditors.GroupControl
-    Friend WithEvents txtUnit3 As DevExpress.XtraEditors.SpinEdit
+    Friend WithEvents txtUnit2 As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents txtUnit1 As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents lbQty As Label
     Friend WithEvents lbUnit3_Name As Label
@@ -822,4 +935,12 @@ Partial Class FrmStock
     Friend WithEvents grpAdjust As DevExpress.XtraEditors.GroupControl
     Friend WithEvents Label9 As Label
     Friend WithEvents cbStat As ComboBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents lbU3 As Label
+    Friend WithEvents lbU2 As Label
+    Friend WithEvents lbU1 As Label
+    Friend WithEvents txtUnit3 As DevExpress.XtraEditors.SpinEdit
+    Friend WithEvents Label10 As Label
+    Friend WithEvents lbQtyPerUnit As Label
+    Friend WithEvents Label12 As Label
 End Class

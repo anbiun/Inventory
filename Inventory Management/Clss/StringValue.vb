@@ -1,5 +1,5 @@
 ﻿Public Class StringList
-    Private List = New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase)
+    Dim List As New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase)
     Sub New()
         With List
             Try
@@ -8,29 +8,42 @@
                 .Add("matname", "วัสดุ")
                 .Add("Ratio", "เรโช")
                 .Add("ratio_name", " ")
-                .add("Qtyperunit", "หน่วยบรรจุ")
-                .add("Qtyperunit_name", " ")
-                .add("Qtyofusing", "ประมาณการใช้ต่อเดือน")
-                .add("Qtyofusing_name", " ")
-                .add("unit1_num", "จำนวน")
+                .Add("Qtyperunit", "หน่วยบรรจุ")
+                .Add("Qtyperunit_name", " ")
+                .Add("Qtyofusing", "ประมาณการใช้ต่อเดือน")
+                .Add("Qtyofusing_name", " ")
+                .Add("unit1_num", "จำนวน")
                 .Add("unit1_name", " ")
                 .Add("unit3_num", " รวมเป็น")
                 .Add("unit3_name", " ")
-                .add("tagid", "เลขแทค")
-                .add("notation", "หมายเหตุ")
-                .add("warn", "ระดับการแจ้งเตือน (เดือน)")
-                .add("warn_name", " ")
-                .add("unit1", List("unit1_num"))
-                .add("unit3", List("unit3_num"))
-                .add("warn1", "ใช้ได้อีก")
-                .add("dozen", "จำนวนโหล")
-                .add("qcnote", " ")
+                .Add("tagid", "เลขแทร็ค")
+                .Add("notation", "หมายเหตุ")
+                .Add("warn", "ระดับการแจ้งเตือน (เดือน)")
+                .Add("warn_name", " ")
+                .Add("unit1", List("unit1_num"))
+                .Add("unit3", List("unit3_num"))
+                .Add("warn1", "ใช้ได้อีก")
+                .Add("dozen", "จำนวนโหล")
+#End Region
+#Region "ประวัติเบิก/นำเข้า"
+                .Add("BillNo", "เลขที่บิล")
+                .Add("ImportDate", "วันที่นำเข้า")
+                .Add("RequestNo", "เลขที่เบิก")
+                .Add("RequestDate", "วันที่เบิกวัสดุ")
+                .Add("UserRequest", "ผู้เบิกวัสดุ")
+                .Add("SaveDate", "วันที่บันทึกข้อมูล")
+                .Add("userstock", "ผู้ทำรายการ")
+                .Add("userstock_name", List("userstock"))
+                .Add("unit1_sum", List("unit1"))
+                .Add("unit3_sum", List("unit3"))
+                .Add("username", List("userstock"))
 #End Region
 #Region "QC"
-                .add("productid", "รหัสรายการ")
-                .add("productname", "เบอร์มีด")
-                .add("qctarget", "เป้าผลิต")
-                .add("unit", " ")
+                .Add("productid", "รหัสรายการ")
+                .Add("productname", "เบอร์มีด")
+                .Add("qctarget", "เป้าผลิต")
+                .Add("qcnote", " ")
+                .Add("unit", " ")
 #End Region
 #Region "Supplier"
                 .Add("suppliername", "ชื่อผู้ขาย")
@@ -43,23 +56,32 @@
                 .Add("approvedate", "วันที่ตรวจรับ")
                 .Add("userapprove", "ผู้ตรวจรับ")
                 .Add("approvenote", "หมายเหตุรับของ")
-                .add("transferno", "เลขที่รายการ")
-                .add("transferdate", "วันที่รับของ")
-                .add("locsrc_name", "คลังต้นทาง")
-                .add("locdest_name", "คลังปลายทาง")
-                .add("apvstat1", "ปกติ")
-                .add("apvstat2", "ไม่ปกติ")
-                .add("apvstat0", "ไม่พบตามรายการ")
-                .add("approveStat", "สถานะรับของ")
+                .Add("transferno", "เลขที่รายการ")
+                .Add("transferdate", "วันที่รับของ")
+                .Add("locsrc_name", "คลังต้นทาง")
+                .Add("locdest_name", "คลังปลายทาง")
+                .Add("apvstat1", "ปกติ")
+                .Add("apvstat2", "ไม่ปกติ")
+                .Add("apvstat0", "ไม่พบตามรายการ")
+                .Add("approveStat", "สถานะรับของ")
+                .Add("Locname", "คลังวัสดุ")
 #End Region
 
             Catch ex As Exception
-                MsgBox(ex.Message & vbNewLine & "Error Class : " & Me.GetType.Name)
+                Dim st As New StackTrace(True)
+                st = New StackTrace(ex, True)
+                Dim Lines As String = st.GetFrame(st.FrameCount - 1).GetFileLineNumber
+
+                MsgBox(ex.Message & vbNewLine & vbNewLine _
+                    & "Error Line : " & Lines _
+                    & vbNewLine & vbNewLine _
+                    & "After This " _
+                    & vbNewLine _
+                    & "Keys : " & .Keys.Last.ToString & vbNewLine & "Value : " & .Last.Value.ToString)
                 End
             End Try
         End With
     End Sub
-
     Function GetVal(StringKey As String) As String
         Dim Result As String = String.Empty
         If List.ContainsKey(StringKey) Then

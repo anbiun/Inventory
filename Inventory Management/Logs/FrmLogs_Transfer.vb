@@ -21,6 +21,7 @@ Public Class FrmLogs_Transfer
 
         With clbLoc
             SQL = "SELECT LocID,LocName FROM tbLocation"
+            SQL &= If(UserInfo.Permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
             .DataSource = dsTbl("clbloc")
             .ValueMember = "LocID"
             .DisplayMember = "LocName"
@@ -74,11 +75,7 @@ Public Class FrmLogs_Transfer
     End Sub
     Private Sub GVFormat()
         gridInfo = New GridCaption
-        For Each cols As GridColumn In gvList.Columns
-            If cols.FieldName <> "IDValue" Then
-                gridInfo.Add(cols.FieldName)
-            End If
-        Next
+        gridInfo.hide.columns("idvalue")
         gridInfo.SetCaption(gvList)
         gvList.BestFitColumns()
     End Sub
