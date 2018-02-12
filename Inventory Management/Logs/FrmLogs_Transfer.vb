@@ -19,13 +19,13 @@ Public Class FrmLogs_Transfer
             .View.Columns("CatName").Caption = getString("catname")
         End With
 
-        With clbLoc
+        With clbInfo
+            .setControl = clbLoc
             SQL = "SELECT LocID,LocName FROM tbLocation"
             SQL &= If(UserInfo.Permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
-            .DataSource = dsTbl("clbloc")
             .ValueMember = "LocID"
             .DisplayMember = "LocName"
-            .CheckAll()
+            .Datasource = dsTbl("clbloc")
         End With
         rdDate_All.Checked = True
         deSDate.EditValue = DateAdd(DateInterval.Day, -7, Today)
@@ -36,12 +36,13 @@ Public Class FrmLogs_Transfer
         deEDate.Enabled = If(rdDate_All.Checked = False, True, False)
     End Sub
     Private Sub slCat_valuechange(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
-        With clbSubCat
+        With clbInfo
+            .setControl = clbSubCat
             SQL = "SELECT CatID+SubCatID IDValue,SubCatName FROM tbSubcategory"
             SQL &= " WHERE CatID ='" & slCat.EditValue & "'"
-            .DataSource = dsTbl("clbsubcat")
             .ValueMember = "IDValue"
             .DisplayMember = "SubCatName"
+            .Datasource = dsTbl("clbsubcat")
         End With
     End Sub
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
@@ -110,5 +111,9 @@ Public Class FrmLogs_Transfer
             End Select
         End If
 
+    End Sub
+
+    Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck, clbLoc.ItemCheck
+        clbInfo.SelectAllCheck(sender, e)
     End Sub
 End Class

@@ -38,10 +38,11 @@ Public Class FmgRequisition
         SQL &= If(UserInfo.Permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
         Dim abc = SQL
         dsTbl("location")
-        With clbLoc
-            .DataSource = DS.Tables("location")
+        With clbInfo
+            .setControl = clbLoc
             .ValueMember = "LocID"
             .DisplayMember = "LocName"
+            .Datasource = DS.Tables("location")
         End With
 
         'clsDS({"requisition"})
@@ -94,10 +95,11 @@ Public Class FmgRequisition
         SQL &= " WHERE CatID='" & slClick(sender, "CatID") & "'"
         dsTbl("subcat")
 
-        With clbSubCat
-            .DataSource = DS.Tables("subcat")
-            .ValueMember = "IDvalue"
+        With clbInfo
+            .setControl = clbSubCat
+            .ValueMember = "IDValue"
             .DisplayMember = "SubCatName"
+            .Datasource = DS.Tables("subcat")
         End With
     End Sub
     Private Sub rdDate_All_CheckedChanged(sender As Object, e As EventArgs) Handles rdDate_All.CheckedChanged
@@ -130,6 +132,7 @@ Public Class FmgRequisition
             .SetCaption(gvList)
         End With
         With gvList
+            If dtResult.Rows.Count < 1 Then Exit Sub
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
             gvList.Columns("Unit1_Num").Summary.Clear()
@@ -198,7 +201,6 @@ Public Class FmgRequisition
         gcList.DataSource = dsTbl("requisition")
         gvList.PopulateColumns()
     End Sub
-
     Private Sub cbPageSize_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPageSize.SelectedIndexChanged
         If loadSuccess = False Or dtResult.Rows.Count <= 0 Then Exit Sub
         If pgcontrol.getCurrentPage = 1 Then
@@ -229,4 +231,9 @@ Public Class FmgRequisition
         GVFormat()
 
     End Sub
+
+    Private Sub clbSubCat_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck, clbLoc.ItemCheck
+        clbInfo.SelectAllCheck(sender, e)
+    End Sub
+
 End Class

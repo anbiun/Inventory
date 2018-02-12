@@ -275,9 +275,10 @@ Module ImModule
     End Function
     'GridInfo   
     Public gridInfo As New GridCaption
-
     Private strList As New StringList
     Public getString As Func(Of String, String) = Function(StringKey As String)
                                                       Return strList.GetVal(StringKey)
                                                   End Function
+    'CheckListInfo
+    Public clbInfo As New CheckListBox
 End Module

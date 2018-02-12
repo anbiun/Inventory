@@ -30,11 +30,13 @@ Public Class ClsPaging
     End Property
 
     Public Sub LoadPage()
-        If pageSize = 0 Then
+        If dtSource.Rows.Count < 1 Then
+            MessageBox.Show(getString("err_norow"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        ElseIf pageSize = 0 Then
             MessageBox.Show(getString("err_pagesize"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
-
         Dim i As Integer
         Dim startRec As Integer = recNo
         Dim endRec As Integer

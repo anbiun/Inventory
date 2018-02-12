@@ -48,7 +48,7 @@ Partial Class FrmStock
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
+        Me.lastStock = New DevExpress.XtraEditors.GroupControl()
         Me.ExpandableSplitter1 = New DevComponents.DotNetBar.ExpandableSplitter()
         Me.pnlRight = New System.Windows.Forms.Panel()
         Me.GroupControl2 = New DevExpress.XtraEditors.GroupControl()
@@ -100,7 +100,7 @@ Partial Class FrmStock
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lastStock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlRight.SuspendLayout()
         CType(Me.GroupControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl2.SuspendLayout()
@@ -291,7 +291,7 @@ Partial Class FrmStock
         Me.btnSearch.Appearance.Options.UseFont = True
         Me.btnSearch.ImageOptions.Image = CType(resources.GetObject("btnSearch.ImageOptions.Image"), System.Drawing.Image)
         Me.btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter
-        Me.btnSearch.Location = New System.Drawing.Point(16, 382)
+        Me.btnSearch.Location = New System.Drawing.Point(16, 404)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(211, 43)
         Me.btnSearch.TabIndex = 24
@@ -316,7 +316,7 @@ Partial Class FrmStock
         Me.clbLoc.Cursor = System.Windows.Forms.Cursors.Default
         Me.clbLoc.Location = New System.Drawing.Point(16, 295)
         Me.clbLoc.Name = "clbLoc"
-        Me.clbLoc.Size = New System.Drawing.Size(212, 81)
+        Me.clbLoc.Size = New System.Drawing.Size(212, 103)
         Me.clbLoc.TabIndex = 22
         '
         'gcExport_AllStock
@@ -398,25 +398,25 @@ Partial Class FrmStock
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.gcMain)
-        Me.Panel2.Controls.Add(Me.GroupControl3)
+        Me.Panel2.Controls.Add(Me.lastStock)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1029, 653)
         Me.Panel2.TabIndex = 10
         '
-        'GroupControl3
+        'lastStock
         '
-        Me.GroupControl3.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupControl3.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.GroupControl3.AppearanceCaption.Options.UseFont = True
-        Me.GroupControl3.AppearanceCaption.Options.UseForeColor = True
-        Me.GroupControl3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupControl3.Location = New System.Drawing.Point(0, 0)
-        Me.GroupControl3.Name = "GroupControl3"
-        Me.GroupControl3.Size = New System.Drawing.Size(1029, 31)
-        Me.GroupControl3.TabIndex = 15
-        Me.GroupControl3.Text = "ข้อมูล ณ ปัจจุบัน ตัด Stock ถึงวันที่ :"
+        Me.lastStock.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lastStock.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lastStock.AppearanceCaption.Options.UseFont = True
+        Me.lastStock.AppearanceCaption.Options.UseForeColor = True
+        Me.lastStock.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lastStock.Location = New System.Drawing.Point(0, 0)
+        Me.lastStock.Name = "lastStock"
+        Me.lastStock.Size = New System.Drawing.Size(1029, 31)
+        Me.lastStock.TabIndex = 15
+        Me.lastStock.Text = "ข้อมูล ณ ปัจจุบัน ตัด Stock ถึงวันที่ :"
         '
         'ExpandableSplitter1
         '
@@ -870,7 +870,7 @@ Partial Class FrmStock
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
-        CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lastStock, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlRight.ResumeLayout(False)
         CType(Me.GroupControl2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl2.ResumeLayout(False)
@@ -912,7 +912,7 @@ Partial Class FrmStock
     Friend WithEvents Panel2 As Panel
     Friend WithEvents ExpandableSplitter1 As DevComponents.DotNetBar.ExpandableSplitter
     Friend WithEvents GroupControl2 As DevExpress.XtraEditors.GroupControl
-    Friend WithEvents GroupControl3 As DevExpress.XtraEditors.GroupControl
+    Friend WithEvents lastStock As DevExpress.XtraEditors.GroupControl
     Friend WithEvents txtUnit2 As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents txtUnit1 As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents lbQty As Label

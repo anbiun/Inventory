@@ -33,10 +33,11 @@ Public Class FrmLogs_Import
         SQL = "Select LocID,LocName FROM tbLocation"
         SQL &= If(UserInfo.permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
         dsTbl("location")
-        With clbLoc
-            .DataSource = DS.Tables("location")
+        With clbInfo
+            .setControl = clbLoc
             .ValueMember = "LocID"
             .DisplayMember = "LocName"
+            .Datasource = DS.Tables("location")
         End With
 
         'clsDS({"requisition"})
@@ -84,10 +85,11 @@ Public Class FrmLogs_Import
         Sql &= " WHERE CatID='" & slClick(sender, "CatID") & "'"
         dsTbl("subcat")
 
-        With clbSubCat
-            .DataSource = DS.Tables("subcat")
+        With clbInfo
+            .setControl = clbSubCat
             .ValueMember = "IDvalue"
             .DisplayMember = "SubCatName"
+            .Datasource = DS.Tables("subcat")
         End With
     End Sub
     Private Sub rdDate_All_CheckedChanged(sender As Object, e As EventArgs) Handles rdDate_All.CheckedChanged
@@ -173,6 +175,10 @@ Public Class FrmLogs_Import
         gcList.DataSource = Nothing
         gcList.DataSource = dsTbl("requisition")
         gvList.PopulateColumns()
+    End Sub
+
+    Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck, clbLoc.ItemCheck
+        clbInfo.SelectAllCheck(sender, e)
     End Sub
 #End Region
 

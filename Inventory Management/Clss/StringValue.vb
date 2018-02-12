@@ -67,7 +67,8 @@
                 .Add("Locname", "คลังวัสดุ")
 #End Region
 #Region "ทั่วไป"
-                .Add("err_pagesize", "จำนวนหน้ามากกว่าจำนวนข้อมูล")
+                .Add("err_pagesize", "จำนวนหน้า เกินจำนวนข้อมูลที่มีอยู่")
+                .Add("err_norow", "ยังไม่มีข้อมูลส่วนนี้")
 #End Region
 
             Catch ex As Exception

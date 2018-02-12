@@ -298,6 +298,7 @@
   <ItemGroup>
     <Compile Include="Clss\ApproveInfo.vb" />
     <Compile Include="Clss\BindingSet.vb" />
+    <Compile Include="Clss\CheckListBox.vb" />
     <Compile Include="Clss\ClsPaging.vb" />
     <Compile Include="Clss\ExcelExport.vb" />
     <Compile Include="Clss\InOutFunc.vb" />
@@ -545,7 +546,6 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

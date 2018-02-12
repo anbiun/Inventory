@@ -230,14 +230,15 @@ Public Class FrmStock
         End With
 
         SQL = "SELECT LocID, LocName FROM tbLocation"
-        With clbLoc
-            .DataSource = dsTbl("loc")
+        With clbInfo
+            .setControl = clbLoc
             .DisplayMember = "LocName"
             .ValueMember = "LocID"
+            .Datasource = dsTbl("loc")
             clbLoc.CheckAll()
         End With
 
-        GroupControl3.Text += " " & _XLSGetHeader()
+        lastStock.Text += " " & _XLSGetHeader()
         GvFormat()
         cbStat.SelectedIndex = 0
         loadSuccess = True
@@ -281,10 +282,11 @@ Public Class FrmStock
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
         If loadSuccess = False Then Exit Sub
         SQL = "SELECT CatID+SubCatID AS IDvalue,SubCatName FROM tbSubcategory WHERE CatID='" & slClick(slCat, "CatID") & "'"
-        With clbSubCat
-            .DataSource = dsTbl("subcat")
+        With clbInfo
+            .setControl = clbSubCat
             .DisplayMember = "SubCatName"
             .ValueMember = "IDvalue"
+            .Datasource = dsTbl("subcat")
         End With
     End Sub
     Private Sub tooltipGcMain_GetActiveObjectInfo(ByVal sender As Object, ByVal e As ToolTipControllerGetActiveObjectInfoEventArgs) Handles tooltipGcMain.GetActiveObjectInfo
@@ -495,4 +497,7 @@ Public Class FrmStock
 
     End Sub
 
+    Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbLoc.ItemCheck, clbSubCat.ItemCheck
+        clbInfo.SelectAllCheck(sender, e)
+    End Sub
 End Class

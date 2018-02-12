@@ -61,7 +61,7 @@ Partial Class FrmLogs_Import
         '
         Me.rdDate_By.AutoSize = True
         Me.rdDate_By.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdDate_By.Location = New System.Drawing.Point(16, 408)
+        Me.rdDate_By.Location = New System.Drawing.Point(16, 429)
         Me.rdDate_By.Name = "rdDate_By"
         Me.rdDate_By.Size = New System.Drawing.Size(126, 25)
         Me.rdDate_By.TabIndex = 33
@@ -75,7 +75,7 @@ Partial Class FrmLogs_Import
         Me.btnSearch.Appearance.Options.UseFont = True
         Me.btnSearch.ImageOptions.Image = CType(resources.GetObject("btnSearch.ImageOptions.Image"), System.Drawing.Image)
         Me.btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter
-        Me.btnSearch.Location = New System.Drawing.Point(24, 517)
+        Me.btnSearch.Location = New System.Drawing.Point(24, 538)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(211, 43)
         Me.btnSearch.TabIndex = 31
@@ -100,7 +100,7 @@ Partial Class FrmLogs_Import
         Me.clbLoc.Cursor = System.Windows.Forms.Cursors.Default
         Me.clbLoc.Location = New System.Drawing.Point(23, 289)
         Me.clbLoc.Name = "clbLoc"
-        Me.clbLoc.Size = New System.Drawing.Size(212, 81)
+        Me.clbLoc.Size = New System.Drawing.Size(212, 103)
         Me.clbLoc.TabIndex = 30
         '
         'Label1
@@ -124,7 +124,7 @@ Partial Class FrmLogs_Import
         '
         Me.rdDate_All.AutoSize = True
         Me.rdDate_All.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdDate_All.Location = New System.Drawing.Point(16, 377)
+        Me.rdDate_All.Location = New System.Drawing.Point(16, 398)
         Me.rdDate_All.Name = "rdDate_All"
         Me.rdDate_All.Size = New System.Drawing.Size(106, 25)
         Me.rdDate_All.TabIndex = 33
@@ -203,7 +203,7 @@ Partial Class FrmLogs_Import
         'deSDate
         '
         Me.deSDate.EditValue = Nothing
-        Me.deSDate.Location = New System.Drawing.Point(71, 439)
+        Me.deSDate.Location = New System.Drawing.Point(71, 460)
         Me.deSDate.Name = "deSDate"
         Me.deSDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deSDate.Properties.Appearance.Options.UseFont = True
@@ -216,7 +216,7 @@ Partial Class FrmLogs_Import
         '
         Me.lbEDate.AutoSize = True
         Me.lbEDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbEDate.Location = New System.Drawing.Point(38, 475)
+        Me.lbEDate.Location = New System.Drawing.Point(38, 496)
         Me.lbEDate.Name = "lbEDate"
         Me.lbEDate.Size = New System.Drawing.Size(27, 24)
         Me.lbEDate.TabIndex = 13
@@ -225,7 +225,7 @@ Partial Class FrmLogs_Import
         'deEDate
         '
         Me.deEDate.EditValue = Nothing
-        Me.deEDate.Location = New System.Drawing.Point(71, 473)
+        Me.deEDate.Location = New System.Drawing.Point(71, 494)
         Me.deEDate.Name = "deEDate"
         Me.deEDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deEDate.Properties.Appearance.Options.UseFont = True
@@ -238,7 +238,7 @@ Partial Class FrmLogs_Import
         '
         Me.lbSDate.AutoSize = True
         Me.lbSDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbSDate.Location = New System.Drawing.Point(22, 441)
+        Me.lbSDate.Location = New System.Drawing.Point(22, 462)
         Me.lbSDate.Name = "lbSDate"
         Me.lbSDate.Size = New System.Drawing.Size(43, 24)
         Me.lbSDate.TabIndex = 13
