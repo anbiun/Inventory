@@ -33,7 +33,6 @@ Module ImModule
     Public ParamList As New List(Of SqlParameter)
     Public Version As String
     Public tmpSQL As String
-    Public abc As _Gridcaption
 
     'ตัวแปร
     Friend Enum idFor
@@ -276,6 +275,7 @@ Module ImModule
     End Function
     'GridInfo   
     Public gridInfo As New GridCaption
+
     Private strList As New StringList
     Public getString As Func(Of String, String) = Function(StringKey As String)
                                                       Return strList.GetVal(StringKey)

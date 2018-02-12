@@ -1,4 +1,7 @@
-﻿Imports DevExpress.XtraGrid.Views.Grid
+﻿Option Explicit On
+Option Strict On
+Imports DevExpress.XtraGrid.Views.Grid
+
 Public Class GridCaption
     Public HIDE As New selectColum
     Public ONLY As New selectColum
@@ -40,23 +43,17 @@ Public Class GridCaption
             Next
         End If
     End Sub
-End Class
+    Public Class selectColum
+        Private _enable As Boolean = False
+        Protected StringKey As New List(Of String)
+        Public ReadOnly Property getColum As List(Of String)
+            Get
+                Return StringKey
+            End Get
+        End Property
+        Public Sub Columns(Keys As String)
+            StringKey.Add(Keys)
+        End Sub
+    End Class
 
-Public Class selectColum
-    Private _enable As Boolean = False
-    Protected StringKey As New List(Of String)
-    Public ReadOnly Property getColum As List(Of String)
-        Get
-            Return StringKey
-        End Get
-    End Property
-    Public ReadOnly Property Enable
-        Get
-            Return _enable
-        End Get
-    End Property
-    Public Sub Columns(Keys As String)
-        StringKey.Add(Keys)
-        _enable = True
-    End Sub
 End Class

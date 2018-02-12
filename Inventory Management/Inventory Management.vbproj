@@ -300,10 +300,10 @@
     <Compile Include="Clss\BindingSet.vb" />
     <Compile Include="Clss\ClsPaging.vb" />
     <Compile Include="Clss\ExcelExport.vb" />
-    <Compile Include="Clss\GridCaption.vb" />
     <Compile Include="Clss\InOutFunc.vb" />
     <Compile Include="Clss\StringValue.vb" />
     <Compile Include="Clss\UserLogin.vb" />
+    <Compile Include="Clss\GridCaption.vb" />
     <Compile Include="dlgProgress.Designer.vb">
       <DependentUpon>dlgProgress.vb</DependentUpon>
     </Compile>
