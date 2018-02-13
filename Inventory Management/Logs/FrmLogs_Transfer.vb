@@ -1,4 +1,5 @@
 ﻿Imports ConDB.Main
+Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Columns
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Views.Grid
@@ -30,6 +31,8 @@ Public Class FrmLogs_Transfer
         rdDate_All.Checked = True
         deSDate.EditValue = DateAdd(DateInterval.Day, -7, Today)
         deEDate.EditValue = Today
+        clbLoc.CheckAll()
+
     End Sub
     Private Sub Radio_Checked(sender As Object, e As EventArgs) Handles rdDate_All.CheckedChanged
         deSDate.Enabled = If(rdDate_All.Checked = False, True, False)
@@ -46,23 +49,30 @@ Public Class FrmLogs_Transfer
         End With
     End Sub
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        Dim getList As Func(Of CheckedListBoxControl, String) = Function(clbControl As CheckedListBoxControl)
+                                                                    Dim Result As String = String.Empty
+                                                                    Dim List_ItemCheck As New List(Of String)
+                                                                    For Each item As DataRowView In clbControl.CheckedItems
+                                                                        List_ItemCheck.Add(item(0))
+                                                                    Next
+                                                                    For Each list As String In List_ItemCheck
+                                                                        If List_ItemCheck.Last = list Then
+                                                                            Result += "'" & list & "'"
+                                                                        Else
+                                                                            Result += "'" & list & "',"
+                                                                        End If
+                                                                    Next
+                                                                    Return Result
+                                                                End Function
 
-        Dim List_Subcat As New List(Of String)
-        For Each item As DataRowView In clbSubCat.CheckedItems
-            List_Subcat.Add(item(0))
-        Next
-        For Each list As String In List_Subcat
-            If List_Subcat.Last = list Then
-                locExpr += "'" & list & "'"
-            Else
-                locExpr += "'" & list & "',"
-            End If
-        Next
-        If String.IsNullOrWhiteSpace(locExpr) Then Exit Sub
+
+
+        If clbSubCat.CheckedItemsCount = 0 Or clbLoc.CheckedItemsCount = 0 Then Exit Sub
 
         With gcList
             SQL = "SELECT * FROM Logs_Transfer"
-            SQL &= " WHERE IDValue IN (" & locExpr & ")"
+            SQL &= " WHERE IDValue IN (" & getList(clbSubCat) & ")"
+            SQL &= " AND LocID_Src IN (" & getList(clbLoc) & ")"
             If rdDate_By.Checked = True Then
                 SQL &= " AND TransferDate"
                 SQL &= " Between '" & convertDate(deSDate.EditValue) & "'"
@@ -76,8 +86,11 @@ Public Class FrmLogs_Transfer
     End Sub
     Private Sub GVFormat()
         gridInfo = New GridCaption
-        gridInfo.hide.columns("idvalue")
-        gridInfo.SetCaption(gvList)
+        With gridInfo
+            .HIDE.Columns("idvalue")
+            .HIDE.Columns("LocID_Src")
+            .SetCaption(gvList)
+        End With
         gvList.BestFitColumns()
     End Sub
     Private Sub Cell_CustomColumnDisplay(ByVal sender As Object,
@@ -110,9 +123,7 @@ Public Class FrmLogs_Transfer
                     e.Appearance.BackColor2 = Color.WhiteSmoke
             End Select
         End If
-
     End Sub
-
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck, clbLoc.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub
