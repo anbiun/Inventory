@@ -18,12 +18,18 @@ Public Class FrmApprove
         TransferDate As Date, ApproveTB As New ApproveInfo
 
 #Region "FUNC."
-    Private Sub FirstQry()
+    Private Sub FirstQry(Optional All As Boolean = False)
         SQL = "SELECT TF.TransferID,TF.TransferNo, TF.TransferDate,"
         SQL &= " LCSrc.LocName AS LocID_Src_Name, LCDest.LocName AS LocID_Dest_Name"
         SQL &= " FROM tbTransfer TF INNER JOIN tbLocation LCSrc ON TF.LocID_Src = LCSrc.LocID"
         SQL &= " INNER JOIN tbLocation LCDest ON TF.LocID_Dest = LCDest.LocID"
-        SQL &= " WHERE TF.LocID_Dest='" & UserInfo.SelectLoc & "' AND TF.Stat = 0"
+        If All = True Then
+            SQL &= " WHERE TF.Stat = 0"
+            dsTbl("alltransfer")
+            Exit Sub
+        Else
+            SQL &= " WHERE TF.LocID_Dest='" & UserInfo.SelectLoc & "' AND TF.Stat = 0"
+        End If
         dsTbl("transfer")
 
         dtList = getTable("")
@@ -147,6 +153,14 @@ Public Class FrmApprove
         UserStock = UserInfo.UserID
         'CreateCheckCol(gcList, gvList)
         gvList.OptionsSelection.EnableAppearanceFocusedRow = False
+        SQL = "SELECT * FROM tbApprove"
+
+        FirstQry(True)
+        If DS.Tables("alltransfer").Rows.Count > 0 Then
+            dlgAlert.Datasource = DS.Tables("alltransfer").Copy
+            dlgAlert.TopMost = True
+            dlgAlert.Show()
+        End If
     End Sub
 #End Region
 

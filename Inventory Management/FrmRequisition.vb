@@ -19,9 +19,9 @@ Public Class FrmRequisition
     Private Function genReqNo() As String
         Dim Reqno As String = deDate.EditValue
         If deDate.EditValue IsNot Nothing Then
-            Reqno = CDate(Reqno).ToString("ddMM-")
+            Reqno = CDate(Reqno).ToString("yyMMdd")
         Else
-            Reqno = Today.ToString("ddMM")
+            Reqno = Today.ToString("yyMMdd")
         End If
         SQL = "select Top 1 RequestNo from tbRequisition"
         SQL &= " where RequestNo Like '" & Reqno & "%'"
@@ -29,10 +29,10 @@ Public Class FrmRequisition
         dsTbl("dbreqno")
         Dim dbReqno As String = If(DS.Tables("dbreqno").Rows.Count > 0, DS.Tables("dbreqno")(0)(0), String.Empty)
         If String.IsNullOrEmpty(dbReqno) Then
-            Reqno &= "01"
+            Reqno &= "-01"
         Else
             Reqno = dbReqno.Replace("-", "")
-            Reqno = CInt(Reqno + 1).ToString("0000-00")
+            Reqno = CInt(Reqno + 1).ToString("000000-00")
         End If
 
         Return Reqno

@@ -92,7 +92,7 @@ Public Class FrmStock
                     xlApp.ScreenUpdating = False
                     xlRange = CType(xlWorkSheet.Cells.Range("A1"), Excel.Range)
                     xlRange.Value2 = "สต๊อกวัสดุยอด ณ วันที่ " & _XLSGetHeader()
-
+                    GvSource.ExpandAllGroups()
                     For gvRow As Integer = 0 To GvSource.RowCount - 1
                         'Cell Colour
                         Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn"))
@@ -123,6 +123,9 @@ Public Class FrmStock
                             Next
 
                             xlRange = CType(xlWorkSheet.Cells.Range(Col & ColRow + gvRow), Excel.Range)
+                            'If String.IsNullOrEmpty(GvSource.GetRowCellDisplayText(gvRow, Cols.Values(i))) Then
+                            '    Exit For
+                            'End If
                             Try
                                 xlRange.Value2 = GvSource.GetRowCellDisplayText(gvRow, Cols.Values(i))
                             Catch ex As Exception
@@ -196,6 +199,9 @@ Public Class FrmStock
         End With
 
         With gvMain
+            .Columns("SubCatName").Group()
+            .ExpandAllGroups()
+            .OptionsBehavior.AllowPartialGroups = DefaultBoolean.True
             .Columns("SubCatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
             .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
             Dim ColList As String() = {"Unit1", "Unit3", "Dozen"}
@@ -478,10 +484,13 @@ Public Class FrmStock
         SQL &= " AND LocID='" & LocID & "'"
         dsTbl("adjust")
         BindInfo.Excute()
+        gvMain.ExpandAllGroups()
+
     End Sub
     Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged, txtUnit2.EditValueChanged, txtUnit3.EditValueChanged
         Dim spiCtr As DevExpress.XtraEditors.SpinEdit = CType(sender, DevExpress.XtraEditors.SpinEdit)
         Dim Unit1, Unit2, Unit3 As Double
+        lbQtyPerUnit.Text = If(lbQtyPerUnit.Text = 0, 1, lbQtyPerUnit.Text)
         Unit1 = txtUnit1.EditValue
         Unit2 = txtUnit2.EditValue
         Unit3 = txtUnit3.EditValue
@@ -496,7 +505,6 @@ Public Class FrmStock
         lbU3.Text = CDbl(Unit3).ToString("#,0.0")
 
     End Sub
-
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbLoc.ItemCheck, clbSubCat.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub

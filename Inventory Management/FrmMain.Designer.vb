@@ -91,6 +91,7 @@ Partial Class FrmMain
         '
         Me.ribbonControl.ApplicationButtonDropDownControl = Me.appMenu
         Me.ribbonControl.ApplicationButtonText = Nothing
+        Me.ribbonControl.AutoSizeItems = True
         Me.ribbonControl.ExpandCollapseItem.Id = 0
         Me.ribbonControl.Images = Me.ribbonImageCollection
         Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.lblLoginDetail, Me.siInfo, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.BBIMaterialList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.Time, Me.btnMatStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnCF, Me.btnPrintTag, Me.btnFmgRequisition, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnProduct})

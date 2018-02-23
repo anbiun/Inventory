@@ -42,6 +42,7 @@ Public Class GridCaption
                 End If
             Next
         End If
+        GridViewName.Appearance.GroupRow.ForeColor = ColorTranslator.FromHtml("#0072C6")
     End Sub
     Public Class selectColum
         Private _enable As Boolean = False

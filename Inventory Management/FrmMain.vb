@@ -29,7 +29,9 @@ Public Class FrmMain
     End Sub
     Private Sub showFrom(frmName As Form)
         frmName.MdiParent = Me
+        XtraTabbedMdiManager1.SelectedPage = XtraTabbedMdiManager1.Pages(frmName)
         frmName.Show()
+
     End Sub
     Sub InitSkins()
         DevExpress.Skins.SkinManager.EnableFormSkins()
@@ -74,7 +76,6 @@ Public Class FrmMain
         showFrom(FrmApprove)
     End Sub
     Private Sub btnPrintTag_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnPrintTag.ItemClick
-        showFrom(FrmPrintnTransfer)
     End Sub
     Private Sub btnRequsition_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnRequsition.ItemClick
         showFrom(FrmRequisition)

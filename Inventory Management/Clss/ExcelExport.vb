@@ -188,11 +188,13 @@ Namespace export
                             ColRow += gvRow
 
                             xlRange = CType(xlWorkSheet.Cells.Range(ColLabel & ColRow), Excel.Range)
+
                             Try
                                 xlRange.Value2 = Gridsource.GetRowCellDisplayText(gvRow, Columns.Values(i))
                             Catch ex As Exception
                                 xlRange.Value2 = Columns.Values(i)
                             End Try
+
 
                         Next
                         bw.ReportProgress(gvRow)

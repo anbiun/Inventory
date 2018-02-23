@@ -127,7 +127,7 @@ Public Class FrmTransfer
 #End Region
 
 #Region "FormLoad"
-    Private Sub FrmWithdraw_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmTransfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FirstQry()
         LoadDef()
         gcList.DataSource = dtTransfer_Detail

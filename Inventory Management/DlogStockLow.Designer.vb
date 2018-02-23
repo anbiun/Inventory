@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class DlogStockLow
+Partial Class dlgAlert
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class DlogStockLow
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DlogStockLow))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(dlgAlert))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
         Me.gcList = New DevExpress.XtraGrid.GridControl()
@@ -97,7 +97,7 @@ Partial Class DlogStockLow
         Me.gvList.OptionsView.ShowGroupPanel = False
         Me.gvList.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
-        'DlogStockLow
+        'dlgAlert
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -108,10 +108,10 @@ Partial Class DlogStockLow
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "DlogStockLow"
+        Me.Name = "dlgAlert"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "แจ้งเตือน สต๊อกต่ำกว่าปริมาณ"
+        Me.Text = "แจ้งเตือน"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
