@@ -42,7 +42,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\bin\</OutputPath>
     <DocumentationFile>IMBin.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>true</Prefer32Bit>
@@ -359,10 +359,10 @@
     <Compile Include="Manage\FmgQCTarget.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manage\FmgRequisition.Designer.vb">
-      <DependentUpon>FmgRequisition.vb</DependentUpon>
+    <Compile Include="Logs\FrmLogs_Requisition.Designer.vb">
+      <DependentUpon>FrmLogs_Requisition.vb</DependentUpon>
     </Compile>
-    <Compile Include="Manage\FmgRequisition.vb">
+    <Compile Include="Logs\FrmLogs_Requisition.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmLogin.Designer.vb">
@@ -484,6 +484,9 @@
     <EmbeddedResource Include="Logs\FrmLogs_Import.resx">
       <DependentUpon>FrmLogs_Import.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Logs\FrmLogs_Requisition.th.resx">
+      <DependentUpon>FrmLogs_Requisition.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Logs\FrmLogs_Tag.resx">
       <DependentUpon>FrmLogs_Tag.vb</DependentUpon>
     </EmbeddedResource>
@@ -534,8 +537,8 @@
     <EmbeddedResource Include="Manage\FmgQCTarget.resx">
       <DependentUpon>FmgQCTarget.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manage\FmgRequisition.resx">
-      <DependentUpon>FmgRequisition.vb</DependentUpon>
+    <EmbeddedResource Include="Logs\FrmLogs_Requisition.resx">
+      <DependentUpon>FrmLogs_Requisition.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manage\FmgSubMat.resx">
       <DependentUpon>FmgSubMat.vb</DependentUpon>
@@ -626,6 +629,7 @@
     <None Include="Resources\apply_16x16.png" />
     <None Include="Resources\apply_16x161.png" />
     <None Include="Resources\apply_16x162.png" />
+    <None Include="Resources\about_16x16.png" />
     <Content Include="Resources\BGM1.jpg" />
     <Content Include="Resources\Computer.ico" />
     <None Include="Resources\Get.png" />
@@ -638,6 +642,7 @@
     <None Include="Resources\next_16x162.png" />
     <None Include="Resources\next_16x163.png" />
     <None Include="Resources\next_16x164.png" />
+    <None Include="Resources\find_32x32.png" />
     <Content Include="Resources\T.ico" />
     <Content Include="Resources\zip.ico" />
   </ItemGroup>

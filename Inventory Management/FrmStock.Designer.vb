@@ -26,6 +26,7 @@ Partial Class FrmStock
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStock))
         Me.gcMain = New DevExpress.XtraGrid.GridControl()
         Me.gvMain = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.RepositoryItemImageEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemImageEdit()
         Me.tooltipGcMain = New DevExpress.Utils.ToolTipController(Me.components)
         Me.AdvBandedGridView1 = New DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView()
         Me.gv2 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -42,7 +43,6 @@ Partial Class FrmStock
         Me.gcExport_AllStock = New DevExpress.XtraGrid.GridControl()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnPrint = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExportExcel = New DevExpress.XtraEditors.SimpleButton()
         Me.lbCat = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -84,6 +84,7 @@ Partial Class FrmStock
         Me.Label4 = New System.Windows.Forms.Label()
         CType(Me.gcMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvMain, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemImageEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AdvBandedGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gv2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gcAdjust, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -120,6 +121,7 @@ Partial Class FrmStock
         Me.gcMain.MainView = Me.gvMain
         Me.gcMain.Margin = New System.Windows.Forms.Padding(4)
         Me.gcMain.Name = "gcMain"
+        Me.gcMain.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemImageEdit1})
         Me.gcMain.Size = New System.Drawing.Size(1029, 622)
         Me.gcMain.TabIndex = 9
         Me.gcMain.ToolTipController = Me.tooltipGcMain
@@ -147,6 +149,12 @@ Partial Class FrmStock
         Me.gvMain.OptionsView.ColumnAutoWidth = False
         Me.gvMain.OptionsView.ShowGroupPanel = False
         Me.gvMain.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        '
+        'RepositoryItemImageEdit1
+        '
+        Me.RepositoryItemImageEdit1.AutoHeight = False
+        Me.RepositoryItemImageEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemImageEdit1.Name = "RepositoryItemImageEdit1"
         '
         'tooltipGcMain
         '
@@ -245,7 +253,7 @@ Partial Class FrmStock
         'GroupControl1
         '
         Me.GroupControl1.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.8!)
-        Me.GroupControl1.AppearanceCaption.ForeColor = System.Drawing.Color.Blue
+        Me.GroupControl1.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.GroupControl1.AppearanceCaption.Options.UseFont = True
         Me.GroupControl1.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl1.Controls.Add(Me.slCat)
@@ -254,7 +262,6 @@ Partial Class FrmStock
         Me.GroupControl1.Controls.Add(Me.clbLoc)
         Me.GroupControl1.Controls.Add(Me.gcExport_AllStock)
         Me.GroupControl1.Controls.Add(Me.Label1)
-        Me.GroupControl1.Controls.Add(Me.btnPrint)
         Me.GroupControl1.Controls.Add(Me.btnExportExcel)
         Me.GroupControl1.Controls.Add(Me.lbCat)
         Me.GroupControl1.Controls.Add(Me.Label3)
@@ -289,9 +296,9 @@ Partial Class FrmStock
         '
         Me.btnSearch.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSearch.Appearance.Options.UseFont = True
-        Me.btnSearch.ImageOptions.Image = CType(resources.GetObject("btnSearch.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSearch.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.find_32x32
         Me.btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter
-        Me.btnSearch.Location = New System.Drawing.Point(16, 404)
+        Me.btnSearch.Location = New System.Drawing.Point(16, 449)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(211, 43)
         Me.btnSearch.TabIndex = 24
@@ -305,7 +312,7 @@ Partial Class FrmStock
         Me.clbSubCat.Cursor = System.Windows.Forms.Cursors.Default
         Me.clbSubCat.Location = New System.Drawing.Point(16, 120)
         Me.clbSubCat.Name = "clbSubCat"
-        Me.clbSubCat.Size = New System.Drawing.Size(212, 146)
+        Me.clbSubCat.Size = New System.Drawing.Size(212, 191)
         Me.clbSubCat.TabIndex = 22
         '
         'clbLoc
@@ -314,7 +321,7 @@ Partial Class FrmStock
         Me.clbLoc.Appearance.Options.UseFont = True
         Me.clbLoc.CheckOnClick = True
         Me.clbLoc.Cursor = System.Windows.Forms.Cursors.Default
-        Me.clbLoc.Location = New System.Drawing.Point(16, 295)
+        Me.clbLoc.Location = New System.Drawing.Point(16, 340)
         Me.clbLoc.Name = "clbLoc"
         Me.clbLoc.Size = New System.Drawing.Size(212, 103)
         Me.clbLoc.TabIndex = 22
@@ -338,27 +345,17 @@ Partial Class FrmStock
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.8!)
-        Me.Label1.Location = New System.Drawing.Point(5, 269)
+        Me.Label1.Location = New System.Drawing.Point(5, 314)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(89, 23)
         Me.Label1.TabIndex = 13
         Me.Label1.Text = "คลังวัสดุ :"
         '
-        'btnPrint
-        '
-        Me.btnPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnPrint.ImageOptions.Image = CType(resources.GetObject("btnPrint.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnPrint.Location = New System.Drawing.Point(16, 597)
-        Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(212, 43)
-        Me.btnPrint.TabIndex = 20
-        Me.btnPrint.Text = "พิมพ์ข้อมูล"
-        '
         'btnExportExcel
         '
         Me.btnExportExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnExportExcel.ImageOptions.Image = CType(resources.GetObject("btnExportExcel.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnExportExcel.Location = New System.Drawing.Point(16, 548)
+        Me.btnExportExcel.Location = New System.Drawing.Point(16, 598)
         Me.btnExportExcel.Name = "btnExportExcel"
         Me.btnExportExcel.Size = New System.Drawing.Size(212, 43)
         Me.btnExportExcel.TabIndex = 19
@@ -408,7 +405,7 @@ Partial Class FrmStock
         'lastStock
         '
         Me.lastStock.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lastStock.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lastStock.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.lastStock.AppearanceCaption.Options.UseFont = True
         Me.lastStock.AppearanceCaption.Options.UseForeColor = True
         Me.lastStock.Dock = System.Windows.Forms.DockStyle.Top
@@ -853,6 +850,7 @@ Partial Class FrmStock
         Me.Text = "วัสดุคงคลัง ณ ปัจจุบัน"
         CType(Me.gcMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvMain, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemImageEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AdvBandedGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gv2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gcAdjust, System.ComponentModel.ISupportInitialize).EndInit()
@@ -886,7 +884,6 @@ Partial Class FrmStock
 
     End Sub
     Friend WithEvents GroupControl1 As DevExpress.XtraEditors.GroupControl
-    Friend WithEvents btnPrint As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnExportExcel As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -943,4 +940,5 @@ Partial Class FrmStock
     Friend WithEvents Label10 As Label
     Friend WithEvents lbQtyPerUnit As Label
     Friend WithEvents Label12 As Label
+    Friend WithEvents RepositoryItemImageEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemImageEdit
 End Class

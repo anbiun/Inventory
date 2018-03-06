@@ -23,20 +23,22 @@ Public Class FrmLogin
         ctrEnable.Add(btnOK)
 
         Dim Stat As Integer = 0
-        Using sr As New StreamReader("version.txt")
+        Dim readFile As String = "ftp.jlproducts"
+readVer:
+        Using sr As New StreamReader(readFile)
+            'fileversion=version.jlproducts
             Dim line As String = sr.ReadLine()
             While line IsNot Nothing
                 numLines = numLines + 1
-                If line.Contains("version=") Then Version = line.Replace("version=", String.Empty)
-                line = sr.ReadLine()
 
-                If line IsNot Nothing AndAlso line.Contains("[") Then
-                    Stat = 1
-                ElseIf line IsNot Nothing AndAlso String.IsNullOrEmpty(line) Then
-                    Stat = 0
+                If line.ToLower.Contains("fileversion=") Then
+                    readFile = line.Substring(line.IndexOf("=") + 1)
+                    GoTo readVer
+                ElseIf line.ToLower.Contains("version=") Then
+                    Version = line.Substring(line.IndexOf("=") + 1)
+                    Exit While
                 End If
-
-                If Stat = 1 Then UpdateDetail &= line & vbNewLine
+                line = sr.ReadLine()
             End While
         End Using
         Me.Text += " v." + Version

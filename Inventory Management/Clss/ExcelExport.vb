@@ -4,7 +4,8 @@ Imports DevExpress.XtraGrid.Columns
 Imports System.ComponentModel
 Namespace export
     Public Class ExcelExport
-        Public TemplateFile As String
+
+        Private _TemplateFile As String
         Public Datasource As New DataTable
         Public Gridsource As New DevExpress.XtraGrid.Views.Grid.GridView
         Public Columns As New Dictionary(Of String, String)
@@ -14,6 +15,15 @@ Namespace export
         Public ProgressVal As Integer = 0
         Public Table_Import As New DataTable
         Public bw As BackgroundWorker = New BackgroundWorker
+        Public Property TemplateFile As String
+            Set(value As String)
+                _TemplateFile = Directory.GetParent(Application.StartupPath).ToString + "\template\" + value
+            End Set
+            Get
+                Return _TemplateFile
+            End Get
+        End Property
+
         Sub New()
             bw.WorkerReportsProgress = True
             bw.WorkerSupportsCancellation = True
@@ -147,7 +157,7 @@ Namespace export
                 Dim xlWorkSheet As Excel.Worksheet = Nothing
                 Dim xlRange As Excel.Range = Nothing
                 Dim misValue As Object = System.Reflection.Missing.Value
-                Dim TemplatePath As String = Path.Combine(Application.StartupPath, TemplateFile)
+                Dim TemplatePath As String = TemplateFile
 
                 '' * to open existing file *
                 xlWorkBook = xlApp.Workbooks.Open(TemplatePath, misValue, misValue, misValue _

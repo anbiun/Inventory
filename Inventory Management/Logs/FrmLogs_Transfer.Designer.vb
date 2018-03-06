@@ -70,16 +70,16 @@ Partial Class FrmLogs_Transfer
         Me.GroupControl1.Controls.Add(Me.deEDate)
         Me.GroupControl1.Controls.Add(Me.lbSDate)
         Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupControl1.Location = New System.Drawing.Point(675, 0)
+        Me.GroupControl1.Location = New System.Drawing.Point(711, 0)
         Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(253, 592)
+        Me.GroupControl1.Size = New System.Drawing.Size(253, 677)
         Me.GroupControl1.TabIndex = 20
         '
         'rdDate_By
         '
         Me.rdDate_By.AutoSize = True
         Me.rdDate_By.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdDate_By.Location = New System.Drawing.Point(16, 429)
+        Me.rdDate_By.Location = New System.Drawing.Point(16, 474)
         Me.rdDate_By.Name = "rdDate_By"
         Me.rdDate_By.Size = New System.Drawing.Size(126, 25)
         Me.rdDate_By.TabIndex = 33
@@ -91,7 +91,7 @@ Partial Class FrmLogs_Transfer
         '
         Me.rdDate_All.AutoSize = True
         Me.rdDate_All.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdDate_All.Location = New System.Drawing.Point(16, 398)
+        Me.rdDate_All.Location = New System.Drawing.Point(16, 443)
         Me.rdDate_All.Name = "rdDate_All"
         Me.rdDate_All.Size = New System.Drawing.Size(106, 25)
         Me.rdDate_All.TabIndex = 33
@@ -125,7 +125,7 @@ Partial Class FrmLogs_Transfer
         Me.btnSearch.Appearance.Options.UseFont = True
         Me.btnSearch.ImageOptions.Image = CType(resources.GetObject("btnSearch.ImageOptions.Image"), System.Drawing.Image)
         Me.btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter
-        Me.btnSearch.Location = New System.Drawing.Point(24, 538)
+        Me.btnSearch.Location = New System.Drawing.Point(24, 583)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(211, 43)
         Me.btnSearch.TabIndex = 31
@@ -139,7 +139,7 @@ Partial Class FrmLogs_Transfer
         Me.clbSubCat.Cursor = System.Windows.Forms.Cursors.Default
         Me.clbSubCat.Location = New System.Drawing.Point(23, 114)
         Me.clbSubCat.Name = "clbSubCat"
-        Me.clbSubCat.Size = New System.Drawing.Size(212, 146)
+        Me.clbSubCat.Size = New System.Drawing.Size(212, 191)
         Me.clbSubCat.TabIndex = 29
         '
         'clbLoc
@@ -148,7 +148,7 @@ Partial Class FrmLogs_Transfer
         Me.clbLoc.Appearance.Options.UseFont = True
         Me.clbLoc.CheckOnClick = True
         Me.clbLoc.Cursor = System.Windows.Forms.Cursors.Default
-        Me.clbLoc.Location = New System.Drawing.Point(23, 289)
+        Me.clbLoc.Location = New System.Drawing.Point(23, 334)
         Me.clbLoc.Name = "clbLoc"
         Me.clbLoc.Size = New System.Drawing.Size(212, 103)
         Me.clbLoc.TabIndex = 30
@@ -157,7 +157,7 @@ Partial Class FrmLogs_Transfer
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.8!)
-        Me.Label1.Location = New System.Drawing.Point(12, 263)
+        Me.Label1.Location = New System.Drawing.Point(12, 308)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(145, 23)
         Me.Label1.TabIndex = 26
@@ -186,7 +186,7 @@ Partial Class FrmLogs_Transfer
         'deSDate
         '
         Me.deSDate.EditValue = Nothing
-        Me.deSDate.Location = New System.Drawing.Point(71, 460)
+        Me.deSDate.Location = New System.Drawing.Point(71, 505)
         Me.deSDate.Name = "deSDate"
         Me.deSDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deSDate.Properties.Appearance.Options.UseFont = True
@@ -199,7 +199,7 @@ Partial Class FrmLogs_Transfer
         '
         Me.lbEDate.AutoSize = True
         Me.lbEDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbEDate.Location = New System.Drawing.Point(38, 496)
+        Me.lbEDate.Location = New System.Drawing.Point(38, 541)
         Me.lbEDate.Name = "lbEDate"
         Me.lbEDate.Size = New System.Drawing.Size(27, 24)
         Me.lbEDate.TabIndex = 13
@@ -208,7 +208,7 @@ Partial Class FrmLogs_Transfer
         'deEDate
         '
         Me.deEDate.EditValue = Nothing
-        Me.deEDate.Location = New System.Drawing.Point(71, 494)
+        Me.deEDate.Location = New System.Drawing.Point(71, 539)
         Me.deEDate.Name = "deEDate"
         Me.deEDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deEDate.Properties.Appearance.Options.UseFont = True
@@ -221,7 +221,7 @@ Partial Class FrmLogs_Transfer
         '
         Me.lbSDate.AutoSize = True
         Me.lbSDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbSDate.Location = New System.Drawing.Point(22, 462)
+        Me.lbSDate.Location = New System.Drawing.Point(22, 507)
         Me.lbSDate.Name = "lbSDate"
         Me.lbSDate.Size = New System.Drawing.Size(43, 24)
         Me.lbSDate.TabIndex = 13
@@ -233,7 +233,7 @@ Partial Class FrmLogs_Transfer
         Me.gcList.Location = New System.Drawing.Point(0, 0)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(675, 592)
+        Me.gcList.Size = New System.Drawing.Size(711, 677)
         Me.gcList.TabIndex = 21
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -252,7 +252,7 @@ Partial Class FrmLogs_Transfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(928, 592)
+        Me.ClientSize = New System.Drawing.Size(964, 677)
         Me.Controls.Add(Me.gcList)
         Me.Controls.Add(Me.GroupControl1)
         Me.Name = "FrmLogs_Transfer"

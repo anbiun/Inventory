@@ -81,7 +81,7 @@ Public Class FrmMain
         showFrom(FrmRequisition)
     End Sub
     Private Sub btnFmgRequisition_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnFmgRequisition.ItemClick
-        showFrom(FmgRequisition)
+        showFrom(FrmLogs_Requisition)
     End Sub
     Private Sub btnSubMat_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnSubMat.ItemClick
         FmgSubMat.Show()

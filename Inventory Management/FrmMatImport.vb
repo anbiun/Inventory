@@ -47,7 +47,6 @@ Public Class FrmMatImport
                 .Columns("qtyperunit")
                 .Columns("locid")
                 .Columns("เรโช")
-                .Columns("หมายเหตุ")
             End With
 
             .SetCaption(gvImportOrder)
@@ -478,7 +477,7 @@ SubUnit:
 
                 For Each col As GridColumn In gvImportOrder.Columns
                     col.OptionsColumn.AllowEdit = If(col.FieldName = "Notation", True, False)
-                    col.OptionsColumn.AllowEdit = If(col.FieldName = "Ratio", True, False)
+                    'col.OptionsColumn.AllowEdit = If(col.FieldName = "Ratio", True, False)
                 Next
                 sluMat.Properties.View.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
             Case BtnEdit.Name

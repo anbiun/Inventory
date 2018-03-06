@@ -149,7 +149,7 @@ Partial Class FmgSubMat
         Me.btnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNew.Appearance.Options.UseFont = True
         Me.btnNew.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnNew.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.apply_16x162
+        Me.btnNew.ImageOptions.Image = My.Resources.apply_16x16
         Me.btnNew.Location = New System.Drawing.Point(271, 79)
         Me.btnNew.Margin = New System.Windows.Forms.Padding(2)
         Me.btnNew.Name = "btnNew"

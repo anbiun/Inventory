@@ -6,6 +6,11 @@ Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.IO
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 Imports System.ComponentModel
+Imports DevExpress.XtraGrid.Views.Base
+Imports DevExpress.XtraGrid
+Imports DevExpress.XtraEditors
+Imports DevExpress.XtraEditors.Repository
+Imports DevExpress.XtraEditors.Controls
 
 Public Class FrmStock
     Dim LocID As String
@@ -21,6 +26,7 @@ Public Class FrmStock
             .CatChecked = clbSubCat.CheckedItems
             .Excute()
             gcMain.DataSource = .Result
+
         End With
         gvMain.PopulateColumns()
         gvMain.BestFitColumns()
@@ -57,7 +63,7 @@ Public Class FrmStock
                 .Add("M4", "JLK")
             End With
             Try
-                Dim strFileName As String = Application.StartupPath + "\template_stock.xls"
+                Dim strFileName As String = Directory.GetParent(Application.StartupPath).ToString + "\template\template_stock.xls"
                 'Dim dtGetAnotherLoc As DataTable = gvMain.DataSource
                 Dim xlApp As Excel.Application = New Excel.ApplicationClass()
                 '
@@ -94,6 +100,10 @@ Public Class FrmStock
                     xlRange.Value2 = "สต๊อกวัสดุยอด ณ วันที่ " & _XLSGetHeader()
                     GvSource.ExpandAllGroups()
                     For gvRow As Integer = 0 To GvSource.RowCount - 1
+                        'If String.IsNullOrEmpty(GvSource.GetRowCellDisplayText(gvRow, 1)) Then
+                        '    Continue For
+                        'End If
+
                         'Cell Colour
                         Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn"))
                         Dim warn_month As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn_Month"))
@@ -123,9 +133,7 @@ Public Class FrmStock
                             Next
 
                             xlRange = CType(xlWorkSheet.Cells.Range(Col & ColRow + gvRow), Excel.Range)
-                            'If String.IsNullOrEmpty(GvSource.GetRowCellDisplayText(gvRow, Cols.Values(i))) Then
-                            '    Exit For
-                            'End If
+
                             Try
                                 xlRange.Value2 = GvSource.GetRowCellDisplayText(gvRow, Cols.Values(i))
                             Catch ex As Exception
@@ -169,7 +177,6 @@ Public Class FrmStock
     End Sub
     Private Sub releaseObject(ByVal obj As Object)
         Try
-
             System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
             obj = Nothing
 
@@ -279,10 +286,11 @@ Public Class FrmStock
         End If
     End Sub
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        If clbLoc.CheckedItemsCount <= 0 Or clbSubCat.CheckedItemsCount <= 0 Then Exit Sub
         getStockSP()
         'getOldStockSP()
     End Sub
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs)
         gcMain.ShowRibbonPrintPreview()
     End Sub
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
@@ -457,19 +465,6 @@ Public Class FrmStock
         Dim clb As CheckedListBox = CType(sender, CheckedListBox)
         clb.Size = New System.Drawing.Size(clb.Width, defH)
     End Sub
-    Private Sub rdDate_CheckedChanged(sender As Object, e As EventArgs)
-        'Dim chk As String() = {"5", "10", "11"}
-        'If rdDate.Checked = True Then
-        '    If chkDate.Contains(chk) Then
-        '        chkDate.Items(1)
-        '    End If
-        '    chkDate.Enabled = True
-        '    chkDays.Enabled = False
-        'Else
-        '    chkDays.Enabled = True
-        '    chkDate.Enabled = False
-        'End If
-    End Sub
     Private Sub btnAdJust_Click(sender As Object, e As EventArgs) Handles btnAdJust.Click
         If chkInput(grpAdjust) = False Then
             MessageBox.Show("Check Input", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -507,5 +502,23 @@ Public Class FrmStock
     End Sub
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbLoc.ItemCheck, clbSubCat.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
+    End Sub
+    Private Sub gridView1_CustomDrawCell(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs) Handles gvMain.CustomDrawCell
+        If e.Column.FieldName = "ReqToday" Then
+            e.DisplayText = String.Empty
+            If e.CellValue Is Nothing Then Exit Sub
+            If e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "ReqToday" Then
+                Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
+                Dim infox As DevExpress.XtraEditors.ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, DevExpress.XtraEditors.ViewInfo.TextEditViewInfo)
+                If e.CellValue = "1" Then
+                    infox.ContextImage = My.Resources.apply_16x16
+                ElseIf e.CellValue = "2" Then
+                    infox.ContextImage = My.Resources.about_16x16
+                ElseIf e.CellValue = "0" Then
+                    infox.ContextImage = Nothing
+                End If
+                infox.CalcViewInfo()
+            End If
+        End If
     End Sub
 End Class

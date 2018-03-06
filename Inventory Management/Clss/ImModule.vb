@@ -14,6 +14,9 @@ Imports ConDB.Main
 Imports DevExpress.XtraEditors.BaseCheckedListBoxControl
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid
+Imports System.Globalization
+Imports System.Threading
+
 Module ImModule
     Public CategoryTxt As String
     Public CategoryValue As String
@@ -33,7 +36,14 @@ Module ImModule
     Public ParamList As New List(Of SqlParameter)
     Public Version As String
     Public tmpSQL As String
-
+    Public colorMain As Color = ColorTranslator.FromHtml("#0072C6")
+    Sub New()
+        Dim Culture = CultureInfo.CreateSpecificCulture("th")
+        Thread.CurrentThread.CurrentUICulture = Culture
+        Thread.CurrentThread.CurrentCulture = Culture
+        CultureInfo.DefaultThreadCurrentCulture = Culture
+        CultureInfo.DefaultThreadCurrentUICulture = Culture
+    End Sub
     'ตัวแปร
     Friend Enum idFor
         MainCategory
@@ -101,7 +111,7 @@ Module ImModule
             Case UserGroup.StockUser
                 FrmMatImport.grpSearch.Visible = True
                 FrmMatImport.pnlEdit.Visible = False
-                FmgRequisition.BtnDel.Visible = False
+                FrmLogs_Requisition.BtnDel.Visible = False
                 'FrmMain.btnTransfer.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
                 With FrmMain
                     .ribGrpApprove.Visible = True

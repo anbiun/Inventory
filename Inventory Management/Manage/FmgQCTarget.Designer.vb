@@ -164,7 +164,7 @@ Partial Class FmgQCTarget
         Me.btnOK.AppearanceHovered.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.btnOK.AppearanceHovered.Options.UseBackColor = True
         Me.btnOK.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnOK.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.apply_16x161
+        Me.btnOK.ImageOptions.Image = My.Resources.Resources.apply_16x16
         Me.btnOK.Location = New System.Drawing.Point(143, 82)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(2)
         Me.btnOK.Name = "btnOK"

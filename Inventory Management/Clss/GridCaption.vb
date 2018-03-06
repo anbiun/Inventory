@@ -42,7 +42,16 @@ Public Class GridCaption
                 End If
             Next
         End If
-        GridViewName.Appearance.GroupRow.ForeColor = ColorTranslator.FromHtml("#0072C6")
+        With GridViewName.Appearance
+            'Dim newFont As New Font("Tahoma", 10, FontStyle.Regular)
+            '.Row.Font = newFont
+            '.GroupRow.Font = newFont
+
+            .GroupRow.ForeColor = ColorTranslator.FromHtml("#0072C6")
+            '.GroupRow.GradientMode = Drawing2D.LinearGradientMode.ForwardDiagonal
+            '.GroupRow.BackColor = ColorTranslator.FromHtml("#F2F2F2")
+            .GroupRow.BackColor = ColorTranslator.FromHtml("#F0F0F0")
+        End With
     End Sub
     Public Class selectColum
         Private _enable As Boolean = False

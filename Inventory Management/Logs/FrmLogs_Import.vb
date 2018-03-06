@@ -113,20 +113,26 @@ Public Class FrmLogs_Import
             .SetCaption(gvList)
         End With
         With gvList
+            If gvList.RowCount < 1 Then Exit Sub
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
-            .Columns("Unit1").Summary.Clear()
-            .Columns("Unit1").Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Unit1", "รวม : {0}")
-            .Columns("Unit3").Summary.Clear()
-            .Columns("Unit3").Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Unit3", "รวม : {0}")
+
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit1", .Columns("Unit1"), "รวม {0}"))
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit3", .Columns("Unit3"), "รวม {0}"))
+
+            .OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.True
+
+            .Columns("SubCatName").Group()
             .Columns("ImportDate").Group()
             .Columns("ImportDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
+            .Columns("ImportDate").GroupInterval = ColumnGroupInterval.DateRange
+
             .ExpandAllGroups()
-            .OptionsView.ShowAutoFilterRow = True
             .BestFitColumns()
+            .TopRowIndex = 0
         End With
     End Sub
-    Private Sub gcList_Click(sender As Object, e As EventArgs) Handles gcList.Click
+    Private Sub gcList_Click(sender As Object, e As EventArgs)
         Dim rw As Integer = gvList.FocusedRowHandle
         If rw >= 0 Then
             RequestNo = gvList.GetRowCellValue(rw, "RequestNo")

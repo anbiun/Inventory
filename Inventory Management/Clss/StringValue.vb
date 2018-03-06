@@ -69,6 +69,7 @@
 #Region "ทั่วไป"
                 .Add("err_pagesize", "จำนวนหน้า เกินจำนวนข้อมูลที่มีอยู่")
                 .Add("err_norow", "ยังไม่มีข้อมูลส่วนนี้")
+                .Add("ReqToday", " ")
 #End Region
 
             Catch ex As Exception
