@@ -1,12 +1,8 @@
 ﻿Imports ConDB.Main
-Imports System.ComponentModel
-Imports System.Text
 Imports DevExpress.XtraBars
 Imports DevExpress.XtraBars.Ribbon
 Imports DevExpress.XtraBars.Helpers
-Imports DevExpress.Skins
 Imports DevExpress.LookAndFeel
-Imports DevExpress.UserSkins
 
 Public Class FrmMain
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -15,16 +11,26 @@ Public Class FrmMain
         siInfo.Caption = "| Current IP : " & varIP
         siInfo.Caption &= " | Database : " & varDB
         siInfo.Caption &= " | Location : " & UserInfo.SelectLoc & "(" & UserInfo.LocName & ")"
-
+        Ribbon.Minimized = True
         Permission(UserInfo.Permis)
     End Sub
     Private Sub FrmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        Time.Caption = Me.Size.Height
+        'Ribbon.BeginInit()
+        'Dim frm As Ribbon.Helpers.MinimizedRibbonPopupForm
+        'frm = New Ribbon.Helpers.MinimizedRibbonPopupForm(Ribbon)
+        'frm.UpdateRibbon()
+        'frm.ShowPopup()
+        'frm.Refresh()
+        'Ribbon.EndInit()
     End Sub
     Sub New()
+
         InitSkins()
         InitializeComponent()
         Me.InitSkinGallery()
+        Dim gmh As GlobalMouseHandler = New GlobalMouseHandler()
+        AddHandler gmh.TheMouseMoved, New MouseMovedEvent(AddressOf gmh_TheMouseMoved)
+        Application.AddMessageFilter(gmh)
         'Me.InitGrid()
     End Sub
     Private Sub showFrom(frmName As Form)
@@ -47,7 +53,6 @@ Public Class FrmMain
         Timer1.Stop()
         Time.Caption = Now.ToString & " MaincatSelect =" & MainCatSelect & " olMatID=" & FrmMatList.oldMatID
     End Sub
-
 #Region "Button Control"
     Private Sub BBIMaterialList_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BBIMaterialList.ItemClick
         showFrom(FrmMatList)
@@ -112,4 +117,57 @@ Public Class FrmMain
     Private Sub btnProduct_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnProduct.ItemClick
         FmgQCTarget.Show()
     End Sub
+
+#Region "RibbonPopup On Mouse Hover"
+    Private Sub Form1_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseMove
+        RibbonPopShow(Ribbon)
+    End Sub
+    Private Sub ribbonControl_MouseMove(sender As Object, e As MouseEventArgs) Handles ribbonControl.MouseMove
+        Dim vi As ViewInfo.RibbonHitInfo = Ribbon.CalcHitInfo(e.Location)
+        If vi.HitTest = DevExpress.XtraBars.Ribbon.ViewInfo.RibbonHitTest.PageHeader Then
+            RibbonPopShow(sender)
+        End If
+    End Sub
+    Private Sub FrmMain_Move(sender As Object, e As EventArgs) Handles Me.Move
+        If pop IsNot Nothing Then
+            pop.Dispose()
+            pop = Nothing
+        End If
+    End Sub
+    'MouseMoveCatch
+    Public pop As Ribbon.Helpers.MinimizedRibbonPopupForm
+    Public Sub RibbonPopShow(Ribbon As RibbonControl)
+        Ribbon.BeginInit()
+        'Ribbon.SelectedPage = hitinfo.Page
+        If pop Is Nothing Then
+            pop = New Helpers.MinimizedRibbonPopupForm(Ribbon)
+            pop.UpdateRibbon()
+            pop.ShowPopup()
+            pop.Refresh()
+            Ribbon.EndInit()
+        End If
+    End Sub
+    Private Sub gmh_TheMouseMoved()
+        Time.Caption = New Point(PointToClient(Control.MousePosition)).ToString
+        If pop Is Nothing Then Return
+        Dim point As Point = PointToClient(Control.MousePosition)
+        If point.Y < 22 OrElse point.Y > 143 Then
+            pop.Dispose()
+            pop = Nothing
+        End If
+    End Sub
+    Public Delegate Sub MouseMovedEvent()
+    Public Class GlobalMouseHandler
+        Implements IMessageFilter
+        Private Const WM_MOUSEMOVE As Integer = 512
+        Public Event TheMouseMoved As MouseMovedEvent
+        Private Function IMessageFilter_PreFilterMessage(ByRef m As Message) As Boolean Implements IMessageFilter.PreFilterMessage
+            If m.Msg = WM_MOUSEMOVE Then
+                RaiseEvent TheMouseMoved()
+            End If
+            Return False
+        End Function
+    End Class
+#End Region
 End Class
+

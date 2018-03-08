@@ -92,6 +92,7 @@ Partial Class FrmMain
         Me.ribbonControl.ApplicationButtonDropDownControl = Me.appMenu
         Me.ribbonControl.ApplicationButtonText = Nothing
         Me.ribbonControl.AutoSizeItems = True
+        Me.ribbonControl.BackColor = System.Drawing.SystemColors.Window
         Me.ribbonControl.ExpandCollapseItem.Id = 0
         Me.ribbonControl.Images = Me.ribbonImageCollection
         Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.lblLoginDetail, Me.siInfo, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.BBIMaterialList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.Time, Me.btnMatStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnCF, Me.btnPrintTag, Me.btnFmgRequisition, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnProduct})
@@ -103,8 +104,13 @@ Partial Class FrmMain
         Me.ribbonControl.PageHeaderItemLinks.Add(Me.iAbout)
         Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1})
         Me.ribbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.MacOffice
+        Me.ribbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ribbonControl.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.[True]
+        Me.ribbonControl.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[True]
+        Me.ribbonControl.ShowToolbarCustomizeItem = False
         Me.ribbonControl.Size = New System.Drawing.Size(1033, 162)
         Me.ribbonControl.StatusBar = Me.ribbonStatusBar
+        Me.ribbonControl.Toolbar.ShowCustomizeItem = False
         '
         'appMenu
         '
@@ -510,10 +516,13 @@ Partial Class FrmMain
         Me.XtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InAllTabPageHeaders
         Me.XtraTabbedMdiManager1.FloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabbedMdiManager1.FloatOnDrag = DevExpress.Utils.DefaultBoolean.[True]
+        Me.XtraTabbedMdiManager1.FloatPageDragMode = DevExpress.XtraTabbedMdi.FloatPageDragMode.Preview
         Me.XtraTabbedMdiManager1.MdiParent = Me
         '
         'FrmMain
         '
+        Me.Appearance.BackColor = System.Drawing.SystemColors.Window
+        Me.Appearance.Options.UseBackColor = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1033, 1027)
@@ -528,6 +537,7 @@ Partial Class FrmMain
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.StatusBar = Me.ribbonStatusBar
         Me.Text = "Inventory Management"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.appMenu, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ribbonImageCollection, System.ComponentModel.ISupportInitialize).EndInit()

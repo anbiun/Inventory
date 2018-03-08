@@ -1,21 +1,15 @@
-﻿Imports System.Data.OleDb
-Imports System.Data
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports System.Text
-Imports System.IO
 Imports System.Text.RegularExpressions
-Imports DevExpress.BarCodes
-Imports DevExpress.XtraReports.UI
-Imports DevExpress.XtraPrinting.BarCode
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Grid
-Imports System
 Imports ConDB.Main
 Imports DevExpress.XtraEditors.BaseCheckedListBoxControl
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid
 Imports System.Globalization
 Imports System.Threading
+
 
 Module ImModule
     Public CategoryTxt As String
@@ -284,11 +278,12 @@ Module ImModule
         Return Result
     End Function
     'GridInfo   
-    Public gridInfo As New GridCaption
+    Public gridInfo As New GridCaption(Nothing)
     Private strList As New StringList
     Public getString As Func(Of String, String) = Function(StringKey As String)
                                                       Return strList.GetVal(StringKey)
                                                   End Function
     'CheckListInfo
     Public clbInfo As New CheckListBox
+
 End Module

@@ -188,7 +188,7 @@ Partial Class FmgSubMat
         Me.btnAddList.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAddList.Appearance.Options.UseFont = True
         Me.btnAddList.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnAddList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.next_16x163
+        Me.btnAddList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.next_16x16
         Me.btnAddList.Location = New System.Drawing.Point(258, 38)
         Me.btnAddList.Margin = New System.Windows.Forms.Padding(2)
         Me.btnAddList.Name = "btnAddList"

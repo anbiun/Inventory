@@ -28,14 +28,11 @@ Public Class FmgQCTarget
         dsTbl("product")
         dtQCTarget = DS.Tables("product").Copy
         gcList.DataSource = dtQCTarget
-        gridInfo = New GridCaption
+        gridInfo = New GridCaption(gvList)
         gridInfo.hide.columns("productid")
-        gridInfo.hide.columns("qcname")       
-        gridInfo.SetCaption(gvList)
-        With gvList.Columns("QCTarget").DisplayFormat
-            .FormatType = FormatType.Numeric
-            .FormatString = "#,0"
-        End With
+        gridInfo.hide.columns("qcname")
+        gridInfo.SetCaption()
+        gridInfo.SetFormatNumber({"QCTarget"})
         gvList.OptionsView.ShowAutoFilterRow = True
 
         txtQuatername.Text = If(IsDBNull(DS.Tables("product")(0)("QCName")), "", DS.Tables("product")(0)("QCName"))

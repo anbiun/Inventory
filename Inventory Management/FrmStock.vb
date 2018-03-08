@@ -196,26 +196,26 @@ Public Class FrmStock
     End Sub
     Private Sub GvFormat()
         If gvMain.RowCount <= 0 Then Exit Sub
-        gridInfo = New GridCaption
+        gridInfo = New GridCaption(gvMain)
         With gridInfo
             .HIDE.Columns("warn_month")
             .HIDE.Columns("matID1")
             .HIDE.Columns("matid")
             .HIDE.Columns("productname")
-            .SetCaption(gvMain)
+            .SetCaption()
+            Dim ColList As String() = {"Unit1", "Unit3", "Dozen"}
+            .SetFormatNumber(ColList)
         End With
 
         With gvMain
             .Columns("SubCatName").Group()
             .ExpandAllGroups()
             .OptionsBehavior.AllowPartialGroups = DefaultBoolean.True
-            .Columns("SubCatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-            .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-            Dim ColList As String() = {"Unit1", "Unit3", "Dozen"}
-            For Each items As String In ColList
-                .Columns(items).DisplayFormat.FormatType = FormatType.Numeric
-                .Columns(items).DisplayFormat.FormatString = "#,0.0"
-            Next
+            .Columns("SubCatName").Fixed = Columns.FixedStyle.Left
+            .Columns("MatName").Fixed = Columns.FixedStyle.Left
+            .Columns("Warn").Fixed = Columns.FixedStyle.Left
+            .Columns("Warn_Name").Fixed = Columns.FixedStyle.Left
+            .Columns("ReqToday").Fixed = Columns.FixedStyle.Left
             .Columns("Warn").Caption = getString("warn1")
             .BestFitColumns()
             .OptionsView.ShowAutoFilterRow = True
@@ -274,7 +274,7 @@ Public Class FrmStock
             End If
 
             If Warn <= 1 Then
-                e.Appearance.BackColor = Color.IndianRed
+                e.Appearance.BackColor = ColorTranslator.FromHtml("#fc9797")
                 e.Appearance.BackColor2 = Color.WhiteSmoke
             ElseIf Warn <= Warn_Month Then
                 e.Appearance.BackColor = Color.LightGoldenrodYellow
@@ -289,9 +289,6 @@ Public Class FrmStock
         If clbLoc.CheckedItemsCount <= 0 Or clbSubCat.CheckedItemsCount <= 0 Then Exit Sub
         getStockSP()
         'getOldStockSP()
-    End Sub
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs)
-        gcMain.ShowRibbonPrintPreview()
     End Sub
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
         If loadSuccess = False Then Exit Sub
@@ -311,12 +308,11 @@ Public Class FrmStock
                 Dim MainMat As String = view.GetRowCellDisplayText(info.RowHandle, "MatName")
                 Dim text As String = view.GetRowCellDisplayText(info.RowHandle, "ProductName")
                 Dim cellKey As String = info.RowHandle.ToString() & " - " & info.Column.ToString()
-                e.Info = New DevExpress.Utils.ToolTipControlInfo(cellKey, MainMat & " เบอร์ร่วมคือ : " & If(String.IsNullOrWhiteSpace(text), "ไม่มี", text))
+                e.Info = New ToolTipControlInfo(cellKey, MainMat & " เบอร์ร่วมคือ : " & If(String.IsNullOrWhiteSpace(text), "ไม่มี", text))
             End If
 
         End If
     End Sub
-
     Private Function IsHoliday(ByVal dt As DateTime) As Boolean
         SQL = "SELECT DISTINCT(ExportDate) FROM Service_Export_Stock"
         dsTbl("getdate")
@@ -373,7 +369,7 @@ Public Class FrmStock
     End Sub
 
 #Region "Temp"
-    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvMain.RowCellClick, gvAdjust.RowCellClick
+    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvAdjust.RowCellClick
         Dim GV As GridView = CType(sender, GridView)
         If GV.FocusedRowHandle < 0 Then Exit Sub
         With GV
@@ -390,17 +386,13 @@ Public Class FrmStock
                     If clbLoc.CheckedItems.Count <= 0 Then Exit Sub
                     gcAdjust.DataSource = dsTbl("AJStock")
                     If gvAdjust.RowCount > 0 Then
-                        gridInfo = New GridCaption
+                        gridInfo = New GridCaption(gvAdjust)
                         With gridInfo
-                            .SetCaption(gvAdjust)
+                            .SetCaption()
+                            .SetFormatNumber({"Unit1", "Unit3"})
                         End With
                         With gvAdjust
                             .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-                            Dim ColList As String() = {"Unit1", "Unit3"}
-                            For Each items As String In ColList
-                                .Columns(items).DisplayFormat.FormatType = FormatType.Numeric
-                                .Columns(items).DisplayFormat.FormatString = "#,0.0"
-                            Next
                             .BestFitColumns()
                         End With
                     End If
@@ -507,9 +499,9 @@ Public Class FrmStock
         If e.Column.FieldName = "ReqToday" Then
             e.DisplayText = String.Empty
             If e.CellValue Is Nothing Then Exit Sub
-            If e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "ReqToday" Then
+            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "ReqToday" Then
                 Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
-                Dim infox As DevExpress.XtraEditors.ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, DevExpress.XtraEditors.ViewInfo.TextEditViewInfo)
+                Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
                 If e.CellValue = "1" Then
                     infox.ContextImage = My.Resources.apply_16x16
                 ElseIf e.CellValue = "2" Then

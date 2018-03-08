@@ -3,14 +3,20 @@ Option Strict On
 Imports DevExpress.XtraGrid.Views.Grid
 
 Public Class GridCaption
-    Public HIDE As New selectColum
-    Public ONLY As New selectColum
-    Public SHOW As New selectColum
-    Public Sub SetCaption(GridViewName As GridView)
-        If ONLY.getColum.Count > 0 Then
+    Public HIDE As New SelectColum
+    Public ONLY As New SelectColum
+    Public SHOW As New SelectColum
+    Private GridViewName As GridView
+    Sub New(Gridview As GridView)
+        GridViewName = Gridview
+    End Sub
+    Public Sub SetCaption()
+        If GridViewName Is Nothing Then MsgBox("set gridview first") : Exit Sub
+
+        If ONLY.GetColum.Count > 0 Then
             For Each colum As DevExpress.XtraGrid.Columns.GridColumn In GridViewName.Columns
-                If ONLY.getColum.Contains(colum.FieldName, StringComparer.OrdinalIgnoreCase) _
-                    Or ONLY.getColum.Contains(colum.Caption, StringComparer.OrdinalIgnoreCase) Then
+                If ONLY.GetColum.Contains(colum.FieldName, StringComparer.OrdinalIgnoreCase) _
+                    Or ONLY.GetColum.Contains(colum.Caption, StringComparer.OrdinalIgnoreCase) Then
                     colum.Caption = getString(colum.FieldName)
                     colum.Visible = True
                 Else
@@ -26,37 +32,33 @@ Public Class GridCaption
             colum.Visible = True
         Next
         'end def
-        If HIDE.getColum.Count > 0 Then
+        If HIDE.GetColum.Count > 0 Then
             For Each colum As DevExpress.XtraGrid.Columns.GridColumn In GridViewName.Columns
-                If HIDE.getColum.Contains(colum.FieldName, StringComparer.OrdinalIgnoreCase) _
-                    Or HIDE.getColum.Contains(colum.Caption, StringComparer.OrdinalIgnoreCase) Then
+                If HIDE.GetColum.Contains(colum.FieldName, StringComparer.OrdinalIgnoreCase) _
+                    Or HIDE.GetColum.Contains(colum.Caption, StringComparer.OrdinalIgnoreCase) Then
                     colum.Visible = False
                 End If
             Next
         End If
-        If SHOW.getColum.Count > 0 Then
+        If SHOW.GetColum.Count > 0 Then
             For Each colum As DevExpress.XtraGrid.Columns.GridColumn In GridViewName.Columns
-                If SHOW.getColum.Contains(colum.FieldName, StringComparer.OrdinalIgnoreCase) _
-                    Or SHOW.getColum.Contains(colum.Caption, StringComparer.OrdinalIgnoreCase) Then
+                If SHOW.GetColum.Contains(colum.FieldName, StringComparer.OrdinalIgnoreCase) _
+                    Or SHOW.GetColum.Contains(colum.Caption, StringComparer.OrdinalIgnoreCase) Then
                     colum.Visible = True
                 End If
             Next
         End If
         With GridViewName.Appearance
-            'Dim newFont As New Font("Tahoma", 10, FontStyle.Regular)
-            '.Row.Font = newFont
-            '.GroupRow.Font = newFont
-
+            .Row.BackColor = Color.GhostWhite
             .GroupRow.ForeColor = ColorTranslator.FromHtml("#0072C6")
-            '.GroupRow.GradientMode = Drawing2D.LinearGradientMode.ForwardDiagonal
-            '.GroupRow.BackColor = ColorTranslator.FromHtml("#F2F2F2")
-            .GroupRow.BackColor = ColorTranslator.FromHtml("#F0F0F0")
+            .GroupRow.BackColor = ColorTranslator.FromHtml("#f0f0f0")
+            GridViewName.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False
         End With
     End Sub
-    Public Class selectColum
+    Public Class SelectColum
         Private _enable As Boolean = False
         Protected StringKey As New List(Of String)
-        Public ReadOnly Property getColum As List(Of String)
+        Public ReadOnly Property GetColum As List(Of String)
             Get
                 Return StringKey
             End Get
@@ -65,5 +67,13 @@ Public Class GridCaption
             StringKey.Add(Keys)
         End Sub
     End Class
+    Public Sub SetFormatNumber(ColumnsList As String(), Optional FormatString As String = "")
+
+        For Each items As String In ColumnsList
+            GridViewName.Columns(items).DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+            'GridViewName.Columns(items).DisplayFormat.FormatString = If(String.IsNullOrEmpty(FormatString), "#,0.0", FormatString)
+            GridViewName.Columns(items).DisplayFormat.FormatString = If(String.IsNullOrEmpty(FormatString), "{0:n1}", FormatString)
+        Next
+    End Sub
 
 End Class

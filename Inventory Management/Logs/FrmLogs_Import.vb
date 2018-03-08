@@ -104,22 +104,24 @@ Public Class FrmLogs_Import
         GVFormat()
     End Sub
     Private Sub GVFormat()
-        gridInfo = New GridCaption
+        gridInfo = New GridCaption(gvList)
         With gridInfo
             .HIDE.Columns("LocID")
             .HIDE.Columns("CatID")
             .HIDE.Columns("SubCatID")
             .HIDE.Columns("SupplierID")
-            .SetCaption(gvList)
+            .SetCaption()
+            .SetFormatNumber({"Unit1", "Unit3"})
         End With
         With gvList
             If gvList.RowCount < 1 Then Exit Sub
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
 
-            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit1", .Columns("Unit1"), "รวม {0}"))
-            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit3", .Columns("Unit3"), "รวม {0}"))
-
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit1", .Columns("Unit1"), "รวม {0:n1}"))
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Max, "Unit1_Name", .Columns("Unit1_Name"), ""))
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Max, "Unit3_Name", .Columns("Unit3_Name"), ""))
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit3", .Columns("Unit3"), " {0:n1}"))
             .OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.True
 
             .Columns("SubCatName").Group()

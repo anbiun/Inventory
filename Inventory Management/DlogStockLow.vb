@@ -7,7 +7,7 @@ Public Class dlgAlert
     Private Sub DlogStockLow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         gcList.DataSource = Datasource
         With gridInfo
-            .SetCaption(gvList)
+            .SetCaption()
         End With
     End Sub
 

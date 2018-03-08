@@ -85,11 +85,11 @@ Public Class FrmLogs_Transfer
         GVFormat()
     End Sub
     Private Sub GVFormat()
-        gridInfo = New GridCaption
+        gridInfo = New GridCaption(gvList)
         With gridInfo
             .HIDE.Columns("idvalue")
             .HIDE.Columns("LocID_Src")
-            .SetCaption(gvList)
+            .SetCaption()
         End With
         gvList.BestFitColumns()
     End Sub

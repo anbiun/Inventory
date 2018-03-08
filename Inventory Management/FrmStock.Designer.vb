@@ -24,12 +24,7 @@ Partial Class FrmStock
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStock))
-        Me.gcMain = New DevExpress.XtraGrid.GridControl()
-        Me.gvMain = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.RepositoryItemImageEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemImageEdit()
         Me.tooltipGcMain = New DevExpress.Utils.ToolTipController(Me.components)
-        Me.AdvBandedGridView1 = New DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView()
-        Me.gv2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.gcAdjust = New DevExpress.XtraGrid.GridControl()
         Me.gvAdjust = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.AdvBandedGridView2 = New DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView()
@@ -48,6 +43,8 @@ Partial Class FrmStock
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.gcMain = New DevExpress.XtraGrid.GridControl()
+        Me.gvMain = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.lastStock = New DevExpress.XtraEditors.GroupControl()
         Me.ExpandableSplitter1 = New DevComponents.DotNetBar.ExpandableSplitter()
         Me.pnlRight = New System.Windows.Forms.Panel()
@@ -82,11 +79,6 @@ Partial Class FrmStock
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        CType(Me.gcMain, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.gvMain, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemImageEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.AdvBandedGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.gv2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gcAdjust, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvAdjust, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AdvBandedGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -101,6 +93,8 @@ Partial Class FrmStock
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.gcMain, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gvMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lastStock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlRight.SuspendLayout()
         CType(Me.GroupControl2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -113,79 +107,8 @@ Partial Class FrmStock
         CType(Me.txtNotation.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'gcMain
-        '
-        Me.gcMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gcMain.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(4)
-        Me.gcMain.Location = New System.Drawing.Point(0, 31)
-        Me.gcMain.MainView = Me.gvMain
-        Me.gcMain.Margin = New System.Windows.Forms.Padding(4)
-        Me.gcMain.Name = "gcMain"
-        Me.gcMain.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemImageEdit1})
-        Me.gcMain.Size = New System.Drawing.Size(1029, 622)
-        Me.gcMain.TabIndex = 9
-        Me.gcMain.ToolTipController = Me.tooltipGcMain
-        Me.gcMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMain, Me.AdvBandedGridView1, Me.gv2})
-        '
-        'gvMain
-        '
-        Me.gvMain.Appearance.HeaderPanel.Font = New System.Drawing.Font("Tahoma", 9.5!)
-        Me.gvMain.Appearance.HeaderPanel.Options.UseFont = True
-        Me.gvMain.Appearance.HeaderPanel.Options.UseTextOptions = True
-        Me.gvMain.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.gvMain.Appearance.Row.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.gvMain.Appearance.Row.Options.UseFont = True
-        Me.gvMain.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
-        Me.gvMain.GridControl = Me.gcMain
-        Me.gvMain.Name = "gvMain"
-        Me.gvMain.OptionsBehavior.Editable = False
-        Me.gvMain.OptionsFind.AllowFindPanel = False
-        Me.gvMain.OptionsFind.ClearFindOnClose = False
-        Me.gvMain.OptionsFind.FindDelay = 100
-        Me.gvMain.OptionsFind.FindFilterColumns = "ชื่อประเภท"
-        Me.gvMain.OptionsFind.FindNullPrompt = "ค้นหา"
-        Me.gvMain.OptionsFind.ShowClearButton = False
-        Me.gvMain.OptionsFind.ShowFindButton = False
-        Me.gvMain.OptionsView.ColumnAutoWidth = False
-        Me.gvMain.OptionsView.ShowGroupPanel = False
-        Me.gvMain.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
-        '
-        'RepositoryItemImageEdit1
-        '
-        Me.RepositoryItemImageEdit1.AutoHeight = False
-        Me.RepositoryItemImageEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemImageEdit1.Name = "RepositoryItemImageEdit1"
-        '
         'tooltipGcMain
         '
-        '
-        'AdvBandedGridView1
-        '
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.Font = New System.Drawing.Font("Tahoma", 9.5!)
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.Options.UseFont = True
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.Options.UseTextOptions = True
-        Me.AdvBandedGridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.AdvBandedGridView1.Appearance.Row.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.AdvBandedGridView1.Appearance.Row.Options.UseFont = True
-        Me.AdvBandedGridView1.FixedLineWidth = 1
-        Me.AdvBandedGridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
-        Me.AdvBandedGridView1.GridControl = Me.gcMain
-        Me.AdvBandedGridView1.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
-        Me.AdvBandedGridView1.Name = "AdvBandedGridView1"
-        Me.AdvBandedGridView1.OptionsBehavior.Editable = False
-        Me.AdvBandedGridView1.OptionsFind.AllowFindPanel = False
-        Me.AdvBandedGridView1.OptionsFind.ClearFindOnClose = False
-        Me.AdvBandedGridView1.OptionsFind.FindDelay = 100
-        Me.AdvBandedGridView1.OptionsFind.FindFilterColumns = "ชื่อประเภท"
-        Me.AdvBandedGridView1.OptionsFind.FindNullPrompt = "ค้นหา"
-        Me.AdvBandedGridView1.OptionsFind.ShowClearButton = False
-        Me.AdvBandedGridView1.OptionsFind.ShowFindButton = False
-        Me.AdvBandedGridView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
-        '
-        'gv2
-        '
-        Me.gv2.GridControl = Me.gcMain
-        Me.gv2.Name = "gv2"
         '
         'gcAdjust
         '
@@ -401,6 +324,83 @@ Partial Class FrmStock
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1029, 653)
         Me.Panel2.TabIndex = 10
+        '
+        'gcMain
+        '
+        Me.gcMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gcMain.Location = New System.Drawing.Point(0, 31)
+        Me.gcMain.MainView = Me.gvMain
+        Me.gcMain.Name = "gcMain"
+        Me.gcMain.Size = New System.Drawing.Size(1029, 622)
+        Me.gcMain.TabIndex = 16
+        Me.gcMain.ToolTipController = Me.tooltipGcMain
+        Me.gcMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMain})
+        '
+        'gvMain
+        '
+        Me.gvMain.Appearance.ColumnFilterButton.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.ColumnFilterButton.Options.UseFont = True
+        Me.gvMain.Appearance.ColumnFilterButtonActive.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.ColumnFilterButtonActive.Options.UseFont = True
+        Me.gvMain.Appearance.CustomizationFormHint.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.CustomizationFormHint.Options.UseFont = True
+        Me.gvMain.Appearance.DetailTip.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.DetailTip.Options.UseFont = True
+        Me.gvMain.Appearance.Empty.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.Empty.Options.UseFont = True
+        Me.gvMain.Appearance.EvenRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.EvenRow.Options.UseFont = True
+        Me.gvMain.Appearance.FilterCloseButton.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.FilterCloseButton.Options.UseFont = True
+        Me.gvMain.Appearance.FilterPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.FilterPanel.Options.UseFont = True
+        Me.gvMain.Appearance.FixedLine.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.FixedLine.Options.UseFont = True
+        Me.gvMain.Appearance.FocusedCell.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.FocusedCell.Options.UseFont = True
+        Me.gvMain.Appearance.FocusedRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.FocusedRow.Options.UseFont = True
+        Me.gvMain.Appearance.FooterPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.FooterPanel.Options.UseFont = True
+        Me.gvMain.Appearance.GroupButton.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.GroupButton.Options.UseFont = True
+        Me.gvMain.Appearance.GroupFooter.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.GroupFooter.Options.UseFont = True
+        Me.gvMain.Appearance.GroupPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.GroupPanel.Options.UseFont = True
+        Me.gvMain.Appearance.GroupRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.GroupRow.Options.UseFont = True
+        Me.gvMain.Appearance.HeaderPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.HeaderPanel.Options.UseFont = True
+        Me.gvMain.Appearance.HideSelectionRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.HideSelectionRow.Options.UseFont = True
+        Me.gvMain.Appearance.HorzLine.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.HorzLine.Options.UseFont = True
+        Me.gvMain.Appearance.OddRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.OddRow.Options.UseFont = True
+        Me.gvMain.Appearance.Preview.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.Preview.Options.UseFont = True
+        Me.gvMain.Appearance.Row.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.Row.Options.UseFont = True
+        Me.gvMain.Appearance.RowSeparator.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.RowSeparator.Options.UseFont = True
+        Me.gvMain.Appearance.SelectedRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.SelectedRow.Options.UseFont = True
+        Me.gvMain.Appearance.TopNewRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.TopNewRow.Options.UseFont = True
+        Me.gvMain.Appearance.VertLine.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.VertLine.Options.UseFont = True
+        Me.gvMain.Appearance.ViewCaption.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvMain.Appearance.ViewCaption.Options.UseFont = True
+        Me.gvMain.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
+        Me.gvMain.GridControl = Me.gcMain
+        Me.gvMain.Name = "gvMain"
+        Me.gvMain.OptionsBehavior.Editable = False
+        Me.gvMain.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
+        Me.gvMain.OptionsView.ColumnAutoWidth = False
+        Me.gvMain.OptionsView.ShowAutoFilterRow = True
+        Me.gvMain.OptionsView.ShowGroupPanel = False
+        Me.gvMain.OptionsView.ShowIndicator = False
         '
         'lastStock
         '
@@ -848,11 +848,6 @@ Partial Class FrmStock
         Me.Controls.Add(Me.GroupControl1)
         Me.Name = "FrmStock"
         Me.Text = "วัสดุคงคลัง ณ ปัจจุบัน"
-        CType(Me.gcMain, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.gvMain, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemImageEdit1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.AdvBandedGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.gv2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gcAdjust, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvAdjust, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AdvBandedGridView2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -868,6 +863,8 @@ Partial Class FrmStock
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
+        CType(Me.gcMain, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gvMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lastStock, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlRight.ResumeLayout(False)
         CType(Me.GroupControl2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -887,10 +884,6 @@ Partial Class FrmStock
     Friend WithEvents btnExportExcel As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents gcMain As DevExpress.XtraGrid.GridControl
-    Friend WithEvents gvMain As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents AdvBandedGridView1 As DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView
-    Friend WithEvents gv2 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents gcAdjust As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvAdjust As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents AdvBandedGridView2 As DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView
@@ -940,5 +933,6 @@ Partial Class FrmStock
     Friend WithEvents Label10 As Label
     Friend WithEvents lbQtyPerUnit As Label
     Friend WithEvents Label12 As Label
-    Friend WithEvents RepositoryItemImageEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemImageEdit
+    Friend WithEvents gcMain As DevExpress.XtraGrid.GridControl
+    Friend WithEvents gvMain As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

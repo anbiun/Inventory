@@ -29,7 +29,7 @@ Public Class FrmMatImport
     Dim ImReq As New InOutFunc
 #Region "Function"
     Private Sub gvFormat()
-        gridInfo = New GridCaption
+        gridInfo = New GridCaption(gvImportList)
         With gridInfo
             .HIDE.Columns("UserStock_ID")
             .HIDE.Columns("UserApprove_ID")
@@ -38,7 +38,7 @@ Public Class FrmMatImport
             .HIDE.Columns("ImportID")
             .HIDE.Columns("Stat")
             .HIDE.Columns("userapprove_name")
-            .SetCaption(gvImportList)
+            .SetCaption()
             With .HIDE
                 .Columns("matID")
                 .Columns("importorid")
@@ -48,8 +48,7 @@ Public Class FrmMatImport
                 .Columns("locid")
                 .Columns("เรโช")
             End With
-
-            .SetCaption(gvImportOrder)
+            .SetCaption()
         End With
 
         Exit Sub
@@ -387,7 +386,6 @@ SubUnit:
                     Exit Sub
                 End If
 
-
                 If Button_Edit.State = Buttons.EState.TurnOn Then
                     Dim delTb() As String = {"tbImportList", "tbImportOrder", "tbStock"}
                     For Each tbname As String In delTb
@@ -408,7 +406,7 @@ SubUnit:
                         Case dtImportList.TableName
                             fieldList = {"ImportDate", "BillNo", "ImportID", "SupplierID", "UserStock_ID", "UserApprove_ID", "Notation"}
                         Case dtImportOrder.TableName
-                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID"}
+                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID", "Notation"}
                     End Select
                     tbName.TableName = "tb" & tbName.TableName
                     blkCpy(tbName.TableName, tbName, fieldList)

@@ -194,7 +194,7 @@ Partial Class FmgQCTarget
         Me.btnAddList.AppearanceHovered.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.btnAddList.AppearanceHovered.Options.UseBackColor = True
         Me.btnAddList.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnAddList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.next_16x162
+        Me.btnAddList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.next_16x16
         Me.btnAddList.Location = New System.Drawing.Point(324, 82)
         Me.btnAddList.Margin = New System.Windows.Forms.Padding(2)
         Me.btnAddList.Name = "btnAddList"

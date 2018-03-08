@@ -471,12 +471,14 @@ lchangeMainLookup:
         End If
 
         gcMain.DataSource = dsTbl("showingrid")
+        gridInfo = New GridCaption(GVMain)
         With gridInfo
-            .hide.columns("subcatid")
-            .hide.columns("catID")
-            .hide.columns("productid")
-            .SetCaption(GVMain)
+            .HIDE.Columns("subcatid")
+            .HIDE.Columns("catID")
+            .HIDE.Columns("productid")
+            .SetCaption()
         End With
+
         GVMain.OptionsView.ShowAutoFilterRow = True
         GVMain.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
 

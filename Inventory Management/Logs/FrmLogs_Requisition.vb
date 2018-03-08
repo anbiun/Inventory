@@ -126,23 +126,24 @@ Public Class FrmLogs_Requisition
 #End Region
     Dim RequestNo As String
     Private Sub GVFormat()
-        gridInfo = New GridCaption
+        gridInfo = New GridCaption(gvList)
         With gridInfo
             .HIDE.Columns("Stat")
             .HIDE.Columns("locid")
             .HIDE.Columns("subcatID")
             .HIDE.Columns("catid")
-            .SetCaption(gvList)
+            .SetCaption()
+            .SetFormatNumber({"Unit1_Num", "Unit3_Num"})
         End With
         With gvList
             If dtResult.Rows.Count < 1 Then Exit Sub
+            .OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
-
-            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit1_Num", .Columns("Unit1_Num"), "รวม {0}"))
-            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit3_Num", .Columns("Unit3_Num"), "รวม {0}"))
-
-
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit1_Num", .Columns("Unit1_Num"), "รวม {0:n1}"))
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Max, "Unit1_Name", .Columns("Unit1_Name"), ""))
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Max, "Unit3_Name", .Columns("Unit3_Name"), ""))
+            .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit3_Num", .Columns("Unit3_Num"), " {0:n1}"))
             .OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.True
 
             .Columns("SubCatName").Group()
@@ -154,6 +155,17 @@ Public Class FrmLogs_Requisition
             .BestFitColumns()
             .TopRowIndex = 0
         End With
+    End Sub
+    'private void gridView1_CustomDrawFooterCell(object sender, FooterCellCustomDrawEventArgs e) {
+    '        if(e.Column.FieldName == "Count")
+    '            e.Appearance.TextOptions.HAlignment = HorzAlignment.Near;
+    '        if(e.Column.FieldName == "Price")
+    '            e.Appearance.TextOptions.HAlignment = HorzAlignment.Far;
+    '    }
+    Private Sub customDraw(sender As Object, e As FooterCellCustomDrawEventArgs) Handles gvList.CustomDrawFooterCell
+        If e.Column.FieldName = "Unit1" Then
+            e.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
+        End If
     End Sub
     Private Sub BtnDel_Click(sender As Object, e As EventArgs) Handles BtnDel.Click
         SQL = "SELECT RequestNo From tbRequisition WHERE RequestNo='" & RequestNo & "'"
