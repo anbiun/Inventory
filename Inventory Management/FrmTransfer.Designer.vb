@@ -134,7 +134,7 @@ Partial Class FrmTransfer
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label2.Location = New System.Drawing.Point(57, 138)
+        Me.Label2.Location = New System.Drawing.Point(14, 134)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 24)
         Me.Label2.TabIndex = 13
@@ -144,7 +144,7 @@ Partial Class FrmTransfer
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label3.Location = New System.Drawing.Point(55, 74)
+        Me.Label3.Location = New System.Drawing.Point(8, 72)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(95, 24)
         Me.Label3.TabIndex = 13
@@ -153,11 +153,11 @@ Partial Class FrmTransfer
         'txtTransferNo
         '
         Me.txtTransferNo.AllowDrop = True
-        Me.txtTransferNo.Location = New System.Drawing.Point(160, 72)
+        Me.txtTransferNo.Location = New System.Drawing.Point(113, 70)
         Me.txtTransferNo.Name = "txtTransferNo"
         Me.txtTransferNo.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTransferNo.Properties.Appearance.Options.UseFont = True
-        Me.txtTransferNo.Size = New System.Drawing.Size(124, 28)
+        Me.txtTransferNo.Size = New System.Drawing.Size(192, 28)
         Me.txtTransferNo.TabIndex = 14
         '
         'Label4
@@ -173,20 +173,20 @@ Partial Class FrmTransfer
         'deDate
         '
         Me.deDate.EditValue = Nothing
-        Me.deDate.Location = New System.Drawing.Point(160, 38)
+        Me.deDate.Location = New System.Drawing.Point(113, 38)
         Me.deDate.Name = "deDate"
         Me.deDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deDate.Properties.Appearance.Options.UseFont = True
         Me.deDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deDate.Size = New System.Drawing.Size(124, 28)
+        Me.deDate.Size = New System.Drawing.Size(192, 28)
         Me.deDate.TabIndex = 15
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label5.Location = New System.Drawing.Point(107, 40)
+        Me.Label5.Location = New System.Drawing.Point(64, 40)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(43, 24)
         Me.Label5.TabIndex = 13
@@ -221,6 +221,7 @@ Partial Class FrmTransfer
         Me.slTagID.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slTagID.Properties.Appearance.Options.UseFont = True
         Me.slTagID.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slTagID.Properties.NullText = ""
         Me.slTagID.Properties.View = Me.SearchLookUpEdit1View
         Me.slTagID.Size = New System.Drawing.Size(192, 28)
         Me.slTagID.TabIndex = 18
@@ -229,6 +230,8 @@ Partial Class FrmTransfer
         '
         Me.SearchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
         Me.SearchLookUpEdit1View.Name = "SearchLookUpEdit1View"
+        Me.SearchLookUpEdit1View.OptionsFilter.AllowAutoFilterConditionChange = DevExpress.Utils.DefaultBoolean.[True]
+        Me.SearchLookUpEdit1View.OptionsFind.AllowFindPanel = False
         Me.SearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = False
         Me.SearchLookUpEdit1View.OptionsView.ShowGroupPanel = False
         '
@@ -255,7 +258,7 @@ Partial Class FrmTransfer
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label1.Location = New System.Drawing.Point(48, 108)
+        Me.Label1.Location = New System.Drawing.Point(5, 103)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(102, 24)
         Me.Label1.TabIndex = 13
@@ -267,7 +270,7 @@ Partial Class FrmTransfer
         Me.btnNew.Appearance.Options.UseFont = True
         Me.btnNew.ImageOptions.Image = CType(resources.GetObject("btnNew.ImageOptions.Image"), System.Drawing.Image)
         Me.btnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.btnNew.Location = New System.Drawing.Point(160, 169)
+        Me.btnNew.Location = New System.Drawing.Point(113, 161)
         Me.btnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(124, 38)
@@ -278,22 +281,22 @@ Partial Class FrmTransfer
         '
         Me.lbUserStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbUserStock.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbUserStock.Location = New System.Drawing.Point(160, 137)
+        Me.lbUserStock.Location = New System.Drawing.Point(113, 133)
         Me.lbUserStock.Name = "lbUserStock"
-        Me.lbUserStock.Size = New System.Drawing.Size(124, 24)
+        Me.lbUserStock.Size = New System.Drawing.Size(192, 24)
         Me.lbUserStock.TabIndex = 13
         Me.lbUserStock.Text = "ปริมาณ"
         '
         'slLocDest
         '
         Me.slLocDest.EditValue = ""
-        Me.slLocDest.Location = New System.Drawing.Point(160, 106)
+        Me.slLocDest.Location = New System.Drawing.Point(113, 101)
         Me.slLocDest.Name = "slLocDest"
         Me.slLocDest.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slLocDest.Properties.Appearance.Options.UseFont = True
         Me.slLocDest.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.slLocDest.Properties.View = Me.GridView1
-        Me.slLocDest.Size = New System.Drawing.Size(124, 28)
+        Me.slLocDest.Size = New System.Drawing.Size(192, 28)
         Me.slLocDest.TabIndex = 18
         '
         'GridView1

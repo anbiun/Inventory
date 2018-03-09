@@ -39,35 +39,17 @@ Public Class FrmMatImport
             .HIDE.Columns("Stat")
             .HIDE.Columns("userapprove_name")
             .SetCaption()
-            With .HIDE
-                .Columns("matID")
-                .Columns("importorid")
-                .Columns("Unit1_id")
-                .Columns("Importid")
-                .Columns("qtyperunit")
-                .Columns("locid")
-                .Columns("เรโช")
-            End With
-            .SetCaption()
         End With
-
-        Exit Sub
-        With gvImportOrder
-            .PopulateColumns()
-            .Columns("MatName").Caption = "ชื่อวัสดุ"
-            .Columns("Unit1_Sum").Caption = "จำนวน"
-            .Columns("Unit1_Name").Caption = " "
-            .Columns("Unit3_Sum").Caption = "รวมยอดรับของ"
-            .Columns("Unit3_Name").Caption = " "
-            .Columns("MatID").Visible = False
-            .Columns("ImportID").Visible = False
-            .Columns("ImportOrID").Caption = "รหัสแจ้งแก้ไข"
-            .Columns("Unit1_ID").Visible = False
-            .Columns("Notation").Caption = getString("notation")
-            .Columns("Ratio").Visible = False
-            .Columns("QtyPerUnit").Visible = False
-            .Columns("LocID").Visible = False
-            .BestFitColumns()
+        gridInfo = New GridCaption(gvImportOrder)
+        With gridInfo
+            .Hide.Columns("matID")
+        .hide.Columns("importorid")
+        .hide.Columns("Unit1_id")
+        .hide.Columns("Importid")
+        .hide.Columns("qtyperunit")
+        .hide.Columns("locid")
+        .hide.Columns("เรโช")
+            .SetCaption()
         End With
 
     End Sub

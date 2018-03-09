@@ -59,6 +59,7 @@ Public Class FrmLogs_Requisition
         deEDate.Enabled = False
     End Sub
     Private Sub Find()
+
         SQL = "IF OBJECT_ID('tempdb..#Loc') IS NOT NULL DROP table #Loc
                 If OBJECT_ID('tempdb..#Cat') IS NOT NULL DROP table #Cat
                 SELECT * INTO #Loc FROM vwFmgRequisition"
@@ -183,6 +184,7 @@ Public Class FrmLogs_Requisition
             End If
         Else
             MsgBox("เลขที่ใบเบิกไม่ถูกต้อง (" & RequestNo & ")", MsgBoxStyle.Critical)
+            Return
         End If
         Find()
         pgcontrol.setSource = dtResult

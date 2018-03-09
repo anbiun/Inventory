@@ -644,6 +644,8 @@
     <None Include="Resources\next_16x164.png" />
     <None Include="Resources\find_32x32.png" />
     <Content Include="Resources\T.ico" />
+    <None Include="Resources\usergroup_32x32.png" />
+    <None Include="Resources\usergroup_16x16.png" />
     <Content Include="Resources\zip.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@ Public Class FrmTransfer
         SQL &= " tbUnit AS U1 ON S.Unit1_ID = U1.UnitID INNER JOIN"
         SQL &= " tbSubCategory AS SC ON M.SubCatID = SC.SubCatID INNER JOIN"
         SQL &= " tbUnit AS U3 ON SC.Unit3_ID = U3.UnitID"
-        SQL &= " WHERE S.LocID = '" & UserInfo.SelectLoc & "' AND S.Stat <> 0"
+        SQL &= " WHERE S.LocID = '" & UserInfo.SelectLoc & "' AND S.Stat <> 0 AND Unit3 > 0.1"
         SQL &= " ORDER BY S.MatID"
         dsTbl("stock")
 
@@ -45,20 +45,22 @@ Public Class FrmTransfer
             .DisplayMember = "TagID"
             .ValueMember = "TagID"
             .PopulateViewColumns()
-
-            .View.Columns("MatName").Caption = "ชื่อวัสดุ"
-            .View.Columns("SubCatName").Caption = "ประเภท"
+            gridInfo = New GridCaption(.View)
             .View.Columns("SubCatName").Group()
-            .View.Columns("Unit1").Caption = "คงเหลือ"
-            .View.Columns("Unit1_Name").Caption = " "
-            .View.Columns("Unit3").Caption = "คงเหลือ"
-            .View.Columns("Unit3_Name").Caption = " "
+            .View.OptionsFind.AllowFindPanel = False
+            .View.OptionsFilter.AllowAutoFilterConditionChange = DevExpress.Utils.DefaultBoolean.True
             .View.ExpandAllGroups()
-            Dim colname() As String = {"MatID", "Unit1_ID", "Unit3_ID", "Ratio", "LocID"}
-            For Each values As String In colname
-                .View.Columns(values).Visible = False
-            Next
             .View.BestFitColumns()
+            With gridInfo
+                .ONLY.Columns("SubCatName")
+                .ONLY.Columns("tagid")
+                .ONLY.Columns("matname")
+                .ONLY.Columns("unit1")
+                .ONLY.Columns("unit1_name")
+                .ONLY.Columns("unit3")
+                .ONLY.Columns("unit3_name")
+                .SetCaption()
+            End With
         End With
 
         With slLocDest.Properties
@@ -66,9 +68,9 @@ Public Class FrmTransfer
             .DisplayMember = "LocName"
             .ValueMember = "LocID"
             .PopulateViewColumns()
-            .View.Columns("LocName").Caption = "สถานที่เก็บ"
-            .View.Columns("LocID").Visible = False
-            .View.Columns("LocShort").Caption = "ชื่อย่อ"
+            gridInfo = New GridCaption(.View)
+            gridInfo.HIDE.Columns("Locid")
+            gridInfo.SetCaption()
             .View.BestFitColumns()
         End With
 
@@ -102,20 +104,14 @@ Public Class FrmTransfer
         Next
     End Sub
     Private Sub GVFomat()
-        With gvList
-            .PopulateColumns()
-            .Columns("TransferID").Visible = False
-            .Columns("MatID").Visible = False
-            .Columns("Unit1_ID").Visible = False
-            .Columns("MatName").Caption = "วัสดุ"
-            .Columns("Unit1_Num").Caption = "จำนวน"
-            .Columns("Unit1_Name").Caption = " "
-            .Columns("Unit3_Num").Caption = "รวมเป็นปริมาณ"
-            .Columns("Unit3_Name").Caption = " "
-            .Columns("LocSrc").Caption = "ต้นทาง"
-            .Columns("LocDest").Caption = "ปลายทาง"
-            .BestFitColumns()
+        gridInfo = New GridCaption(gvList)
+        With gridInfo
+            .HIDE.Columns("TransferID")
+            .HIDE.Columns("matid")
+            .HIDE.Columns("Unit1_ID")
+            .SetCaption()
         End With
+        gvList.BestFitColumns()
     End Sub
     Private Sub cancelFunc()
         grpMat.Enabled = False

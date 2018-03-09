@@ -369,7 +369,7 @@ Public Class FrmStock
     End Sub
 
 #Region "Temp"
-    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvAdjust.RowCellClick
+    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvAdjust.RowCellClick, gvMain.RowCellClick
         Dim GV As GridView = CType(sender, GridView)
         If GV.FocusedRowHandle < 0 Then Exit Sub
         With GV
@@ -462,11 +462,19 @@ Public Class FrmStock
             MessageBox.Show("Check Input", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Exit Sub
         End If
-        Dim Stat As Integer = If(cbStat.Text = "คงเหลือ", 1, 0)
+        Dim Stat As Func(Of Integer) = Function()
+                                           If cbStat.Text = "คงเหลือ" Then
+                                               Return 1
+                                           ElseIf cbStat.Text = "หมดแล้ว" Then
+                                               Return 2
+                                           Else
+                                               Return 0
+                                           End If
+                                       End Function
         SQL = "UPDATE tbStock"
         SQL &= " SET Unit1='" & CDbl(lbU1.Text) & "'"
         SQL &= " ,Unit3='" & CDbl(lbU2.Text) & "'"
-        SQL &= " ,Stat='" & Stat & "'"
+        SQL &= " ,Stat='" & Stat() & "'"
         SQL &= " WHERE TagID='" & lbTagID.Text & "'"
         SQL &= " AND LocID='" & LocID & "'"
         dsTbl("adjust")

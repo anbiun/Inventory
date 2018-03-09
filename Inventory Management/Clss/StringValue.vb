@@ -65,6 +65,9 @@
                 .Add("apvstat0", "ไม่พบตามรายการ")
                 .Add("approveStat", "สถานะรับของ")
                 .Add("Locname", "คลังวัสดุ")
+                .Add("LocShort", "ชื่อย่อ")
+                .Add("LocSrc", "ต้นทาง")
+                .Add("LocDest", "ปลายทาง")
 #End Region
 #Region "ทั่วไป"
                 .Add("err_pagesize", "จำนวนหน้า เกินจำนวนข้อมูลที่มีอยู่")

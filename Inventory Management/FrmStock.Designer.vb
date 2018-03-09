@@ -570,7 +570,7 @@ Partial Class FrmStock
         Me.cbStat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStat.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbStat.FormattingEnabled = True
-        Me.cbStat.Items.AddRange(New Object() {"คงเหลือ", "หมดแล้ว"})
+        Me.cbStat.Items.AddRange(New Object() {"เลิกใช้", "คงเหลือ", "หมดแล้ว"})
         Me.cbStat.Location = New System.Drawing.Point(125, 118)
         Me.cbStat.Name = "cbStat"
         Me.cbStat.Size = New System.Drawing.Size(121, 29)

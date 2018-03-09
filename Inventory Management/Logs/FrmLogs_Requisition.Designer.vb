@@ -77,8 +77,9 @@ Partial Class FrmLogs_Requisition
         '
         Me.BtnDel.Appearance.Font = CType(resources.GetObject("BtnDel.Appearance.Font"), System.Drawing.Font)
         Me.BtnDel.Appearance.Options.UseFont = True
-        Me.BtnDel.ImageOptions.Image = CType(resources.GetObject("BtnDel.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnDel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         resources.ApplyResources(Me.BtnDel, "BtnDel")
+        Me.BtnDel.ImageOptions.Image = CType(resources.GetObject("BtnDel.ImageOptions.Image"), System.Drawing.Image)
         Me.BtnDel.Name = "BtnDel"
         '
         'deSDate

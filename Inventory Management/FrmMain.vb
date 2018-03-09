@@ -5,6 +5,7 @@ Imports DevExpress.XtraBars.Helpers
 Imports DevExpress.LookAndFeel
 
 Public Class FrmMain
+    Public gmh As GlobalMouseHandler = New GlobalMouseHandler()
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text += " v." + Version
         lblLoginDetail.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID
@@ -12,6 +13,7 @@ Public Class FrmMain
         siInfo.Caption &= " | Database : " & varDB
         siInfo.Caption &= " | Location : " & UserInfo.SelectLoc & "(" & UserInfo.LocName & ")"
         Ribbon.Minimized = True
+        SetTabSize()
         Permission(UserInfo.Permis)
     End Sub
     Private Sub FrmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
@@ -24,11 +26,10 @@ Public Class FrmMain
         'Ribbon.EndInit()
     End Sub
     Sub New()
-
         InitSkins()
         InitializeComponent()
         Me.InitSkinGallery()
-        Dim gmh As GlobalMouseHandler = New GlobalMouseHandler()
+
         AddHandler gmh.TheMouseMoved, New MouseMovedEvent(AddressOf gmh_TheMouseMoved)
         Application.AddMessageFilter(gmh)
         'Me.InitGrid()
@@ -48,10 +49,6 @@ Public Class FrmMain
     End Sub
     Private Sub InitSkinGallery()
         SkinHelper.InitSkinGallery(rgbiSkins, True)
-    End Sub
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Timer1.Stop()
-        Time.Caption = Now.ToString & " MaincatSelect =" & MainCatSelect & " olMatID=" & FrmMatList.oldMatID
     End Sub
 #Region "Button Control"
     Private Sub BBIMaterialList_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BBIMaterialList.ItemClick
@@ -74,6 +71,7 @@ Public Class FrmMain
         lblLoginDetail.Caption = ""
         UserInfo.Logout()
         FrmLogin.Show()
+        RemoveHandler gmh.TheMouseMoved, AddressOf gmh_TheMouseMoved
         Me.Dispose()
     End Sub
 #End Region
@@ -101,31 +99,43 @@ Public Class FrmMain
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As ItemClickEventArgs)
         showFrom(FrmStock)
     End Sub
-
     Private Sub btnLogs_ImportClick(sender As Object, e As ItemClickEventArgs) Handles btnLogs_Import.ItemClick
         showFrom(FrmLogs_Import)
     End Sub
-
     Private Sub BarButtonItem5_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btn_ListTag.ItemClick
         showFrom(FrmLogs_Tag)
     End Sub
-
     Private Sub btnLogs_Transfer_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnLogs_Transfer.ItemClick
         showFrom(FrmLogs_Transfer)
     End Sub
-
     Private Sub btnProduct_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnProduct.ItemClick
         FmgQCTarget.Show()
     End Sub
+    Private Sub SetTabSize()
+        'Dim laf As UserLookAndFeel = Me.LookAndFeel
+        Dim skin As DevExpress.Skins.Skin = DevExpress.Skins.TabSkins.GetSkin(Me.LookAndFeel)
+        Dim EleName As String = DevExpress.Skins.TabSkins.SkinTabHeader
+        Dim EleObj As DevExpress.Skins.SkinElement = skin(EleName)
+        EleObj.ContentMargins.Top = 10
+        EleObj.ContentMargins.Bottom = 10
+
+    End Sub
 
 #Region "RibbonPopup On Mouse Hover"
-    Private Sub Form1_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseMove
-        RibbonPopShow(Ribbon)
+    Dim delayVal As Integer = 0
+    Private Sub Delayer_Tick(sender As Object, e As EventArgs) Handles delayer.Tick
+        delayVal += 1
+        If delayVal >= 3 Then
+            RibbonPopShow(Ribbon)
+            delayer.Stop()
+            delayVal = 0
+        End If
     End Sub
     Private Sub ribbonControl_MouseMove(sender As Object, e As MouseEventArgs) Handles ribbonControl.MouseMove
         Dim vi As ViewInfo.RibbonHitInfo = Ribbon.CalcHitInfo(e.Location)
         If vi.HitTest = DevExpress.XtraBars.Ribbon.ViewInfo.RibbonHitTest.PageHeader Then
-            RibbonPopShow(sender)
+            Ribbon.SelectedPage = vi.Page
+            'RibbonPopShow(sender)
         End If
     End Sub
     Private Sub FrmMain_Move(sender As Object, e As EventArgs) Handles Me.Move
@@ -145,15 +155,27 @@ Public Class FrmMain
             pop.ShowPopup()
             pop.Refresh()
             Ribbon.EndInit()
+            delayer.Stop()
+            delayVal = 0
         End If
     End Sub
     Private Sub gmh_TheMouseMoved()
+        'Dim f As Form = Form.ActiveForm
+        'If f.Name IsNot Nothing AndAlso f.Name IsNot Me.Name Then Return
         Time.Caption = New Point(PointToClient(Control.MousePosition)).ToString
-        If pop Is Nothing Then Return
         Dim point As Point = PointToClient(Control.MousePosition)
+
         If point.Y < 22 OrElse point.Y > 143 Then
+            delayer.Stop()
+            delayVal = 0
+            If pop Is Nothing Then Return
             pop.Dispose()
             pop = Nothing
+        ElseIf point.Y <= 62 Then
+            delayer.Start()
+        ElseIf point.Y > 62 Then
+            delayer.Stop()
+            delayVal = 0
         End If
     End Sub
     Public Delegate Sub MouseMovedEvent()

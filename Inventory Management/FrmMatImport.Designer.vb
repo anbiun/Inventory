@@ -620,7 +620,7 @@ Partial Class FrmMatImport
         'GroupControl1
         '
         Me.GroupControl1.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupControl1.AppearanceCaption.ForeColor = System.Drawing.Color.Blue
+        Me.GroupControl1.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.GroupControl1.AppearanceCaption.Options.UseFont = True
         Me.GroupControl1.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl1.Controls.Add(Me.gcImportList)
@@ -635,7 +635,7 @@ Partial Class FrmMatImport
         '
         Me.GroupControl2.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupControl2.AppearanceCaption.FontStyleDelta = System.Drawing.FontStyle.Bold
-        Me.GroupControl2.AppearanceCaption.ForeColor = System.Drawing.Color.Blue
+        Me.GroupControl2.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.GroupControl2.AppearanceCaption.Options.UseFont = True
         Me.GroupControl2.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl2.Controls.Add(Me.gcImportOrder)

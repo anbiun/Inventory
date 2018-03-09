@@ -68,6 +68,7 @@ Partial Class FrmMain
         Me.btn_ListTag = New DevExpress.XtraBars.BarButtonItem()
         Me.btnLogs_Transfer = New DevExpress.XtraBars.BarButtonItem()
         Me.btnProduct = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnUserMng = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection(Me.components)
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribGrpNewSub = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -77,7 +78,7 @@ Partial Class FrmMain
         Me.ribGrpSetting = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.delayer = New System.Windows.Forms.Timer(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.XtraTabbedMdiManager1 = New DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(Me.components)
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -95,11 +96,11 @@ Partial Class FrmMain
         Me.ribbonControl.BackColor = System.Drawing.SystemColors.Window
         Me.ribbonControl.ExpandCollapseItem.Id = 0
         Me.ribbonControl.Images = Me.ribbonImageCollection
-        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.lblLoginDetail, Me.siInfo, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.BBIMaterialList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.Time, Me.btnMatStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnCF, Me.btnPrintTag, Me.btnFmgRequisition, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnProduct})
+        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.lblLoginDetail, Me.siInfo, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.BBIMaterialList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.Time, Me.btnMatStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnCF, Me.btnPrintTag, Me.btnFmgRequisition, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnProduct, Me.btnUserMng})
         Me.ribbonControl.LargeImages = Me.ribbonImageCollectionLarge
         Me.ribbonControl.Location = New System.Drawing.Point(0, 0)
         Me.ribbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ribbonControl.MaxItemId = 83
+        Me.ribbonControl.MaxItemId = 85
         Me.ribbonControl.Name = "ribbonControl"
         Me.ribbonControl.PageHeaderItemLinks.Add(Me.iAbout)
         Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1})
@@ -428,6 +429,14 @@ Partial Class FrmMain
         Me.btnProduct.ImageOptions.LargeImage = CType(resources.GetObject("btnProduct.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnProduct.Name = "btnProduct"
         '
+        'btnUserMng
+        '
+        Me.btnUserMng.Caption = "ข้อมูลผู้ใช้"
+        Me.btnUserMng.Id = 84
+        Me.btnUserMng.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.usergroup_16x16
+        Me.btnUserMng.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.usergroup_32x32
+        Me.btnUserMng.Name = "btnUserMng"
+        '
         'ribbonImageCollectionLarge
         '
         Me.ribbonImageCollectionLarge.ImageSize = New System.Drawing.Size(32, 32)
@@ -507,12 +516,14 @@ Partial Class FrmMain
         Me.ribbonStatusBar.Ribbon = Me.ribbonControl
         Me.ribbonStatusBar.Size = New System.Drawing.Size(1033, 40)
         '
-        'Timer1
+        'delayer
         '
-        Me.Timer1.Enabled = True
+        Me.delayer.Enabled = True
         '
         'XtraTabbedMdiManager1
         '
+        Me.XtraTabbedMdiManager1.AppearancePage.Header.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XtraTabbedMdiManager1.AppearancePage.Header.Options.UseFont = True
         Me.XtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InAllTabPageHeaders
         Me.XtraTabbedMdiManager1.FloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabbedMdiManager1.FloatOnDrag = DevExpress.Utils.DefaultBoolean.[True]
@@ -574,7 +585,7 @@ Partial Class FrmMain
     Friend WithEvents btnMatImport As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnRequsition As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents ribGrpImport As DevExpress.XtraBars.Ribbon.RibbonPageGroup
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents delayer As System.Windows.Forms.Timer
     Friend WithEvents Time As DevExpress.XtraBars.BarStaticItem
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnMatStock As DevExpress.XtraBars.BarButtonItem
@@ -595,4 +606,5 @@ Partial Class FrmMain
     Friend WithEvents RibbonPageGroup1 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents XtraTabbedMdiManager1 As DevExpress.XtraTabbedMdi.XtraTabbedMdiManager
     Friend WithEvents btnProduct As BarButtonItem
+    Friend WithEvents btnUserMng As BarButtonItem
 End Class
