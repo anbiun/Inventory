@@ -285,5 +285,4 @@ Module ImModule
                                                   End Function
     'CheckListInfo
     Public clbInfo As New CheckListBox
-
 End Module

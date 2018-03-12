@@ -16,15 +16,6 @@ Public Class FrmMain
         SetTabSize()
         Permission(UserInfo.Permis)
     End Sub
-    Private Sub FrmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        'Ribbon.BeginInit()
-        'Dim frm As Ribbon.Helpers.MinimizedRibbonPopupForm
-        'frm = New Ribbon.Helpers.MinimizedRibbonPopupForm(Ribbon)
-        'frm.UpdateRibbon()
-        'frm.ShowPopup()
-        'frm.Refresh()
-        'Ribbon.EndInit()
-    End Sub
     Sub New()
         InitSkins()
         InitializeComponent()
@@ -32,7 +23,6 @@ Public Class FrmMain
 
         AddHandler gmh.TheMouseMoved, New MouseMovedEvent(AddressOf gmh_TheMouseMoved)
         Application.AddMessageFilter(gmh)
-        'Me.InitGrid()
     End Sub
     Private Sub showFrom(frmName As Form)
         frmName.MdiParent = Me
@@ -43,9 +33,7 @@ Public Class FrmMain
     Sub InitSkins()
         DevExpress.Skins.SkinManager.EnableFormSkins()
         DevExpress.UserSkins.BonusSkins.Register()
-        'UserLookAndFeel.Default.SetSkinStyle("DevExpress Style")
         UserLookAndFeel.Default.SetSkinStyle("Office 2013")
-
     End Sub
     Private Sub InitSkinGallery()
         SkinHelper.InitSkinGallery(rgbiSkins, True)
