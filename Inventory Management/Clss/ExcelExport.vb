@@ -249,10 +249,3 @@ Namespace export
         End Sub
     End Class
 End Namespace
-
-Namespace import
-    Public Class ExcelExport
-        Public Table_Import As New DataTable
-
-    End Class
-End Namespace

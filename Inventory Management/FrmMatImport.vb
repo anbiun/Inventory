@@ -6,7 +6,6 @@ Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Columns
 Imports System.ComponentModel
-'https://www.facebook.com/PattayaEasternnews/videos/vb.570075999701550/1641139075928565/?type=2&theater
 
 Public Class FrmMatImport
     Dim ImportID, PoNo, UnitID, matDeID, MatID, MatName, pieceUnitID, supplierID As String

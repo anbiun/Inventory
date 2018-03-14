@@ -524,7 +524,7 @@ Partial Class FrmMatImport
         Me.LabelControl10.Appearance.Options.UseTextOptions = True
         Me.LabelControl10.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl10.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl10.Location = New System.Drawing.Point(13, 57)
+        Me.LabelControl10.Location = New System.Drawing.Point(12, 57)
         Me.LabelControl10.Name = "LabelControl10"
         Me.LabelControl10.Size = New System.Drawing.Size(127, 21)
         Me.LabelControl10.TabIndex = 9
@@ -537,7 +537,7 @@ Partial Class FrmMatImport
         Me.LabelControl4.Appearance.Options.UseTextOptions = True
         Me.LabelControl4.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl4.Location = New System.Drawing.Point(49, 22)
+        Me.LabelControl4.Location = New System.Drawing.Point(48, 22)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(91, 21)
         Me.LabelControl4.TabIndex = 9

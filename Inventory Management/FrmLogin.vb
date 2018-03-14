@@ -42,7 +42,7 @@ readVer:
             End While
         End Using
         Me.Text += " v." + Version
-        StartCon()
+        If StartCon() = False Then End
         LoadDef()
     End Sub
     Private Sub LoadDef()

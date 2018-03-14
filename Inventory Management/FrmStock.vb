@@ -205,6 +205,9 @@ Public Class FrmStock
             .SetCaption()
             Dim ColList As String() = {"Unit1", "Unit3", "Dozen"}
             .SetFormatNumber(ColList)
+            For i As Integer = 1 To 12
+                .SetFormatNumber({MonthName(i)}, "{0:n0}")
+            Next
         End With
 
         With gvMain
@@ -517,6 +520,16 @@ Public Class FrmStock
                 ElseIf e.CellValue = "0" Then
                     infox.ContextImage = Nothing
                 End If
+                infox.CalcViewInfo()
+            End If
+        End If
+        If e.Column.FieldName = "qcnote" Then
+            e.DisplayText = "เป้าQC"
+            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "qcnote" Then
+                Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
+                Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
+                infox.ContextImage = My.Resources.qcnote
+                infox.ContextImageAlignment = ContextImageAlignment.Far
                 infox.CalcViewInfo()
             End If
         End If

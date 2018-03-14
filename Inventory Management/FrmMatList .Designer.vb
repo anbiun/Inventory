@@ -20,7 +20,7 @@ Partial Class FrmMatList
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMatList))
-        Dim Code128Generator2 As DevExpress.XtraPrinting.BarCode.Code128Generator = New DevExpress.XtraPrinting.BarCode.Code128Generator()
+        Dim Code128Generator1 As DevExpress.XtraPrinting.BarCode.Code128Generator = New DevExpress.XtraPrinting.BarCode.Code128Generator()
         Me.PanelControl2 = New DevExpress.XtraEditors.PanelControl()
         Me.PanelControl5 = New DevExpress.XtraEditors.PanelControl()
         Me.SimpleButton14 = New DevExpress.XtraEditors.SimpleButton()
@@ -461,7 +461,7 @@ Partial Class FrmMatList
         Me.PanelControl8.Location = New System.Drawing.Point(0, 37)
         Me.PanelControl8.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl8.Name = "PanelControl8"
-        Me.PanelControl8.Size = New System.Drawing.Size(1176, 348)
+        Me.PanelControl8.Size = New System.Drawing.Size(1176, 339)
         Me.PanelControl8.TabIndex = 8
         '
         'gcMain
@@ -472,7 +472,7 @@ Partial Class FrmMatList
         Me.gcMain.MainView = Me.GVMain
         Me.gcMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.gcMain.Name = "gcMain"
-        Me.gcMain.Size = New System.Drawing.Size(1176, 317)
+        Me.gcMain.Size = New System.Drawing.Size(1176, 308)
         Me.gcMain.TabIndex = 4
         Me.gcMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GVMain})
         '
@@ -510,7 +510,7 @@ Partial Class FrmMatList
         Me.PanelControl10.Controls.Add(Me.BtnLastPage)
         Me.PanelControl10.Controls.Add(Me.BtnFirstPage)
         Me.PanelControl10.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelControl10.Location = New System.Drawing.Point(0, 317)
+        Me.PanelControl10.Location = New System.Drawing.Point(0, 308)
         Me.PanelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl10.Name = "PanelControl10"
         Me.PanelControl10.Size = New System.Drawing.Size(1176, 31)
@@ -627,7 +627,7 @@ Partial Class FrmMatList
         Me.ExpandableSplitter2.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.ExpandableSplitter2.HotGripLightColor = System.Drawing.Color.FromArgb(CType(CType(227, Byte), Integer), CType(CType(239, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ExpandableSplitter2.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.ExpandableSplitter2.Location = New System.Drawing.Point(0, 385)
+        Me.ExpandableSplitter2.Location = New System.Drawing.Point(0, 376)
         Me.ExpandableSplitter2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ExpandableSplitter2.Name = "ExpandableSplitter2"
         Me.ExpandableSplitter2.Size = New System.Drawing.Size(1176, 10)
@@ -640,10 +640,10 @@ Partial Class FrmMatList
         Me.PanelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.PanelControl9.Controls.Add(Me.XtraTabItem)
         Me.PanelControl9.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelControl9.Location = New System.Drawing.Point(0, 395)
+        Me.PanelControl9.Location = New System.Drawing.Point(0, 386)
         Me.PanelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl9.Name = "PanelControl9"
-        Me.PanelControl9.Size = New System.Drawing.Size(1176, 208)
+        Me.PanelControl9.Size = New System.Drawing.Size(1176, 217)
         Me.PanelControl9.TabIndex = 6
         '
         'XtraTabItem
@@ -655,7 +655,7 @@ Partial Class FrmMatList
         Me.XtraTabItem.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.XtraTabItem.Name = "XtraTabItem"
         Me.XtraTabItem.SelectedTabPage = Me.XtraTabPage1
-        Me.XtraTabItem.Size = New System.Drawing.Size(1176, 208)
+        Me.XtraTabItem.Size = New System.Drawing.Size(1176, 217)
         Me.XtraTabItem.TabIndex = 0
         Me.XtraTabItem.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2})
         '
@@ -665,13 +665,13 @@ Partial Class FrmMatList
         Me.XtraTabPage1.Controls.Add(Me.GroupControl4)
         Me.XtraTabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.XtraTabPage1.Name = "XtraTabPage1"
-        Me.XtraTabPage1.Size = New System.Drawing.Size(1169, 172)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(1169, 181)
         Me.XtraTabPage1.Text = "ข้อมูลทั่วไป"
         '
         'GroupControl5
         '
         Me.GroupControl5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupControl5.Location = New System.Drawing.Point(0, 151)
+        Me.GroupControl5.Location = New System.Drawing.Point(0, 160)
         Me.GroupControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupControl5.Name = "GroupControl5"
         Me.GroupControl5.ShowCaption = False
@@ -719,7 +719,7 @@ Partial Class FrmMatList
         Me.GroupControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupControl4.Name = "GroupControl4"
         Me.GroupControl4.ShowCaption = False
-        Me.GroupControl4.Size = New System.Drawing.Size(1169, 172)
+        Me.GroupControl4.Size = New System.Drawing.Size(1169, 181)
         Me.GroupControl4.TabIndex = 0
         '
         'TxtMaterialName
@@ -950,7 +950,7 @@ Partial Class FrmMatList
         Me.bc128.Name = "bc128"
         Me.bc128.Padding = New System.Windows.Forms.Padding(12, 2, 12, 0)
         Me.bc128.Size = New System.Drawing.Size(205, 57)
-        Me.bc128.Symbology = Code128Generator2
+        Me.bc128.Symbology = Code128Generator1
         Me.bc128.TabIndex = 25
         Me.bc128.Visible = False
         '

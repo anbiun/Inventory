@@ -602,6 +602,7 @@ lchangeMainLookup:
                         For Each item As DataRow In ExportInfo.Table_Import.Rows
                             Try
                                 If .Rows(i)("MatID") = item("รหัสวัสดุ") Then
+                                    .Rows(i)("MatName") = item("ชื่อวัสดุ")
                                     .Rows(i)("QtyPerUnit") = item("หน่วยบรรจุ")
                                     .Rows(i)("Warn") = item("ระดับการแจ้งเตือน (เดือน)")
                                 End If
@@ -633,11 +634,11 @@ lchangeMainLookup:
                 .Gridsource = GVMain
                 .TemplateFile = "template_qtyofusing.xls"
                 .Columns.Clear()
-                .Columns.Add("A", "MatID")
-                .Columns.Add("B", "MatName")
-                .Columns.Add("C", "QtyPerUnit")
-                .Columns.Add("D", "QtyPerUnit_Name")
-                .Columns.Add("G", "Warn")
+                .Columns.Add("A2", "MatID")
+                .Columns.Add("B2", "MatName")
+                .Columns.Add("C2", "QtyPerUnit")
+                .Columns.Add("D2", "QtyPerUnit_Name")
+                .Columns.Add("G2", "Warn")
             End With
 
             If ExportInfo.Export = True Then
@@ -659,18 +660,13 @@ lchangeMainLookup:
             'Update DB จากข้อมูลใน Gird ที่นำเข้า
 
             Dim FieldList As New List(Of String)
-            For Each col As DevExpress.XtraGrid.Columns.GridColumn In GVMain.Columns
-                FieldList.Add(col.FieldName)
-            Next
             With FieldList
-                .Remove("LocName")
-                .Remove("StoreName")
-                .Remove("QtyPerUnit_Name")
-                .Remove("CatID")
-                .Remove("SubCatID")
-                .Remove("Ratio")
+                .Add("MatID")
+                .Add("MatName")
+                .Add("QtyPerUnit")
+                .Add("Warn")
             End With
-            'For Each col As GridColumnStylesCollection
+
             Dim dtCurrent As DataTable = DS.Tables("showingrid").Copy
             For i As Integer = 0 To dtCurrent.Rows.Count - 1
                 Dim dbSQL As String

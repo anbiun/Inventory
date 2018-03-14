@@ -42,7 +42,7 @@
                 .Add("productid", "รหัสรายการ")
                 .Add("productname", "เบอร์มีด")
                 .Add("qctarget", "เป้าผลิต")
-                .Add("qcnote", " ")
+                .Add("qcnote", "เป้าผลิต")
                 .Add("unit", " ")
 #End Region
 #Region "Supplier"

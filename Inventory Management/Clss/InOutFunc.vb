@@ -14,7 +14,7 @@
             MessageBox.Show("กรุณากรอกจำนวนให้ถูกต้อง", "จำนวนไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Return False
         Else
-            If GroupTag = 1 Then
+            If GroupTag = 2 Then
                 'หาค่าเศษ Unit1 ให้ลัง
                 Dim Mdd As Double
                 Unit3 = Unit1 * Ratio + Unit3

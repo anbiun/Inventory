@@ -433,8 +433,6 @@ Partial Class FrmMain
         '
         Me.btnUserMng.Caption = "ข้อมูลผู้ใช้"
         Me.btnUserMng.Id = 84
-        Me.btnUserMng.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.usergroup_16x16
-        Me.btnUserMng.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.usergroup_32x32
         Me.btnUserMng.Name = "btnUserMng"
         '
         'ribbonImageCollectionLarge
