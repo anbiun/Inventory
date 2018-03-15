@@ -276,6 +276,13 @@ Public Class FrmTransfer
     Private Sub txtTransferNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTransferNo.KeyPress
         If e.KeyChar = "-" Then
             Exit Sub
+        ElseIf e.KeyChar = "/" Then
+            numOnly(e)
+            Dim ReqNo As New GenRequestNo With {
+                .SetDate = If(loadSuccess = False, Nothing, deDate.EditValue),
+                .SetTable = "tbImportList",
+                .SetField = "BillNo"}
+            txtTransferNo.Text = ReqNo.Gen
         Else
             numOnly(e)
         End If

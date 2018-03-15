@@ -138,7 +138,6 @@ Public Class FrmLogs_Requisition
         End With
         With gvList
             If dtResult.Rows.Count < 1 Then Exit Sub
-            .OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False
             .Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             .Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
             .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit1_Num", .Columns("Unit1_Num"), "รวม {0:n1}"))

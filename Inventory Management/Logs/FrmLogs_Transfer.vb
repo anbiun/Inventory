@@ -1,8 +1,10 @@
 ﻿Imports ConDB.Main
 Imports DevExpress.XtraEditors
+Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Columns
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 
 Public Class FrmLogs_Transfer
     Dim locExpr As String
@@ -90,8 +92,36 @@ Public Class FrmLogs_Transfer
             .HIDE.Columns("idvalue")
             .HIDE.Columns("LocID_Src")
             .SetCaption()
+            .SetFormatNumber({"Unit1_Num", "Unit3_Num"})
+        End With
+        With gvList
+            If gvList.RowCount < 1 Then Exit Sub
+            '.Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+            '.Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
+            .OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.True
+            .Columns("TransferDate").Group()
+            .Columns("LocSrc_Name").Group()
+            .Columns("LocSrc_Name").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+            .Columns("TransferDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
+            .Columns("TransferDate").GroupInterval = DevExpress.XtraGrid.ColumnGroupInterval.DateRange
+
+            .ExpandAllGroups()
+            .BestFitColumns()
+            .TopRowIndex = 0
         End With
         gvList.BestFitColumns()
+    End Sub
+    Private Sub Cell_CustomDraw(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
+        If e.Column.FieldName = "LocSrc_Name" Then
+            If e.CellValue Is Nothing Then Exit Sub
+            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "LocSrc_Name" Then
+                Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
+                Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
+                infox.ContextImage = My.Resources.forward_16x16
+                infox.ContextImageAlignment = ContextImageAlignment.Far
+                infox.CalcViewInfo()
+            End If
+        End If
     End Sub
     Private Sub Cell_CustomColumnDisplay(ByVal sender As Object,
  ByVal e As CustomColumnDisplayTextEventArgs) Handles gvList.CustomColumnDisplayText
@@ -128,7 +158,4 @@ Public Class FrmLogs_Transfer
         clbInfo.SelectAllCheck(sender, e)
     End Sub
 
-    Private Sub GroupControl1_Paint(sender As Object, e As PaintEventArgs) Handles GroupControl1.Paint
-
-    End Sub
 End Class

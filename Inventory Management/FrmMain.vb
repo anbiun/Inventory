@@ -138,6 +138,7 @@ Public Class FrmMain
         Ribbon.BeginInit()
         'Ribbon.SelectedPage = hitinfo.Page
         If pop Is Nothing Then
+            If Ribbon.Minimized = False Then Exit Sub
             pop = New Helpers.MinimizedRibbonPopupForm(Ribbon)
             pop.UpdateRibbon()
             pop.ShowPopup()
@@ -179,5 +180,7 @@ Public Class FrmMain
         End Function
     End Class
 #End Region
+    'A 10 -> B
+    '
 End Class
 

@@ -234,19 +234,74 @@ Partial Class FrmLogs_Transfer
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
         Me.gcList.Size = New System.Drawing.Size(711, 677)
-        Me.gcList.TabIndex = 21
+        Me.gcList.TabIndex = 22
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
         'gvList
         '
+        Me.gvList.Appearance.ColumnFilterButton.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.ColumnFilterButton.Options.UseFont = True
+        Me.gvList.Appearance.ColumnFilterButtonActive.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.ColumnFilterButtonActive.Options.UseFont = True
+        Me.gvList.Appearance.CustomizationFormHint.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.CustomizationFormHint.Options.UseFont = True
+        Me.gvList.Appearance.DetailTip.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.DetailTip.Options.UseFont = True
+        Me.gvList.Appearance.Empty.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.Empty.Options.UseFont = True
+        Me.gvList.Appearance.EvenRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.EvenRow.Options.UseFont = True
+        Me.gvList.Appearance.FilterCloseButton.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.FilterCloseButton.Options.UseFont = True
+        Me.gvList.Appearance.FilterPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.FilterPanel.Options.UseFont = True
+        Me.gvList.Appearance.FixedLine.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.FixedLine.Options.UseFont = True
+        Me.gvList.Appearance.FocusedCell.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.FocusedCell.Options.UseFont = True
+        Me.gvList.Appearance.FocusedRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.FocusedRow.Options.UseFont = True
+        Me.gvList.Appearance.FooterPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.FooterPanel.Options.UseFont = True
+        Me.gvList.Appearance.GroupButton.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.GroupButton.Options.UseFont = True
+        Me.gvList.Appearance.GroupFooter.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.GroupFooter.Options.UseFont = True
+        Me.gvList.Appearance.GroupPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.GroupPanel.Options.UseFont = True
+        Me.gvList.Appearance.GroupRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.GroupRow.Options.UseFont = True
+        Me.gvList.Appearance.HeaderPanel.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.HeaderPanel.Options.UseFont = True
+        Me.gvList.Appearance.HideSelectionRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.HideSelectionRow.Options.UseFont = True
+        Me.gvList.Appearance.HorzLine.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.HorzLine.Options.UseFont = True
+        Me.gvList.Appearance.OddRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.OddRow.Options.UseFont = True
+        Me.gvList.Appearance.Preview.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.Preview.Options.UseFont = True
+        Me.gvList.Appearance.Row.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.Row.Options.UseFont = True
+        Me.gvList.Appearance.RowSeparator.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.RowSeparator.Options.UseFont = True
+        Me.gvList.Appearance.SelectedRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.SelectedRow.Options.UseFont = True
+        Me.gvList.Appearance.TopNewRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.TopNewRow.Options.UseFont = True
+        Me.gvList.Appearance.VertLine.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.VertLine.Options.UseFont = True
+        Me.gvList.Appearance.ViewCaption.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.ViewCaption.Options.UseFont = True
         Me.gvList.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
         Me.gvList.GridControl = Me.gcList
         Me.gvList.Name = "gvList"
+        Me.gvList.OptionsBehavior.Editable = False
         Me.gvList.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
-        Me.gvList.OptionsFind.AlwaysVisible = True
         Me.gvList.OptionsView.ColumnAutoWidth = False
-        Me.gvList.OptionsView.ShowFooter = True
+        Me.gvList.OptionsView.ShowAutoFilterRow = True
         Me.gvList.OptionsView.ShowGroupPanel = False
+        Me.gvList.OptionsView.ShowIndicator = False
         '
         'FrmLogs_Transfer
         '

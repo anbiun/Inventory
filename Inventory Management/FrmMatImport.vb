@@ -684,14 +684,18 @@ Edit:
         RowClickFunc(gv)
     End Sub
     Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress
-        Dim txtbox As TextBox = CType(sender, TextBox)
-        If txtbox.Name = txtBillNo.Name Then
-            If e.KeyChar = "-" Then
-                e.Handled = False
-                Exit Sub
-            End If
+        If e.KeyChar = "-" Then
+            Exit Sub
+        ElseIf e.KeyChar = "/" Then
+            numOnly(e)
+            Dim ReqNo As New GenRequestNo With {
+                .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
+                .SetTable = "tbTransfer",
+                .SetField = "TransferNo"}
+            txtBillNo.Text = ReqNo.Gen
+        Else
+            numOnly(e)
         End If
-        numOnly(e)
     End Sub
     Private Sub txtBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtBillNo.TextChanged
         If Permission(UserInfo.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
