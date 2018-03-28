@@ -4,6 +4,7 @@ Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraEditors.Repository
 Imports DevExpress.XtraEditors.Controls
 Imports DevExpress.XtraGrid.Columns
+Imports DevExpress.XtraGrid.Views.Base
 
 Public Class FrmApprove
 
@@ -15,21 +16,28 @@ Public Class FrmApprove
         Unit1_Name As String, Unit3_Name As String,
         Unit1_ID As String, Unit3_ID As String,
         TransferID As String, dtList As New DataTable,
-        TransferDate As Date, ApproveTB As New ApproveInfo
+        TransferDate As Date,
+        Approve As New ApproveInfo With {
+        .FAccept = "รับของ",
+        .FReject = "ตีกลับ"
+        }
 
 #Region "FUNC."
     Private Sub FirstQry(Optional All As Boolean = False)
-        SQL = "SELECT TF.TransferID,TF.TransferNo, TF.TransferDate,"
-        SQL &= " LCSrc.LocName AS LocID_Src_Name, LCDest.LocName AS LocID_Dest_Name"
-        SQL &= " FROM tbTransfer TF INNER JOIN tbLocation LCSrc ON TF.LocID_Src = LCSrc.LocID"
-        SQL &= " INNER JOIN tbLocation LCDest ON TF.LocID_Dest = LCDest.LocID"
+        SQL = "SELECT DISTINCT TF.TransferID,TF.TransferNo, TF.DateTransfer,"
+        SQL &= " LCSrc.LocName AS LocID_SrcName, LCDest.LocName AS LocID_DestName"
+        SQL &= " FROM tbTransfer TF 
+                 INNER JOIN tbTransfer_Detail TFDE ON TFDE.TransferID = TF.TransferID
+                 INNER JOIN tbLocation LCSrc ON TF.LocID_Src = LCSrc.LocID
+                 INNER JOIN tbLocation LCDest ON TF.LocID_Dest = LCDest.LocID"
         If All = True Then
-            SQL &= " WHERE TF.Stat = 0"
+            SQL &= " WHERE TFDE.Stat = 0"
             dsTbl("alltransfer")
             Exit Sub
         Else
-            SQL &= " WHERE TF.LocID_Dest='" & UserInfo.SelectLoc & "' AND TF.Stat = 0"
+            SQL &= " WHERE TF.LocID_Dest='" & UserInfo.SelectLoc & "' AND TFDE.Stat = 0"
         End If
+
         dsTbl("transfer")
 
         dtList = getTable("")
@@ -37,36 +45,20 @@ Public Class FrmApprove
     End Sub
     Private Function getTable(TransferID) As DataTable
         Dim tbResult As New DataTable
-        SQL = "SELECT TFDE.TagID, M.MatName,"
-        SQL &= " TFDE.Unit1_Num,U1.UnitName Unit1_Name,"
-        SQL &= " TFDE.Unit3_Num,U3.UnitName Unit3_Name"
-        SQL &= " FROM tbTransfer_Detail TFDE"
-        SQL &= " INNER JOIN tbUnit U1 ON TFDE.Unit1_ID = U1.UnitID"
-        SQL &= " INNER JOIN tbMat M ON TFDE.MatID = M.MatID"
-        SQL &= " INNER JOIN tbSubCategory SC ON M.SubCatID = SC.SubCatID"
-        SQL &= " INNER JOIN tbUnit U3 ON SC.Unit3_ID = U3.UnitID"
-        SQL &= " WHERE TFDE.TransferID = '" & TransferID & "'"
-        SQL &= " ORDER BY M.MatName "
-        tbResult = dsTbl("transfer_detail")
+        SQL = "SELECT TFDE.TagID,SC.SubCatName,M.MatName,TFDE.Unit1_Num,U1.UnitName Unit1_Name,
+                TFDE.Unit3_Num,U3.UnitName Unit3_Name,
+                TFDE.Stat,TFDE.Notation,'" & TransferID & "' TransferID
+                ,O.Ratio,SC.Grouptag
 
-        'Create TBApprove Field
-        Dim Col As New DataColumn("ApproveID")
-        Col.DefaultValue = genID()
-        tbResult.Columns.Add(Col)
-        Col = New DataColumn("ApproveDate")
-        Col.DefaultValue = CDate(deDate.EditValue).ToShortDateString
-        tbResult.Columns.Add(Col)
-        Col = New DataColumn("UserApprove")
-        Col.DefaultValue = UserInfo.UserID
-        tbResult.Columns.Add(Col)
-        Col = New DataColumn("TransferID")
-        Col.DefaultValue = TransferID
-        tbResult.Columns.Add(Col)
-        Col = New DataColumn("LocID")
-        Col.DefaultValue = UserInfo.SelectLoc
-        tbResult.Columns.Add(Col)
-        tbResult.Columns.Add(ApproveTB.FStat)
-        tbResult.Columns.Add(ApproveTB.FNote)
+                From tbTransfer_Detail TFDE 
+	                INNER JOIN tbImportOrder O ON TFDE.TagID = O.TagID
+	                INNER JOIN tbUnit U1 ON O.Unit1_ID = U1.UnitID 
+	                INNER JOIN tbMat M ON O.MatID = M.MatID 
+	                INNER JOIN tbSubCategory SC ON M.SubCatID = SC.SubCatID 
+	                INNER JOIN tbUnit U3 ON SC.Unit3_ID = U3.UnitID
+                WHERE TFDE.TransferID = '" & TransferID & "' 
+                ORDER BY M.MatName "
+        tbResult = dsTbl("transfer_detail")
         Return tbResult
     End Function
     Private Sub LoadDef()
@@ -75,12 +67,10 @@ Public Class FrmApprove
             .DisplayMember = "TransferNo"
             .ValueMember = "TransferID"
             .PopulateViewColumns()
+            gridInfo = New GridCaption(.View)
+            gridInfo.HIDE.Columns("TransferID")
+            gridInfo.SetCaption()
 
-            .View.Columns("TransferNo").Visible = False
-            .View.Columns("TransferID").Caption = "รหัสเอกสาร"
-            .View.Columns("TransferDate").Caption = "วันที่โอนย้าย"
-            .View.Columns("LocID_Src_Name").Caption = "คลังวัสดุต้นทาง"
-            .View.Columns("LocID_Dest_Name").Caption = "คลังวัสดุปลายทาง"
             .View.ExpandAllGroups()
             .View.BestFitColumns()
         End With
@@ -109,23 +99,33 @@ Public Class FrmApprove
         Next
     End Sub
     Private Sub GVFomat()
+        gridInfo = New GridCaption(gvList)
+        With gridInfo
+            .HIDE.Columns("ApproveID")
+            .HIDE.Columns("TransferID")
+            .HIDE.Columns("Stat")
+            .HIDE.Columns("GroupTag")
+            .HIDE.Columns("LocID")
+            .HIDE.Columns("Ratio")
+            .SetCaption()
 
-        With gvList
-            .PopulateColumns()
-            .Columns("MatName").Caption = getString("matname")
-            .Columns("Unit1_Num").Caption = getString("unit1_num")
-            .Columns("Unit1_Name").Caption = getString("unit1_name")
-            .Columns("Unit3_Num").Caption = getString("Unit3_num")
-            .Columns("Unit3_Name").Caption = getString("unit3_name")
-            .Columns("ApproveDate").Caption = getString("approvedate")
-            .Columns("UserApprove").Caption = getString("userapprove")
-            .Columns("ApproveNote").Caption = getString("approvenote")
-            .Columns("TransferID").Visible = False
-            .Columns("LocID").Visible = False
-            .Columns("ApproveID").Visible = False
-            .Columns("ApproveStat").Visible = False
-            .BestFitColumns()
         End With
+        gvList.Columns("MatName").BestFit()
+        With gvList
+            For Each colname As String In {"Unit1_Num", "Unit3_Num", "Notation"}
+                .Columns(colname).Image = My.Resources.edit_16x16
+                .Columns(colname).ImageAlignment = StringAlignment.Far
+            Next
+            For Each col As GridColumn In .Columns
+                If col.FieldName <> "Notation" Then
+                    col.BestFit()
+                Else
+                    col.Width = col.Width * 2
+                End If
+            Next
+        End With
+
+
     End Sub
     Private Sub cancelFunc()
         grpRequest.Enabled = True
@@ -138,11 +138,10 @@ Public Class FrmApprove
 
 #Region "FormLoad"
     Private Sub FrmApprove_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        With ApproveTB
-            .FAccept = "รับของ"
-            .FNotFound = "ไม่พบ"
-            .FStat = "ApproveStat"
-            .FNote = "ApproveNote"
+        With Approve
+            .EnableEditCol.Add("Unit1_Num")
+            .EnableEditCol.Add("Unit3_Num")
+            .EnableEditCol.Add("Notation")
         End With
 
         FirstQry()
@@ -173,10 +172,29 @@ Public Class FrmApprove
         gcList.Refresh()
     End Sub
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+
+        For i As Integer = 0 To gvList.RowCount - 1
+            Dim Notation As String
+            Notation = If(IsDBNull(gvList.GetRowCellValue(i, "Notation")), "", gvList.GetRowCellValue(i, "Notation"))
+            If gvList.GetRowCellValue(i, "Stat") = 3 AndAlso String.IsNullOrWhiteSpace(Notation) Then
+                MessageBox.Show("กรุณากรอกหมายเหตุ ในแถวที่เป็นสีเหลือง", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                gvList.FocusedRowHandle = i
+                gvList.FocusedColumn = gvList.Columns("Notation")
+                gvList.ShowEditor()
+                Return
+            End If
+        Next
         Dim fieldList() As String = Nothing
-        fieldList = {"ApproveID", "TransferID", "UserApprove", "ApproveDate", "TagID", "ApproveStat",
-                     "ApproveNote", "LocID"}
-        blkCpy("tbApprove", gcList.DataSource, fieldList)
+        SQL = "DELETE FROM tbTransfer_Detail
+               WHERE TransferID = '" & TransferID & "'"
+        'update ApproveUser
+        SQL &= "UPDATE tbTransfer SET UserApprove='" & UserInfo.UserID & "'
+                WHERE TransferID ='" & TransferID & "'"
+        dsTbl("delOld")
+
+
+        fieldList = {"TransferID", "TagID", "Unit1_Num", "Unit3_Num", "Stat", "Notation"}
+        blkCpy("tbTransfer_Detail", gcList.DataSource, fieldList)
         MsgBox("successfully", MsgBoxStyle.Information)
         btnCancel.PerformClick()
     End Sub
@@ -192,10 +210,12 @@ Public Class FrmApprove
         gcList.Refresh()
         gvList.PopulateColumns()
         GVFomat()
-        ApproveTB.CreateCheckCol(gcList, gvList)
 
+        Approve.DataSource = getTable(TransferID).Copy
+        Approve.CreateCheckCol(gcList, gvList)
+        Approve.StatVal = 0
         For Each col As GridColumn In gvList.Columns
-            col.OptionsColumn.AllowEdit = If(col.FieldName = "ApproveNote", True, False)
+            col.OptionsColumn.AllowEdit = If(Approve.EnableEditCol.Contains(col.FieldName, StringComparer.OrdinalIgnoreCase), True, False)
         Next
     End Sub
 #End Region
@@ -215,16 +235,38 @@ Public Class FrmApprove
             numOnly(e)
         End If
     End Sub
-
     Private Sub RowCellClick(sender As Object, e As DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs) Handles gvList.RowCellClick
-        ApproveTB.CellClick(sender, e)
+        Approve.CellClick(sender, e)
     End Sub
+    Public editing As Boolean = False
     Private Sub GVCellChange(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles gvList.CellValueChanged
-        ApproveTB.CellChange(sender, e)
-    End Sub
+        Approve.CellChange(sender, e)
+        If editing = True Or Approve.Editing = True Then Return
+        If IsNumeric(e.Value) AndAlso e.Value > 0 Then
+            Dim v As GridView = CType(sender, GridView)
+            Dim UnitCal As New InOutFunc With {
+            .Unit1 = v.GetRowCellValue(e.RowHandle, "Unit1_Num"),
+            .Unit3 = v.GetRowCellValue(e.RowHandle, "Unit3_Num"),
+            .Ratio = v.GetRowCellValue(e.RowHandle, "Ratio"),
+            .GroupTag = v.GetRowCellValue(e.RowHandle, "GroupTag")}
 
+            If e.Column.FieldName = "Unit1_Num" Then
+                editing = True
+                UnitCal.Unit3 = 0
+                UnitCal.Result()
+                v.SetRowCellValue(e.RowHandle, "Unit3_Num", UnitCal.Unit3)
+                editing = False
+            ElseIf e.Column.FieldName = "Unit3_Num" Then
+                editing = True
+                UnitCal.Unit1 = 0
+                UnitCal.Result()
+                v.SetRowCellValue(e.RowHandle, "Unit1_Num", UnitCal.Unit1)
+                editing = False
+            End If
+        End If
+    End Sub
     Public Sub GVRowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles gvList.RowStyle
-        ApproveTB.RowStyle(sender, e)
+        Approve.RowStyle(sender, e)
     End Sub
 #End Region
 

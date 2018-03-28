@@ -1,6 +1,8 @@
 ﻿Imports ConDB.Main
 Imports System.Data.SqlClient
 Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
+
 Public Class FrmTransfer
     Dim TagID As String, TransferNo As String,
         LocID_Src As String = UserInfo.SelectLoc, LocID_Dest As String,
@@ -14,6 +16,7 @@ Public Class FrmTransfer
 
 #Region "FUNC."
     Private Sub FirstQry()
+        'คิวรี่ข้อมูลสต๊อกปัจจุบัน
         SQL = "SELECT S.TagID, SC.SubCatName, M.MatName, S.Unit1, U1.UnitName AS Unit1_Name, S.Unit3, U3.UnitName AS Unit3_Name,"
         SQL &= " M.Ratio, S.MatID, S.Unit1_ID, SC.Unit3_ID, S.LocID"
         SQL &= " FROM tbStock AS S INNER JOIN"
@@ -25,18 +28,21 @@ Public Class FrmTransfer
         SQL &= " ORDER BY S.MatID"
         dsTbl("stock")
 
-        SQL = "SELECT TransferID, TagID, MatID, 'MatName' AS MatName, Unit1_Num, Unit1_ID,"
-        SQL &= " 'Unit1_Name' AS Unit1_Name, Unit3_Num, 'Unit3_Name' AS Unit3_Name"
-        SQL &= " ,'LocSrc' LocSrc, 'LocDest' LocDest"
-        SQL &= " FROM tbTransfer_Detail"
-        dsTbl("transfer_detail")
-        dtTransfer_Detail = DS.Tables("transfer_detail").Copy
-        dtTransfer_Detail.Clear()
+        'สร้างตารางสำหรับรายการโอนย้าย
+        SQL = "SELECT 
+                '' TransferNo,TagID,
+                '' MatName,Unit1_Num,'' Unit1_Name,
+                   Unit3_Num,'' Unit3_Name,
+                '' LocSrc,'' LocDest,
+                TransferID
+              FROM tbTransfer_Detail"
+        dsTbl("Transfer_Detail")
+        dtTransfer_Detail = DS.Tables("Transfer_Detail").Clone
 
-        SQL = "SELECT * FROM tbTransfer"
+        SQL = "Select * From tbTransfer"
         dtTransfer = dsTbl("transfer")
 
-        SQL = "SELECT * FROM tbLocation WHERE LocID <> '" & UserInfo.SelectLoc & "'"
+        SQL = "Select * From tbLocation Where LocID <> '" & UserInfo.SelectLoc & "'"
         dsTbl("location")
     End Sub
     Private Sub LoadDef()
@@ -59,6 +65,7 @@ Public Class FrmTransfer
                 .ONLY.Columns("unit1_name")
                 .ONLY.Columns("unit3")
                 .ONLY.Columns("unit3_name")
+
                 .SetCaption()
             End With
         End With
@@ -70,6 +77,7 @@ Public Class FrmTransfer
             .PopulateViewColumns()
             gridInfo = New GridCaption(.View)
             gridInfo.HIDE.Columns("Locid")
+
             gridInfo.SetCaption()
             .View.BestFitColumns()
         End With
@@ -107,8 +115,6 @@ Public Class FrmTransfer
         gridInfo = New GridCaption(gvList)
         With gridInfo
             .HIDE.Columns("TransferID")
-            .HIDE.Columns("matid")
-            .HIDE.Columns("Unit1_ID")
             .SetCaption()
         End With
         gvList.BestFitColumns()
@@ -135,7 +141,7 @@ Public Class FrmTransfer
 
 #Region "Button Control"
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If chkInput(grpRequest) = False Then Exit Sub
+        If chkInput(grpRequest) = False AndAlso Not String.IsNullOrEmpty(txtNotation.Text) Then Exit Sub
         If chkInput(grpMat) = False Then Exit Sub
         Dim dtr As DataRow
 
@@ -174,15 +180,14 @@ Public Class FrmTransfer
                 dtr = .NewRow
                 dtr("TransferID") = TransferID
                 dtr("TagID") = TagID
-                dtr("MatID") = MatID
                 dtr("MatName") = MatName
                 dtr("Unit1_Num") = Unit1_Num
-                dtr("Unit1_ID") = Unit1_ID
                 dtr("Unit1_Name") = Unit1_Name
                 dtr("Unit3_Num") = Unit3_Num
                 dtr("unit3_Name") = Unit3_Name
                 dtr("LocSrc") = UserInfo.LocName
                 dtr("LocDest") = slClick(slLocDest, "LocName")
+                dtr("TransferNo") = TransferNo
                 .Rows.Add(dtr)
                 .AcceptChanges()
                 gcList.Refresh()
@@ -208,9 +213,9 @@ Public Class FrmTransfer
         For Each tbName As DataTable In tbList
             Select Case tbName.TableName
                 Case dtTransfer.TableName
-                    fieldList = {"TransferID", "TransferNo", "TransferDate", "LocID_Src", "LocID_Dest", "UserStock"}
+                    fieldList = {"TransferID", "TransferNo", "DateTransfer", "LocID_Src", "LocID_Dest", "UserStock", "Notation"}
                 Case dtTransfer_Detail.TableName
-                    fieldList = {"TransferID", "TagID", "MatID", "Unit1_Num", "Unit3_Num", "Unit1_ID"}
+                    fieldList = {"TransferID", "TagID", "Unit1_Num", "Unit3_Num"}
             End Select
             blkCpy("tb" & tbName.TableName, tbName, fieldList)
         Next
@@ -221,6 +226,13 @@ Public Class FrmTransfer
         cancelFunc()
     End Sub
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+        SQL = "SELECT TransferNo FROM tbTransfer WHERE TransferNo = '" & txtTransferNo.Text & "'"
+        dsTbl("check")
+        If DS.Tables("check").Rows.Count > 0 And String.IsNullOrEmpty(txtNotation.text) Then
+            MessageBox.Show("กรุณากรอกหมายเหตุ เนื่องจากบิลนี้เคยทำรายการแล้ว", "เลขที่บิลซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            txtNotation.Focus()
+            Return
+        End If
         grpRequest.Enabled = False
         grpMat.Enabled = True
         PnlSave.Visible = True
@@ -234,7 +246,7 @@ Public Class FrmTransfer
             dr = .NewRow
             dr("TransferID") = TransferID
             dr("TransferNo") = TransferNo
-            dr("TransferDate") = TransferDate
+            dr("DateTransfer") = TransferDate
             dr("LocID_Src") = UserInfo.SelectLoc
             dr("LocID_Dest") = LocID_Dest
             dr("UserStock") = UserStock
@@ -245,7 +257,6 @@ Public Class FrmTransfer
 #End Region
 
 #Region "Other Control"
-
     Private Sub deDate_EditValueChanged(sender As Object, e As EventArgs) Handles deDate.EditValueChanged
         TransferDate = deDate.EditValue
     End Sub
@@ -280,11 +291,23 @@ Public Class FrmTransfer
             numOnly(e)
             Dim ReqNo As New GenRequestNo With {
                 .SetDate = If(loadSuccess = False, Nothing, deDate.EditValue),
-                .SetTable = "tbImportList",
-                .SetField = "BillNo"}
+                .SetTable = "tbTransfer",
+                .SetField = "transferNo"}
             txtTransferNo.Text = ReqNo.Gen
         Else
             numOnly(e)
+        End If
+    End Sub
+    Private Sub gridView1_CustomDrawCell(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
+        If e.Column.FieldName = "LocDest" Then
+            If e.CellValue Is Nothing Then Exit Sub
+            If e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "LocDest" Then
+                Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
+                Dim infox As DevExpress.XtraEditors.ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, DevExpress.XtraEditors.ViewInfo.TextEditViewInfo)
+                infox.ContextImage = My.Resources.forward_16x16
+                'infox.BestFitUpdateToMaximumWidthString(e.CellValue)
+                infox.CalcViewInfo()
+            End If
         End If
     End Sub
 #End Region

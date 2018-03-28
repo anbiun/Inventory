@@ -7,8 +7,7 @@
     Public Function Result() As Boolean
         Dim txtUnit1Val As Double = Unit1
         Dim txtUnit3Val As Double = Unit3
-        'Unit3 = txtUnit3.Value
-        'Unit1 = txtUnit1.Value
+
         If Ratio <= 0 Then MessageBox.Show("กรุณาตรวจสอบค่า Ratio", "Ratio มีค่าเป็น " & Ratio, MessageBoxButtons.OK, MessageBoxIcon.Stop) : Return False
         If Unit3 = 0 And Unit1 = 0 Then
             MessageBox.Show("กรุณากรอกจำนวนให้ถูกต้อง", "จำนวนไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Stop)

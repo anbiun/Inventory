@@ -37,11 +37,13 @@ Partial Class FrmTransfer
         Me.slTagID = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.SearchLookUpEdit1View = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grpRequest = New DevExpress.XtraEditors.GroupControl()
+        Me.txtNotation = New DevExpress.XtraEditors.MemoEdit()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
         Me.lbUserStock = New System.Windows.Forms.Label()
         Me.slLocDest = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.lbUnit3Name = New System.Windows.Forms.Label()
         Me.lbVol = New System.Windows.Forms.Label()
         Me.lbUnit1Name = New System.Windows.Forms.Label()
@@ -65,6 +67,7 @@ Partial Class FrmTransfer
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grpRequest, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpRequest.SuspendLayout()
+        CType(Me.txtNotation.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.slLocDest.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PnlSave, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,7 +91,7 @@ Partial Class FrmTransfer
         Me.GroupControl3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupControl3.Location = New System.Drawing.Point(348, 0)
         Me.GroupControl3.Name = "GroupControl3"
-        Me.GroupControl3.Size = New System.Drawing.Size(609, 742)
+        Me.GroupControl3.Size = New System.Drawing.Size(942, 742)
         Me.GroupControl3.TabIndex = 12
         Me.GroupControl3.Text = "รายการโอนวัสดุ"
         '
@@ -100,7 +103,7 @@ Partial Class FrmTransfer
         Me.gcList.MainView = Me.gvList
         Me.gcList.Margin = New System.Windows.Forms.Padding(4)
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(605, 709)
+        Me.gcList.Size = New System.Drawing.Size(938, 709)
         Me.gcList.TabIndex = 8
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -134,7 +137,7 @@ Partial Class FrmTransfer
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label2.Location = New System.Drawing.Point(14, 134)
+        Me.Label2.Location = New System.Drawing.Point(12, 134)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 24)
         Me.Label2.TabIndex = 13
@@ -144,7 +147,7 @@ Partial Class FrmTransfer
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label3.Location = New System.Drawing.Point(8, 72)
+        Me.Label3.Location = New System.Drawing.Point(10, 72)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(95, 24)
         Me.Label3.TabIndex = 13
@@ -186,7 +189,7 @@ Partial Class FrmTransfer
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label5.Location = New System.Drawing.Point(64, 40)
+        Me.Label5.Location = New System.Drawing.Point(62, 40)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(43, 24)
         Me.Label5.TabIndex = 13
@@ -239,26 +242,35 @@ Partial Class FrmTransfer
         '
         Me.grpRequest.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grpRequest.AppearanceCaption.Options.UseFont = True
+        Me.grpRequest.Controls.Add(Me.txtNotation)
         Me.grpRequest.Controls.Add(Me.Label5)
         Me.grpRequest.Controls.Add(Me.Label1)
         Me.grpRequest.Controls.Add(Me.btnNew)
         Me.grpRequest.Controls.Add(Me.lbUserStock)
         Me.grpRequest.Controls.Add(Me.Label3)
         Me.grpRequest.Controls.Add(Me.slLocDest)
+        Me.grpRequest.Controls.Add(Me.Label6)
         Me.grpRequest.Controls.Add(Me.Label2)
         Me.grpRequest.Controls.Add(Me.txtTransferNo)
         Me.grpRequest.Controls.Add(Me.deDate)
         Me.grpRequest.Dock = System.Windows.Forms.DockStyle.Top
         Me.grpRequest.Location = New System.Drawing.Point(0, 0)
         Me.grpRequest.Name = "grpRequest"
-        Me.grpRequest.Size = New System.Drawing.Size(348, 220)
+        Me.grpRequest.Size = New System.Drawing.Size(348, 271)
         Me.grpRequest.TabIndex = 19
+        '
+        'txtNotation
+        '
+        Me.txtNotation.Location = New System.Drawing.Point(113, 160)
+        Me.txtNotation.Name = "txtNotation"
+        Me.txtNotation.Size = New System.Drawing.Size(192, 57)
+        Me.txtNotation.TabIndex = 19
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label1.Location = New System.Drawing.Point(5, 103)
+        Me.Label1.Location = New System.Drawing.Point(3, 103)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(102, 24)
         Me.Label1.TabIndex = 13
@@ -270,7 +282,7 @@ Partial Class FrmTransfer
         Me.btnNew.Appearance.Options.UseFont = True
         Me.btnNew.ImageOptions.Image = CType(resources.GetObject("btnNew.ImageOptions.Image"), System.Drawing.Image)
         Me.btnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.btnNew.Location = New System.Drawing.Point(113, 161)
+        Me.btnNew.Location = New System.Drawing.Point(141, 224)
         Me.btnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(124, 38)
@@ -305,6 +317,16 @@ Partial Class FrmTransfer
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
         Me.GridView1.OptionsView.ShowGroupPanel = False
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.Label6.Location = New System.Drawing.Point(26, 175)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(79, 24)
+        Me.Label6.TabIndex = 13
+        Me.Label6.Text = "หมายเหตุ"
         '
         'lbUnit3Name
         '
@@ -354,10 +376,10 @@ Partial Class FrmTransfer
         Me.PnlSave.Controls.Add(Me.btnSave)
         Me.PnlSave.Controls.Add(Me.btnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(0, 476)
+        Me.PnlSave.Location = New System.Drawing.Point(0, 527)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(348, 266)
+        Me.PnlSave.Size = New System.Drawing.Size(348, 215)
         Me.PnlSave.TabIndex = 20
         Me.PnlSave.Visible = False
         '
@@ -394,7 +416,7 @@ Partial Class FrmTransfer
         Me.grpMat.Controls.Add(Me.slTagID)
         Me.grpMat.Dock = System.Windows.Forms.DockStyle.Top
         Me.grpMat.Enabled = False
-        Me.grpMat.Location = New System.Drawing.Point(0, 220)
+        Me.grpMat.Location = New System.Drawing.Point(0, 271)
         Me.grpMat.Name = "grpMat"
         Me.grpMat.Size = New System.Drawing.Size(348, 256)
         Me.grpMat.TabIndex = 21
@@ -449,7 +471,7 @@ Partial Class FrmTransfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(957, 742)
+        Me.ClientSize = New System.Drawing.Size(1290, 742)
         Me.Controls.Add(Me.GroupControl3)
         Me.Controls.Add(Me.pnlLeft)
         Me.Name = "FrmTransfer"
@@ -466,6 +488,7 @@ Partial Class FrmTransfer
         CType(Me.grpRequest, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpRequest.ResumeLayout(False)
         Me.grpRequest.PerformLayout()
+        CType(Me.txtNotation.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.slLocDest.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PnlSave, System.ComponentModel.ISupportInitialize).EndInit()
@@ -513,4 +536,6 @@ Partial Class FrmTransfer
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents slLocDest As DevExpress.XtraEditors.SearchLookUpEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents txtNotation As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents Label6 As Label
 End Class

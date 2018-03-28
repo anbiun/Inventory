@@ -30,8 +30,10 @@ Module ImModule
     Public ParamList As New List(Of SqlParameter)
     Public Version As String
     Public tmpSQL As String
-    Public colorMain As Color = ColorTranslator.FromHtml("#0072C6")
+    Public ColorInfo As New Colorlist
     Sub New()
+
+
         Dim Culture = CultureInfo.CreateSpecificCulture("th")
         Thread.CurrentThread.CurrentUICulture = Culture
         Thread.CurrentThread.CurrentCulture = Culture
@@ -285,4 +287,15 @@ Module ImModule
                                                   End Function
     'CheckListInfo
     Public clbInfo As New CheckListBox
+    Public Class Colorlist
+        Private Function Hex(htmlCode As String) As Color
+            Return ColorTranslator.FromHtml("#" + htmlCode)
+        End Function
+
+        Public SoftBlue As Color = Hex("0072C6")
+        Public SoftRed As Color = Hex("fc9797")
+        Public SoftYellow As Color = Hex("fdeca6")
+        Public SoftGreen As Color = Hex("ddfd7c")
+        Public Gray As Color = Hex("f0f0f0")
+    End Class
 End Module

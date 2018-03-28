@@ -37,6 +37,7 @@ Public Class GenRequestNo
         SQL = "select Top 1 " & _field & " from " & _table
         SQL &= " where " & _field & " Like '" & Reqno & "%'"
         SQL &= " ORDER BY " & _field & " desc"
+
         dsTbl("dbreqno")
 
         Dim dbReqno As String = If(DS.Tables("dbreqno").Rows.Count > 0, CStr(DS.Tables("dbreqno")(0)(0)), String.Empty)

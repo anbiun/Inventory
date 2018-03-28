@@ -5,15 +5,15 @@ Imports DevExpress.XtraBars.Helpers
 Imports DevExpress.LookAndFeel
 
 Public Class FrmMain
-    Public gmh As GlobalMouseHandler = New GlobalMouseHandler()
+    'Public gmh As GlobalMouseHandler = New GlobalMouseHandler()
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text += " v." + Version
         lblLoginDetail.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID
         siInfo.Caption = "| Current IP : " & varIP
         siInfo.Caption &= " | Database : " & varDB
         siInfo.Caption &= " | Location : " & UserInfo.SelectLoc & "(" & UserInfo.LocName & ")"
-        Ribbon.Minimized = True
-        SetTabSize()
+        'Ribbon.Minimized = True
+        'SetTabSize()
         Permission(UserInfo.Permis)
     End Sub
     Sub New()
@@ -21,8 +21,8 @@ Public Class FrmMain
         InitializeComponent()
         Me.InitSkinGallery()
 
-        AddHandler gmh.TheMouseMoved, New MouseMovedEvent(AddressOf gmh_TheMouseMoved)
-        Application.AddMessageFilter(gmh)
+        'AddHandler gmh.TheMouseMoved, New MouseMovedEvent(AddressOf gmh_TheMouseMoved)
+        'Application.AddMessageFilter(gmh)
     End Sub
     Private Sub showFrom(frmName As Form)
         frmName.MdiParent = Me
@@ -59,7 +59,7 @@ Public Class FrmMain
         lblLoginDetail.Caption = ""
         UserInfo.Logout()
         FrmLogin.Show()
-        RemoveHandler gmh.TheMouseMoved, AddressOf gmh_TheMouseMoved
+        'RemoveHandler gmh.TheMouseMoved, AddressOf gmh_TheMouseMoved
         Me.Dispose()
     End Sub
 #End Region
@@ -112,6 +112,7 @@ Public Class FrmMain
 #Region "RibbonPopup On Mouse Hover"
     Dim delayVal As Integer = 0
     Private Sub Delayer_Tick(sender As Object, e As EventArgs) Handles delayer.Tick
+        Return
         delayVal += 1
         If delayVal >= 3 Then
             RibbonPopShow(Ribbon)
@@ -120,6 +121,7 @@ Public Class FrmMain
         End If
     End Sub
     Private Sub ribbonControl_MouseMove(sender As Object, e As MouseEventArgs) Handles ribbonControl.MouseMove
+        Return
         Dim vi As ViewInfo.RibbonHitInfo = Ribbon.CalcHitInfo(e.Location)
         If vi.HitTest = DevExpress.XtraBars.Ribbon.ViewInfo.RibbonHitTest.PageHeader Then
             Ribbon.SelectedPage = vi.Page
@@ -127,6 +129,7 @@ Public Class FrmMain
         End If
     End Sub
     Private Sub FrmMain_Move(sender As Object, e As EventArgs) Handles Me.Move
+        Return
         If pop IsNot Nothing Then
             pop.Dispose()
             pop = Nothing
@@ -135,6 +138,7 @@ Public Class FrmMain
     'MouseMoveCatch
     Public pop As Ribbon.Helpers.MinimizedRibbonPopupForm
     Public Sub RibbonPopShow(Ribbon As RibbonControl)
+        Return
         Ribbon.BeginInit()
         'Ribbon.SelectedPage = hitinfo.Page
         If pop Is Nothing Then
@@ -149,6 +153,7 @@ Public Class FrmMain
         End If
     End Sub
     Private Sub gmh_TheMouseMoved()
+        Return
         'Dim f As Form = Form.ActiveForm
         'If f.Name IsNot Nothing AndAlso f.Name IsNot Me.Name Then Return
         Time.Caption = New Point(PointToClient(Control.MousePosition)).ToString
@@ -180,7 +185,5 @@ Public Class FrmMain
         End Function
     End Class
 #End Region
-    'A 10 -> B
-    '
 End Class
 

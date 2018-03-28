@@ -92,7 +92,7 @@
   <ItemGroup>
     <Reference Include="ConDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Resources\ConDB.dll</HintPath>
+      <HintPath>..\..\ConDB\ConDB\bin\Debug\ConDB.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=11.3.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -374,18 +374,6 @@
     <Compile Include="FrmLogin.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPrintnTransfer.Designer.vb">
-      <DependentUpon>FrmPrintnTransfer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmPrintnTransfer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPrintPreview.Designer.vb">
-      <DependentUpon>FrmPrintPreview.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmPrintPreview.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FrmRequisition.Designer.vb">
       <DependentUpon>FrmRequisition.vb</DependentUpon>
     </Compile>
@@ -496,12 +484,6 @@
     <EmbeddedResource Include="Logs\FrmLogs_Transfer.resx">
       <DependentUpon>FrmLogs_Transfer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPrintnTransfer.resx">
-      <DependentUpon>FrmPrintnTransfer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPrintPreview.resx">
-      <DependentUpon>FrmPrintPreview.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmApprove.resx">
       <DependentUpon>FrmApprove.vb</DependentUpon>
     </EmbeddedResource>
@@ -552,7 +534,6 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -628,7 +609,6 @@
     <None Include="Resources\edit_16x16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Capital18-Ethereal-2-Mimetypes-dll.ico" />
     <Content Include="Resources\1488531970_Checklist_clipboard_inventory_list_report_tasks_todo.ico" />
     <None Include="Resources\apply_16x16.png" />
     <None Include="Resources\apply_16x161.png" />

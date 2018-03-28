@@ -27,7 +27,6 @@ Partial Class FrmApprove
         Me.gcList = New DevExpress.XtraGrid.GridControl()
         Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.deDate = New DevExpress.XtraEditors.DateEdit()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.slTransferNo = New DevExpress.XtraEditors.SearchLookUpEdit()
@@ -35,6 +34,7 @@ Partial Class FrmApprove
         Me.grpRequest = New DevExpress.XtraEditors.GroupControl()
         Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
         Me.lbUserStock = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.PnlSave = New DevExpress.XtraEditors.PanelControl()
         Me.btnSave = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCancel = New DevExpress.XtraEditors.SimpleButton()
@@ -71,41 +71,49 @@ Partial Class FrmApprove
         'gcList
         '
         Me.gcList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gcList.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(4)
         Me.gcList.Location = New System.Drawing.Point(2, 31)
         Me.gcList.MainView = Me.gvList
+        Me.gcList.Margin = New System.Windows.Forms.Padding(4)
         Me.gcList.Name = "gcList"
         Me.gcList.Size = New System.Drawing.Size(1180, 709)
-        Me.gcList.TabIndex = 8
+        Me.gcList.TabIndex = 9
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
         'gvList
         '
+        Me.gvList.Appearance.HeaderPanel.Font = New System.Drawing.Font("Tahoma", 9.5!)
+        Me.gvList.Appearance.HeaderPanel.Options.UseFont = True
+        Me.gvList.Appearance.HeaderPanel.Options.UseTextOptions = True
+        Me.gvList.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.gvList.Appearance.Row.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.gvList.Appearance.Row.Options.UseFont = True
+        Me.gvList.FixedLineWidth = 1
+        Me.gvList.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus
         Me.gvList.GridControl = Me.gcList
+        Me.gvList.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         Me.gvList.Name = "gvList"
-        Me.gvList.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
-        Me.gvList.OptionsFind.AlwaysVisible = True
+        Me.gvList.OptionsCustomization.AllowSort = False
+        Me.gvList.OptionsFind.AllowFindPanel = False
+        Me.gvList.OptionsFind.ClearFindOnClose = False
+        Me.gvList.OptionsFind.FindDelay = 100
+        Me.gvList.OptionsFind.FindFilterColumns = "ชื่อประเภท"
+        Me.gvList.OptionsFind.FindNullPrompt = "ค้นหา"
+        Me.gvList.OptionsFind.ShowClearButton = False
+        Me.gvList.OptionsFind.ShowFindButton = False
         Me.gvList.OptionsView.ColumnAutoWidth = False
         Me.gvList.OptionsView.ShowGroupPanel = False
+        Me.gvList.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label2.Location = New System.Drawing.Point(27, 119)
+        Me.Label2.Location = New System.Drawing.Point(25, 120)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 24)
         Me.Label2.TabIndex = 13
         Me.Label2.Text = "ผู้ทำรายการ"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.Label4.Location = New System.Drawing.Point(25, 84)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(95, 24)
-        Me.Label4.TabIndex = 13
-        Me.Label4.Text = "เลขที่เอกสาร"
         '
         'deDate
         '
@@ -153,10 +161,10 @@ Partial Class FrmApprove
         Me.grpRequest.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grpRequest.AppearanceCaption.Options.UseFont = True
         Me.grpRequest.Controls.Add(Me.Label5)
-        Me.grpRequest.Controls.Add(Me.Label4)
         Me.grpRequest.Controls.Add(Me.btnNew)
         Me.grpRequest.Controls.Add(Me.lbUserStock)
         Me.grpRequest.Controls.Add(Me.slTransferNo)
+        Me.grpRequest.Controls.Add(Me.Label1)
         Me.grpRequest.Controls.Add(Me.Label2)
         Me.grpRequest.Controls.Add(Me.deDate)
         Me.grpRequest.Dock = System.Windows.Forms.DockStyle.Top
@@ -187,6 +195,16 @@ Partial Class FrmApprove
         Me.lbUserStock.Size = New System.Drawing.Size(124, 24)
         Me.lbUserStock.TabIndex = 13
         Me.lbUserStock.Text = "ปริมาณ"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.Label1.Location = New System.Drawing.Point(52, 84)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(66, 24)
+        Me.Label1.TabIndex = 13
+        Me.Label1.Text = "เลขที่บิล"
         '
         'PnlSave
         '
@@ -265,7 +283,6 @@ Partial Class FrmApprove
     End Sub
     Friend WithEvents GroupControl3 As DevExpress.XtraEditors.GroupControl
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents deDate As DevExpress.XtraEditors.DateEdit
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents slTransferNo As DevExpress.XtraEditors.SearchLookUpEdit
@@ -277,6 +294,7 @@ Partial Class FrmApprove
     Friend WithEvents btnCancel As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents pnlLeft As System.Windows.Forms.Panel
     Friend WithEvents btnNew As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label1 As Label
     Friend WithEvents gcList As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvList As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

@@ -8,7 +8,9 @@ Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 
 Public Class FrmLogs_Transfer
     Dim locExpr As String
+    Dim ApInfo As New ApproveInfo With {.FStat = "ApproveStat"}
     Private Sub FrmLogs_Transfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         LoadDef()
     End Sub
     Private Sub LoadDef()
@@ -76,11 +78,11 @@ Public Class FrmLogs_Transfer
             SQL &= " WHERE IDValue IN (" & getList(clbSubCat) & ")"
             SQL &= " AND LocID_Src IN (" & getList(clbLoc) & ")"
             If rdDate_By.Checked = True Then
-                SQL &= " AND TransferDate"
+                SQL &= " AND DateTransfer"
                 SQL &= " Between '" & convertDate(deSDate.EditValue) & "'"
                 SQL &= " AND '" & convertDate(deEDate.EditValue) & "'"
             End If
-            SQL &= " ORDER BY TransferDate DESC"
+            SQL &= " ORDER BY DateTransfer DESC"
             .DataSource = dsTbl("gclist")
         End With
         locExpr = String.Empty
@@ -99,11 +101,15 @@ Public Class FrmLogs_Transfer
             '.Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
             '.Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
             .OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.True
-            .Columns("TransferDate").Group()
+            .Columns("DateTransfer").Group()
             .Columns("LocSrc_Name").Group()
             .Columns("LocSrc_Name").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-            .Columns("TransferDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
-            .Columns("TransferDate").GroupInterval = DevExpress.XtraGrid.ColumnGroupInterval.DateRange
+            .Columns("DateTransfer").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
+            .Columns("DateTransfer").GroupInterval = DevExpress.XtraGrid.ColumnGroupInterval.DateRange
+            For Each Colname As String In {"DateSave", "DateApprove"}
+                .Columns(Colname).DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+                .Columns(Colname).DisplayFormat.FormatString = "{d:0}"
+            Next
 
             .ExpandAllGroups()
             .BestFitColumns()
@@ -112,13 +118,13 @@ Public Class FrmLogs_Transfer
         gvList.BestFitColumns()
     End Sub
     Private Sub Cell_CustomDraw(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
-        If e.Column.FieldName = "LocSrc_Name" Then
+        If e.Column.FieldName = "LocDest_Name" Then
             If e.CellValue Is Nothing Then Exit Sub
-            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "LocSrc_Name" Then
+            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "LocDest_Name" Then
                 Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
                 Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
                 infox.ContextImage = My.Resources.forward_16x16
-                infox.ContextImageAlignment = ContextImageAlignment.Far
+                infox.ContextImageAlignment = ContextImageAlignment.Near
                 infox.CalcViewInfo()
             End If
         End If
@@ -130,29 +136,20 @@ Public Class FrmLogs_Transfer
                 e.DisplayText = getString("apvstat1")
             ElseIf IsNumeric(e.Value) AndAlso e.Value = 2 Then
                 e.DisplayText = getString("apvstat2")
+            ElseIf IsNumeric(e.Value) AndAlso e.Value = 3 Then
+                e.DisplayText = getString("apvstat3")
             ElseIf IsNumeric(e.Value) AndAlso e.Value = 0 Then
                 e.DisplayText = getString("apvstat0")
             End If
         End If
     End Sub
     Public Sub Cell_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles gvList.RowStyle
-        Dim View As GridView = sender
-        Dim Warn = View.GetRowCellValue(e.RowHandle, "ApproveStat")
-        If (e.RowHandle >= 0) Then
-            If IsDBNull(Warn) Then
-                Warn = 0
-            Else
-                Warn = If(String.IsNullOrWhiteSpace(Warn), 0, CDbl(Warn))
-            End If
-            Select Case Warn
-                Case = 0
-                    e.Appearance.BackColor = Color.IndianRed
-                    e.Appearance.BackColor2 = Color.WhiteSmoke
-                Case 2
-                    e.Appearance.BackColor = Color.LightYellow
-                    e.Appearance.BackColor2 = Color.WhiteSmoke
-            End Select
+        Dim ApproveStat As Integer = CInt(If(IsDBNull(sender.GetRowCellValue(e.RowHandle, "ApproveStat")), 0, sender.GetRowCellValue(e.RowHandle, "ApproveStat")))
+        If ApproveStat = 1 Then
+            Return
         End If
+        ApInfo.RowStyle(sender, e)
+
     End Sub
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck, clbLoc.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
