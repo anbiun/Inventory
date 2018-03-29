@@ -26,7 +26,7 @@
                 .Add("dozen", "จำนวนโหล")
 #End Region
 #Region "ประวัติเบิก/นำเข้า"
-                .Add("BillNo", "เลขที่บิล")
+                .Add("BillNo", "เลขที่ใบส่งของ")
                 .Add("ImportDate", "วันที่นำเข้า")
                 .Add("RequestNo", "เลขที่เบิก")
                 .Add("RequestDate", "วันที่เบิกวัสดุ")
@@ -38,6 +38,7 @@
                 .Add("unit1_sum", List("unit1"))
                 .Add("unit3_sum", List("unit3"))
                 .Add("username", List("userstock"))
+                .Add("PO", "เลขที่ใบ PO")
 #End Region
 #Region "QC"
                 .Add("productid", "รหัสรายการ")
@@ -77,6 +78,9 @@
                 .Add("err_pagesize", "จำนวนหน้า เกินจำนวนข้อมูลที่มีอยู่")
                 .Add("err_norow", "ยังไม่มีข้อมูลส่วนนี้")
                 .Add("ReqToday", " ")
+                .Add("Stat", "สถานะ")
+                .Add("matStat0", "เลิกใช้งาน")
+                .Add("matStat1", "ใช้งาน")
 #End Region
 
             Catch ex As Exception

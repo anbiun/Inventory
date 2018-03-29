@@ -387,7 +387,7 @@ SubUnit:
                         Case dtImportList.TableName
                             fieldList = {"ImportDate", "BillNo", "ImportID", "SupplierID", "UserStock_ID", "UserApprove_ID", "Notation"}
                         Case dtImportOrder.TableName
-                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID", "Notation"}
+                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID", "Notation", "PO"}
                     End Select
                     tbName.TableName = "tb" & tbName.TableName
                     blkCpy(tbName.TableName, tbName, fieldList)
@@ -456,7 +456,6 @@ SubUnit:
 
                 For Each col As GridColumn In gvImportOrder.Columns
                     col.OptionsColumn.AllowEdit = If(col.FieldName = "Notation", True, False)
-                    'col.OptionsColumn.AllowEdit = If(col.FieldName = "Ratio", True, False)
                 Next
                 sluMat.Properties.View.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
             Case BtnEdit.Name
@@ -470,7 +469,6 @@ SubUnit:
                 grpMatImport.Enabled = True
                 PnlSave.Visible = True
                 grpSearch.Enabled = False
-                'PnlbtnItem.Visible = False
                 grpMatImport.Visible = True
             Case BtnDelete.Name
                 btnProcess(BtnDelete)
@@ -494,7 +492,6 @@ SubUnit:
         Dim matVal As String = gvImportOrder.GetFocusedRowCellValue("MatID")
         MatID = slClick(sluMat, "MatID")
         If MatID = matVal AndAlso chkUse() = False Then  Exit Sub
-        'CallSP("FindAll", New SqlParameter("@SearchSrc", gvImportOrder.GetRowCellValue(gvImportOrder.FocusedRowHandle, "TagID")))
         If chkInput(grpMatImport) = False Then Exit Sub
         If Button_Edit.State = Buttons.EState.TurnOn Then
             FoundRow = DS.Tables("ImportOrder").Select("ImportID='" & ImportID & "' AND TagID Like '%" & txtTagID.Text & "'")
@@ -524,6 +521,7 @@ Edit:
         txtUnit3.Value = 0
         gvImportList.BestFitColumns()
         gvImportOrder.BestFitColumns()
+        txtPO.Text = String.Empty
         'New Order
         'TagID += 1
     End Sub
@@ -581,6 +579,7 @@ Edit:
                 dr("Ratio") = ImReq.Ratio
                 dr("QtyPerUnit") = QtyPerUnit
                 dr("LocID") = UserInfo.SelectLoc
+                dr("PO") = txtPO.Text
                 .Rows.Add(dr)
                 .AcceptChanges()
                 gcImportOrder.Refresh()
@@ -613,23 +612,15 @@ Edit:
 
             Select Case gvSelect.Name
                 Case gvImportOrder.Name
-                    'gcImportDetail.DataSource = dtImportDetail.Select("MatID <> '" & values & "'")
                     dtImportOrder.Rows(gvImportOrder.FocusedRowHandle).Delete()
-                    'Case gvImportDetail.Name
-                    '    FoundRow = dtImportDetail.Select("MatID='" & values & "'")
-                    '    If FoundRow.Count = 1 Then
-                    '        dtImportOrder.Rows(gvImportOrder.FocusedRowHandle).Delete()
-                    '    End If
-                    '    dtImportDetail.Rows(gvImportDetail.FocusedRowHandle).Delete()
             End Select
-            'dtImportDetail.AcceptChanges()
-            'gcImportDetail.Refresh()
             dtImportOrder.AcceptChanges()
             gcImportOrder.Refresh()
         End If
         gvSelect = Nothing
     End Sub
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+        If gvImportOrder.RowCount < 1 Then Return
         If MessageBox.Show("ยืนยันการบันทึก หากบันทึกแล้วจะไม่สามารถแก้ไขได้" & vbCrLf _
                            & "ต้องติดต่อผู้ดูแลเท่านั้น โปรดตรวจสอบความถูกต้อง", "บันทึกยอดเข้าคลัง", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
             btnProcess(BtnSave)
@@ -654,12 +645,9 @@ Edit:
         FirstQry(QryMode.All)
         gcImportList.DataSource = search("ImportList", "ImportDate='" & Today & "'", "")
         gcImportOrder.DataSource = DS.Tables("ImportOrder")
-        'gcImportDetail.DataSource = DS.Tables("ImportDetail")
         dtImportOrder = DS.Tables("ImportOrder").Copy
-        'dtImportList = DS.Tables("ImportList").Copy
         gvFormat()
         gcImportOrder.DataSource = Nothing
-        'gcImportDetail.DataSource = Nothing
 
         LoadLookUp()
         luUnit1_name.Properties.DataSource = Nothing
@@ -667,7 +655,6 @@ Edit:
         grpMatImport.Enabled = False
         deImport.EditValue = ImportDate
         BtnDelete.Enabled = True
-        'rbPerQty.Checked = True
         Permission(UserInfo.Permis)
         LoadSuccess = True
     End Sub
@@ -677,22 +664,24 @@ Edit:
         ImportDate = deImport.EditValue
         gcImportList.DataSource = search("ImportList", "ImportDate='" & ImportDate & "'", "")
         gcImportOrder.DataSource = Nothing
-        'gcImportDetail.DataSource = Nothing
     End Sub
     Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvImportList.RowCellClick, gvImportOrder.RowCellClick
         Dim gv As GridView = CType(sender, GridView)
         RowClickFunc(gv)
     End Sub
-    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress
+    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress, txtPO.KeyPress
         If e.KeyChar = "-" Then
             Exit Sub
-        ElseIf e.KeyChar = "/" Then
+        ElseIf e.KeyChar = "/" AndAlso CType(sender, TextBox).Name = txtBillNo.Name Then
             numOnly(e)
             Dim ReqNo As New GenRequestNo With {
                 .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
                 .SetTable = "tbTransfer",
                 .SetField = "TransferNo"}
             txtBillNo.Text = ReqNo.Gen
+        ElseIf e.KeyChar = "/" AndAlso CType(sender, TextBox).Name = txtTagID.Name Then
+            numOnly(e)
+            txtTagID.Text = CInt(lblLastTag.Text) + 1
         Else
             numOnly(e)
         End If

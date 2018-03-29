@@ -19,8 +19,8 @@ Public Class FrmMatList
         With DT
             .Columns.Add("Stat", GetType(Int32))
             .Columns.Add("StatName", GetType(String))
-            .Rows.Add(0, "เลิกใช้งาน")
-            .Rows.Add(1, "ใช้งาน")
+            .Rows.Add(0, getString("matStat0"))
+            .Rows.Add(1, getString("matStat1"))
         End With
 
         With luStat
@@ -496,9 +496,9 @@ lchangeMainLookup:
             lblRatio_Name.Text = DS.Tables("showingrid")(0)("QtyOfUsing_Name")
         End If
 
+
         'lblRatio_Name.Text = DS.Tables("showingrid")(0)("")
     End Sub
-
     Private Sub GVMain_RowCellClick(sender As Object, e As DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs) Handles GVMain.RowCellClick
         'ตั้งค่าคลิก Focus แถว
         With GVMain
@@ -537,6 +537,16 @@ lchangeMainLookup:
                 MemoDetail.Text = .GetFocusedRowCellValue("itemDetail")
             End If
         End With
+    End Sub
+    Private Sub CellDisplay(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs) Handles GVMain.CustomDrawCell
+        If e.Column.FieldName = "Stat" AndAlso e.RowHandle >= 0 Then
+            If e.CellValue = 0 Then
+                e.DisplayText = getString("matStat0")
+            ElseIf e.CellValue = 1 Then
+                e.DisplayText = getString("matStat1")
+            End If
+        End If
+
     End Sub
 #End Region
 
