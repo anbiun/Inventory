@@ -471,7 +471,20 @@ SubUnit:
                 grpSearch.Enabled = False
                 grpMatImport.Visible = True
             Case BtnDelete.Name
-                btnProcess(BtnDelete)
+                Dim tagID As String = String.Empty
+                For i As Integer = 0 To gvImportOrder.RowCount - 1
+                    If i >= 1 Then tagID += ","
+                    tagID += String.Format("{0}" & gvImportOrder.GetRowCellValue(i, "TagID") & "{0}", "'")
+                Next
+                SQL = "SELECT TagID FROM tbRequisition
+                       WHERE TagID IN (" & tagID & ")"
+                dsTbl("chkReq")
+                If DS.Tables("chkReq").Rows.Count > 0 Then
+                    MessageBox.Show("ไม่สามารถลบรายการนี้ เนื่องจากมีการเบิกไปแล้ว กรุณาติดต่อผู้ดูแล", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                Else
+                    btnProcess(BtnDelete)
+                End If
         End Select
     End Sub
     Function chkUse()
@@ -676,8 +689,8 @@ Edit:
             numOnly(e)
             Dim ReqNo As New GenRequestNo With {
                 .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
-                .SetTable = "tbTransfer",
-                .SetField = "TransferNo"}
+                .SetTable = "tbImportList",
+                .SetField = "BillNo"}
             txtBillNo.Text = ReqNo.Gen
         ElseIf e.KeyChar = "/" AndAlso CType(sender, TextBox).Name = txtTagID.Name Then
             numOnly(e)

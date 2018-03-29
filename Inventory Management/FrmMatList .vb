@@ -523,12 +523,10 @@ lchangeMainLookup:
             TxtMaterialID.Text = .GetFocusedRowCellValue("MatID")
             TxtPrice.Text = .GetFocusedRowCellValue("itemPrice")
             txtQtyPerUnit.Value = If(.GetFocusedRowCellValue("QtyPerUnit") Is DBNull.Value, 0, .GetFocusedRowCellValue("QtyPerUnit"))
-            'SpePrice.Text = .GetFocusedRowCellValue("matDGOrder")
             LookUpCategory.EditValue = .GetFocusedRowCellValue("CatID")
             LookUpSubCategory.EditValue = .GetFocusedRowCellValue("SubCatID")
             txtRatio.Value = If(.GetFocusedRowCellValue("Ratio") Is DBNull.Value, 0, .GetFocusedRowCellValue("Ratio"))
             txtWarn.EditValue = If(IsDBNull(.GetFocusedRowCellValue("Warn")), 0, .GetFocusedRowCellValue("Warn"))
-            'LookUpUnitBuy.EditValue = .GetFocusedRowCellValue("matDGID")
 
             If String.IsNullOrEmpty(.GetFocusedRowCellValue("itemDetail")) Then
                 MemoDetail.Text = Nothing
@@ -600,7 +598,6 @@ lchangeMainLookup:
         LookUpCategory.Refresh()
     End Sub
     Private Sub TxtMaterialName_EditValueChanged(sender As Object, e As EventArgs) Handles TxtMaterialName.EditValueChanged
-        'GVMain.Columns("MatName").FilterMode.DisplayText = "test"
         If BtnAddItem.Visible = False Then
             GVMain.ActiveFilterString = "[MatName] = '" & TxtMaterialName.Text & "'"
         End If

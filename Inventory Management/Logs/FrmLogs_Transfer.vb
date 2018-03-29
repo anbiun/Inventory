@@ -147,6 +147,10 @@ Public Class FrmLogs_Transfer
         Dim ApproveStat As Integer = CInt(If(IsDBNull(sender.GetRowCellValue(e.RowHandle, "ApproveStat")), 0, sender.GetRowCellValue(e.RowHandle, "ApproveStat")))
         If ApproveStat = 1 Then
             Return
+        ElseIf ApproveStat = 0 Then
+            Dim MyCol As New Colorlist
+            e.Appearance.ForeColor = MyCol.SoftBlue
+            Return
         End If
         ApInfo.RowStyle(sender, e)
 
@@ -155,4 +159,26 @@ Public Class FrmLogs_Transfer
         clbInfo.SelectAllCheck(sender, e)
     End Sub
 
+    Private Sub BtnDel_Click(sender As Object, e As EventArgs) Handles BtnDel.Click
+        Dim v As GridView = gvList
+        Dim TransferNo As String = v.GetRowCellValue(v.FocusedRowHandle, "TransferNo")
+        Dim Stat As String = v.GetRowCellValue(v.FocusedRowHandle, "ApproveStat")
+        If IsNumeric(Stat) AndAlso Stat = 0 AndAlso Not String.IsNullOrEmpty(TransferNo) Then
+            If MessageBox.Show("ยืนยันการลบรายการโอนย้ายเลขที่ " & TransferNo & " หรือไม่ ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+
+                SQL = "DELETE FROM tbTransfer_Detail
+                        FROM tbTransfer_Detail tfde 
+                        INNER JOIN tbTransfer tf ON tf.TransferID = tfde.TransferID
+                        WHERE tf.TransferNo = '" & TransferNo & "'"
+                SQL &= " DELETE FROM tbTransfer WHERE TransferNo ='" & TransferNo & "'"
+                dsTbl("delTransfer")
+            Else
+                Return
+            End If
+            btnSearch.PerformClick()
+        Else
+            MessageBox.Show("ไม่สามารถยกเลิกรายการที่ตรวจรับแล้ว กรุณาทำการโอนย้ายกลับหรือติดต่อผู้ดูแล", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+    End Sub
 End Class
