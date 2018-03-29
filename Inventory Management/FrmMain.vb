@@ -112,6 +112,7 @@ Public Class FrmMain
 #Region "RibbonPopup On Mouse Hover"
     Dim delayVal As Integer = 0
     Private Sub Delayer_Tick(sender As Object, e As EventArgs) Handles delayer.Tick
+        delayer.Stop()
         Return
         delayVal += 1
         If delayVal >= 3 Then

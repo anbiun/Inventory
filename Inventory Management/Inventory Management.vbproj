@@ -636,6 +636,7 @@
     <Content Include="Resources\T.ico" />
     <None Include="Resources\usergroup_32x32.png" />
     <None Include="Resources\usergroup_16x16.png" />
+    <None Include="Resources\undo_16x16.png" />
     <Content Include="Resources\zip.ico" />
   </ItemGroup>
   <ItemGroup>

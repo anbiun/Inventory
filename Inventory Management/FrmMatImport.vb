@@ -406,8 +406,8 @@ SubUnit:
                         & " delete from tbImportOrder where ImportID ='" & ImportID & "'" _
                         & " delete from tbStock where ImportID ='" & ImportID & "'"
                     dsTbl("del")
-                    BindInfo.Excute()
                     cancelFunc()
+                    deImport.EditValue = gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "ImportDate")
                 End If
         End Select
     End Sub

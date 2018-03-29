@@ -15,28 +15,32 @@ Public Class FrmMatList
 #Region "Function"
     Friend Sub LoadLookUp(NormalMode As Boolean)
         If NormalMode = False Then GoTo lchangeMainLookup
-        'Dim LookUpList() As LookUpEdit = {LookUpCategory}
-        'For Each lu As LookUpEdit In LookUpList
-        '    Dim tbname As String = ""
-        '    With lu.Properties
-        '        Select Case lu.Name
-        '            Case LookUpCategory.Name
-        '                tbname = "tbCategory"
-        '                
-        '        End Select
+        DT = New DataTable
+        With DT
+            .Columns.Add("Stat", GetType(Int32))
+            .Columns.Add("StatName", GetType(String))
+            .Rows.Add(0, "เลิกใช้งาน")
+            .Rows.Add(1, "ใช้งาน")
+        End With
 
-        '        .DataSource = dsTbl(tbname)
-        '        .ValueMember = "รหัส"
-        '        .DisplayMember = "ชื่อ"
-        '        .PopulateColumns()
-        '    End With
-        '    lu.ItemIndex = 0
-        'Next
+        With luStat
+            .Properties.DataSource = DT
+            .Properties.ValueMember = "Stat"
+            .Properties.DisplayMember = "StatName"
+            .Properties.PopulateColumns()
+            .Properties.Columns("StatName").Caption = "สถานะ"
+            .Properties.Columns("Stat").Visible = False
+            .ItemIndex = 0
+        End With
+
         With LookUpCategory
             SQL = "select catID,catName FROM tbCategory"
             .Properties.DataSource = dsTbl("category")
             .Properties.ValueMember = "catID"
             .Properties.DisplayMember = "catName"
+            .Properties.PopulateColumns()
+            .Properties.Columns("catID").Visible = False
+            .Properties.Columns("catName").Caption = "หมวดวัสดุ"
             .ItemIndex = 0
         End With
 
@@ -45,18 +49,23 @@ Public Class FrmMatList
             .Properties.DataSource = dsTbl("product")
             .Properties.ValueMember = "ProductID"
             .Properties.DisplayMember = "ProductName"
+            .Properties.PopulateColumns()
+            .Properties.Columns("ProductID").Visible = False
+            .Properties.Columns("ProductName").Caption = "เบอร์มีด"
             .ItemIndex = 0
         End With
 lchangeMainLookup:
         With LookUpSubCategory
             With .Properties
 
-                SQL = "select SubCatID as 'รหัส', SubCatName as 'ชื่อ' FROM tbsubCategory where catID='" & LookUpCategory.EditValue & "'"
+                SQL = "select SubCatID, SubCatName FROM tbsubCategory where catID='" & LookUpCategory.EditValue & "'"
                 dsTbl("subcat")
                 .DataSource = DS.Tables("subcat")
-                .DisplayMember = "ชื่อ"
-                .ValueMember = "รหัส"
+                .ValueMember = "SubCatID"
+                .DisplayMember = "SubCatName"
                 .PopulateColumns()
+                .Columns("SubCatID").Visible = False
+                .Columns("SubCatName").Caption = "ประเภทวัสดุ"
             End With
             .ItemIndex = 0
         End With
@@ -280,12 +289,12 @@ lchangeMainLookup:
             matWarn As Double = txtWarn.Value,
             matDetail As String = MemoDetail.Text,
             matRatio As Double = txtRatio.Value,
-            ProductID As String = luProduct.EditValue
+            ProductID As String = If(IsDBNull(luProduct.EditValue), "", luProduct.EditValue)
 
 
         Select Case ModeAddEdit
             Case BtnAddItem.Name
-                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,QtyPerUnit,Ratio,Warn,ProductID) " _
+                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,QtyPerUnit,Ratio,Warn,ProductID,) " _
                     & "values ('" & MatID & "','" & MatName & "','" & matType & "'," _
                     & "'" & matSubType & "','" & matQtyPerUnit & "','" & matRatio & "','" & matWarn & "','" & ProductID & "')"
             Case BtnEditItem.Name
@@ -298,6 +307,7 @@ lchangeMainLookup:
                     "QtyPerUnit = '" & matQtyPerUnit & "'," &
                     "Ratio = '" & matRatio & "'," &
                     "Warn = '" & matWarn & "'," &
+                    "Stat = '" & luStat.EditValue & "'," &
                     "ProductID ='" & ProductID & "'" &
                     " where MatID='" & oldMatID & "'"
             Case BtnDeleteItem.Name
@@ -507,6 +517,7 @@ lchangeMainLookup:
 
         oldMatID = GVMain.GetRowCellValue(e.RowHandle, "MatID")
         With GVMain
+            luStat.ItemIndex = .GetFocusedRowCellValue("Stat")
             luProduct.EditValue = .GetFocusedRowCellValue("ProductID")
             TxtMaterialName.Text = .GetFocusedRowCellValue("MatName")
             TxtMaterialID.Text = .GetFocusedRowCellValue("MatID")
@@ -540,6 +551,7 @@ lchangeMainLookup:
         PnlbtnItem.Visible = False
         TxtMaterialID.Enabled = False
         loadLookSearch()
+
     End Sub
     Private Sub TxtIDMaterial_EditValueChanged(sender As Object, e As EventArgs) Handles TxtMaterialID.EditValueChanged
         bc128.Text = TxtMaterialID.Text
