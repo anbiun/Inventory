@@ -198,7 +198,8 @@ Public Class FrmStock
         If gvMain.RowCount <= 0 Then Exit Sub
         gridInfo = New GridCaption(gvMain)
         With gridInfo
-            .HIDE.Columns("warn_month")
+            .HIDE.Columns("Warn_Month")
+            .HIDE.Columns("QCWarn")
             .HIDE.Columns("matID1")
             .HIDE.Columns("matid")
             .HIDE.Columns("productname")
