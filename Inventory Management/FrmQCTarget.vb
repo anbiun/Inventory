@@ -50,6 +50,8 @@ Public Class FrmQCTarget
         pnlSave.Enabled = True
         gvList.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom
         gvList.TopRowIndex = gvList.RowCount
+        gvList.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
+        gvList.FocusedColumn = gvList.VisibleColumns(1)
     End Sub
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
         pnlMenu.Enabled = False
@@ -178,7 +180,7 @@ Public Class FrmQCTarget
     End Sub
     Private Sub gvList_CustomDrawCell(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
         Dim v As GridView = gvList
-        If e.RowHandle < 0 Then Return
+        If e.RowHandle < 0 And e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle Then Return
         If e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle Then
             If v.GetDataRow(e.RowHandle).RowState = DataRowState.Added Then
                 e.Appearance.ForeColor = Color.Green
