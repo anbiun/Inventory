@@ -22,6 +22,7 @@ Public Class FrmQCTarget
             NumberColList.Add(gvList.Columns(month + 1).FieldName)
         Next
         gridInfo.SetFormatNumber(NumberColList.ToArray)
+        gvList.OptionsView.ShowAutoFilterRow = True
     End Sub
     Private Sub FirstQry()
         SQL = "SELECT * FROM tbQCTarget"
@@ -177,7 +178,8 @@ Public Class FrmQCTarget
     End Sub
     Private Sub gvList_CustomDrawCell(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
         Dim v As GridView = gvList
-        If e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle And Not v.IsValidRowHandle(e.RowHandle) Then
+        If e.RowHandle < 0 Then Return
+        If e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle Then
             If v.GetDataRow(e.RowHandle).RowState = DataRowState.Added Then
                 e.Appearance.ForeColor = Color.Green
             ElseIf v.GetRowCellValue(e.RowHandle, e.Column.FieldName).ToString <> DS.Tables("vwqctarget")(e.RowHandle)(e.Column.FieldName).ToString Then

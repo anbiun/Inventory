@@ -399,8 +399,7 @@ SubUnit:
                 ImportID = gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "ImportID")
                 If ImportID = Nothing Then Exit Sub
                 If MessageBox.Show("ยืนยันการลบ ใบรับของเลขที่ : " & gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "BillNo"), "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
-                    SQL = "delete from tbImportDetail where ImportID ='" & ImportID & "'" _
-                        & " delete from tbImportList where ImportID ='" & ImportID & "'" _
+                    SQL = " delete from tbImportList where ImportID ='" & ImportID & "'" _
                         & " delete from tbImportOrder where ImportID ='" & ImportID & "'" _
                         & " delete from tbStock where ImportID ='" & ImportID & "'"
                     dsTbl("del")
