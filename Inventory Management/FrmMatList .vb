@@ -540,9 +540,12 @@ lchangeMainLookup:
         If e.Column.FieldName = "Stat" AndAlso e.RowHandle >= 0 Then
             If e.CellValue = 0 Then
                 e.DisplayText = getString("matStat0")
+                e.Appearance.ForeColor = Color.Gainsboro
             ElseIf e.CellValue = 1 Then
                 e.DisplayText = getString("matStat1")
             End If
+        ElseIf e.Column.FieldName = "Warn" AndAlso e.RowHandle >= 0 Then
+            e.DisplayText = e.CellValue & " เดือน"
         End If
 
     End Sub

@@ -94,14 +94,12 @@ SubUnit:
     End Function
     Private Sub SumUnit()
         Dim gvDes As GridView
-        'gvSrc = gvImportDetail
         gvDes = gvImportOrder
         Dim unit1Sum, unit3Sum As Double
 
         For rw As Integer = 0 To gvDes.RowCount - 1
             If MatID = gvDes.GetRowCellValue(rw, "MatID") Then
                 With gvDes
-                    '.SetRowCellValue(rw, "PriceSum", unit3Sum * gvDes.GetRowCellValue(rw, "Price"))
                     .SetRowCellValue(rw, "Unit1_Sum", unit1Sum)
                     .SetRowCellValue(rw, "Unit3_Sum", unit3Sum)
                 End With

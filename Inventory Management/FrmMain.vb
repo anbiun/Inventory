@@ -96,8 +96,8 @@ Public Class FrmMain
     Private Sub btnLogs_Transfer_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnLogs_Transfer.ItemClick
         showFrom(FrmLogs_Transfer)
     End Sub
-    Private Sub btnProduct_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnProduct.ItemClick
-        FmgQCTarget.Show()
+    Private Sub btnProduct_ItemClick(sender As Object, e As ItemClickEventArgs) Handles btnQCTarget.ItemClick
+        FrmQCTarget.Show()
     End Sub
     Private Sub SetTabSize()
         'Dim laf As UserLookAndFeel = Me.LookAndFeel

@@ -67,7 +67,7 @@ Partial Class FrmMain
         Me.btnLogs_Import = New DevExpress.XtraBars.BarButtonItem()
         Me.btn_ListTag = New DevExpress.XtraBars.BarButtonItem()
         Me.btnLogs_Transfer = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnProduct = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnQCTarget = New DevExpress.XtraBars.BarButtonItem()
         Me.btnUserMng = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection(Me.components)
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
@@ -96,7 +96,7 @@ Partial Class FrmMain
         Me.ribbonControl.BackColor = System.Drawing.SystemColors.Window
         Me.ribbonControl.ExpandCollapseItem.Id = 0
         Me.ribbonControl.Images = Me.ribbonImageCollection
-        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.lblLoginDetail, Me.siInfo, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.BBIMaterialList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.Time, Me.btnMatStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnCF, Me.btnPrintTag, Me.btnFmgRequisition, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnProduct, Me.btnUserMng})
+        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.lblLoginDetail, Me.siInfo, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.BBIMaterialList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.Time, Me.btnMatStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnCF, Me.btnPrintTag, Me.btnFmgRequisition, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnQCTarget, Me.btnUserMng})
         Me.ribbonControl.LargeImages = Me.ribbonImageCollectionLarge
         Me.ribbonControl.Location = New System.Drawing.Point(0, 0)
         Me.ribbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -421,13 +421,13 @@ Partial Class FrmMain
         Me.btnLogs_Transfer.ImageOptions.LargeImage = CType(resources.GetObject("btnLogs_Transfer.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnLogs_Transfer.Name = "btnLogs_Transfer"
         '
-        'btnProduct
+        'btnQCTarget
         '
-        Me.btnProduct.Caption = "เป้าผลิต"
-        Me.btnProduct.Id = 82
-        Me.btnProduct.ImageOptions.Image = CType(resources.GetObject("btnProduct.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnProduct.ImageOptions.LargeImage = CType(resources.GetObject("btnProduct.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnProduct.Name = "btnProduct"
+        Me.btnQCTarget.Caption = "เป้าผลิต"
+        Me.btnQCTarget.Id = 82
+        Me.btnQCTarget.ImageOptions.Image = CType(resources.GetObject("btnProduct.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnQCTarget.ImageOptions.LargeImage = CType(resources.GetObject("btnProduct.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnQCTarget.Name = "btnQCTarget"
         '
         'btnUserMng
         '
@@ -493,7 +493,7 @@ Partial Class FrmMain
         Me.ribGrpSetting.ItemLinks.Add(Me.btnUnitManager)
         Me.ribGrpSetting.ItemLinks.Add(Me.btnSupplier)
         Me.ribGrpSetting.ItemLinks.Add(Me.btnSubMat)
-        Me.ribGrpSetting.ItemLinks.Add(Me.btnProduct)
+        Me.ribGrpSetting.ItemLinks.Add(Me.btnQCTarget)
         Me.ribGrpSetting.Name = "ribGrpSetting"
         Me.ribGrpSetting.Text = "ตั้งค่าข้อมูล"
         '
@@ -603,6 +603,6 @@ Partial Class FrmMain
     Friend WithEvents btnLogs_Transfer As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup1 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents XtraTabbedMdiManager1 As DevExpress.XtraTabbedMdi.XtraTabbedMdiManager
-    Friend WithEvents btnProduct As BarButtonItem
+    Friend WithEvents btnQCTarget As BarButtonItem
     Friend WithEvents btnUserMng As BarButtonItem
 End Class

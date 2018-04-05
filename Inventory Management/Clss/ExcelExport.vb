@@ -4,7 +4,6 @@ Imports DevExpress.XtraGrid.Columns
 Imports System.ComponentModel
 Namespace export
     Public Class ExcelExport
-
         Private _TemplateFile As String
         Public Datasource As New DataTable
         Public Gridsource As New DevExpress.XtraGrid.Views.Grid.GridView
@@ -209,11 +208,13 @@ Namespace export
                         Next
                         bw.ReportProgress(gvRow)
                     Next
+                    xlWorkSheet.Protect("1234")
 
                     'xlWorkSheet.Columns.EntireColumn.AutoFit()
                     'xlRange = CType(xlWorkSheet.Cells.Range("A1:C1,E1:L1"), Excel.Range)
-                    xlRange.EntireColumn.AutoFit()
+                    'xlRange.EntireColumn.AutoFit()
                     xlApp.ScreenUpdating = True
+
                     xlWorkBook.SaveAs(SavePath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue)
                     xlWorkBook.Close(True, misValue, misValue)
                     xlApp.Quit()

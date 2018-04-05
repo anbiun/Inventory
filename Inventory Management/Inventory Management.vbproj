@@ -461,6 +461,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PrintRibbonControllerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="FrmQCTarget.Designer.vb">
+      <DependentUpon>FrmQCTarget.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmQCTarget.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dlgProgress.resx">
@@ -471,6 +477,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmQCTarget.resx">
+      <DependentUpon>FrmQCTarget.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logs\FrmLogs_Import.resx">
       <DependentUpon>FrmLogs_Import.vb</DependentUpon>
@@ -534,7 +543,6 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
