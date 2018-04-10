@@ -235,6 +235,7 @@ Public Class FrmStock
     Dim sizeH As Integer = 0
     Private Sub FrmStock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadSuccess = False
+
         SQL = "SELECT CatID,CatName FROM tbCategory"
         With slCat.Properties
             .DataSource = dsTbl("cat")
@@ -532,6 +533,29 @@ Public Class FrmStock
                 infox.ContextImageAlignment = ContextImageAlignment.Far
                 infox.CalcViewInfo()
             End If
+        End If
+    End Sub
+
+    Private Sub ExpandableSplitter1_Click(sender As Object, e As EventArgs) Handles ExpandableSplitter1.Click
+        If ExpandableSplitter1.Expanded = False Then
+            Dim Uid As String = InputBox("input Admin User", "Access request")
+            Dim Upwd As String = InputBox("input Admin Password", "Access request")
+            FoundRow = DS.Tables("login").Select("UserID='" & Uid & "' AND UserPwd='" & Upwd & "'")
+            If FoundRow.Count <= 0 Then
+                ExpandableSplitter1.Expanded = False
+                Return
+            Else
+                ExpandableSplitter1.Expanded = True
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbStat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbStat.SelectedIndexChanged
+        If cbStat.SelectedValue = 0 Then
+            lbU1.Text = 0
+            lbU2.Text = 0
+            lbU3.Text = 0
         End If
     End Sub
 End Class

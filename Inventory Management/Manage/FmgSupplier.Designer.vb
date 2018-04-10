@@ -262,7 +262,7 @@ Partial Class FmgSupplier
         Me.Controls.Add(Me.gcList)
         Me.Controls.Add(Me.tabControl)
         Me.Controls.Add(Me.PanelControl1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "FmgSupplier"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ข้อมูลผู้ขาย"

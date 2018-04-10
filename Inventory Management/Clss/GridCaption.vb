@@ -71,9 +71,9 @@ Public Class GridCaption
 
         For Each items As String In ColumnsList
             GridViewName.Columns(items).DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-            'GridViewName.Columns(items).DisplayFormat.FormatString = If(String.IsNullOrEmpty(FormatString), "#,0.0", FormatString)
             GridViewName.Columns(items).DisplayFormat.FormatString = If(String.IsNullOrEmpty(FormatString), "{0:n1}", FormatString)
         Next
+
     End Sub
 
 End Class

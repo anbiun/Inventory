@@ -294,7 +294,7 @@ lchangeMainLookup:
 
         Select Case ModeAddEdit
             Case BtnAddItem.Name
-                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,QtyPerUnit,Ratio,Warn,ProductID,) " _
+                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,QtyPerUnit,Ratio,Warn,ProductID) " _
                     & "values ('" & MatID & "','" & MatName & "','" & matType & "'," _
                     & "'" & matSubType & "','" & matQtyPerUnit & "','" & matRatio & "','" & matWarn & "','" & ProductID & "')"
             Case BtnEditItem.Name
@@ -313,6 +313,7 @@ lchangeMainLookup:
             Case BtnDeleteItem.Name
                 MessageBox.Show("ลบข้อมูลแล้ว", "ลบข้อมูลเสร็จสมบูรณ์", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Select
+        Dim abc As String
         dsTbl("btnProcessItem")
         PnlSave.Visible = False
         PnlbtnItem.Visible = True

@@ -7,6 +7,8 @@ Imports DevExpress.XtraGrid.Views.Grid
 Public Class FrmQCTarget
     Friend dtQCTarget As DataTable
     Private Sub LoadDef()
+        pnlSave.Enabled = False
+
         FirstQry()
         'assign datasource
         gcList.DataSource = dtQCTarget
@@ -23,6 +25,7 @@ Public Class FrmQCTarget
         Next
         gridInfo.SetFormatNumber(NumberColList.ToArray)
         gvList.OptionsView.ShowAutoFilterRow = True
+
     End Sub
     Private Sub FirstQry()
         SQL = "SELECT * FROM tbQCTarget"
@@ -31,6 +34,7 @@ Public Class FrmQCTarget
     End Sub
     Private Sub FrmQCTarget_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadSuccess = False
+
         LoadDef()
         loadSuccess = True
     End Sub
@@ -184,7 +188,7 @@ Public Class FrmQCTarget
         If e.RowHandle <> DevExpress.XtraGrid.GridControl.NewItemRowHandle Then
             If v.GetDataRow(e.RowHandle).RowState = DataRowState.Added Then
                 e.Appearance.ForeColor = Color.Green
-            ElseIf v.GetRowCellValue(e.RowHandle, e.Column.FieldName).ToString <> DS.Tables("vwqctarget")(e.RowHandle)(e.Column.FieldName).ToString Then
+            ElseIf v.GetRowCellValue(e.RowHandle, e.Column.FieldName).ToString <> DS.Tables("vwqctarget")(v.GetDataSourceRowIndex(e.RowHandle))(e.Column.FieldName).ToString Then
                 e.Appearance.ForeColor = Color.CornflowerBlue
             Else
                 If AllowEdit = False Then e.Column.OptionsColumn.AllowEdit = False : Return
@@ -194,6 +198,10 @@ Public Class FrmQCTarget
     End Sub
     Private Sub gvList_Click(sender As Object, e As EventArgs) Handles gvList.Click
         CType(sender, GridView).ShowEditor()
+    End Sub
+
+    Private Sub gvList_RowCellClick(sender As Object, e As RowCellClickEventArgs) Handles gvList.RowCellClick
+        FrmMain.bsiDebug.Caption = "Handle : " & e.RowHandle
     End Sub
 
 #End Region

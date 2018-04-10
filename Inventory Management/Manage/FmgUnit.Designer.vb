@@ -541,7 +541,7 @@ Partial Class FmgUnit
         Me.Controls.Add(Me.gcList)
         Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.tabControl)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "FmgUnit"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ตั้งค่าหน่วยการใช้งาน"

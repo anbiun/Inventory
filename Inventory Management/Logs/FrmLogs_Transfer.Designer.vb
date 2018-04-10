@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmLogs_Transfer
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmLogs_Transfer
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogs_Transfer))
         Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
@@ -317,7 +317,9 @@ Partial Class FrmLogs_Transfer
         Me.gvList.Appearance.DetailTip.Options.UseFont = True
         Me.gvList.Appearance.Empty.Font = New System.Drawing.Font("Tahoma", 10.2!)
         Me.gvList.Appearance.Empty.Options.UseFont = True
+        Me.gvList.Appearance.EvenRow.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.gvList.Appearance.EvenRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.EvenRow.Options.UseBackColor = True
         Me.gvList.Appearance.EvenRow.Options.UseFont = True
         Me.gvList.Appearance.FilterCloseButton.Font = New System.Drawing.Font("Tahoma", 10.2!)
         Me.gvList.Appearance.FilterCloseButton.Options.UseFont = True
@@ -345,7 +347,9 @@ Partial Class FrmLogs_Transfer
         Me.gvList.Appearance.HideSelectionRow.Options.UseFont = True
         Me.gvList.Appearance.HorzLine.Font = New System.Drawing.Font("Tahoma", 10.2!)
         Me.gvList.Appearance.HorzLine.Options.UseFont = True
+        Me.gvList.Appearance.OddRow.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.gvList.Appearance.OddRow.Font = New System.Drawing.Font("Tahoma", 10.2!)
+        Me.gvList.Appearance.OddRow.Options.UseBackColor = True
         Me.gvList.Appearance.OddRow.Options.UseFont = True
         Me.gvList.Appearance.Preview.Font = New System.Drawing.Font("Tahoma", 10.2!)
         Me.gvList.Appearance.Preview.Options.UseFont = True

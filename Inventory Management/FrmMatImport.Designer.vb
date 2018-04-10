@@ -251,7 +251,7 @@ Partial Class FrmMatImport
         'btnRemove
         '
         Me.btnRemove.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnRemove.ImageOptions.Image = CType(resources.GetObject("btnRemove.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnRemove.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.backward_16x16
         Me.btnRemove.Location = New System.Drawing.Point(153, 249)
         Me.btnRemove.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRemove.Name = "btnRemove"
@@ -282,7 +282,7 @@ Partial Class FrmMatImport
         'btnAdd
         '
         Me.btnAdd.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.forward_16x161
         Me.btnAdd.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
         Me.btnAdd.Location = New System.Drawing.Point(153, 214)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(4)
@@ -304,7 +304,7 @@ Partial Class FrmMatImport
         'lblLastTag
         '
         Me.lblLastTag.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastTag.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblLastTag.Appearance.ForeColor = System.Drawing.Color.DodgerBlue
         Me.lblLastTag.Appearance.Options.UseFont = True
         Me.lblLastTag.Appearance.Options.UseForeColor = True
         Me.lblLastTag.Appearance.Options.UseTextOptions = True
@@ -410,11 +410,12 @@ Partial Class FrmMatImport
         Me.BtnSave.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnSave.Appearance.Options.UseFont = True
         Me.BtnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.BtnSave.ImageOptions.Image = CType(resources.GetObject("BtnSave.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnSave.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.download_32x32
+        Me.BtnSave.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
         Me.BtnSave.Location = New System.Drawing.Point(192, 4)
         Me.BtnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnSave.Name = "BtnSave"
-        Me.BtnSave.Size = New System.Drawing.Size(169, 35)
+        Me.BtnSave.Size = New System.Drawing.Size(168, 35)
         Me.BtnSave.TabIndex = 12
         Me.BtnSave.Text = "บันทึก"
         '
@@ -477,12 +478,12 @@ Partial Class FrmMatImport
         Me.BtnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnNew.Appearance.Options.UseFont = True
         Me.BtnNew.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.BtnNew.ImageOptions.Image = CType(resources.GetObject("BtnNew.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnNew.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.forward_16x161
         Me.BtnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
         Me.BtnNew.Location = New System.Drawing.Point(153, 227)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnNew.Name = "BtnNew"
-        Me.BtnNew.Size = New System.Drawing.Size(206, 32)
+        Me.BtnNew.Size = New System.Drawing.Size(206, 27)
         Me.BtnNew.TabIndex = 4
         Me.BtnNew.Text = "เพิ่มรายการ"
         '
@@ -601,7 +602,7 @@ Partial Class FrmMatImport
         Me.gcImportList.MainView = Me.gvImportList
         Me.gcImportList.Margin = New System.Windows.Forms.Padding(4)
         Me.gcImportList.Name = "gcImportList"
-        Me.gcImportList.Size = New System.Drawing.Size(759, 213)
+        Me.gcImportList.Size = New System.Drawing.Size(759, 227)
         Me.gcImportList.TabIndex = 8
         Me.gcImportList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvImportList, Me.GridView2})
         '
@@ -665,7 +666,7 @@ Partial Class FrmMatImport
         Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupControl1.Location = New System.Drawing.Point(378, 0)
         Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(763, 242)
+        Me.GroupControl1.Size = New System.Drawing.Size(763, 256)
         Me.GroupControl1.TabIndex = 19
         Me.GroupControl1.Text = "ข้อมูลใบรับของ"
         '
@@ -678,9 +679,9 @@ Partial Class FrmMatImport
         Me.GroupControl2.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl2.Controls.Add(Me.gcImportOrder)
         Me.GroupControl2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupControl2.Location = New System.Drawing.Point(378, 242)
+        Me.GroupControl2.Location = New System.Drawing.Point(378, 256)
         Me.GroupControl2.Name = "GroupControl2"
-        Me.GroupControl2.Size = New System.Drawing.Size(763, 508)
+        Me.GroupControl2.Size = New System.Drawing.Size(763, 494)
         Me.GroupControl2.TabIndex = 20
         Me.GroupControl2.Text = "รายการในใบรับของ"
         '
@@ -690,7 +691,7 @@ Partial Class FrmMatImport
         Me.gcImportOrder.Location = New System.Drawing.Point(2, 27)
         Me.gcImportOrder.MainView = Me.gvImportOrder
         Me.gcImportOrder.Name = "gcImportOrder"
-        Me.gcImportOrder.Size = New System.Drawing.Size(759, 479)
+        Me.gcImportOrder.Size = New System.Drawing.Size(759, 465)
         Me.gcImportOrder.TabIndex = 9
         Me.gcImportOrder.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvImportOrder})
         '
@@ -700,7 +701,6 @@ Partial Class FrmMatImport
         Me.gvImportOrder.GridControl = Me.gcImportOrder
         Me.gvImportOrder.Name = "gvImportOrder"
         Me.gvImportOrder.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
-        Me.gvImportOrder.OptionsFind.AlwaysVisible = True
         Me.gvImportOrder.OptionsView.ColumnAutoWidth = False
         Me.gvImportOrder.OptionsView.ShowGroupPanel = False
         '
