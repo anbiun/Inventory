@@ -17,6 +17,7 @@ Public Class FrmLogin
         ctrVisible.Add(comboloc)
         ctrVisible.Add(lbLoc)
         ctrVisible.Add(WinUIPanel)
+        ctrVisible.Add(lbChangePwd)
 
         ctrEnable.Add(TxtUser)
         ctrEnable.Add(TxtPassword)
@@ -114,10 +115,12 @@ readVer:
                 .DisplayMember = "LocName"
                 .ValueMember = "LocID"
             End With
-            'BtnOK.Text = "ตกลง"
+
         Else
             LoadDef()
         End If
+        'change pwd enable
+        lbChangePwd.Visible = If(UserInfo.Stat > 0, True, False)
         loadSuccess = True
     End Sub
     Private Sub FrmLogin_Close(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -157,5 +160,29 @@ readVer:
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         UserInfo.Login()
         showSelectLoc()
+    End Sub
+    Private Sub lbChangePwd_Click(sender As Object, e As EventArgs) Handles lbChangePwd.Click
+        Dim newPwd As New String(InputBox("รหัสผ่านใหม่", "เปลี่ยนรหัสผ่าน", String.Empty).ToLower)
+        If String.IsNullOrEmpty(newPwd) Then Return
+
+        Dim cfPwd As New String(String.Empty)
+        If Not cfPwd.Equals(newPwd) Then
+
+            Do Until newPwd.Equals(cfPwd)
+                cfPwd = InputBox("ยืนยันรหัสผ่านใหม่อีกครั้ง", "เปลี่ยนรหัสผ่าน", String.Empty).ToLower()
+                If String.IsNullOrEmpty(cfPwd) Then Return
+            Loop
+        End If
+        If Not String.IsNullOrEmpty(cfPwd) AndAlso newPwd.Equals(cfPwd) Then
+            SQL = "UPDATE tbLogin SET UserPwd='" & cfPwd & "'
+                   WHERE UserID='" & UserInfo.UserID & "'"
+            dsTbl("update")
+            MessageBox.Show("เปลี่ยนรหัสผ่านแล้ว", "เปลี่ยนรหัสผ่าน", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            LoadDef()
+            TxtUser.Text = UserInfo.UserID
+            TxtPassword.Select()
+        Else
+            Return
+        End If
     End Sub
 End Class
