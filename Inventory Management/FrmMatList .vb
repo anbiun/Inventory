@@ -313,7 +313,6 @@ lchangeMainLookup:
             Case BtnDeleteItem.Name
                 MessageBox.Show("ลบข้อมูลแล้ว", "ลบข้อมูลเสร็จสมบูรณ์", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Select
-        Dim abc As String
         dsTbl("btnProcessItem")
         PnlSave.Visible = False
         PnlbtnItem.Visible = True
