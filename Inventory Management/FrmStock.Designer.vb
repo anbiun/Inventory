@@ -46,7 +46,7 @@ Partial Class FrmStock
         Me.gcMain = New DevExpress.XtraGrid.GridControl()
         Me.gvMain = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.lastStock = New DevExpress.XtraEditors.GroupControl()
-        Me.ExpandableSplitter1 = New DevComponents.DotNetBar.ExpandableSplitter()
+        Me.expandAdjust = New DevComponents.DotNetBar.ExpandableSplitter()
         Me.pnlRight = New System.Windows.Forms.Panel()
         Me.GroupControl2 = New DevExpress.XtraEditors.GroupControl()
         Me.grpAdjust = New DevExpress.XtraEditors.GroupControl()
@@ -307,7 +307,7 @@ Partial Class FrmStock
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Controls.Add(Me.ExpandableSplitter1)
+        Me.Panel1.Controls.Add(Me.expandAdjust)
         Me.Panel1.Controls.Add(Me.pnlRight)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(241, 0)
@@ -415,42 +415,42 @@ Partial Class FrmStock
         Me.lastStock.TabIndex = 15
         Me.lastStock.Text = "ข้อมูล ณ ปัจจุบัน ตัด Stock ถึงวันที่ :"
         '
-        'ExpandableSplitter1
+        'expandAdjust
         '
-        Me.ExpandableSplitter1.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.ExpandableSplitter1.BackColor2 = System.Drawing.Color.Empty
-        Me.ExpandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.None
-        Me.ExpandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
-        Me.ExpandableSplitter1.Cursor = System.Windows.Forms.Cursors.NoMoveHoriz
-        Me.ExpandableSplitter1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ExpandableSplitter1.ExpandableControl = Me.pnlRight
-        Me.ExpandableSplitter1.Expanded = False
-        Me.ExpandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(254, Byte), Integer), CType(CType(142, Byte), Integer), CType(CType(75, Byte), Integer))
-        Me.ExpandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground
-        Me.ExpandableSplitter1.ExpandLineColor = System.Drawing.Color.White
-        Me.ExpandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
-        Me.ExpandableSplitter1.GripDarkColor = System.Drawing.Color.White
-        Me.ExpandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
-        Me.ExpandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer))
-        Me.ExpandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground
-        Me.ExpandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(140, Byte), Integer))
-        Me.ExpandableSplitter1.HotBackColor2 = System.Drawing.Color.Empty
-        Me.ExpandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.None
-        Me.ExpandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemCheckedBackground
-        Me.ExpandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(254, Byte), Integer), CType(CType(142, Byte), Integer), CType(CType(75, Byte), Integer))
-        Me.ExpandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground
-        Me.ExpandableSplitter1.HotExpandLineColor = System.Drawing.Color.Empty
-        Me.ExpandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
-        Me.ExpandableSplitter1.HotGripDarkColor = System.Drawing.Color.Empty
-        Me.ExpandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
-        Me.ExpandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer))
-        Me.ExpandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground
-        Me.ExpandableSplitter1.Location = New System.Drawing.Point(1029, 0)
-        Me.ExpandableSplitter1.Name = "ExpandableSplitter1"
-        Me.ExpandableSplitter1.Size = New System.Drawing.Size(23, 653)
-        Me.ExpandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Mozilla
-        Me.ExpandableSplitter1.TabIndex = 11
-        Me.ExpandableSplitter1.TabStop = False
+        Me.expandAdjust.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.expandAdjust.BackColor2 = System.Drawing.Color.Empty
+        Me.expandAdjust.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.expandAdjust.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.expandAdjust.Cursor = System.Windows.Forms.Cursors.NoMoveHoriz
+        Me.expandAdjust.Dock = System.Windows.Forms.DockStyle.Right
+        Me.expandAdjust.ExpandableControl = Me.pnlRight
+        Me.expandAdjust.Expanded = False
+        Me.expandAdjust.ExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(254, Byte), Integer), CType(CType(142, Byte), Integer), CType(CType(75, Byte), Integer))
+        Me.expandAdjust.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground
+        Me.expandAdjust.ExpandLineColor = System.Drawing.Color.White
+        Me.expandAdjust.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.expandAdjust.GripDarkColor = System.Drawing.Color.White
+        Me.expandAdjust.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.expandAdjust.GripLightColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer))
+        Me.expandAdjust.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground
+        Me.expandAdjust.HotBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(140, Byte), Integer))
+        Me.expandAdjust.HotBackColor2 = System.Drawing.Color.Empty
+        Me.expandAdjust.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.expandAdjust.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemCheckedBackground
+        Me.expandAdjust.HotExpandFillColor = System.Drawing.Color.FromArgb(CType(CType(254, Byte), Integer), CType(CType(142, Byte), Integer), CType(CType(75, Byte), Integer))
+        Me.expandAdjust.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground
+        Me.expandAdjust.HotExpandLineColor = System.Drawing.Color.Empty
+        Me.expandAdjust.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.expandAdjust.HotGripDarkColor = System.Drawing.Color.Empty
+        Me.expandAdjust.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.None
+        Me.expandAdjust.HotGripLightColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer))
+        Me.expandAdjust.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground
+        Me.expandAdjust.Location = New System.Drawing.Point(1029, 0)
+        Me.expandAdjust.Name = "expandAdjust"
+        Me.expandAdjust.Size = New System.Drawing.Size(23, 653)
+        Me.expandAdjust.Style = DevComponents.DotNetBar.eSplitterStyle.Mozilla
+        Me.expandAdjust.TabIndex = 11
+        Me.expandAdjust.TabStop = False
         '
         'pnlRight
         '
@@ -846,6 +846,7 @@ Partial Class FrmStock
         Me.ClientSize = New System.Drawing.Size(1293, 653)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.GroupControl1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmStock"
         Me.Text = "วัสดุคงคลัง ณ ปัจจุบัน"
         CType(Me.gcAdjust, System.ComponentModel.ISupportInitialize).EndInit()
@@ -900,7 +901,7 @@ Partial Class FrmStock
     Friend WithEvents Panel1 As Panel
     Friend WithEvents pnlRight As Panel
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents ExpandableSplitter1 As DevComponents.DotNetBar.ExpandableSplitter
+    Friend WithEvents expandAdjust As DevComponents.DotNetBar.ExpandableSplitter
     Friend WithEvents GroupControl2 As DevExpress.XtraEditors.GroupControl
     Friend WithEvents lastStock As DevExpress.XtraEditors.GroupControl
     Friend WithEvents txtUnit2 As DevExpress.XtraEditors.SpinEdit

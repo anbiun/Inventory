@@ -69,8 +69,6 @@ Public Class FrmLogs_Transfer
                                                                     Return Result
                                                                 End Function
 
-
-
         If clbSubCat.CheckedItemsCount = 0 Or clbLoc.CheckedItemsCount = 0 Then Exit Sub
 
         With gcList
@@ -98,8 +96,6 @@ Public Class FrmLogs_Transfer
         End With
         With gvList
             If gvList.RowCount < 1 Then Exit Sub
-            '.Columns("SaveDate").DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
-            '.Columns("SaveDate").DisplayFormat.FormatString = "dd-MM-yyyy H:mm:ss"
             .OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.True
             .Columns("DateTransfer").Group()
             .Columns("LocSrc_Name").Group()
@@ -115,7 +111,6 @@ Public Class FrmLogs_Transfer
             .BestFitColumns()
             .TopRowIndex = 0
         End With
-        gvList.BestFitColumns()
     End Sub
     Private Sub Cell_CustomDraw(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
         If e.Column.FieldName = "LocDest_Name" Then
@@ -128,24 +123,27 @@ Public Class FrmLogs_Transfer
                 infox.CalcViewInfo()
             End If
         End If
-    End Sub
-    Private Sub Cell_CustomColumnDisplay(ByVal sender As Object,
- ByVal e As CustomColumnDisplayTextEventArgs) Handles gvList.CustomColumnDisplayText
+
         If e.Column.FieldName = "ApproveStat" Then
-            If IsNumeric(e.Value) AndAlso e.Value = 1 Then
+            If IsNumeric(e.CellValue) AndAlso e.CellValue = 1 Then
                 e.DisplayText = getString("apvstat1")
-            ElseIf IsNumeric(e.Value) AndAlso e.Value = 2 Then
+            ElseIf IsNumeric(e.CellValue) AndAlso e.CellValue = 2 Then
                 e.DisplayText = getString("apvstat2")
-            ElseIf IsNumeric(e.Value) AndAlso e.Value = 3 Then
+            ElseIf IsNumeric(e.CellValue) AndAlso e.CellValue = 3 Then
                 e.DisplayText = getString("apvstat3")
-            ElseIf IsNumeric(e.Value) AndAlso e.Value = 0 Then
+            ElseIf IsNumeric(e.CellValue) AndAlso e.CellValue = 0 Then
                 e.DisplayText = getString("apvstat0")
             End If
         End If
     End Sub
     Public Sub Cell_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles gvList.RowStyle
+        If Not IsNumeric(CType(sender, GridView).GetRowCellValue(e.RowHandle, "ApproveStat")) Then Return
         Dim ApproveStat As Integer = CInt(If(IsDBNull(sender.GetRowCellValue(e.RowHandle, "ApproveStat")), 0, sender.GetRowCellValue(e.RowHandle, "ApproveStat")))
         If ApproveStat = 1 Then
+            Return
+        ElseIf ApproveStat = 0 Then
+            Dim MyCol As New Colorlist
+            e.Appearance.ForeColor = MyCol.SoftBlue
             Return
         End If
         ApInfo.RowStyle(sender, e)
@@ -154,5 +152,28 @@ Public Class FrmLogs_Transfer
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck, clbLoc.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub
+    Private Sub BtnDel_Click(sender As Object, e As EventArgs) Handles BtnDel.Click
+        Dim v As GridView = gvList
+        Dim TransferNo As String = v.GetRowCellValue(v.FocusedRowHandle, "TransferNo")
+        Dim Stat As String = v.GetRowCellValue(v.FocusedRowHandle, "ApproveStat")
+        If IsNumeric(Stat) AndAlso Stat = 0 AndAlso Not String.IsNullOrEmpty(TransferNo) Then
+            If MessageBox.Show("ยืนยันการลบรายการโอนย้ายเลขที่ " & TransferNo & " หรือไม่ ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+
+                SQL = "DELETE FROM tbTransfer_Detail
+                        FROM tbTransfer_Detail tfde 
+                        INNER JOIN tbTransfer tf ON tf.TransferID = tfde.TransferID
+                        WHERE tf.TransferNo = '" & TransferNo & "'"
+                SQL &= " DELETE FROM tbTransfer WHERE TransferNo ='" & TransferNo & "'"
+                dsTbl("delTransfer")
+            Else
+                Return
+            End If
+            btnSearch.PerformClick()
+        Else
+            MessageBox.Show("ไม่สามารถยกเลิกรายการที่ตรวจรับแล้ว กรุณาทำการโอนย้ายกลับหรือติดต่อผู้ดูแล", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+    End Sub
+
 
 End Class

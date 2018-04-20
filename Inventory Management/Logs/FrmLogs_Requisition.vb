@@ -156,12 +156,6 @@ Public Class FrmLogs_Requisition
             .TopRowIndex = 0
         End With
     End Sub
-    'private void gridView1_CustomDrawFooterCell(object sender, FooterCellCustomDrawEventArgs e) {
-    '        if(e.Column.FieldName == "Count")
-    '            e.Appearance.TextOptions.HAlignment = HorzAlignment.Near;
-    '        if(e.Column.FieldName == "Price")
-    '            e.Appearance.TextOptions.HAlignment = HorzAlignment.Far;
-    '    }
     Private Sub customDraw(sender As Object, e As FooterCellCustomDrawEventArgs) Handles gvList.CustomDrawFooterCell
         If e.Column.FieldName = "Unit1" Then
             e.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near

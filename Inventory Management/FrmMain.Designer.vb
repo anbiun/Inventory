@@ -38,8 +38,8 @@ Partial Class FrmMain
         Me.ribbonImageCollection = New DevExpress.Utils.ImageCollection(Me.components)
         Me.iClose = New DevExpress.XtraBars.BarButtonItem()
         Me.iAbout = New DevExpress.XtraBars.BarButtonItem()
-        Me.lblLoginDetail = New DevExpress.XtraBars.BarStaticItem()
-        Me.siInfo = New DevExpress.XtraBars.BarStaticItem()
+        Me.bsiLogin = New DevExpress.XtraBars.BarStaticItem()
+        Me.bsiServer = New DevExpress.XtraBars.BarStaticItem()
         Me.alignButtonGroup = New DevExpress.XtraBars.BarButtonGroup()
         Me.iBoldFontStyle = New DevExpress.XtraBars.BarButtonItem()
         Me.iItalicFontStyle = New DevExpress.XtraBars.BarButtonItem()
@@ -49,25 +49,25 @@ Partial Class FrmMain
         Me.iCenterTextAlign = New DevExpress.XtraBars.BarButtonItem()
         Me.iRightTextAlign = New DevExpress.XtraBars.BarButtonItem()
         Me.rgbiSkins = New DevExpress.XtraBars.RibbonGalleryBarItem()
-        Me.BBIMaterialList = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMatList = New DevExpress.XtraBars.BarButtonItem()
         Me.btnLogOut = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMatImport = New DevExpress.XtraBars.BarButtonItem()
         Me.btnRequsition = New DevExpress.XtraBars.BarButtonItem()
-        Me.Time = New DevExpress.XtraBars.BarStaticItem()
-        Me.btnMatStock = New DevExpress.XtraBars.BarButtonItem()
+        Me.bsiDebug = New DevExpress.XtraBars.BarStaticItem()
+        Me.btnStock = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem3 = New DevExpress.XtraBars.BarButtonItem()
         Me.btnUnitManager = New DevExpress.XtraBars.BarButtonItem()
         Me.btnSupplier = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnCF = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnApprove = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPrintTag = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnFmgRequisition = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnLogs_Req = New DevExpress.XtraBars.BarButtonItem()
         Me.btnSubMat = New DevExpress.XtraBars.BarButtonItem()
         Me.btnTransfer = New DevExpress.XtraBars.BarButtonItem()
         Me.btnLogs_Import = New DevExpress.XtraBars.BarButtonItem()
         Me.btn_ListTag = New DevExpress.XtraBars.BarButtonItem()
         Me.btnLogs_Transfer = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnProduct = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnQCTarget = New DevExpress.XtraBars.BarButtonItem()
         Me.btnUserMng = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection(Me.components)
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
@@ -96,11 +96,11 @@ Partial Class FrmMain
         Me.ribbonControl.BackColor = System.Drawing.SystemColors.Window
         Me.ribbonControl.ExpandCollapseItem.Id = 0
         Me.ribbonControl.Images = Me.ribbonImageCollection
-        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.lblLoginDetail, Me.siInfo, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.BBIMaterialList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.Time, Me.btnMatStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnCF, Me.btnPrintTag, Me.btnFmgRequisition, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnProduct, Me.btnUserMng})
+        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.bsiLogin, Me.bsiServer, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.btnMatList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.bsiDebug, Me.btnStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnApprove, Me.btnPrintTag, Me.btnLogs_Req, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnQCTarget, Me.btnUserMng})
         Me.ribbonControl.LargeImages = Me.ribbonImageCollectionLarge
         Me.ribbonControl.Location = New System.Drawing.Point(0, 0)
         Me.ribbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ribbonControl.MaxItemId = 85
+        Me.ribbonControl.MaxItemId = 86
         Me.ribbonControl.Name = "ribbonControl"
         Me.ribbonControl.PageHeaderItemLinks.Add(Me.iAbout)
         Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1})
@@ -170,23 +170,23 @@ Partial Class FrmMain
         Me.iAbout.ImageOptions.LargeImageIndex = 8
         Me.iAbout.Name = "iAbout"
         '
-        'lblLoginDetail
+        'bsiLogin
         '
-        Me.lblLoginDetail.Caption = "LogInDetail"
-        Me.lblLoginDetail.Id = 31
-        Me.lblLoginDetail.ImageOptions.Image = CType(resources.GetObject("lblLoginDetail.ImageOptions.Image"), System.Drawing.Image)
-        Me.lblLoginDetail.ImageOptions.LargeImage = CType(resources.GetObject("lblLoginDetail.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.lblLoginDetail.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Blue
-        Me.lblLoginDetail.ItemAppearance.Normal.Options.UseForeColor = True
-        Me.lblLoginDetail.Name = "lblLoginDetail"
+        Me.bsiLogin.Caption = "LogInDetail"
+        Me.bsiLogin.Id = 31
+        Me.bsiLogin.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.employee_16x16
+        Me.bsiLogin.ItemAppearance.Normal.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.bsiLogin.ItemAppearance.Normal.Options.UseForeColor = True
+        Me.bsiLogin.Name = "bsiLogin"
         '
-        'siInfo
+        'bsiServer
         '
-        Me.siInfo.Caption = "Some Info"
-        Me.siInfo.Id = 32
-        Me.siInfo.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Maroon
-        Me.siInfo.ItemAppearance.Normal.Options.UseForeColor = True
-        Me.siInfo.Name = "siInfo"
+        Me.bsiServer.Caption = "Some Info"
+        Me.bsiServer.Id = 32
+        Me.bsiServer.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.database_16x16
+        Me.bsiServer.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Goldenrod
+        Me.bsiServer.ItemAppearance.Normal.Options.UseForeColor = True
+        Me.bsiServer.Name = "bsiServer"
         '
         'alignButtonGroup
         '
@@ -266,16 +266,17 @@ Partial Class FrmMain
         Me.rgbiSkins.Id = 60
         Me.rgbiSkins.Name = "rgbiSkins"
         '
-        'BBIMaterialList
+        'btnMatList
         '
-        Me.BBIMaterialList.Caption = "รายการวัสดุ"
-        Me.BBIMaterialList.Id = 64
-        Me.BBIMaterialList.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.document_add32
-        Me.BBIMaterialList.ItemAppearance.Hovered.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.BBIMaterialList.ItemAppearance.Hovered.Options.UseFont = True
-        Me.BBIMaterialList.ItemAppearance.Normal.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.BBIMaterialList.ItemAppearance.Normal.Options.UseFont = True
-        Me.BBIMaterialList.Name = "BBIMaterialList"
+        Me.btnMatList.Caption = "รายการวัสดุ"
+        Me.btnMatList.Id = 64
+        Me.btnMatList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.document_add32
+        Me.btnMatList.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.document_add32
+        Me.btnMatList.ItemAppearance.Hovered.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnMatList.ItemAppearance.Hovered.Options.UseFont = True
+        Me.btnMatList.ItemAppearance.Normal.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.btnMatList.ItemAppearance.Normal.Options.UseFont = True
+        Me.btnMatList.Name = "btnMatList"
         '
         'btnLogOut
         '
@@ -319,20 +320,20 @@ Partial Class FrmMain
         Me.btnRequsition.LargeWidth = 104
         Me.btnRequsition.Name = "btnRequsition"
         '
-        'Time
+        'bsiDebug
         '
-        Me.Time.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right
-        Me.Time.Caption = "Time"
-        Me.Time.Id = 7
-        Me.Time.Name = "Time"
+        Me.bsiDebug.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right
+        Me.bsiDebug.Caption = "debug"
+        Me.bsiDebug.Id = 7
+        Me.bsiDebug.Name = "bsiDebug"
         '
-        'btnMatStock
+        'btnStock
         '
-        Me.btnMatStock.Caption = "วัสดุคงคลัง"
-        Me.btnMatStock.Id = 10
-        Me.btnMatStock.ImageOptions.Image = CType(resources.GetObject("btnMatStock.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnMatStock.ImageOptions.LargeImage = CType(resources.GetObject("btnMatStock.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnMatStock.Name = "btnMatStock"
+        Me.btnStock.Caption = "วัสดุคงคลัง"
+        Me.btnStock.Id = 10
+        Me.btnStock.ImageOptions.Image = CType(resources.GetObject("btnStock.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnStock.ImageOptions.LargeImage = CType(resources.GetObject("btnStock.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnStock.Name = "btnStock"
         '
         'BarButtonItem3
         '
@@ -344,7 +345,8 @@ Partial Class FrmMain
         '
         Me.btnUnitManager.Caption = "ข้อมูลหน่วย"
         Me.btnUnitManager.Id = 69
-        Me.btnUnitManager.ImageOptions.ImageUri.Uri = "Currency"
+        Me.btnUnitManager.ImageOptions.Image = CType(resources.GetObject("btnUnitManager.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnUnitManager.ImageOptions.LargeImage = CType(resources.GetObject("btnUnitManager.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnUnitManager.Name = "btnUnitManager"
         '
         'btnSupplier
@@ -355,12 +357,13 @@ Partial Class FrmMain
         Me.btnSupplier.ImageOptions.LargeImage = CType(resources.GetObject("btnSupplier.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSupplier.Name = "btnSupplier"
         '
-        'btnCF
+        'btnApprove
         '
-        Me.btnCF.Caption = "ตรวจสอบรับเข้า"
-        Me.btnCF.Id = 72
-        Me.btnCF.ImageOptions.ImageUri.Uri = "Zoom100"
-        Me.btnCF.Name = "btnCF"
+        Me.btnApprove.Caption = "ตรวจสอบรับเข้า"
+        Me.btnApprove.Id = 72
+        Me.btnApprove.ImageOptions.Image = CType(resources.GetObject("btnApprove.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnApprove.ImageOptions.LargeImage = CType(resources.GetObject("btnApprove.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnApprove.Name = "btnApprove"
         '
         'btnPrintTag
         '
@@ -371,19 +374,20 @@ Partial Class FrmMain
         Me.btnPrintTag.Name = "btnPrintTag"
         Me.btnPrintTag.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         '
-        'btnFmgRequisition
+        'btnLogs_Req
         '
-        Me.btnFmgRequisition.Caption = "ประวัติเบิกวัสดุ"
-        Me.btnFmgRequisition.Id = 74
-        Me.btnFmgRequisition.ImageOptions.Image = CType(resources.GetObject("btnFmgRequisition.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnFmgRequisition.ImageOptions.LargeImage = CType(resources.GetObject("btnFmgRequisition.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnFmgRequisition.Name = "btnFmgRequisition"
+        Me.btnLogs_Req.Caption = "ประวัติเบิกวัสดุ"
+        Me.btnLogs_Req.Id = 74
+        Me.btnLogs_Req.ImageOptions.Image = CType(resources.GetObject("btnLogs_Req.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnLogs_Req.ImageOptions.LargeImage = CType(resources.GetObject("btnLogs_Req.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnLogs_Req.Name = "btnLogs_Req"
         '
         'btnSubMat
         '
         Me.btnSubMat.Caption = "ข้อมูลเบอร์ร่วม"
         Me.btnSubMat.Id = 76
-        Me.btnSubMat.ImageOptions.ImageUri.Uri = "Squeeze"
+        Me.btnSubMat.ImageOptions.Image = CType(resources.GetObject("btnSubMat.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSubMat.ImageOptions.LargeImage = CType(resources.GetObject("btnSubMat.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSubMat.Name = "btnSubMat"
         '
         'btnTransfer
@@ -421,13 +425,13 @@ Partial Class FrmMain
         Me.btnLogs_Transfer.ImageOptions.LargeImage = CType(resources.GetObject("btnLogs_Transfer.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnLogs_Transfer.Name = "btnLogs_Transfer"
         '
-        'btnProduct
+        'btnQCTarget
         '
-        Me.btnProduct.Caption = "เป้าผลิต"
-        Me.btnProduct.Id = 82
-        Me.btnProduct.ImageOptions.Image = CType(resources.GetObject("btnProduct.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnProduct.ImageOptions.LargeImage = CType(resources.GetObject("btnProduct.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnProduct.Name = "btnProduct"
+        Me.btnQCTarget.Caption = "เป้าผลิต"
+        Me.btnQCTarget.Id = 82
+        Me.btnQCTarget.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.opportunities_16x16
+        Me.btnQCTarget.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.opportunities_32x32
+        Me.btnQCTarget.Name = "btnQCTarget"
         '
         'btnUserMng
         '
@@ -459,7 +463,7 @@ Partial Class FrmMain
         '
         'ribGrpNewSub
         '
-        Me.ribGrpNewSub.ItemLinks.Add(Me.BBIMaterialList)
+        Me.ribGrpNewSub.ItemLinks.Add(Me.btnMatList)
         Me.ribGrpNewSub.Name = "ribGrpNewSub"
         Me.ribGrpNewSub.Text = "เพิ่มข้อมูล"
         '
@@ -467,21 +471,21 @@ Partial Class FrmMain
         '
         Me.ribGrpImport.ItemLinks.Add(Me.btnMatImport)
         Me.ribGrpImport.ItemLinks.Add(Me.btnRequsition)
-        Me.ribGrpImport.ItemLinks.Add(Me.btnCF)
+        Me.ribGrpImport.ItemLinks.Add(Me.btnApprove)
         Me.ribGrpImport.Name = "ribGrpImport"
         Me.ribGrpImport.Text = "นำเข้าวัสดุ/เบิกออก"
         '
         'ribGrpApprove
         '
         Me.ribGrpApprove.ItemLinks.Add(Me.btnTransfer)
-        Me.ribGrpApprove.ItemLinks.Add(Me.btnMatStock)
+        Me.ribGrpApprove.ItemLinks.Add(Me.btnStock)
         Me.ribGrpApprove.ItemLinks.Add(Me.btnPrintTag)
         Me.ribGrpApprove.Name = "ribGrpApprove"
         Me.ribGrpApprove.Text = "ตรวจสอบข้อมูล"
         '
         'RibbonPageGroup1
         '
-        Me.RibbonPageGroup1.ItemLinks.Add(Me.btnFmgRequisition)
+        Me.RibbonPageGroup1.ItemLinks.Add(Me.btnLogs_Req)
         Me.RibbonPageGroup1.ItemLinks.Add(Me.btnLogs_Import)
         Me.RibbonPageGroup1.ItemLinks.Add(Me.btn_ListTag)
         Me.RibbonPageGroup1.ItemLinks.Add(Me.btnLogs_Transfer)
@@ -493,7 +497,7 @@ Partial Class FrmMain
         Me.ribGrpSetting.ItemLinks.Add(Me.btnUnitManager)
         Me.ribGrpSetting.ItemLinks.Add(Me.btnSupplier)
         Me.ribGrpSetting.ItemLinks.Add(Me.btnSubMat)
-        Me.ribGrpSetting.ItemLinks.Add(Me.btnProduct)
+        Me.ribGrpSetting.ItemLinks.Add(Me.btnQCTarget)
         Me.ribGrpSetting.Name = "ribGrpSetting"
         Me.ribGrpSetting.Text = "ตั้งค่าข้อมูล"
         '
@@ -505,9 +509,9 @@ Partial Class FrmMain
         '
         'ribbonStatusBar
         '
-        Me.ribbonStatusBar.ItemLinks.Add(Me.lblLoginDetail)
-        Me.ribbonStatusBar.ItemLinks.Add(Me.siInfo)
-        Me.ribbonStatusBar.ItemLinks.Add(Me.Time)
+        Me.ribbonStatusBar.ItemLinks.Add(Me.bsiLogin)
+        Me.ribbonStatusBar.ItemLinks.Add(Me.bsiServer)
+        Me.ribbonStatusBar.ItemLinks.Add(Me.bsiDebug)
         Me.ribbonStatusBar.Location = New System.Drawing.Point(0, 987)
         Me.ribbonStatusBar.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ribbonStatusBar.Name = "ribbonStatusBar"
@@ -522,11 +526,14 @@ Partial Class FrmMain
         '
         Me.XtraTabbedMdiManager1.AppearancePage.Header.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XtraTabbedMdiManager1.AppearancePage.Header.Options.UseFont = True
-        Me.XtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InAllTabPageHeaders
+        Me.XtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover
         Me.XtraTabbedMdiManager1.FloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabbedMdiManager1.FloatOnDrag = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabbedMdiManager1.FloatPageDragMode = DevExpress.XtraTabbedMdi.FloatPageDragMode.Preview
         Me.XtraTabbedMdiManager1.MdiParent = Me
+        Me.XtraTabbedMdiManager1.PinPageButtonShowMode = DevExpress.XtraTab.PinPageButtonShowMode.InActiveTabPageHeader
+        Me.XtraTabbedMdiManager1.ShowFloatingDropHint = DevExpress.Utils.DefaultBoolean.[True]
+        Me.XtraTabbedMdiManager1.ShowHeaderFocus = DevExpress.Utils.DefaultBoolean.[True]
         '
         'FrmMain
         '
@@ -557,7 +564,7 @@ Partial Class FrmMain
 
     End Sub
     Private WithEvents ribbonControl As DevExpress.XtraBars.Ribbon.RibbonControl
-    Private WithEvents siInfo As DevExpress.XtraBars.BarStaticItem
+    Private WithEvents bsiServer As DevExpress.XtraBars.BarStaticItem
     Private WithEvents iClose As DevExpress.XtraBars.BarButtonItem
     Private WithEvents alignButtonGroup As DevExpress.XtraBars.BarButtonGroup
     Private WithEvents iBoldFontStyle As DevExpress.XtraBars.BarButtonItem
@@ -575,7 +582,7 @@ Partial Class FrmMain
     Private WithEvents ribbonImageCollection As DevExpress.Utils.ImageCollection
     Private WithEvents ribbonImageCollectionLarge As DevExpress.Utils.ImageCollection
     Friend WithEvents RibbonPage1 As DevExpress.XtraBars.Ribbon.RibbonPage
-    Friend WithEvents BBIMaterialList As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnMatList As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents ribGrpNewSub As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents btnLogOut As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup2 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
@@ -584,18 +591,18 @@ Partial Class FrmMain
     Friend WithEvents btnRequsition As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents ribGrpImport As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents delayer As System.Windows.Forms.Timer
-    Friend WithEvents Time As DevExpress.XtraBars.BarStaticItem
+    Friend WithEvents bsiDebug As DevExpress.XtraBars.BarStaticItem
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents btnMatStock As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnStock As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents ribGrpApprove As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents BarButtonItem3 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnUnitManager As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents ribGrpSetting As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents btnSupplier As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents lblLoginDetail As DevExpress.XtraBars.BarStaticItem
-    Friend WithEvents btnCF As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents bsiLogin As DevExpress.XtraBars.BarStaticItem
+    Friend WithEvents btnApprove As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnPrintTag As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents btnFmgRequisition As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnLogs_Req As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnSubMat As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnTransfer As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnLogs_Import As DevExpress.XtraBars.BarButtonItem
@@ -603,6 +610,6 @@ Partial Class FrmMain
     Friend WithEvents btnLogs_Transfer As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup1 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents XtraTabbedMdiManager1 As DevExpress.XtraTabbedMdi.XtraTabbedMdiManager
-    Friend WithEvents btnProduct As BarButtonItem
+    Friend WithEvents btnQCTarget As BarButtonItem
     Friend WithEvents btnUserMng As BarButtonItem
 End Class

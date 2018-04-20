@@ -84,7 +84,7 @@ Partial Class FrmRequisition
         'GroupControl3
         '
         Me.GroupControl3.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupControl3.AppearanceCaption.ForeColor = System.Drawing.Color.Blue
+        Me.GroupControl3.AppearanceCaption.ForeColor = System.Drawing.Color.DodgerBlue
         Me.GroupControl3.AppearanceCaption.Options.UseFont = True
         Me.GroupControl3.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl3.Controls.Add(Me.gcList)

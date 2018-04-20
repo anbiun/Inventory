@@ -123,7 +123,6 @@ Public Class FrmLogs_Import
             .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Max, "Unit3_Name", .Columns("Unit3_Name"), ""))
             .GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Unit3", .Columns("Unit3"), " {0:n1}"))
             .OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.True
-
             .Columns("SubCatName").Group()
             .Columns("ImportDate").Group()
             .Columns("ImportDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending

@@ -461,6 +461,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PrintRibbonControllerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="FrmQCTarget.Designer.vb">
+      <DependentUpon>FrmQCTarget.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmQCTarget.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dlgProgress.resx">
@@ -471,6 +477,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmQCTarget.resx">
+      <DependentUpon>FrmQCTarget.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logs\FrmLogs_Import.resx">
       <DependentUpon>FrmLogs_Import.vb</DependentUpon>
@@ -615,6 +624,7 @@
     <None Include="Resources\apply_16x161.png" />
     <None Include="Resources\apply_16x162.png" />
     <None Include="Resources\about_16x16.png" />
+    <None Include="Resources\backward_16x16.png" />
     <Content Include="Resources\BGM1.jpg" />
     <Content Include="Resources\Computer.ico" />
     <None Include="Resources\Get.png" />
@@ -634,6 +644,23 @@
     <None Include="Resources\doublenext_16x16.png" />
     <None Include="Resources\next_16x165.png" />
     <None Include="Resources\pagenext_16x16.png" />
+    <None Include="Resources\database_16x16.png" />
+    <None Include="Resources\employee_16x16.png" />
+    <None Include="Resources\employee_32x32.png" />
+    <None Include="Resources\customerlocation_16x16.png" />
+    <None Include="Resources\language_16x16.png" />
+    <None Include="Resources\language_32x32.png" />
+    <None Include="Resources\home_16x16.png" />
+    <None Include="Resources\home_32x32.png" />
+    <None Include="Resources\mapit_16x16.png" />
+    <None Include="Resources\mapit_32x32.png" />
+    <None Include="Resources\opportunities_32x32.png" />
+    <None Include="Resources\opportunities_16x16.png" />
+    <None Include="Resources\customer_32x32.png" />
+    <None Include="Resources\encrypt_32x32.png" />
+    <None Include="Resources\forward_32x32.png" />
+    <None Include="Resources\forward_16x161.png" />
+    <None Include="Resources\download_32x32.png" />
     <Content Include="Resources\T.ico" />
     <None Include="Resources\usergroup_32x32.png" />
     <None Include="Resources\usergroup_16x16.png" />

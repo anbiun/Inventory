@@ -157,7 +157,7 @@ Public Class FrmTransfer
             MessageBox.Show("กรุณากรอกจำนวนให้ถูกต้อง", "ไม่กรอกจำนวน", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Exit Sub
         ElseIf PerUnit1 = 0 Then
-            MessageBox.Show("ไม่มีการตั้งค่า ปริมาณต่อจำนวนนับ" & vbNewLine & "กรุณาตั้งค่าที่หน้า" & FrmMain.BBIMaterialList.Caption, "กรุณาตั้งค่าปริมาณต่อจำนวนนับ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            MessageBox.Show("ไม่มีการตั้งค่า ปริมาณต่อจำนวนนับ" & vbNewLine & "กรุณาตั้งค่าที่หน้า" & FrmMain.btnMatList.Caption, "กรุณาตั้งค่าปริมาณต่อจำนวนนับ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Exit Sub
         End If
 

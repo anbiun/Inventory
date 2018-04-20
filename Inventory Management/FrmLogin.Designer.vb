@@ -22,21 +22,22 @@ Partial Class FrmLogin
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim WindowsUIButtonImageOptions7 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
+        Dim WindowsUIButtonImageOptions8 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogin))
-        Dim WindowsUIButtonImageOptions1 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
-        Dim WindowsUIButtonImageOptions2 As DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions = New DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.TxtPassword = New System.Windows.Forms.TextBox()
         Me.TxtUser = New System.Windows.Forms.TextBox()
         Me.lbLoc = New System.Windows.Forms.Label()
         Me.WinUIPanel = New DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.btnOK = New DevExpress.XtraEditors.SimpleButton()
         Me.comboloc = New System.Windows.Forms.ComboBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.lbChangePwd = New DevExpress.XtraEditors.LabelControl()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,7 +54,7 @@ Partial Class FrmLogin
         Me.Label2.Location = New System.Drawing.Point(0, 178)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(431, 44)
+        Me.Label2.Size = New System.Drawing.Size(461, 44)
         Me.Label2.TabIndex = 74
         Me.Label2.Text = "ระบบสต๊อควัสดุ"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -69,7 +70,7 @@ Partial Class FrmLogin
         Me.Label5.Location = New System.Drawing.Point(0, 111)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(431, 42)
+        Me.Label5.Size = New System.Drawing.Size(461, 42)
         Me.Label5.TabIndex = 71
         Me.Label5.Text = "บริษัท เจ.แอล. โปรดักส์ จำกัด"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -85,38 +86,24 @@ Partial Class FrmLogin
         Me.Label6.Location = New System.Drawing.Point(0, 72)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(431, 42)
+        Me.Label6.Size = New System.Drawing.Size(461, 42)
         Me.Label6.TabIndex = 72
         Me.Label6.Text = "J.L. PRODUCTS CO.,LTD."
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 2)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(431, 68)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox2.TabIndex = 70
-        Me.PictureBox2.TabStop = False
         '
         'TxtPassword
         '
         Me.TxtPassword.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtPassword.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.TxtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TxtPassword.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtPassword.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.TxtPassword.Location = New System.Drawing.Point(122, 268)
+        Me.TxtPassword.Location = New System.Drawing.Point(122, 270)
         Me.TxtPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtPassword.Name = "TxtPassword"
         Me.TxtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TxtPassword.Size = New System.Drawing.Size(216, 34)
+        Me.TxtPassword.Size = New System.Drawing.Size(246, 34)
         Me.TxtPassword.TabIndex = 66
         Me.TxtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -125,12 +112,13 @@ Partial Class FrmLogin
         Me.TxtUser.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtUser.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.TxtUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TxtUser.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtUser.ForeColor = System.Drawing.SystemColors.Highlight
         Me.TxtUser.Location = New System.Drawing.Point(122, 226)
         Me.TxtUser.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtUser.Name = "TxtUser"
-        Me.TxtUser.Size = New System.Drawing.Size(216, 34)
+        Me.TxtUser.Size = New System.Drawing.Size(246, 34)
         Me.TxtUser.TabIndex = 65
         Me.TxtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -141,10 +129,10 @@ Partial Class FrmLogin
         Me.lbLoc.BackColor = System.Drawing.Color.Transparent
         Me.lbLoc.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbLoc.ForeColor = System.Drawing.SystemColors.MenuHighlight
-        Me.lbLoc.Location = New System.Drawing.Point(0, 376)
+        Me.lbLoc.Location = New System.Drawing.Point(0, 394)
         Me.lbLoc.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbLoc.Name = "lbLoc"
-        Me.lbLoc.Size = New System.Drawing.Size(431, 26)
+        Me.lbLoc.Size = New System.Drawing.Size(461, 26)
         Me.lbLoc.TabIndex = 64
         Me.lbLoc.Text = "เลือกคลังวัสดุ"
         Me.lbLoc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -158,40 +146,14 @@ Partial Class FrmLogin
         Me.WinUIPanel.AppearanceButton.Hovered.Options.UseFont = True
         Me.WinUIPanel.AppearanceButton.Normal.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.WinUIPanel.AppearanceButton.Normal.Options.UseFont = True
-        Me.WinUIPanel.Buttons.AddRange(New DevExpress.XtraEditors.ButtonPanel.IBaseButton() {New DevExpress.XtraBars.Docking2010.WindowsUIButton("ยกเลิก", True, WindowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, True, Nothing, True, False, True, "btnCancel", -1, False), New DevExpress.XtraBars.Docking2010.WindowsUIButton("เข้าสู่ระบบ", True, WindowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, True, Nothing, True, False, True, "btnLogin", -1, False)})
+        Me.WinUIPanel.Buttons.AddRange(New DevExpress.XtraEditors.ButtonPanel.IBaseButton() {New DevExpress.XtraBars.Docking2010.WindowsUIButton("ยกเลิก", True, WindowsUIButtonImageOptions7, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, True, Nothing, True, False, True, "btnCancel", -1, False), New DevExpress.XtraBars.Docking2010.WindowsUIButton("เข้าสู่ระบบ", True, WindowsUIButtonImageOptions8, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, True, Nothing, True, False, True, "btnLogin", -1, False)})
         Me.WinUIPanel.Font = New System.Drawing.Font("Book Antiqua", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.WinUIPanel.ForeColor = System.Drawing.SystemColors.MenuHighlight
-        Me.WinUIPanel.Location = New System.Drawing.Point(0, 459)
+        Me.WinUIPanel.Location = New System.Drawing.Point(0, 477)
         Me.WinUIPanel.Name = "WinUIPanel"
-        Me.WinUIPanel.Size = New System.Drawing.Size(431, 86)
+        Me.WinUIPanel.Size = New System.Drawing.Size(461, 86)
         Me.WinUIPanel.TabIndex = 77
         Me.WinUIPanel.Text = "WindowsUIButtonPanel1"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.PictureBox1.Location = New System.Drawing.Point(86, 226)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(34, 34)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 78
-        Me.PictureBox1.TabStop = False
-        '
-        'PictureBox3
-        '
-        Me.PictureBox3.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.PictureBox3.Location = New System.Drawing.Point(86, 268)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(34, 34)
-        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox3.TabIndex = 78
-        Me.PictureBox3.TabStop = False
         '
         'btnOK
         '
@@ -206,7 +168,7 @@ Partial Class FrmLogin
         Me.btnOK.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnOK.Location = New System.Drawing.Point(86, 316)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(252, 32)
+        Me.btnOK.Size = New System.Drawing.Size(282, 32)
         Me.btnOK.TabIndex = 79
         Me.btnOK.Text = "ตกลง"
         '
@@ -219,10 +181,68 @@ Partial Class FrmLogin
         Me.comboloc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.comboloc.Font = New System.Drawing.Font("Arial Unicode MS", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.comboloc.FormattingEnabled = True
-        Me.comboloc.Location = New System.Drawing.Point(122, 405)
+        Me.comboloc.Location = New System.Drawing.Point(122, 423)
         Me.comboloc.Name = "comboloc"
-        Me.comboloc.Size = New System.Drawing.Size(186, 34)
+        Me.comboloc.Size = New System.Drawing.Size(203, 34)
         Me.comboloc.TabIndex = 81
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 2)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(461, 68)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox2.TabIndex = 70
+        Me.PictureBox2.TabStop = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.PictureBox1.Image = Global.Inventory_Management.My.Resources.Resources.customer_32x32
+        Me.PictureBox1.Location = New System.Drawing.Point(86, 226)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(32, 34)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 82
+        Me.PictureBox1.TabStop = False
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.PictureBox3.Image = Global.Inventory_Management.My.Resources.Resources.encrypt_32x32
+        Me.PictureBox3.Location = New System.Drawing.Point(86, 270)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(32, 34)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox3.TabIndex = 82
+        Me.PictureBox3.TabStop = False
+        '
+        'lbChangePwd
+        '
+        Me.lbChangePwd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbChangePwd.Appearance.Font = New System.Drawing.Font("Arial Unicode MS", 10.2!, System.Drawing.FontStyle.Underline)
+        Me.lbChangePwd.Appearance.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.lbChangePwd.Appearance.Options.UseFont = True
+        Me.lbChangePwd.Appearance.Options.UseForeColor = True
+        Me.lbChangePwd.Appearance.Options.UseTextOptions = True
+        Me.lbChangePwd.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.lbChangePwd.AppearanceHovered.Font = New System.Drawing.Font("Arial Unicode MS", 10.2!, System.Drawing.FontStyle.Underline)
+        Me.lbChangePwd.AppearanceHovered.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.lbChangePwd.AppearanceHovered.Options.UseFont = True
+        Me.lbChangePwd.AppearanceHovered.Options.UseForeColor = True
+        Me.lbChangePwd.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical
+        Me.lbChangePwd.Location = New System.Drawing.Point(0, 352)
+        Me.lbChangePwd.Name = "lbChangePwd"
+        Me.lbChangePwd.Size = New System.Drawing.Size(461, 23)
+        Me.lbChangePwd.TabIndex = 84
+        Me.lbChangePwd.Text = "เปลี่ยนรหัสผ่าน"
         '
         'FrmLogin
         '
@@ -230,11 +250,12 @@ Partial Class FrmLogin
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.ClientSize = New System.Drawing.Size(431, 543)
+        Me.ClientSize = New System.Drawing.Size(461, 561)
+        Me.Controls.Add(Me.lbChangePwd)
+        Me.Controls.Add(Me.PictureBox3)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.comboloc)
         Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TxtUser)
         Me.Controls.Add(Me.TxtPassword)
@@ -248,7 +269,7 @@ Partial Class FrmLogin
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(449, 590)
+        Me.MinimumSize = New System.Drawing.Size(449, 608)
         Me.Name = "FrmLogin"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ระบบสต๊อคคลังวัสดุ"
@@ -267,8 +288,9 @@ Partial Class FrmLogin
     Friend WithEvents TxtUser As System.Windows.Forms.TextBox
     Friend WithEvents lbLoc As System.Windows.Forms.Label
     Friend WithEvents WinUIPanel As DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents btnOK As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents comboloc As ComboBox
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents lbChangePwd As DevExpress.XtraEditors.LabelControl
 End Class

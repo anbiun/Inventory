@@ -42,15 +42,17 @@ Public Class FrmMatImport
         gridInfo = New GridCaption(gvImportOrder)
         With gridInfo
             .Hide.Columns("matID")
-        .hide.Columns("importorid")
-        .hide.Columns("Unit1_id")
-        .hide.Columns("Importid")
-        .hide.Columns("qtyperunit")
-        .hide.Columns("locid")
-        .hide.Columns("เรโช")
+            .hide.Columns("importorid")
+            .hide.Columns("Unit1_id")
+            .hide.Columns("Importid")
+            .hide.Columns("qtyperunit")
+            .hide.Columns("locid")
+            .hide.Columns("เรโช")
             .SetCaption()
         End With
-
+        gvImportList.BestFitColumns()
+        gvImportOrder.BestFitColumns()
+        gvImportOrder.Columns("Notation").Image = My.Resources.edit_16x16
     End Sub
     Private Sub FirstQry(Mode As QryMode)
         Select Case Mode
@@ -94,14 +96,12 @@ SubUnit:
     End Function
     Private Sub SumUnit()
         Dim gvDes As GridView
-        'gvSrc = gvImportDetail
         gvDes = gvImportOrder
         Dim unit1Sum, unit3Sum As Double
 
         For rw As Integer = 0 To gvDes.RowCount - 1
             If MatID = gvDes.GetRowCellValue(rw, "MatID") Then
                 With gvDes
-                    '.SetRowCellValue(rw, "PriceSum", unit3Sum * gvDes.GetRowCellValue(rw, "Price"))
                     .SetRowCellValue(rw, "Unit1_Sum", unit1Sum)
                     .SetRowCellValue(rw, "Unit3_Sum", unit3Sum)
                 End With
@@ -186,11 +186,11 @@ SubUnit:
 
         BtnEdit.Text = "ตกลง"
         BtnDelete.Text = "ยกเลิก"
-            BtnNew.Visible = False
-            sluSubCat.Enabled = False
+        BtnNew.Visible = False
+        sluSubCat.Enabled = False
         dtImportList = DS.Tables("ImportList").Select("ImportID = '" & gvImportList.GetFocusedRowCellValue("ImportID") & "'").CopyToDataTable
         gcImportList.DataSource = dtImportList
-            Button_Edit.State = Buttons.EState.TurnOn
+        Button_Edit.State = Buttons.EState.TurnOn
 
     End Sub
     Private Sub RowClickFunc(gv As GridView, Optional ByVal RowNum As Integer = 0)
@@ -217,16 +217,11 @@ SubUnit:
             Select Case gv.Name
                 Case gvImportList.Name
                     gcImportOrder.DataSource = search("ImportOrder", "ImportID ='" & values & "'", "")
-                    'gcImportDetail.DataSource = search("ImportDetail", "ImportID ='" & values & "' AND MatID = '" & gvImportOrder.GetRowCellValue(0, "MatID") & "'", "")
-                Case gvImportOrder.Name
-                    'gcImportDetail.DataSource = search("ImportDetail", "ImportID ='" & values & "' AND MatID = '" & MatID & "'", "")
             End Select
         Else
             gvSelect = gv
         End If
-        gvImportList.BestFitColumns()
-        gvImportOrder.BestFitColumns()
-
+        If gvImportOrder.RowCount > 0 Then gvImportOrder.BestFitColumns() : gvImportOrder.Columns("Notation").Width *= 2
         gv.SelectRow(rw)
         gv.Focus()
     End Sub
@@ -387,7 +382,7 @@ SubUnit:
                         Case dtImportList.TableName
                             fieldList = {"ImportDate", "BillNo", "ImportID", "SupplierID", "UserStock_ID", "UserApprove_ID", "Notation"}
                         Case dtImportOrder.TableName
-                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID", "Notation"}
+                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID", "Notation", "PO"}
                     End Select
                     tbName.TableName = "tb" & tbName.TableName
                     blkCpy(tbName.TableName, tbName, fieldList)
@@ -401,8 +396,7 @@ SubUnit:
                 ImportID = gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "ImportID")
                 If ImportID = Nothing Then Exit Sub
                 If MessageBox.Show("ยืนยันการลบ ใบรับของเลขที่ : " & gvImportList.GetRowCellValue(gvImportList.FocusedRowHandle, "BillNo"), "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
-                    SQL = "delete from tbImportDetail where ImportID ='" & ImportID & "'" _
-                        & " delete from tbImportList where ImportID ='" & ImportID & "'" _
+                    SQL = " delete from tbImportList where ImportID ='" & ImportID & "'" _
                         & " delete from tbImportOrder where ImportID ='" & ImportID & "'" _
                         & " delete from tbStock where ImportID ='" & ImportID & "'"
                     dsTbl("del")
@@ -456,7 +450,6 @@ SubUnit:
 
                 For Each col As GridColumn In gvImportOrder.Columns
                     col.OptionsColumn.AllowEdit = If(col.FieldName = "Notation", True, False)
-                    'col.OptionsColumn.AllowEdit = If(col.FieldName = "Ratio", True, False)
                 Next
                 sluMat.Properties.View.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
             Case BtnEdit.Name
@@ -470,10 +463,22 @@ SubUnit:
                 grpMatImport.Enabled = True
                 PnlSave.Visible = True
                 grpSearch.Enabled = False
-                'PnlbtnItem.Visible = False
                 grpMatImport.Visible = True
             Case BtnDelete.Name
-                btnProcess(BtnDelete)
+                Dim tagID As String = String.Empty
+                For i As Integer = 0 To gvImportOrder.RowCount - 1
+                    If i >= 1 Then tagID += ","
+                    tagID += String.Format("{0}" & gvImportOrder.GetRowCellValue(i, "TagID") & "{0}", "'")
+                Next
+                SQL = "SELECT TagID FROM tbRequisition
+                       WHERE TagID IN (" & tagID & ")"
+                dsTbl("chkReq")
+                If DS.Tables("chkReq").Rows.Count > 0 Then
+                    MessageBox.Show("ไม่สามารถลบรายการนี้ เนื่องจากมีการเบิกไปแล้ว กรุณาติดต่อผู้ดูแล", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                Else
+                    btnProcess(BtnDelete)
+                End If
         End Select
     End Sub
     Function chkUse()
@@ -493,8 +498,7 @@ SubUnit:
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim matVal As String = gvImportOrder.GetFocusedRowCellValue("MatID")
         MatID = slClick(sluMat, "MatID")
-        If MatID = matVal AndAlso chkUse() = False Then  Exit Sub
-        'CallSP("FindAll", New SqlParameter("@SearchSrc", gvImportOrder.GetRowCellValue(gvImportOrder.FocusedRowHandle, "TagID")))
+        If MatID = matVal AndAlso chkUse() = False Then Exit Sub
         If chkInput(grpMatImport) = False Then Exit Sub
         If Button_Edit.State = Buttons.EState.TurnOn Then
             FoundRow = DS.Tables("ImportOrder").Select("ImportID='" & ImportID & "' AND TagID Like '%" & txtTagID.Text & "'")
@@ -524,6 +528,7 @@ Edit:
         txtUnit3.Value = 0
         gvImportList.BestFitColumns()
         gvImportOrder.BestFitColumns()
+        txtPO.Text = String.Empty
         'New Order
         'TagID += 1
     End Sub
@@ -581,6 +586,7 @@ Edit:
                 dr("Ratio") = ImReq.Ratio
                 dr("QtyPerUnit") = QtyPerUnit
                 dr("LocID") = UserInfo.SelectLoc
+                dr("PO") = txtPO.Text
                 .Rows.Add(dr)
                 .AcceptChanges()
                 gcImportOrder.Refresh()
@@ -613,23 +619,15 @@ Edit:
 
             Select Case gvSelect.Name
                 Case gvImportOrder.Name
-                    'gcImportDetail.DataSource = dtImportDetail.Select("MatID <> '" & values & "'")
                     dtImportOrder.Rows(gvImportOrder.FocusedRowHandle).Delete()
-                    'Case gvImportDetail.Name
-                    '    FoundRow = dtImportDetail.Select("MatID='" & values & "'")
-                    '    If FoundRow.Count = 1 Then
-                    '        dtImportOrder.Rows(gvImportOrder.FocusedRowHandle).Delete()
-                    '    End If
-                    '    dtImportDetail.Rows(gvImportDetail.FocusedRowHandle).Delete()
             End Select
-            'dtImportDetail.AcceptChanges()
-            'gcImportDetail.Refresh()
             dtImportOrder.AcceptChanges()
             gcImportOrder.Refresh()
         End If
         gvSelect = Nothing
     End Sub
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+        If gvImportOrder.RowCount < 1 Then Return
         If MessageBox.Show("ยืนยันการบันทึก หากบันทึกแล้วจะไม่สามารถแก้ไขได้" & vbCrLf _
                            & "ต้องติดต่อผู้ดูแลเท่านั้น โปรดตรวจสอบความถูกต้อง", "บันทึกยอดเข้าคลัง", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
             btnProcess(BtnSave)
@@ -654,12 +652,9 @@ Edit:
         FirstQry(QryMode.All)
         gcImportList.DataSource = search("ImportList", "ImportDate='" & Today & "'", "")
         gcImportOrder.DataSource = DS.Tables("ImportOrder")
-        'gcImportDetail.DataSource = DS.Tables("ImportDetail")
         dtImportOrder = DS.Tables("ImportOrder").Copy
-        'dtImportList = DS.Tables("ImportList").Copy
         gvFormat()
         gcImportOrder.DataSource = Nothing
-        'gcImportDetail.DataSource = Nothing
 
         LoadLookUp()
         luUnit1_name.Properties.DataSource = Nothing
@@ -667,35 +662,41 @@ Edit:
         grpMatImport.Enabled = False
         deImport.EditValue = ImportDate
         BtnDelete.Enabled = True
-        'rbPerQty.Checked = True
         Permission(UserInfo.Permis)
         LoadSuccess = True
     End Sub
     Private Sub deImport_EditValueChanged(sender As Object, e As EventArgs) Handles deImport.EditValueChanged
         If LoadSuccess = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
-
         ImportDate = deImport.EditValue
         gcImportList.DataSource = search("ImportList", "ImportDate='" & ImportDate & "'", "")
+        If gvImportList.RowCount > 0 Then gvImportList.BestFitColumns()
         gcImportOrder.DataSource = Nothing
-        'gcImportDetail.DataSource = Nothing
     End Sub
     Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvImportList.RowCellClick, gvImportOrder.RowCellClick
         Dim gv As GridView = CType(sender, GridView)
         RowClickFunc(gv)
+        If e.Column.FieldName = "Notation" Then CType(sender, GridView).ShowEditor()
     End Sub
-    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress
-        If e.KeyChar = "-" Then
-            Exit Sub
-        ElseIf e.KeyChar = "/" Then
-            numOnly(e)
-            Dim ReqNo As New GenRequestNo With {
-                .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
-                .SetTable = "tbTransfer",
-                .SetField = "TransferNo"}
-            txtBillNo.Text = ReqNo.Gen
+    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress, txtPO.KeyPress
+        If e.KeyChar = "-" Then Return
+        Dim ctrName As String = CType(sender, TextBox).Name
+
+        If e.KeyChar = "/" Then
+            If ctrName = txtBillNo.Name Or ctrName = txtPO.Name Then
+                numOnly(e)
+                Dim ReqNo As New GenRequestNo With {
+                    .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
+                    .SetTable = "tbImportList",
+                    .SetField = "BillNo"}
+                CType(sender, TextBox).Text = ReqNo.Gen
+            ElseIf ctrName = txtTagID.Name Then
+                numOnly(e)
+                txtTagID.Text = CInt(lblLastTag.Text) + 1
+            End If
         Else
             numOnly(e)
         End If
+
     End Sub
     Private Sub txtBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtBillNo.TextChanged
         If Permission(UserInfo.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
@@ -707,7 +708,6 @@ Edit:
     Private Sub txtPoNo_TextChanged(sender As Object, e As EventArgs)
         'search("PoNo like '" & txtPoNo.Text & "%'")
     End Sub
-
 #End Region
     Private Sub luUnit1_name_EditValueChanged(sender As Object, e As EventArgs) Handles luUnit1_name.EditValueChanged
         If LoadSuccess = False Then Exit Sub
@@ -752,64 +752,6 @@ Edit:
             Next
 
         End With
-    End Sub
-    Private Sub gvImportOrder_CellValueChanging(sender As Object, e As CellValueChangedEventArgs) Handles gvImportOrder.CellValueChanging
-        'If LoadSuccess = False Then Exit Sub
-        'Dim view As GridView = sender
-
-        'If e.Column.FieldName = "Ratio" AndAlso view.ActiveEditor.EditValue IsNot DBNull.Value Then
-        '    If Not Char.IsDigit(e.Value) Then
-        '        view.SetFocusedRowCellValue(e.Column.FieldName, view.ActiveEditor.OldEditValue)
-        '        Exit Sub
-        '    End If
-        '    If Not RatioEditList.Contains(view.GetFocusedRowCellValue("tagID")) Then
-        '        If MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
-        '            If Not RatioEditList.Contains(view.GetFocusedRowCellValue("tagID")) Then
-        '                RatioEditList.Add(view.GetFocusedRowCellValue("tagID"))
-        '            End If
-        '        Else
-        '            view.SetFocusedRowCellValue(e.Column.FieldName, view.ActiveEditor.OldEditValue)
-        '        End If
-        '    End If
-        'End If
-    End Sub
-    Private Sub gvImportOrder_CellValueChanged(sender As Object, e As CellValueChangedEventArgs) Handles gvImportOrder.CellValueChanged
-        'If e.Column.FieldName = "Ratio" _
-        '    AndAlso e.Value <> slClick(sluMat, "Ratio") Then
-        '    msgResult = MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-        '    If msgResult = DialogResult.Yes Then
-        '        Dim newTotalUnit3 As Double = 0
-        '        With gvImportOrder
-        '            Dim U1 As Double = .GetFocusedRowCellValue("Unit1_Sum")
-        '            Dim U3 As Double = .GetFocusedRowCellValue("Unit3_Sum")
-        '            If Ratio / U3 = U1 Then
-        '                'ไม่มีเศษ
-        '                newTotalUnit3 = Math.Abs(U1 * slClick(sluMat, "Ratio") - U3) + (e.Value * U1)
-        '            Else
-        '                'มีเศษ
-        '                newTotalUnit3 = Math.Abs((U1 - 1) * slClick(sluMat, "Ratio") - U3) + (e.Value * (U1 - 1))
-        '            End If
-        '            Ratio = e.Value
-        '        End With
-        '        gvImportOrder.SetFocusedRowCellValue("Unit3_Sum", newTotalUnit3)
-        '    End If
-        '    Ratio = slClick(sluMat, "Ratio")
-        '    gvImportOrder.SetFocusedRowCellValue("Ratio", Ratio)
-        '    msgResult = DialogResult.None
-        'Else
-        'End If
-
-        'End If
-        'If e.Value <> gvImportOrder.ActiveEditor.OldEditValue Then
-        '    If msgResult <> DialogResult.No Then
-        '        msgResult = MessageBox.Show("ยืนยันการเปลี่ยนค่า Ratio", "ยันยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-        '        If msgResult = DialogResult.No Then
-
-        '        Else
-        '        End If
-        '    End If
-        'End If
-
     End Sub
 End Class
 Public Class Buttons

@@ -99,8 +99,55 @@ Public Class BindingSet
         If Not BindingArray.ContainsKey(Name) Then
             BindingArray.Add(Name, New BindingSource)
         End If
-        BindingArray(Name).DataSource = DTResult
+
+        BindingArray(Name).DataSource = WarnCalculate(DTResult)
     End Sub
+    Private Function WarnCalculate(inputTable As DataTable) As DataTable
+        Dim tbResult As DataTable = inputTable.Copy
+        Dim Dozen As Double = 0
+        Dim Matname As String
+        'loop จำนวนแถว
+        For Each rows As DataRow In tbResult.Rows
+            Matname = rows("MatName")
+            Dozen = rows("dozen")
+
+            Dim Warn As Double = 0
+            Dim monthVal As Integer = 0
+            'loop จำนวนเดือนหาค่า QC แต่ละเดือน
+            For mNumber As Integer = Now.Month To 12
+                monthVal = If(IsDBNull(rows(MonthName(mNumber))), 0, rows(MonthName(mNumber)))
+                If Dozen >= 1 And monthVal > 0 And mNumber < 12 Then
+                    'ถ้าจำนวนโหลมากกว่า จำนวน QC เดือนนั้นๆ และไม่ใช่เดือน ธค.
+                    'จำนวนโหล - เป้าเดือนนั้นๆ และนับเดือนเพิ่มเรื่อยๆ เมือ่ไม่พอจึงหารค่าสุดท้ายเพื่อเอาทศนิยม
+                    If Dozen > monthVal Then
+                        Warn += 1
+                        Dozen -= monthVal
+                    Else
+                        Dozen /= monthVal
+                        Warn += Math.Round(Dozen, 1)
+                    End If
+                ElseIf Dozen >= 1 And mNumber = 12 Then
+                    'ถ้าเป็นเดือน ธค. และจำนวนโหลยังเหลือ ให้นำไปหารค่า QC เดือนล่าสุดจนหมด
+                    monthVal = 0
+                    Do Until monthVal > 0 Or mNumber < 1
+                        monthVal = If(IsDBNull(rows(MonthName(mNumber))), 0, rows(MonthName(mNumber)))
+                        mNumber -= 1
+                    Loop
+                    If monthVal = 0 And mNumber = 0 Then
+                        rows("Allowcolor") = 0
+                        Warn = 0
+                    Else
+                        Dozen /= monthVal
+                        Warn += Math.Round(Dozen, 1)
+                    End If
+
+                    Exit For
+                End If
+            Next
+            rows("warn") = Warn
+        Next
+        Return tbResult
+    End Function
 #End Region
 End Class
 

@@ -72,10 +72,10 @@ slMat:
         End With
         slMat.EditValue = Nothing
 
-        SQL = "Select Mat.MatID, Mat.MatName,SubMat.SubMatID,PD.ProductName,PD.QCTarget,PD.ProductID
+        SQL = "Select Mat.MatID, Mat.MatName,SubMat.SubMatID,PD.ProductName,SubMat.ProductID
                 From tbSubMat SubMat 
                 inner Join tbMat Mat on SubMat.MatID = Mat.matID  
-                inner Join tbProduct PD ON PD.ProductID = SubMat.ProductID
+				inner Join tbQCTarget PD ON SubMat.ProductID = PD.ProductID
                 where Mat.CatID + Mat.SubCatID = '" & SubCatID & "'"
         BindInfo.Name = "submat"
         BindInfo.Qry(SQL)
@@ -85,7 +85,6 @@ slMat:
             .Columns("MatName").Group()
             .Columns("MatName").Caption = getString("MatName")
             .Columns("ProductName").Caption = getString("ProductName")
-            .Columns("QCTarget").Caption = getString("qctarget")
             .Columns("MatID").Visible = False
             .Columns("SubMatID").Caption = " "
             .Columns("SubMatID").Width = 70
@@ -154,7 +153,6 @@ slMat:
         gvList.FindFilterText = Nothing
         GrpInput.Enabled = True
         GrpBtn.Enabled = False
-        gvList.Columns("QCTarget").Visible = False
 
         BindInfo.Name = "submat"
         FoundRow = BindInfo.Result.DataSource.Select("MatID='" & slMat.EditValue & "'")
@@ -222,9 +220,6 @@ slMat:
 #End Region
 #Region "Common Control"
     Private Sub FmgSubMat_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'If DS IsNot Nothing Then DS.Clear()
-        'FirstQry()
-        'showDB()
         showDB()
         LoadDef()
         gvList.FindFilterText = Nothing
@@ -242,31 +237,6 @@ slMat:
         MatID = getGroupValue(gvList, gcList, "MatName", "MatID")
         If String.IsNullOrWhiteSpace(MatID) Then Exit Sub
         slMat.EditValue = MatID
-
-        'If IsDBNull(gvList.FocusedValue) Then Exit Sub
-        'Dim values As String = gvList.GetFocusedValue
-        'Dim vw As ColumnView = gcList.MainView
-        ''dim values as string = gvlist.getrowcelldisplaytext(gvlist.focusedrowhandle, "mainname")
-        'Dim fieldname As String = "matname"
-        'Dim fieldid As String = "matid"
-
-        'Try
-        '    Dim rhandle As Integer = 0
-        '    Dim col As DevExpress.XtraGrid.Columns.GridColumn = vw.Columns(fieldname)
-        '    While True
-        '        rhandle = vw.LocateByValue(rhandle, col, values)
-        '        If rhandle = DevExpress.XtraGrid.GridControl.InvalidRowHandle Then
-        '            Exit While
-        '        End If
-        '        If gvList.GetRowCellValue(rhandle, fieldname) = values Then
-        '            slMat.EditValue = gvList.GetRowCellValue(rhandle, fieldid)
-        '            MatID = gvList.GetRowCellValue(rhandle, fieldid)
-        '            Exit While
-        '        End If
-        '        rhandle += 1
-        '    End While
-        'Catch ex As Exception
-        'End Try
 
     End Sub
     Private Sub txtName_EditValueChanged(sender As Object, e As EventArgs)
@@ -303,7 +273,5 @@ slMat:
         End If
 
         btnNew.Enabled = If(slMat.EditValue = Nothing, False, True)
-        'btnNew.Enabled = If(String.IsNullOrEmpty(slMat.Text) Or
-        'String.IsNullOrEmpty(slSubCat.Text), False, True)
     End Sub
 End Class

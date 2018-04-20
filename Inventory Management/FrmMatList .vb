@@ -19,8 +19,8 @@ Public Class FrmMatList
         With DT
             .Columns.Add("Stat", GetType(Int32))
             .Columns.Add("StatName", GetType(String))
-            .Rows.Add(0, "เลิกใช้งาน")
-            .Rows.Add(1, "ใช้งาน")
+            .Rows.Add(0, getString("matStat0"))
+            .Rows.Add(1, getString("matStat1"))
         End With
 
         With luStat
@@ -294,7 +294,7 @@ lchangeMainLookup:
 
         Select Case ModeAddEdit
             Case BtnAddItem.Name
-                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,QtyPerUnit,Ratio,Warn,ProductID,) " _
+                SQL = "insert into tbMat (MatID,MatName,catID,SubCatID,QtyPerUnit,Ratio,Warn,ProductID) " _
                     & "values ('" & MatID & "','" & MatName & "','" & matType & "'," _
                     & "'" & matSubType & "','" & matQtyPerUnit & "','" & matRatio & "','" & matWarn & "','" & ProductID & "')"
             Case BtnEditItem.Name
@@ -496,9 +496,9 @@ lchangeMainLookup:
             lblRatio_Name.Text = DS.Tables("showingrid")(0)("QtyOfUsing_Name")
         End If
 
+
         'lblRatio_Name.Text = DS.Tables("showingrid")(0)("")
     End Sub
-
     Private Sub GVMain_RowCellClick(sender As Object, e As DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs) Handles GVMain.RowCellClick
         'ตั้งค่าคลิก Focus แถว
         With GVMain
@@ -523,12 +523,10 @@ lchangeMainLookup:
             TxtMaterialID.Text = .GetFocusedRowCellValue("MatID")
             TxtPrice.Text = .GetFocusedRowCellValue("itemPrice")
             txtQtyPerUnit.Value = If(.GetFocusedRowCellValue("QtyPerUnit") Is DBNull.Value, 0, .GetFocusedRowCellValue("QtyPerUnit"))
-            'SpePrice.Text = .GetFocusedRowCellValue("matDGOrder")
             LookUpCategory.EditValue = .GetFocusedRowCellValue("CatID")
             LookUpSubCategory.EditValue = .GetFocusedRowCellValue("SubCatID")
             txtRatio.Value = If(.GetFocusedRowCellValue("Ratio") Is DBNull.Value, 0, .GetFocusedRowCellValue("Ratio"))
             txtWarn.EditValue = If(IsDBNull(.GetFocusedRowCellValue("Warn")), 0, .GetFocusedRowCellValue("Warn"))
-            'LookUpUnitBuy.EditValue = .GetFocusedRowCellValue("matDGID")
 
             If String.IsNullOrEmpty(.GetFocusedRowCellValue("itemDetail")) Then
                 MemoDetail.Text = Nothing
@@ -537,6 +535,19 @@ lchangeMainLookup:
                 MemoDetail.Text = .GetFocusedRowCellValue("itemDetail")
             End If
         End With
+    End Sub
+    Private Sub CellDisplay(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs) Handles GVMain.CustomDrawCell
+        If e.Column.FieldName = "Stat" AndAlso e.RowHandle >= 0 Then
+            If e.CellValue = 0 Then
+                e.DisplayText = getString("matStat0")
+                e.Appearance.ForeColor = Color.Gainsboro
+            ElseIf e.CellValue = 1 Then
+                e.DisplayText = getString("matStat1")
+            End If
+        ElseIf e.Column.FieldName = "Warn" AndAlso e.RowHandle >= 0 Then
+            e.DisplayText = e.CellValue & " เดือน"
+        End If
+
     End Sub
 #End Region
 
@@ -590,7 +601,6 @@ lchangeMainLookup:
         LookUpCategory.Refresh()
     End Sub
     Private Sub TxtMaterialName_EditValueChanged(sender As Object, e As EventArgs) Handles TxtMaterialName.EditValueChanged
-        'GVMain.Columns("MatName").FilterMode.DisplayText = "test"
         If BtnAddItem.Visible = False Then
             GVMain.ActiveFilterString = "[MatName] = '" & TxtMaterialName.Text & "'"
         End If

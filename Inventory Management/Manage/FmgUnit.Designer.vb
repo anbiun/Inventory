@@ -541,10 +541,10 @@ Partial Class FmgUnit
         Me.Controls.Add(Me.gcList)
         Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.tabControl)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "FmgUnit"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "FrmUnitManager"
+        Me.Text = "ตั้งค่าหน่วยการใช้งาน"
         CType(Me.tabControl, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabControl.ResumeLayout(False)
         Me.tab1_AddUnit.ResumeLayout(False)

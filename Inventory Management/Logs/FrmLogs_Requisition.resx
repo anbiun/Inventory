@@ -794,7 +794,7 @@
     <value>Fill</value>
   </data>
   <data name="GroupControl3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>253, 0</value>
+    <value>0, 0</value>
   </data>
   <data name="GroupControl3.Size" type="System.Drawing.Size, System.Drawing">
     <value>761, 804</value>
@@ -1123,10 +1123,10 @@
     <value>8</value>
   </data>
   <data name="GroupControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
+    <value>Right</value>
   </data>
   <data name="GroupControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>761, 0</value>
   </data>
   <data name="GroupControl1.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 804</value>

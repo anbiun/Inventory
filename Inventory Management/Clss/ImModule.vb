@@ -111,7 +111,7 @@ Module ImModule
                 'FrmMain.btnTransfer.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
                 With FrmMain
                     .ribGrpApprove.Visible = True
-                    .btnMatStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                    .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
                     .ribGrpSetting.Visible = False
                     .ribGrpNewSub.Visible = False
                 End With
@@ -120,7 +120,7 @@ Module ImModule
                 FrmMatImport.pnlEdit.Visible = True
                 With FrmMain
                     .ribGrpNewSub.Visible = False
-                    .btnMatStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                    .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
                     .ribGrpSetting.Visible = False
                 End With
                 Return True

@@ -36,14 +36,15 @@ Partial Class FrmMatImport
         Me.txtUnit3 = New DevExpress.XtraEditors.SpinEdit()
         Me.txtUnit1 = New DevExpress.XtraEditors.SpinEdit()
         Me.btnRemove = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtPO = New System.Windows.Forms.TextBox()
         Me.txtTagID = New System.Windows.Forms.TextBox()
         Me.btnAdd = New DevExpress.XtraEditors.SimpleButton()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.lblLastTag = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl8 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         Me.lblUnit3 = New DevExpress.XtraEditors.LabelControl()
         Me.lblUnit1 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.sluSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.PnlSave = New DevExpress.XtraEditors.PanelControl()
@@ -57,6 +58,7 @@ Partial Class FrmMatImport
         Me.txtImportNote = New DevExpress.XtraEditors.MemoEdit()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl4 = New DevExpress.XtraEditors.LabelControl()
         Me.PnlLeft = New DevExpress.XtraEditors.PanelControl()
@@ -105,7 +107,7 @@ Partial Class FrmMatImport
         '
         'luUnit1_name
         '
-        Me.luUnit1_name.Location = New System.Drawing.Point(259, 109)
+        Me.luUnit1_name.Location = New System.Drawing.Point(274, 145)
         Me.luUnit1_name.Name = "luUnit1_name"
         Me.luUnit1_name.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.luUnit1_name.Properties.Appearance.Options.UseFont = True
@@ -116,20 +118,20 @@ Partial Class FrmMatImport
         'deImport
         '
         Me.deImport.EditValue = Nothing
-        Me.deImport.Location = New System.Drawing.Point(152, 19)
+        Me.deImport.Location = New System.Drawing.Point(153, 19)
         Me.deImport.Name = "deImport"
         Me.deImport.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deImport.Properties.Appearance.Options.UseFont = True
         Me.deImport.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deImport.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deImport.Size = New System.Drawing.Size(207, 28)
+        Me.deImport.Size = New System.Drawing.Size(206, 28)
         Me.deImport.TabIndex = 0
         '
         'lblUnit3_name
         '
         Me.lblUnit3_name.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblUnit3_name.Appearance.Options.UseFont = True
-        Me.lblUnit3_name.Location = New System.Drawing.Point(259, 146)
+        Me.lblUnit3_name.Location = New System.Drawing.Point(274, 182)
         Me.lblUnit3_name.Name = "lblUnit3_name"
         Me.lblUnit3_name.Size = New System.Drawing.Size(21, 21)
         Me.lblUnit3_name.TabIndex = 9
@@ -139,7 +141,7 @@ Partial Class FrmMatImport
         '
         Me.LabelControl13.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl13.Appearance.Options.UseFont = True
-        Me.LabelControl13.Location = New System.Drawing.Point(82, 8)
+        Me.LabelControl13.Location = New System.Drawing.Point(77, 8)
         Me.LabelControl13.Name = "LabelControl13"
         Me.LabelControl13.Size = New System.Drawing.Size(49, 21)
         Me.LabelControl13.TabIndex = 9
@@ -155,7 +157,7 @@ Partial Class FrmMatImport
         Me.sluSupplier.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.sluSupplier.Properties.NullText = ""
         Me.sluSupplier.Properties.View = Me.GridView3
-        Me.sluSupplier.Size = New System.Drawing.Size(207, 28)
+        Me.sluSupplier.Size = New System.Drawing.Size(206, 28)
         Me.sluSupplier.TabIndex = 3
         '
         'GridView3
@@ -168,14 +170,14 @@ Partial Class FrmMatImport
         'sluMat
         '
         Me.sluMat.EditValue = ""
-        Me.sluMat.Location = New System.Drawing.Point(137, 5)
+        Me.sluMat.Location = New System.Drawing.Point(152, 5)
         Me.sluMat.Name = "sluMat"
         Me.sluMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluMat.Properties.Appearance.Options.UseFont = True
         Me.sluMat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.sluMat.Properties.NullText = ""
         Me.sluMat.Properties.View = Me.SearchLookUpEdit1View
-        Me.sluMat.Size = New System.Drawing.Size(209, 28)
+        Me.sluMat.Size = New System.Drawing.Size(208, 28)
         Me.sluMat.TabIndex = 7
         '
         'SearchLookUpEdit1View
@@ -188,11 +190,11 @@ Partial Class FrmMatImport
         'txtBillNo
         '
         Me.txtBillNo.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBillNo.Location = New System.Drawing.Point(152, 54)
+        Me.txtBillNo.Location = New System.Drawing.Point(153, 54)
         Me.txtBillNo.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBillNo.MaxLength = 15
         Me.txtBillNo.Name = "txtBillNo"
-        Me.txtBillNo.Size = New System.Drawing.Size(207, 28)
+        Me.txtBillNo.Size = New System.Drawing.Size(206, 28)
         Me.txtBillNo.TabIndex = 1
         '
         'grpMatImport
@@ -202,11 +204,13 @@ Partial Class FrmMatImport
         Me.grpMatImport.Controls.Add(Me.txtUnit3)
         Me.grpMatImport.Controls.Add(Me.txtUnit1)
         Me.grpMatImport.Controls.Add(Me.btnRemove)
+        Me.grpMatImport.Controls.Add(Me.txtPO)
         Me.grpMatImport.Controls.Add(Me.txtTagID)
         Me.grpMatImport.Controls.Add(Me.luUnit1_name)
         Me.grpMatImport.Controls.Add(Me.btnAdd)
         Me.grpMatImport.Controls.Add(Me.lblUnit3_name)
         Me.grpMatImport.Controls.Add(Me.sluMat)
+        Me.grpMatImport.Controls.Add(Me.LabelControl2)
         Me.grpMatImport.Controls.Add(Me.LabelControl13)
         Me.grpMatImport.Controls.Add(Me.lblLastTag)
         Me.grpMatImport.Controls.Add(Me.LabelControl8)
@@ -217,13 +221,13 @@ Partial Class FrmMatImport
         Me.grpMatImport.Location = New System.Drawing.Point(2, 323)
         Me.grpMatImport.Name = "grpMatImport"
         Me.grpMatImport.ShowCaption = False
-        Me.grpMatImport.Size = New System.Drawing.Size(374, 246)
+        Me.grpMatImport.Size = New System.Drawing.Size(374, 291)
         Me.grpMatImport.TabIndex = 9
         '
         'txtUnit3
         '
         Me.txtUnit3.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtUnit3.Location = New System.Drawing.Point(137, 143)
+        Me.txtUnit3.Location = New System.Drawing.Point(152, 179)
         Me.txtUnit3.Name = "txtUnit3"
         Me.txtUnit3.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUnit3.Properties.Appearance.Options.UseFont = True
@@ -235,7 +239,7 @@ Partial Class FrmMatImport
         'txtUnit1
         '
         Me.txtUnit1.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtUnit1.Location = New System.Drawing.Point(137, 109)
+        Me.txtUnit1.Location = New System.Drawing.Point(152, 145)
         Me.txtUnit1.Name = "txtUnit1"
         Me.txtUnit1.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUnit1.Properties.Appearance.Options.UseFont = True
@@ -246,18 +250,29 @@ Partial Class FrmMatImport
         '
         'btnRemove
         '
-        Me.btnRemove.ImageOptions.Image = CType(resources.GetObject("btnRemove.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnRemove.Location = New System.Drawing.Point(138, 213)
+        Me.btnRemove.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.btnRemove.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.backward_16x16
+        Me.btnRemove.Location = New System.Drawing.Point(153, 249)
         Me.btnRemove.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(115, 27)
+        Me.btnRemove.Size = New System.Drawing.Size(207, 27)
         Me.btnRemove.TabIndex = 11
         Me.btnRemove.Text = " ลบจากรายการ"
+        '
+        'txtPO
+        '
+        Me.txtPO.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPO.Location = New System.Drawing.Point(152, 40)
+        Me.txtPO.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtPO.MaxLength = 10
+        Me.txtPO.Name = "txtPO"
+        Me.txtPO.Size = New System.Drawing.Size(208, 28)
+        Me.txtPO.TabIndex = 1
         '
         'txtTagID
         '
         Me.txtTagID.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTagID.Location = New System.Drawing.Point(137, 74)
+        Me.txtTagID.Location = New System.Drawing.Point(152, 110)
         Me.txtTagID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTagID.MaxLength = 10
         Me.txtTagID.Name = "txtTagID"
@@ -266,26 +281,37 @@ Partial Class FrmMatImport
         '
         'btnAdd
         '
-        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.btnAdd.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.forward_16x161
         Me.btnAdd.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.btnAdd.Location = New System.Drawing.Point(138, 178)
+        Me.btnAdd.Location = New System.Drawing.Point(153, 214)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(115, 27)
+        Me.btnAdd.Size = New System.Drawing.Size(207, 27)
         Me.btnAdd.TabIndex = 10
         Me.btnAdd.Text = "เพิ่มรายการ"
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl2.Appearance.Options.UseFont = True
+        Me.LabelControl2.Location = New System.Drawing.Point(62, 43)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(64, 21)
+        Me.LabelControl2.TabIndex = 9
+        Me.LabelControl2.Text = "เลขที่ PO"
         '
         'lblLastTag
         '
         Me.lblLastTag.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastTag.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblLastTag.Appearance.ForeColor = System.Drawing.Color.DodgerBlue
         Me.lblLastTag.Appearance.Options.UseFont = True
         Me.lblLastTag.Appearance.Options.UseForeColor = True
         Me.lblLastTag.Appearance.Options.UseTextOptions = True
         Me.lblLastTag.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
         Me.lblLastTag.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
         Me.lblLastTag.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003
-        Me.lblLastTag.Location = New System.Drawing.Point(137, 39)
+        Me.lblLastTag.Location = New System.Drawing.Point(152, 75)
         Me.lblLastTag.Name = "lblLastTag"
         Me.lblLastTag.Size = New System.Drawing.Size(208, 28)
         Me.lblLastTag.TabIndex = 9
@@ -297,7 +323,7 @@ Partial Class FrmMatImport
         Me.LabelControl8.Appearance.Options.UseTextOptions = True
         Me.LabelControl8.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl8.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl8.Location = New System.Drawing.Point(8, 43)
+        Me.LabelControl8.Location = New System.Drawing.Point(15, 79)
         Me.LabelControl8.Name = "LabelControl8"
         Me.LabelControl8.Size = New System.Drawing.Size(123, 21)
         Me.LabelControl8.TabIndex = 9
@@ -310,7 +336,7 @@ Partial Class FrmMatImport
         Me.LabelControl7.Appearance.Options.UseTextOptions = True
         Me.LabelControl7.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl7.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl7.Location = New System.Drawing.Point(27, 77)
+        Me.LabelControl7.Location = New System.Drawing.Point(34, 113)
         Me.LabelControl7.Name = "LabelControl7"
         Me.LabelControl7.Size = New System.Drawing.Size(104, 21)
         Me.LabelControl7.TabIndex = 9
@@ -323,7 +349,7 @@ Partial Class FrmMatImport
         Me.lblUnit3.Appearance.Options.UseTextOptions = True
         Me.lblUnit3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.lblUnit3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.lblUnit3.Location = New System.Drawing.Point(64, 146)
+        Me.lblUnit3.Location = New System.Drawing.Point(71, 182)
         Me.lblUnit3.Name = "lblUnit3"
         Me.lblUnit3.Size = New System.Drawing.Size(67, 21)
         Me.lblUnit3.TabIndex = 9
@@ -336,33 +362,23 @@ Partial Class FrmMatImport
         Me.lblUnit1.Appearance.Options.UseTextOptions = True
         Me.lblUnit1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.lblUnit1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.lblUnit1.Location = New System.Drawing.Point(19, 112)
+        Me.lblUnit1.Location = New System.Drawing.Point(26, 148)
         Me.lblUnit1.Name = "lblUnit1"
         Me.lblUnit1.Size = New System.Drawing.Size(112, 21)
         Me.lblUnit1.TabIndex = 9
         Me.lblUnit1.Text = "จำนวน"
         '
-        'LabelControl3
-        '
-        Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl3.Appearance.Options.UseFont = True
-        Me.LabelControl3.Location = New System.Drawing.Point(56, 92)
-        Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(83, 21)
-        Me.LabelControl3.TabIndex = 9
-        Me.LabelControl3.Text = "ประเภทวัสดุ"
-        '
         'sluSubCat
         '
         Me.sluSubCat.EditValue = ""
-        Me.sluSubCat.Location = New System.Drawing.Point(152, 89)
+        Me.sluSubCat.Location = New System.Drawing.Point(153, 89)
         Me.sluSubCat.Name = "sluSubCat"
         Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluSubCat.Properties.Appearance.Options.UseFont = True
         Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.sluSubCat.Properties.NullText = ""
         Me.sluSubCat.Properties.View = Me.GridView1
-        Me.sluSubCat.Size = New System.Drawing.Size(207, 28)
+        Me.sluSubCat.Size = New System.Drawing.Size(206, 28)
         Me.sluSubCat.TabIndex = 7
         '
         'GridView1
@@ -380,34 +396,41 @@ Partial Class FrmMatImport
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(2, 569)
+        Me.PnlSave.Location = New System.Drawing.Point(2, 614)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(374, 179)
+        Me.PnlSave.Size = New System.Drawing.Size(374, 134)
         Me.PnlSave.TabIndex = 1
         Me.PnlSave.Visible = False
         '
         'BtnSave
         '
+        Me.BtnSave.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnSave.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnSave.Appearance.Options.UseFont = True
-        Me.BtnSave.ImageOptions.Image = CType(resources.GetObject("BtnSave.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnSave.Location = New System.Drawing.Point(187, 7)
+        Me.BtnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.BtnSave.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.download_32x32
+        Me.BtnSave.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
+        Me.BtnSave.Location = New System.Drawing.Point(192, 4)
         Me.BtnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnSave.Name = "BtnSave"
-        Me.BtnSave.Size = New System.Drawing.Size(93, 35)
+        Me.BtnSave.Size = New System.Drawing.Size(168, 35)
         Me.BtnSave.TabIndex = 12
         Me.BtnSave.Text = "บันทึก"
         '
         'BtnCancel
         '
+        Me.BtnCancel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnCancel.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnCancel.Appearance.Options.UseFont = True
-        Me.BtnCancel.ImageOptions.Image = CType(resources.GetObject("BtnCancel.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnCancel.Location = New System.Drawing.Point(96, 7)
+        Me.BtnCancel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.BtnCancel.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.undo_16x16
+        Me.BtnCancel.Location = New System.Drawing.Point(18, 4)
         Me.BtnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnCancel.Name = "BtnCancel"
-        Me.BtnCancel.Size = New System.Drawing.Size(85, 35)
+        Me.BtnCancel.Size = New System.Drawing.Size(168, 35)
         Me.BtnCancel.TabIndex = 13
         Me.BtnCancel.Text = "ยกเลิก"
         '
@@ -418,18 +441,19 @@ Partial Class FrmMatImport
         Me.pnlEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.pnlEdit.Controls.Add(Me.BtnDelete)
         Me.pnlEdit.Controls.Add(Me.BtnEdit)
-        Me.pnlEdit.Location = New System.Drawing.Point(153, 267)
+        Me.pnlEdit.Location = New System.Drawing.Point(145, 267)
         Me.pnlEdit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlEdit.Name = "pnlEdit"
-        Me.pnlEdit.Size = New System.Drawing.Size(193, 42)
+        Me.pnlEdit.Size = New System.Drawing.Size(224, 42)
         Me.pnlEdit.TabIndex = 0
         '
         'BtnDelete
         '
         Me.BtnDelete.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnDelete.Appearance.Options.UseFont = True
+        Me.BtnDelete.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.BtnDelete.ImageOptions.Image = CType(resources.GetObject("BtnDelete.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnDelete.Location = New System.Drawing.Point(3, 4)
+        Me.BtnDelete.Location = New System.Drawing.Point(8, 3)
         Me.BtnDelete.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnDelete.Name = "BtnDelete"
         Me.BtnDelete.Size = New System.Drawing.Size(85, 35)
@@ -440,8 +464,9 @@ Partial Class FrmMatImport
         '
         Me.BtnEdit.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnEdit.Appearance.Options.UseFont = True
+        Me.BtnEdit.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.BtnEdit.ImageOptions.Image = CType(resources.GetObject("BtnEdit.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnEdit.Location = New System.Drawing.Point(92, 4)
+        Me.BtnEdit.Location = New System.Drawing.Point(121, 3)
         Me.BtnEdit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnEdit.Name = "BtnEdit"
         Me.BtnEdit.Size = New System.Drawing.Size(93, 35)
@@ -452,12 +477,13 @@ Partial Class FrmMatImport
         '
         Me.BtnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.BtnNew.Appearance.Options.UseFont = True
-        Me.BtnNew.ImageOptions.Image = CType(resources.GetObject("BtnNew.ImageOptions.Image"), System.Drawing.Image)
+        Me.BtnNew.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.BtnNew.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.forward_16x161
         Me.BtnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.BtnNew.Location = New System.Drawing.Point(152, 227)
+        Me.BtnNew.Location = New System.Drawing.Point(153, 227)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnNew.Name = "BtnNew"
-        Me.BtnNew.Size = New System.Drawing.Size(132, 27)
+        Me.BtnNew.Size = New System.Drawing.Size(206, 27)
         Me.BtnNew.TabIndex = 4
         Me.BtnNew.Text = "เพิ่มรายการ"
         '
@@ -469,10 +495,10 @@ Partial Class FrmMatImport
         Me.grpSearch.Controls.Add(Me.deImport)
         Me.grpSearch.Controls.Add(Me.LabelControl1)
         Me.grpSearch.Controls.Add(Me.LabelControl11)
+        Me.grpSearch.Controls.Add(Me.LabelControl3)
         Me.grpSearch.Controls.Add(Me.LabelControl10)
         Me.grpSearch.Controls.Add(Me.LabelControl4)
         Me.grpSearch.Controls.Add(Me.pnlEdit)
-        Me.grpSearch.Controls.Add(Me.LabelControl3)
         Me.grpSearch.Controls.Add(Me.sluSupplier)
         Me.grpSearch.Controls.Add(Me.sluSubCat)
         Me.grpSearch.Dock = System.Windows.Forms.DockStyle.Top
@@ -488,7 +514,7 @@ Partial Class FrmMatImport
         Me.txtImportNote.Name = "txtImportNote"
         Me.txtImportNote.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImportNote.Properties.Appearance.Options.UseFont = True
-        Me.txtImportNote.Size = New System.Drawing.Size(208, 63)
+        Me.txtImportNote.Size = New System.Drawing.Size(206, 63)
         Me.txtImportNote.TabIndex = 10
         '
         'LabelControl1
@@ -498,7 +524,7 @@ Partial Class FrmMatImport
         Me.LabelControl1.Appearance.Options.UseTextOptions = True
         Me.LabelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl1.Location = New System.Drawing.Point(40, 153)
+        Me.LabelControl1.Location = New System.Drawing.Point(38, 153)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(100, 21)
         Me.LabelControl1.TabIndex = 9
@@ -511,11 +537,24 @@ Partial Class FrmMatImport
         Me.LabelControl11.Appearance.Options.UseTextOptions = True
         Me.LabelControl11.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl11.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl11.Location = New System.Drawing.Point(94, 126)
+        Me.LabelControl11.Location = New System.Drawing.Point(92, 126)
         Me.LabelControl11.Name = "LabelControl11"
         Me.LabelControl11.Size = New System.Drawing.Size(46, 21)
         Me.LabelControl11.TabIndex = 9
         Me.LabelControl11.Text = "ผู้ขาย"
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl3.Appearance.Options.UseFont = True
+        Me.LabelControl3.Appearance.Options.UseTextOptions = True
+        Me.LabelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.LabelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelControl3.Location = New System.Drawing.Point(10, 92)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(127, 21)
+        Me.LabelControl3.TabIndex = 9
+        Me.LabelControl3.Text = "ประเภทวัสดุ"
         '
         'LabelControl10
         '
@@ -524,7 +563,7 @@ Partial Class FrmMatImport
         Me.LabelControl10.Appearance.Options.UseTextOptions = True
         Me.LabelControl10.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl10.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl10.Location = New System.Drawing.Point(12, 57)
+        Me.LabelControl10.Location = New System.Drawing.Point(10, 57)
         Me.LabelControl10.Name = "LabelControl10"
         Me.LabelControl10.Size = New System.Drawing.Size(127, 21)
         Me.LabelControl10.TabIndex = 9
@@ -537,7 +576,7 @@ Partial Class FrmMatImport
         Me.LabelControl4.Appearance.Options.UseTextOptions = True
         Me.LabelControl4.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl4.Location = New System.Drawing.Point(48, 22)
+        Me.LabelControl4.Location = New System.Drawing.Point(46, 22)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(91, 21)
         Me.LabelControl4.TabIndex = 9
@@ -563,7 +602,7 @@ Partial Class FrmMatImport
         Me.gcImportList.MainView = Me.gvImportList
         Me.gcImportList.Margin = New System.Windows.Forms.Padding(4)
         Me.gcImportList.Name = "gcImportList"
-        Me.gcImportList.Size = New System.Drawing.Size(759, 213)
+        Me.gcImportList.Size = New System.Drawing.Size(759, 227)
         Me.gcImportList.TabIndex = 8
         Me.gcImportList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvImportList, Me.GridView2})
         '
@@ -627,7 +666,7 @@ Partial Class FrmMatImport
         Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupControl1.Location = New System.Drawing.Point(378, 0)
         Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(763, 242)
+        Me.GroupControl1.Size = New System.Drawing.Size(763, 256)
         Me.GroupControl1.TabIndex = 19
         Me.GroupControl1.Text = "ข้อมูลใบรับของ"
         '
@@ -640,9 +679,9 @@ Partial Class FrmMatImport
         Me.GroupControl2.AppearanceCaption.Options.UseForeColor = True
         Me.GroupControl2.Controls.Add(Me.gcImportOrder)
         Me.GroupControl2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupControl2.Location = New System.Drawing.Point(378, 242)
+        Me.GroupControl2.Location = New System.Drawing.Point(378, 256)
         Me.GroupControl2.Name = "GroupControl2"
-        Me.GroupControl2.Size = New System.Drawing.Size(763, 508)
+        Me.GroupControl2.Size = New System.Drawing.Size(763, 494)
         Me.GroupControl2.TabIndex = 20
         Me.GroupControl2.Text = "รายการในใบรับของ"
         '
@@ -652,7 +691,7 @@ Partial Class FrmMatImport
         Me.gcImportOrder.Location = New System.Drawing.Point(2, 27)
         Me.gcImportOrder.MainView = Me.gvImportOrder
         Me.gcImportOrder.Name = "gcImportOrder"
-        Me.gcImportOrder.Size = New System.Drawing.Size(759, 479)
+        Me.gcImportOrder.Size = New System.Drawing.Size(759, 465)
         Me.gcImportOrder.TabIndex = 9
         Me.gcImportOrder.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvImportOrder})
         '
@@ -662,7 +701,6 @@ Partial Class FrmMatImport
         Me.gvImportOrder.GridControl = Me.gcImportOrder
         Me.gvImportOrder.Name = "gvImportOrder"
         Me.gvImportOrder.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
-        Me.gvImportOrder.OptionsFind.AlwaysVisible = True
         Me.gvImportOrder.OptionsView.ColumnAutoWidth = False
         Me.gvImportOrder.OptionsView.ShowGroupPanel = False
         '
@@ -752,11 +790,13 @@ Partial Class FrmMatImport
     Friend WithEvents txtUnit3 As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents txtUnit1 As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents lblUnit3 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents sluSubCat As DevExpress.XtraEditors.SearchLookUpEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents gcImportOrder As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvImportOrder As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents txtImportNote As DevExpress.XtraEditors.MemoEdit
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtPO As TextBox
+    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
 End Class
