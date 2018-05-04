@@ -9,9 +9,9 @@ Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid
 Imports System.Globalization
 Imports System.Threading
+Imports Inventory_Management
 
-
-Module ImModule
+Module _Module
     Public CategoryTxt As String
     Public CategoryValue As String
     Public CategoryDetail As String
@@ -30,10 +30,22 @@ Module ImModule
     Public ParamList As New List(Of SqlParameter)
     Public Version As String
     Public tmpSQL As String
+    Private DebugString As DevExpress.XtraBars.BarStaticItem
+    Public Property DebugCtrl As DevExpress.XtraBars.BarStaticItem
+        Set(value As DevExpress.XtraBars.BarStaticItem)
+            DebugString = value
+        End Set
+        Get
+            Return DebugString
+        End Get
+    End Property
+    Public WriteOnly Property Debug As String
+        Set(value As String)
+            DebugCtrl.Caption = value
+        End Set
+    End Property
     Public ColorInfo As New Colorlist
     Sub New()
-
-
         Dim Culture = CultureInfo.CreateSpecificCulture("th")
         Thread.CurrentThread.CurrentUICulture = Culture
         Thread.CurrentThread.CurrentCulture = Culture
@@ -108,6 +120,7 @@ Module ImModule
                 FrmMatImport.grpSearch.Visible = True
                 FrmMatImport.pnlEdit.Visible = False
                 FrmLogs_Requisition.BtnDel.Visible = False
+                FrmMain.RibbonPage2.Visible = False
                 'FrmMain.btnTransfer.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
                 With FrmMain
                     .ribGrpApprove.Visible = True
@@ -211,7 +224,6 @@ Module ImModule
         End Try
         Return result
     End Function
-
     'ไม่ได้ใช้
     Public Function convertDate(values As DateTime)
         Dim result As String
@@ -287,15 +299,18 @@ Module ImModule
                                                   End Function
     'CheckListInfo
     Public clbInfo As New CheckListBox
-    Public Class Colorlist
-        Private Function Hex(htmlCode As String) As Color
-            Return ColorTranslator.FromHtml("#" + htmlCode)
-        End Function
-
-        Public SoftBlue As Color = Hex("0072C6")
-        Public SoftRed As Color = Hex("fc9797")
-        Public SoftYellow As Color = Hex("fdeca6")
-        Public SoftGreen As Color = Hex("ddfd7c")
-        Public Gray As Color = Hex("f0f0f0")
-    End Class
 End Module
+Public Class Colorlist
+    Private Function Hex(htmlCode As String) As Color
+        Return ColorTranslator.FromHtml("#" + htmlCode)
+    End Function
+    Public SoftBlue As Color = Hex("0072C6")
+    Public SoftRed As Color = Hex("fc9797")
+    Public SoftYellow As Color = Hex("fdeca6")
+    Public SoftGreen As Color = Hex("ddfd7c")
+    Public Gray As Color = Hex("f0f0f0")
+
+End Class
+
+
+

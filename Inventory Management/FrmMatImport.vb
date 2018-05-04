@@ -537,7 +537,7 @@ Edit:
         Dim findValue As Integer = 0
         For rw As Integer = 0 To gvImportOrder.RowCount - 1
             Dim gvValues As String = gvImportOrder.GetRowCellValue(rw, "MatID")
-            If MatID = gvValues Then findValue = +1
+            If MatID = gvValues AndAlso gvImportOrder.GetRowCellValue(rw, "PO") = txtPO.Text Then findValue = +1
             If findValue >= 1 Then Exit For
         Next
 
@@ -731,7 +731,7 @@ Edit:
         SQL &= " SM.ProductName"
         SQL &= " FROM tbMat AS M INNER JOIN tbSubCategory AS SC ON M.CatID = SC.CatID AND M.SubCatID = SC.SubCatID"
         SQL &= " LEFT OUTER JOIN CombineSubMatName() SM ON M.MatID = SM.matID"
-        SQL &= " WHERE M.CatID+M.SubCatID = '" & sluSubCat.EditValue & "'"
+        SQL &= " WHERE M.CatID+M.SubCatID = '" & sluSubCat.EditValue & "' AND M.Stat > 0"
         With sluMat.Properties
             Dim enableCol As String() = {"MatName", "SubCatName", "ProductName"}
             .ValueMember = "MatID"

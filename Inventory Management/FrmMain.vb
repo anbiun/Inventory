@@ -8,6 +8,7 @@ Public Class FrmMain
     'Public gmh As GlobalMouseHandler = New GlobalMouseHandler()
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text += " v." + Version
+        DebugCtrl = bsiDebug
         bsiLogin.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID
         bsiServer.Caption = "เชื่อมต่อกับ " & varIP
         bsiServer.Caption &= " | ฐานข้อมูล " & varDB
@@ -15,8 +16,7 @@ Public Class FrmMain
 
         'Ribbon.Minimized = True
         'SetTabSize()
-        Dim mycol As New Colorlist
-        XtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = mycol.SoftBlue
+        XtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = ColorInfo.SoftBlue
         Permission(UserInfo.Permis)
     End Sub
     Sub New()
@@ -28,6 +28,7 @@ Public Class FrmMain
         frmName.Icon = Icon.FromHandle(CType(currentBtn.ImageOptions.Image, Bitmap).GetHicon)
         If popForm IsNot Nothing AndAlso popForm.Contains(frmName) Then
             frmName.TopMost = True
+            frmName.StartPosition = FormStartPosition.CenterScreen
             frmName.Show()
             Return
         Else
@@ -52,7 +53,7 @@ Public Class FrmMain
     Private Sub ButtonClick(sender As Object, e As ItemClickEventArgs) Handles btnMatList.ItemClick _
         , btnMatImport.ItemClick, btnStock.ItemClick, btnUnitManager.ItemClick, btnSupplier.ItemClick, btnLogOut.ItemClick _
         , btnApprove.ItemClick, btnRequsition.ItemClick, btnLogs_Req.ItemClick, btnSubMat.ItemClick, btnTransfer.ItemClick _
-        , btnLogs_Import.ItemClick, btnLogs_Transfer.ItemClick, btnQCTarget.ItemClick
+        , btnLogs_Import.ItemClick, btnLogs_Transfer.ItemClick, btnQCTarget.ItemClick, btnUser.ItemClick
         Dim btnBind As New Dictionary(Of BarItem, Form)
         With btnBind
             .Add(btnMatList, FrmMatList)
@@ -68,6 +69,7 @@ Public Class FrmMain
             .Add(btnSupplier, FmgSupplier)
             .Add(btnUnitManager, FmgUnit)
             .Add(btnQCTarget, FrmQCTarget)
+            .Add(btnUser, FmgUser)
         End With
         Dim popUpForm As New List(Of Form)
         With popUpForm
@@ -75,6 +77,7 @@ Public Class FrmMain
             .Add(FmgSupplier)
             .Add(FmgUnit)
             .Add(FrmQCTarget)
+            .Add(FmgUser)
         End With
 
         currentBtn = e.Item

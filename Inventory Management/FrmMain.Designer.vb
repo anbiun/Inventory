@@ -30,12 +30,11 @@ Partial Class FrmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.ribbonControl = New DevExpress.XtraBars.Ribbon.RibbonControl()
-        Me.appMenu = New DevExpress.XtraBars.Ribbon.ApplicationMenu(Me.components)
+        Me.appMenu = New DevExpress.XtraBars.Ribbon.ApplicationMenu()
         Me.iExit = New DevExpress.XtraBars.BarButtonItem()
-        Me.ribbonImageCollection = New DevExpress.Utils.ImageCollection(Me.components)
+        Me.ribbonImageCollection = New DevExpress.Utils.ImageCollection()
         Me.iClose = New DevExpress.XtraBars.BarButtonItem()
         Me.iAbout = New DevExpress.XtraBars.BarButtonItem()
         Me.bsiLogin = New DevExpress.XtraBars.BarStaticItem()
@@ -69,7 +68,8 @@ Partial Class FrmMain
         Me.btnLogs_Transfer = New DevExpress.XtraBars.BarButtonItem()
         Me.btnQCTarget = New DevExpress.XtraBars.BarButtonItem()
         Me.btnUserMng = New DevExpress.XtraBars.BarButtonItem()
-        Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection(Me.components)
+        Me.btnUser = New DevExpress.XtraBars.BarButtonItem()
+        Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection()
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribGrpNewSub = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribGrpImport = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -77,10 +77,12 @@ Partial Class FrmMain
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribGrpSetting = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPage2 = New DevExpress.XtraBars.Ribbon.RibbonPage()
+        Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
-        Me.delayer = New System.Windows.Forms.Timer(Me.components)
+        Me.delayer = New System.Windows.Forms.Timer()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.XtraTabbedMdiManager1 = New DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(Me.components)
+        Me.XtraTabbedMdiManager1 = New DevExpress.XtraTabbedMdi.XtraTabbedMdiManager()
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.appMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ribbonImageCollection, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,14 +98,14 @@ Partial Class FrmMain
         Me.ribbonControl.BackColor = System.Drawing.SystemColors.Window
         Me.ribbonControl.ExpandCollapseItem.Id = 0
         Me.ribbonControl.Images = Me.ribbonImageCollection
-        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.bsiLogin, Me.bsiServer, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.btnMatList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.bsiDebug, Me.btnStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnApprove, Me.btnPrintTag, Me.btnLogs_Req, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnQCTarget, Me.btnUserMng})
+        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.iClose, Me.iExit, Me.iAbout, Me.bsiLogin, Me.bsiServer, Me.alignButtonGroup, Me.iBoldFontStyle, Me.iItalicFontStyle, Me.iUnderlinedFontStyle, Me.fontStyleButtonGroup, Me.iLeftTextAlign, Me.iCenterTextAlign, Me.iRightTextAlign, Me.rgbiSkins, Me.btnMatList, Me.btnLogOut, Me.BarButtonItem2, Me.btnMatImport, Me.btnRequsition, Me.bsiDebug, Me.btnStock, Me.BarButtonItem3, Me.btnUnitManager, Me.btnSupplier, Me.btnApprove, Me.btnPrintTag, Me.btnLogs_Req, Me.btnSubMat, Me.btnTransfer, Me.btnLogs_Import, Me.btn_ListTag, Me.btnLogs_Transfer, Me.btnQCTarget, Me.btnUserMng, Me.btnUser})
         Me.ribbonControl.LargeImages = Me.ribbonImageCollectionLarge
         Me.ribbonControl.Location = New System.Drawing.Point(0, 0)
         Me.ribbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ribbonControl.MaxItemId = 86
+        Me.ribbonControl.MaxItemId = 87
         Me.ribbonControl.Name = "ribbonControl"
         Me.ribbonControl.PageHeaderItemLinks.Add(Me.iAbout)
-        Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1})
+        Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
         Me.ribbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.MacOffice
         Me.ribbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.ribbonControl.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.[True]
@@ -439,6 +441,14 @@ Partial Class FrmMain
         Me.btnUserMng.Id = 84
         Me.btnUserMng.Name = "btnUserMng"
         '
+        'btnUser
+        '
+        Me.btnUser.Caption = "BarButtonItem1"
+        Me.btnUser.Id = 86
+        Me.btnUser.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.usergroup_16x16
+        Me.btnUser.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.usergroup_32x32
+        Me.btnUser.Name = "btnUser"
+        '
         'ribbonImageCollectionLarge
         '
         Me.ribbonImageCollectionLarge.ImageSize = New System.Drawing.Size(32, 32)
@@ -506,6 +516,18 @@ Partial Class FrmMain
         Me.RibbonPageGroup2.ItemLinks.Add(Me.btnLogOut)
         Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
         Me.RibbonPageGroup2.Text = "ออก"
+        '
+        'RibbonPage2
+        '
+        Me.RibbonPage2.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup3})
+        Me.RibbonPage2.Name = "RibbonPage2"
+        Me.RibbonPage2.Text = "RibbonPage2"
+        '
+        'RibbonPageGroup3
+        '
+        Me.RibbonPageGroup3.ItemLinks.Add(Me.btnUser)
+        Me.RibbonPageGroup3.Name = "RibbonPageGroup3"
+        Me.RibbonPageGroup3.Text = "RibbonPageGroup3"
         '
         'ribbonStatusBar
         '
@@ -612,4 +634,7 @@ Partial Class FrmMain
     Friend WithEvents XtraTabbedMdiManager1 As DevExpress.XtraTabbedMdi.XtraTabbedMdiManager
     Friend WithEvents btnQCTarget As BarButtonItem
     Friend WithEvents btnUserMng As BarButtonItem
+    Friend WithEvents btnUser As BarButtonItem
+    Friend WithEvents RibbonPage2 As RibbonPage
+    Friend WithEvents RibbonPageGroup3 As RibbonPageGroup
 End Class

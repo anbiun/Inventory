@@ -11,27 +11,88 @@ Imports DevExpress.XtraGrid
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraEditors.Repository
 Imports DevExpress.XtraEditors.Controls
+Imports DevExpress
+Imports DevExpress.Xpo
 
 Public Class FrmStock
     Dim LocID As String
     Dim frmProg As New dlgProgress
     Dim SavePath As String
     Dim GvSource As New GridView
+    Dim gvMaster As GridStyle.MasterGrid
 #Region "Code Side"
-
     Private Sub getStockSP()
-        With BindInfo
-            .Name = "stock"
-            .LocCheked = clbLoc.CheckedItems
-            .CatChecked = clbSubCat.CheckedItems
-            .Excute()
-        End With
-        gcMain.DataSource = BindInfo.Result
+        Using MasterDetail As New DataSet
+            With BindInfo
+                .LocCheked = clbLoc.CheckedItems
+                .CatChecked = clbSubCat.CheckedItems
+                .Excute()
+            End With
+            '------Table Master
+            Dim dtMaster As DataTable = CType(BindInfo.Result("Master"), BindingSource).DataSource
+            dtMaster.TableName = "Master"
+            '------Table Detail
+            Dim dtDetail As DataTable = CType(BindInfo.Result("Detail"), BindingSource).DataSource
+            dtDetail.TableName = "Detail"
+            MasterDetail.Tables.Add(dtMaster)
+            MasterDetail.Tables.Add(dtDetail)
+
+            Dim cParent As DataColumn = MasterDetail.Tables("Master").Columns("Indexs")
+            Dim cChild As DataColumn = MasterDetail.Tables("Detail").Columns("Indexs")
+            MasterDetail.Relations.Add("Relation", cParent, cChild)
+
+            'assign
+            gcMain.DataSource = MasterDetail.Tables("Master")
+            Dim gvDetail As New GridView(gcMain)
+            gcMain.LevelTree.Nodes.Add("Indexs", gvDetail)
+            gvDetail.PopulateColumns(MasterDetail.Tables("Detail"))
+        End Using
+
         gvMain.PopulateColumns()
         gvMain.BestFitColumns()
-        GvFormat()
+        gvMaster.SetFormat()
+    End Sub
+    Private Sub gridControl_ViewRegistered(ByVal sender As Object, ByVal e As ViewOperationEventArgs) Handles gcMain.ViewRegistered
+        Dim gvDetail As New GridStyle.DetailGrid(TryCast(e.View, GridView))
+        gvDetail.SetFormat()
     End Sub
     Private Sub ExportXLS()
+        MsgBox("กำลังทำส่วนนี้ line 60")
+        Dim Dest As String = "C:\Users\d-___\Desktop\000.xlsx"
+        Dim prntngSys As New XtraPrinting.PrintingSystem
+        Dim op As New XtraPrinting.XlsxExportOptionsEx
+        op.ExportType = DevExpress.Export.ExportType.WYSIWYG
+
+        Using gcGrid As New DevExpress.XtraGrid.GridControl
+            Using gvView As New DevExpress.XtraGrid.Views.Grid.GridView
+                'Dim bV As DevExpress.XtraGrid.Views.Base.BaseView = gvView
+
+                '                'gcGrid.BindingContext = New System.Windows.Forms.BindingContext
+                gcGrid.MainView = gvView
+                gvView.GridControl = gcGrid
+                'gcGrid.ViewCollection.AddRange({bV})
+                gcGrid.DataSource = gcMain.DataSource
+                'gcGrid.ForceInitialize()
+                gvView.PopulateColumns()
+                gvView.OptionsView.ColumnAutoWidth = True
+                gvView.BestFitColumns()
+                gvView.OptionsPrint.AutoWidth = True
+                gvView.OptionsPrint.ExpandAllDetails = True
+                gvMain.OptionsPrint.PrintDetails = True
+
+                'DevExpress.Export.ExportSettings.DefaultExportType = DevExpress.Export.ExportType.WYSIWYG
+
+                'AddHandler op.CustomizeCell, Sub(ea)
+                '                                 ea.Formatting.BackColor = Color.Gainsboro
+                '                                 ea.Handled = True
+                '                             End Sub
+                gvView.ExportToXlsx(Dest, op)
+
+            End Using
+        End Using
+        Process.Start(Dest)
+        Return
+
         If gvMain.RowCount < 1 Then Exit Sub
         Dim saveFileDialog1 As New SaveFileDialog()
         saveFileDialog1.Filter = "Excel 97-2003 (*.xls) |*.xls"
@@ -49,17 +110,26 @@ Public Class FrmStock
             With Cols
                 .Add("A4", "SubCatName")
                 .Add("B4", "MatName")
-                .Add("C4", "Warn")
-                .Add("D4", "เดือน")
-                .Add("E4", "Unit1")
-                .Add("F4", "Unit1_Name")
-                .Add("G4", "Unit3")
-                .Add("H4", "Unit3_Name")
-                .Add("I4", "Dozen")
-                .Add("J4", "โหล")
-                .Add("K4", "JL")
-                .Add("L4", "KIWI")
-                .Add("M4", "JLK")
+                .Add("C4", "AllowColor")
+                .Add("D4", "Warn")
+                .Add("E4", "เดือน")
+                .Add("F4", "Unit1")
+                .Add("G4", "Unit1_Name")
+                .Add("H4", "Unit3")
+                .Add("I4", "Unit3_Name")
+                .Add("J4", "Dozen")
+                .Add("K4", "โหล")
+                .Add("L4", "JL")
+                .Add("M4", "KIWI")
+                .Add("N4", "JLK")
+                Dim colMonth As String = "O/P/Q/R/S/T/U/V/W/X/Y/Z"
+                Dim startMonth As Integer = 0
+                For Each cMont As String In colMonth.Split((New Char() {"/"c}))
+                    startMonth += 1
+                    .Add(cMont & "4", MonthName(startMonth))
+                Next
+
+
             End With
             Try
                 Dim strFileName As String = Directory.GetParent(Application.StartupPath).ToString + "\template\template_stock.xls"
@@ -105,12 +175,13 @@ Public Class FrmStock
 
                         'Cell Colour
                         Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn"))
-                        Dim warn_month As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn_Month"))
-                        Dim CellRange As String = "A" & 4 + gvRow & ":" & "M" & 4 + gvRow
+                        Dim Minimum As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Minimum")), 0, gvMain.GetRowCellDisplayText(gvRow, "Minimum"))
+                        Dim AllowColor As Integer = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "AllowColor")), 0, gvMain.GetRowCellDisplayText(gvRow, "AllowColor"))
+                        Dim CellRange As String = "A" & 4 + gvRow & ":" & "Z" & 4 + gvRow
                         With xlWorkSheet
-                            If warn >= 2 Then
+                            If warn >= 2 Or AllowColor = 0 Then
                                 .Cells.Range(CellRange).Style = Stock_Normal
-                            ElseIf warn <= 1 Then
+                            ElseIf warn <= 1 AndAlso AllowColor = 1 Then
                                 .Cells.Range(CellRange).Style = Stock_Danger
                             Else
                                 .Cells.Range(CellRange).Style = Stock_Warning
@@ -130,9 +201,22 @@ Public Class FrmStock
                                     Col = ch
                                 End If
                             Next
-
+                            Dim currentCollumns As String
+                            currentCollumns = Col
                             xlRange = CType(xlWorkSheet.Cells.Range(Col & ColRow + gvRow), Excel.Range)
-
+                            If Cols.Values(i) = "AllowColor" Then
+                                If GvSource.GetRowCellDisplayText(gvRow, "AllowColor").ToString = "0" Then
+                                    xlRange.Value2 = "ไม่มีเป้า QC"
+                                Else
+                                    xlRange.Value2 = ""
+                                End If
+                                Continue For
+                            ElseIf Cols.Values(i) = "เดือน" Or Cols.Values(i) = "โหล" Then
+                                If GvSource.GetRowCellDisplayText(gvRow, "MatName").ToString = "" Then
+                                    xlRange.Value2 = ""
+                                    Continue For
+                                End If
+                            End If
                             Try
                                 xlRange.Value2 = GvSource.GetRowCellDisplayText(gvRow, Cols.Values(i))
                             Catch ex As Exception
@@ -193,38 +277,7 @@ Public Class FrmStock
             End If
         End Try
     End Sub
-    Private Sub GvFormat()
-        If gvMain.RowCount <= 0 Then Exit Sub
-        gridInfo = New GridCaption(gvMain)
-        With gridInfo
-            .HIDE.Columns("Warn_Month")
-            .HIDE.Columns("QCWarn")
-            .HIDE.Columns("matID1")
-            .HIDE.Columns("matid")
-            .HIDE.Columns("productname")
-            .HIDE.Columns("AllowColor")
-            .SetCaption()
-            Dim ColList As String() = {"Unit1", "Unit3", "Dozen", "Warn"}
-            .SetFormatNumber(ColList)
-            For i As Integer = 1 To 12
-                .SetFormatNumber({MonthName(i)}, "{0:n0}")
-            Next
-        End With
 
-        With gvMain
-            .Columns("SubCatName").Group()
-            .ExpandAllGroups()
-            .OptionsBehavior.AllowPartialGroups = DefaultBoolean.True
-            .Columns("SubCatName").Fixed = Columns.FixedStyle.Left
-            .Columns("MatName").Fixed = Columns.FixedStyle.Left
-            .Columns("Warn").Fixed = Columns.FixedStyle.Left
-            .Columns("Warn_Name").Fixed = Columns.FixedStyle.Left
-            .Columns("ReqToday").Fixed = Columns.FixedStyle.Left
-            .Columns("Warn").Caption = getString("warn1")
-            .BestFitColumns()
-            .OptionsView.ShowAutoFilterRow = True
-        End With
-    End Sub
 #End Region
     Dim _XLSGetHeader As Func(Of String) = Function()
                                                SQL = "SELECT MAX(RequestDate) FROM tbRequisition"
@@ -257,39 +310,16 @@ Public Class FrmStock
         End With
 
         lastStock.Text += " " & _XLSGetHeader()
-        GvFormat()
+        gvMaster = New GridStyle.MasterGrid(gvMain)
+        gvMaster.SetFormat()
         cbStat.SelectedIndex = 0
         loadSuccess = True
     End Sub
     Private Sub btnExPortExcel_Click(sender As Object, e As EventArgs) Handles btnExportExcel.Click
+        'Dim newExport As New newExport.ExportXLS
+        'newExport.Export(gvMain, gcMain)
         ExportXLS()
-    End Sub
-    Public Sub GVRowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles gvMain.RowStyle
-        Dim View As GridView = sender
-        Dim Warn = View.GetRowCellValue(e.RowHandle, "Warn")
-        Dim Warn_Month = View.GetRowCellValue(e.RowHandle, "Warn_Month")
-        Dim AllowColor = View.GetRowCellValue(e.RowHandle, "AllowColor")
-        If (e.RowHandle >= 0) Then
-            If IsDBNull(Warn) Then
-                Warn = 0
-            Else
-                Warn = If(String.IsNullOrWhiteSpace(Warn), 0, CDbl(Warn))
-            End If
-            If IsDBNull(Warn_Month) Then
-                Warn_Month = 0
-            End If
-
-            If Warn <= 1 AndAlso AllowColor = 1 Then
-                e.Appearance.BackColor = ColorTranslator.FromHtml("#fc9797")
-                e.Appearance.BackColor2 = Color.WhiteSmoke
-            ElseIf Warn <= Warn_Month AndAlso AllowColor = 1 Then
-                e.Appearance.BackColor = Color.LightGoldenrodYellow
-                e.Appearance.BackColor2 = Color.LightYellow
-            Else
-                e.Appearance.BackColor = Nothing
-                e.Appearance.BackColor2 = Nothing
-            End If
-        End If
+        'newExport()
     End Sub
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         If clbLoc.CheckedItemsCount <= 0 Or clbSubCat.CheckedItemsCount <= 0 Then Exit Sub
@@ -311,10 +341,13 @@ Public Class FrmStock
             Dim view As GridView = TryCast(gcMain.FocusedView, GridView)
             Dim info As GridHitInfo = view.CalcHitInfo(e.ControlMousePosition)
             If info.InRowCell Then
-                Dim MainMat As String = view.GetRowCellDisplayText(info.RowHandle, "MatName")
-                Dim text As String = view.GetRowCellDisplayText(info.RowHandle, "ProductName")
+                Dim MainMat As String = view.GetRowCellDisplayText(info.RowHandle, "SubCatName")
+                Dim MatNumber As String = view.GetRowCellDisplayText(info.RowHandle, "ProductName")
+                Dim text As String = view.GetRowCellDisplayText(info.RowHandle, "SubMatName")
                 Dim cellKey As String = info.RowHandle.ToString() & " - " & info.Column.ToString()
-                e.Info = New ToolTipControlInfo(cellKey, MainMat & " เบอร์ร่วมคือ : " & If(String.IsNullOrWhiteSpace(text), "ไม่มี", text))
+
+                Dim result As String = String.Format("{0}{1} เบอร่วมคือ : {2}", MainMat, MatNumber, If(String.IsNullOrEmpty(text), "ไม่มี", text))
+                e.Info = New ToolTipControlInfo(cellKey, result)
             End If
 
         End If
@@ -373,59 +406,6 @@ Public Class FrmStock
         'no default drawing is required
         e.Handled = True
     End Sub
-
-    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs, Optional RowHandle As Integer = -1) Handles gvAdjust.RowCellClick, gvMain.RowCellClick
-        Dim GV As GridView = CType(sender, GridView)
-        If GV.FocusedRowHandle < 0 Then Exit Sub
-        With GV
-            Dim getCellVal As Func(Of String, String) = Function(cells)
-                                                            Return .GetRowCellValue(
-                                                            If(RowHandle >= 0, RowHandle, e.RowHandle),
-                                                            cells)
-                                                        End Function
-            Select Case .Name
-                Case gvMain.Name
-                    Dim MatID As String = getCellVal("MatID")
-                    SQL = "SELECT * FROM vwAdjust"
-                    SQL &= " WHERE MatID = '" & MatID & "'"
-                    SQL &= " AND " & LocExpr(clbLoc.CheckedItems).Replace("OR", "OR MatID='" & MatID & "' AND")
-
-                    If clbLoc.CheckedItems.Count <= 0 Then Exit Sub
-                    gcAdjust.DataSource = dsTbl("AJStock")
-                    If gvAdjust.RowCount > 0 Then
-                        gridInfo = New GridCaption(gvAdjust)
-                        With gridInfo
-                            .SetCaption()
-                            .SetFormatNumber({"Unit1", "Unit3"})
-                        End With
-                        With gvAdjust
-                            .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-                            .BestFitColumns()
-                        End With
-                    End If
-
-                Case gvAdjust.Name
-                    Dim Unit1 As Double = getCellVal("Unit1")
-                    Dim Unit3 As Double = getCellVal("Unit3")
-                    Unit1 = Math.Round(Unit1, 2)
-                    Unit3 = Math.Round(Unit3, 2)
-                    lbMatName.Text = getCellVal("MatName")
-                    lbTagID.Text = getCellVal("TagID")
-                    lbRatio.Text = getCellVal("Ratio")
-                    lbQtyPerUnit.Text = getCellVal("QtyPerUnit")
-
-
-                    lbUnit1.Text = Unit1
-                    lbUnit3.Text = Unit3
-                    txtUnit1.EditValue = Unit1
-                    txtUnit2.EditValue = Unit3
-
-                    lbUnit1_Name.Text = getCellVal("Unit1_Name")
-                    lbUnit3_Name.Text = getCellVal("Unit3_Name")
-                    LocID = getCellVal("LocID")
-            End Select
-        End With
-    End Sub
     Private Sub chkDay_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
         Dim clb As CheckedListBox = CType(sender, CheckedListBox)
 
@@ -466,8 +446,7 @@ Public Class FrmStock
         dsTbl("adjust")
         BindInfo.Excute()
         gvMain.ExpandAllGroups()
-        gvRowClick(gvMain, Nothing, gvMain.FocusedRowHandle)
-
+        'gvRowClick(gvMain, Nothing, gvMain.FocusedRowHandle)
     End Sub
     Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged, txtUnit2.EditValueChanged, txtUnit3.EditValueChanged
         Dim spiCtr As DevExpress.XtraEditors.SpinEdit = CType(sender, DevExpress.XtraEditors.SpinEdit)
@@ -490,40 +469,6 @@ Public Class FrmStock
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbLoc.ItemCheck, clbSubCat.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub
-    Private Sub gridView1_CustomDrawCell(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs) Handles gvMain.CustomDrawCell
-        If e.CellValue Is Nothing Then Exit Sub
-        Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
-        Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
-
-        If e.Column.FieldName = "ReqToday" Then
-            e.DisplayText = String.Empty
-            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "ReqToday" Then
-                If CType(sender, GridView).GetRowCellValue(e.RowHandle, "AllowColor") = 0 Then
-                    infox.ContextImage = My.Resources.opportunities_16x16
-                ElseIf e.CellValue = "1" Then
-                    infox.ContextImage = My.Resources.apply_16x16
-                ElseIf e.CellValue = "2" Then
-                    infox.ContextImage = My.Resources.about_16x16
-
-                ElseIf e.CellValue = "0" Then
-                    infox.ContextImage = Nothing
-                End If
-                infox.CalcViewInfo()
-            End If
-        End If
-
-
-        If e.Column.FieldName = "qcnote" Then
-            e.DisplayText = "เป้าQC"
-            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "qcnote" Then
-                'Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
-                'Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
-                infox.ContextImage = My.Resources.qcnote
-                infox.ContextImageAlignment = ContextImageAlignment.Far
-                infox.CalcViewInfo()
-            End If
-        End If
-    End Sub
     Private Sub cbStat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbStat.SelectedIndexChanged
         If cbStat.SelectedIndex <> 1 Then
             lbU1.Text = 0
@@ -532,3 +477,6 @@ Public Class FrmStock
         End If
     End Sub
 End Class
+
+
+

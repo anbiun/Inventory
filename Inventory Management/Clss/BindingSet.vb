@@ -5,16 +5,20 @@ Imports DevExpress.XtraEditors.BaseCheckedListBoxControl
 Public Class BindingSet
     Private BindingArray As New Dictionary(Of String, BindingSource)
     Private _BindingName As String
-    Property Name
-        Set(value)
+    Property Name As String
+        Set(value As String)
             _BindingName = value
         End Set
         Get
             Return _BindingName
         End Get
     End Property
-    Function Result() As BindingSource
-        Return BindingArray(Name)
+
+    Function Result(Optional bindingName As String = "") As BindingSource
+        If String.IsNullOrEmpty(bindingName) Then
+            bindingName = Name
+        End If
+        Return BindingArray(bindingName)
     End Function
     Sub Add(BindingName As String)
         BindingArray.Add(BindingName, New BindingSource)
@@ -53,14 +57,12 @@ Public Class BindingSet
         End Get
     End Property
     Public Sub Excute()
-
         If _LocList.Count <= 0 Or
                 _CatList.Count <= 0 Then
             Exit Sub
         End If
-
         Dim LocExpr As String = String.Empty
-        Dim DTResult As New DataTable
+
         'เลือก Location
         Dim LocSelect As New List(Of String)
         For Each item As DataRowView In _LocList
@@ -73,42 +75,47 @@ Public Class BindingSet
                 LocExpr += " LocID = '" + item + "'"
             End If
         Next
+        Dim SPList As New Dictionary(Of String, String)
+        SPList.Add("Master", "StockMaster")
+        SPList.Add("Detail", "StockDetail")
 
-        'เลือกประเภท
-
-        For Each item As DataRowView In _CatList
-            If _CatList.Count = 1 Then
-                ParamList.Clear()
-                ParamList.Add(New SqlParameter("@CatExpr", item(0)))
-                ParamList.Add(New SqlParameter("@LocExpr", LocExpr))
-                DTResult = CallSP("GetStock", ParamList)
-            Else
-                ParamList.Clear()
-                ParamList.Add(New SqlParameter("@CatExpr", item(0)))
-                ParamList.Add(New SqlParameter("@LocExpr", LocExpr))
-                If DTResult.Rows.Count = 0 Then
-                    DTResult = CallSP("GetStock", ParamList)
+        For Each SPName As String In SPList.Keys
+            Dim DTResult As New DataTable
+            Name = SPName
+            'เลือกประเภท
+            For Each item As DataRowView In _CatList
+                If _CatList.Count = 1 Then
+                    ParamList.Clear()
+                    ParamList.Add(New SqlParameter("@CatExpr", item(0)))
+                    ParamList.Add(New SqlParameter("@LocExpr", LocExpr))
+                    DTResult = CallSP(SPList(SPName), ParamList)
                 Else
-                    For Each items As DataRow In CallSP("GetStock", ParamList).Rows
-                        DTResult.ImportRow(items)
-                    Next
+                    ParamList.Clear()
+                    ParamList.Add(New SqlParameter("@CatExpr", item(0)))
+                    ParamList.Add(New SqlParameter("@LocExpr", LocExpr))
+                    If DTResult.Rows.Count = 0 Then
+                        DTResult = CallSP(SPList(SPName), ParamList)
+                    Else
+                        For Each items As DataRow In CallSP(SPList(SPName), ParamList).Rows
+                            DTResult.ImportRow(items)
+                        Next
+                    End If
                 End If
+            Next
+
+            If Not BindingArray.ContainsKey(Name) Then
+                BindingArray.Add(Name, New BindingSource)
             End If
+            BindingArray(Name).DataSource = WarnCalculate(DTResult)
         Next
-
-        If Not BindingArray.ContainsKey(Name) Then
-            BindingArray.Add(Name, New BindingSource)
-        End If
-
-        BindingArray(Name).DataSource = WarnCalculate(DTResult)
     End Sub
     Private Function WarnCalculate(inputTable As DataTable) As DataTable
         Dim tbResult As DataTable = inputTable.Copy
         Dim Dozen As Double = 0
-        Dim Matname As String
+        Dim ProductName As String
         'loop จำนวนแถว
         For Each rows As DataRow In tbResult.Rows
-            Matname = rows("MatName")
+            ProductName = rows("ProductName")
             Dozen = rows("dozen")
 
             Dim Warn As Double = 0
@@ -144,7 +151,7 @@ Public Class BindingSet
                     Exit For
                 End If
             Next
-            rows("warn") = Warn
+            rows("Warn") = Warn
         Next
         Return tbResult
     End Function
