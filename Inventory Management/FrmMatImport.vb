@@ -62,8 +62,8 @@ Public Class FrmMatImport
                 GoTo SubUnit
         End Select
 
-        'Clear All Ds inFrom
-        'clsDS({"ImportList", "ImportOrder", "MatUnitType",  "Unit"})
+        SQL = "SELECT PoNo FROM vwPo_Detail GROUP BY PoNo"
+        dsTbl("PoNo")
 
         'ImportList
         SQL = "select * from vwImportList"
@@ -235,7 +235,7 @@ SubUnit:
             SQL &= " FROM tbImportOrder INNER JOIN tbImportList ON tbImportOrder.ImportID = tbImportList.ImportID INNER JOIN tbMat ON tbImportOrder.MatID = tbMat.MatID"
             SQL &= " INNER JOIN tbSubCategory ON tbMat.SubCatID = tbSubCategory.SubCatID"
             SQL &= " WHERE (tbImportOrder.ImportID = '" & ImportID & "') "
-            SQL &= " UPDATE tbImportList SET Stat=1 WHERE ImportID='" & ImportID & "'"
+            'SQL &= " UPDATE tbImportList SET Stat=1 WHERE ImportID='" & ImportID & "'"
             dsTbl("transfer")
         Next
         MessageBox.Show("บันทึกยอดเข้าคลังเสร็จสมบูรณ์", "บันทึกยอดเข้าคลัง", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -311,6 +311,13 @@ SubUnit:
             .View.Columns("SubCatName").Caption = getString("SubCatName")
             .View.Columns("GroupTag").Visible = False
         End With
+
+        With sluPO.Properties
+            .DataSource = DS.Tables("PoNo")
+            .ValueMember = "PoNo"
+            .DisplayMember = "PoNo"
+            .PopulateViewColumns()
+        End With
     End Sub
     Private Sub LookUpEditValueChanged(sender As Object, e As EventArgs)
         If LoadSuccess = False Then Exit Sub
@@ -382,7 +389,7 @@ SubUnit:
                         Case dtImportList.TableName
                             fieldList = {"ImportDate", "BillNo", "ImportID", "SupplierID", "UserStock_ID", "UserApprove_ID", "Notation"}
                         Case dtImportOrder.TableName
-                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID", "Notation", "PO"}
+                            fieldList = {"ImportOrID", "ImportID", "MatID", "Unit1_Sum", "Unit3_Sum", "Unit1_ID", "TagID", "Ratio", "QtyPerUnit", "LocID", "Notation", "PoNo"}
                     End Select
                     tbName.TableName = "tb" & tbName.TableName
                     blkCpy(tbName.TableName, tbName, fieldList)
@@ -528,7 +535,6 @@ Edit:
         txtUnit3.Value = 0
         gvImportList.BestFitColumns()
         gvImportOrder.BestFitColumns()
-        txtPO.Text = String.Empty
         'New Order
         'TagID += 1
     End Sub
@@ -586,7 +592,7 @@ Edit:
                 dr("Ratio") = ImReq.Ratio
                 dr("QtyPerUnit") = QtyPerUnit
                 dr("LocID") = UserInfo.SelectLoc
-                dr("PO") = txtPO.Text
+                dr("PoNo") = sluPO.EditValue
                 .Rows.Add(dr)
                 .AcceptChanges()
                 gcImportOrder.Refresh()
@@ -677,12 +683,12 @@ Edit:
         RowClickFunc(gv)
         If e.Column.FieldName = "Notation" Then CType(sender, GridView).ShowEditor()
     End Sub
-    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress, txtPO.KeyPress
+    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress
         If e.KeyChar = "-" Then Return
         Dim ctrName As String = CType(sender, TextBox).Name
 
         If e.KeyChar = "/" Then
-            If ctrName = txtBillNo.Name Or ctrName = txtPO.Name Then
+            If ctrName = txtBillNo.Name Then
                 numOnly(e)
                 Dim ReqNo As New GenRequestNo With {
                     .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
@@ -704,9 +710,6 @@ Edit:
         gcImportList.DataSource = If(String.IsNullOrWhiteSpace(txtBillNo.Text),
                                      search("ImportList", "ImportDate='" & ImportDate & "'", ""),
                                      search("ImportList", "BillNo='" & txtBillNo.Text & "'", ""))
-    End Sub
-    Private Sub txtPoNo_TextChanged(sender As Object, e As EventArgs)
-        'search("PoNo like '" & txtPoNo.Text & "%'")
     End Sub
 #End Region
     Private Sub luUnit1_name_EditValueChanged(sender As Object, e As EventArgs) Handles luUnit1_name.EditValueChanged

@@ -17,8 +17,8 @@ Public Class FrmStock
     Dim frmProg As New dlgProgress
     Dim SavePath As String
     Dim GvSource As New GridView
+    Dim PO As POFunction.ToolTip
 #Region "Code Side"
-
     Private Sub getStockSP()
         With BindInfo
             .Name = "stock"
@@ -30,6 +30,8 @@ Public Class FrmStock
         gvMain.PopulateColumns()
         gvMain.BestFitColumns()
         GvFormat()
+        PO = New POFunction.ToolTip
+        PO.ToolTipControl = tooltipGcMain
     End Sub
     Private Sub ExportXLS()
         If gvMain.RowCount < 1 Then Exit Sub
@@ -219,7 +221,7 @@ Public Class FrmStock
             .Columns("MatName").Fixed = Columns.FixedStyle.Left
             .Columns("Warn").Fixed = Columns.FixedStyle.Left
             .Columns("Warn_Name").Fixed = Columns.FixedStyle.Left
-            .Columns("ReqToday").Fixed = Columns.FixedStyle.Left
+            .Columns("PoStat").Fixed = Columns.FixedStyle.Left
             .Columns("Warn").Caption = getString("warn1")
             .BestFitColumns()
             .OptionsView.ShowAutoFilterRow = True
@@ -314,9 +316,23 @@ Public Class FrmStock
                 Dim MainMat As String = view.GetRowCellDisplayText(info.RowHandle, "MatName")
                 Dim text As String = view.GetRowCellDisplayText(info.RowHandle, "ProductName")
                 Dim cellKey As String = info.RowHandle.ToString() & " - " & info.Column.ToString()
-                e.Info = New ToolTipControlInfo(cellKey, MainMat & " เบอร์ร่วมคือ : " & If(String.IsNullOrWhiteSpace(text), "ไม่มี", text))
-            End If
+                Dim Owing As String = PO.getOwing(view.GetRowCellValue(info.RowHandle, "MatID"),
+                                                  view.GetRowCellValue(info.RowHandle, "Unit3_Name"))
+                Dim Result As Func(Of String) = Function()
+                                                    Dim SubMat As String = MainMat & " เบอร์ร่วมคือ : " & If(String.IsNullOrWhiteSpace(text), "ไม่มี", text)
+                                                    SubMat += vbNewLine
+                                                    Dim length = SubMat.Length
+                                                    Do Until length = 0
+                                                        SubMat += "-"
+                                                        length -= 1
+                                                    Loop
+                                                    SubMat += vbNewLine
+                                                    SubMat += Owing
+                                                    Return SubMat
+                                                End Function
 
+                e.Info = New ToolTipControlInfo(cellKey, Result())
+            End If
         End If
     End Sub
     Private Function IsHoliday(ByVal dt As DateTime) As Boolean
@@ -373,7 +389,6 @@ Public Class FrmStock
         'no default drawing is required
         e.Handled = True
     End Sub
-
     Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs, Optional RowHandle As Integer = -1) Handles gvAdjust.RowCellClick, gvMain.RowCellClick
         Dim GV As GridView = CType(sender, GridView)
         If GV.FocusedRowHandle < 0 Then Exit Sub
@@ -495,18 +510,17 @@ Public Class FrmStock
         Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
         Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
 
-        If e.Column.FieldName = "ReqToday" Then
+        If e.Column.FieldName = "PoStat" Then
             e.DisplayText = String.Empty
-            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "ReqToday" Then
+            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "PoStat" Then
                 If CType(sender, GridView).GetRowCellValue(e.RowHandle, "AllowColor") = 0 Then
                     infox.ContextImage = My.Resources.opportunities_16x16
                 ElseIf e.CellValue = "1" Then
-                    infox.ContextImage = My.Resources.apply_16x16
+                    infox.ContextImage = Nothing
                 ElseIf e.CellValue = "2" Then
                     infox.ContextImage = My.Resources.about_16x16
-
                 ElseIf e.CellValue = "0" Then
-                    infox.ContextImage = Nothing
+                    infox.ContextImage = My.Resources.sales_16x16
                 End If
                 infox.CalcViewInfo()
             End If

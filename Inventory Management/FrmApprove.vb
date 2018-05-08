@@ -155,11 +155,6 @@ Public Class FrmApprove
         SQL = "SELECT * FROM tbApprove"
 
         FirstQry(True)
-        If DS.Tables("alltransfer").Rows.Count > 0 Then
-            dlgAlert.Datasource = DS.Tables("alltransfer").Copy
-            dlgAlert.TopMost = True
-            dlgAlert.Show()
-        End If
     End Sub
 #End Region
 

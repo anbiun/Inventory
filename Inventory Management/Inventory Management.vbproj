@@ -305,6 +305,7 @@
     <Compile Include="Clss\ExcelExport.vb" />
     <Compile Include="Clss\GenRequestNo.vb" />
     <Compile Include="Clss\InOutFunc.vb" />
+    <Compile Include="Clss\PoMain.vb" />
     <Compile Include="Clss\StringValue.vb" />
     <Compile Include="Clss\UserLogin.vb" />
     <Compile Include="Clss\GridCaption.vb" />
@@ -314,16 +315,16 @@
     <Compile Include="dlgProgress.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DlogStockLow.Designer.vb">
-      <DependentUpon>DlogStockLow.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DlogStockLow.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FrmApprove.Designer.vb">
       <DependentUpon>FrmApprove.vb</DependentUpon>
     </Compile>
     <Compile Include="FrmApprove.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPONew.Designer.vb">
+      <DependentUpon>FrmPONew.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPONew.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Logs\FrmLogs_Import.Designer.vb">
@@ -390,18 +391,6 @@
       <DependentUpon>FmgCategory.vb</DependentUpon>
     </Compile>
     <Compile Include="Manage\FmgCategory.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmExcelExport.Designer.vb">
-      <DependentUpon>FrmExcelExport.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmExcelExport.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmExcelImport.Designer.vb">
-      <DependentUpon>FrmExcelImport.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmExcelImport.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMain.Designer.vb">
@@ -472,11 +461,11 @@
     <EmbeddedResource Include="dlgProgress.resx">
       <DependentUpon>dlgProgress.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlogStockLow.resx">
-      <DependentUpon>DlogStockLow.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPONew.resx">
+      <DependentUpon>FrmPONew.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmQCTarget.resx">
       <DependentUpon>FrmQCTarget.vb</DependentUpon>
@@ -512,12 +501,6 @@
       <DependentUpon>FmgCategory.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmExcelExport.resx">
-      <DependentUpon>FrmExcelExport.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmExcelImport.resx">
-      <DependentUpon>FrmExcelImport.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -543,7 +526,6 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -625,6 +607,7 @@
     <None Include="Resources\apply_16x162.png" />
     <None Include="Resources\about_16x16.png" />
     <None Include="Resources\backward_16x16.png" />
+    <None Include="Resources\apply_32x32.png" />
     <Content Include="Resources\BGM1.jpg" />
     <Content Include="Resources\Computer.ico" />
     <None Include="Resources\Get.png" />
@@ -661,6 +644,7 @@
     <None Include="Resources\forward_32x32.png" />
     <None Include="Resources\forward_16x161.png" />
     <None Include="Resources\download_32x32.png" />
+    <None Include="Resources\sales_16x16.png" />
     <Content Include="Resources\T.ico" />
     <None Include="Resources\usergroup_32x32.png" />
     <None Include="Resources\usergroup_16x16.png" />

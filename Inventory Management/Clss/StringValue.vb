@@ -77,7 +77,7 @@
 #Region "ทั่วไป"
                 .Add("err_pagesize", "จำนวนหน้า เกินจำนวนข้อมูลที่มีอยู่")
                 .Add("err_norow", "ยังไม่มีข้อมูลส่วนนี้")
-                .Add("ReqToday", " ")
+                .Add("PoStat", " ")
                 .Add("Stat", "สถานะ")
                 .Add("matStat0", "เลิกใช้งาน")
                 .Add("matStat1", "ใช้งาน")

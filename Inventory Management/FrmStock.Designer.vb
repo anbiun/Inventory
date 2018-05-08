@@ -109,6 +109,9 @@ Partial Class FrmStock
         '
         'tooltipGcMain
         '
+        Me.tooltipGcMain.AutoPopDelay = 50000
+        Me.tooltipGcMain.ToolTipStyle = DevExpress.Utils.ToolTipStyle.Windows7
+        Me.tooltipGcMain.ToolTipType = DevExpress.Utils.ToolTipType.SuperTip
         '
         'gcAdjust
         '

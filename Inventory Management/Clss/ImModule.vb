@@ -108,6 +108,7 @@ Module ImModule
                 FrmMatImport.grpSearch.Visible = True
                 FrmMatImport.pnlEdit.Visible = False
                 FrmLogs_Requisition.BtnDel.Visible = False
+                FrmMain.btnPOnew.Visibility = False
                 'FrmMain.btnTransfer.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
                 With FrmMain
                     .ribGrpApprove.Visible = True
@@ -118,6 +119,7 @@ Module ImModule
                 Return False
             Case UserGroup.ApproveUser
                 FrmMatImport.pnlEdit.Visible = True
+                FrmMain.btnPOnew.Visibility = False
                 With FrmMain
                     .ribGrpNewSub.Visible = False
                     .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never

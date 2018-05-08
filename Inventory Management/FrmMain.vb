@@ -6,53 +6,17 @@ Imports DevExpress.LookAndFeel
 
 Public Class FrmMain
     'Public gmh As GlobalMouseHandler = New GlobalMouseHandler()
-    Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text += " v." + Version
-        bsiLogin.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID
-        bsiServer.Caption = "เชื่อมต่อกับ " & varIP
-        bsiServer.Caption &= " | ฐานข้อมูล " & varDB
-        bsiServer.Caption &= " | คลังวัสดุ " & UserInfo.LocName & " (" & UserInfo.SelectLoc & ")"
-
-        'Ribbon.Minimized = True
-        'SetTabSize()
-        Dim mycol As New Colorlist
-        XtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = mycol.SoftBlue
-        Permission(UserInfo.Permis)
-    End Sub
     Sub New()
         InitSkins()
         InitializeComponent()
         Me.InitSkinGallery()
-    End Sub
-    Private Sub ShowForm(frmName As Form, Optional popForm As List(Of Form) = Nothing)
-        frmName.Icon = Icon.FromHandle(CType(currentBtn.ImageOptions.Image, Bitmap).GetHicon)
-        If popForm IsNot Nothing AndAlso popForm.Contains(frmName) Then
-            frmName.TopMost = True
-            frmName.Show()
-            Return
-        Else
-            frmName.MdiParent = Me
-            frmName.Show()
-        End If
-
-    End Sub
-    Sub InitSkins()
-        DevExpress.Skins.SkinManager.EnableFormSkins()
-        DevExpress.UserSkins.BonusSkins.Register()
-        UserLookAndFeel.Default.SetSkinStyle("Office 2013")
-    End Sub
-    Private Sub InitSkinGallery()
-        SkinHelper.InitSkinGallery(rgbiSkins, True)
-    End Sub
-    Private Sub FrmMain_Close(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Application.Exit()
     End Sub
 #Region "Button Control"
     Dim currentBtn As BarItem
     Private Sub ButtonClick(sender As Object, e As ItemClickEventArgs) Handles btnMatList.ItemClick _
         , btnMatImport.ItemClick, btnStock.ItemClick, btnUnitManager.ItemClick, btnSupplier.ItemClick, btnLogOut.ItemClick _
         , btnApprove.ItemClick, btnRequsition.ItemClick, btnLogs_Req.ItemClick, btnSubMat.ItemClick, btnTransfer.ItemClick _
-        , btnLogs_Import.ItemClick, btnLogs_Transfer.ItemClick, btnQCTarget.ItemClick
+        , btnLogs_Import.ItemClick, btnLogs_Transfer.ItemClick, btnQCTarget.ItemClick, btnPOnew.ItemClick
         Dim btnBind As New Dictionary(Of BarItem, Form)
         With btnBind
             .Add(btnMatList, FrmMatList)
@@ -68,6 +32,7 @@ Public Class FrmMain
             .Add(btnSupplier, FmgSupplier)
             .Add(btnUnitManager, FmgUnit)
             .Add(btnQCTarget, FrmQCTarget)
+            .Add(btnPOnew, FrmPONew)
         End With
         Dim popUpForm As New List(Of Form)
         With popUpForm
@@ -88,7 +53,38 @@ Public Class FrmMain
         End If
     End Sub
 #End Region
+    Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text += " v." + Version
+        bsiLogin.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID
+        bsiServer.Caption = "เชื่อมต่อกับ " & varIP
+        bsiServer.Caption &= " | ฐานข้อมูล " & varDB
+        bsiServer.Caption &= " | คลังวัสดุ " & UserInfo.LocName & " (" & UserInfo.SelectLoc & ")"
 
+        XtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = ColorInfo.SoftBlue
+        Permission(UserInfo.Permis)
+    End Sub
+    Private Sub ShowForm(frmName As Form, Optional popForm As List(Of Form) = Nothing)
+        frmName.Icon = Icon.FromHandle(CType(currentBtn.ImageOptions.Image, Bitmap).GetHicon)
+        If popForm IsNot Nothing AndAlso popForm.Contains(frmName) Then
+            frmName.TopMost = True
+            frmName.Show()
+            Return
+        Else
+            frmName.MdiParent = Me
+            frmName.Show()
+        End If
+    End Sub
+    Private Sub FrmMain_Close(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        Application.Exit()
+    End Sub
+    Sub InitSkins()
+        DevExpress.Skins.SkinManager.EnableFormSkins()
+        DevExpress.UserSkins.BonusSkins.Register()
+        UserLookAndFeel.Default.SetSkinStyle("Office 2013")
+    End Sub
+    Private Sub InitSkinGallery()
+        SkinHelper.InitSkinGallery(rgbiSkins, True)
+    End Sub
     Private Sub SetTabSize()
         'Dim laf As UserLookAndFeel = Me.LookAndFeel
         Dim skin As DevExpress.Skins.Skin = DevExpress.Skins.TabSkins.GetSkin(Me.LookAndFeel)
