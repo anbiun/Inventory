@@ -45,7 +45,6 @@ Partial Class FrmPONew
         Me.lblUnit3_name = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl13 = New DevExpress.XtraEditors.LabelControl()
         Me.grpPoOrder = New DevExpress.XtraEditors.GroupControl()
-        Me.btnRemove = New DevExpress.XtraEditors.SimpleButton()
         Me.btnAdd = New DevExpress.XtraEditors.SimpleButton()
         Me.PnlSave = New DevExpress.XtraEditors.PanelControl()
         Me.BtnSave = New DevExpress.XtraEditors.SimpleButton()
@@ -353,9 +352,8 @@ Partial Class FrmPONew
         Me.grpPoOrder.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.grpPoOrder.AppearanceCaption.Options.UseFont = True
         Me.grpPoOrder.AppearanceCaption.Options.UseForeColor = True
-        Me.grpPoOrder.Controls.Add(Me.btnRemove)
-        Me.grpPoOrder.Controls.Add(Me.btnAdd)
         Me.grpPoOrder.Controls.Add(Me.LabelControl13)
+        Me.grpPoOrder.Controls.Add(Me.btnAdd)
         Me.grpPoOrder.Controls.Add(Me.sluMat)
         Me.grpPoOrder.Controls.Add(Me.lblUnit1)
         Me.grpPoOrder.Controls.Add(Me.txtUnit1)
@@ -363,31 +361,24 @@ Partial Class FrmPONew
         Me.grpPoOrder.Dock = System.Windows.Forms.DockStyle.Top
         Me.grpPoOrder.Location = New System.Drawing.Point(0, 247)
         Me.grpPoOrder.Name = "grpPoOrder"
-        Me.grpPoOrder.Size = New System.Drawing.Size(366, 156)
+        Me.grpPoOrder.Size = New System.Drawing.Size(366, 146)
         Me.grpPoOrder.TabIndex = 20
         Me.grpPoOrder.Text = "เพิ่มรายการวัสดุ"
         '
-        'btnRemove
-        '
-        Me.btnRemove.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnRemove.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.backward_16x16
-        Me.btnRemove.Location = New System.Drawing.Point(74, 105)
-        Me.btnRemove.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(125, 27)
-        Me.btnRemove.TabIndex = 22
-        Me.btnRemove.Text = " ลบจากรายการ"
-        '
         'btnAdd
         '
+        Me.btnAdd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAdd.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.btnAdd.Appearance.Options.UseFont = True
         Me.btnAdd.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnAdd.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.forward_16x161
         Me.btnAdd.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.btnAdd.Location = New System.Drawing.Point(209, 105)
-        Me.btnAdd.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAdd.Location = New System.Drawing.Point(142, 99)
+        Me.btnAdd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(125, 27)
-        Me.btnAdd.TabIndex = 21
+        Me.btnAdd.Size = New System.Drawing.Size(193, 35)
+        Me.btnAdd.TabIndex = 13
         Me.btnAdd.Text = "เพิ่มรายการ"
         '
         'PnlSave
@@ -398,10 +389,10 @@ Partial Class FrmPONew
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(0, 403)
+        Me.PnlSave.Location = New System.Drawing.Point(0, 393)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(366, 134)
+        Me.PnlSave.Size = New System.Drawing.Size(366, 144)
         Me.PnlSave.TabIndex = 23
         Me.PnlSave.Visible = False
         '
@@ -414,10 +405,10 @@ Partial Class FrmPONew
         Me.BtnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.BtnSave.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.download_32x32
         Me.BtnSave.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.BtnSave.Location = New System.Drawing.Point(210, 4)
+        Me.BtnSave.Location = New System.Drawing.Point(6, 47)
         Me.BtnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnSave.Name = "BtnSave"
-        Me.BtnSave.Size = New System.Drawing.Size(125, 35)
+        Me.BtnSave.Size = New System.Drawing.Size(353, 35)
         Me.BtnSave.TabIndex = 12
         Me.BtnSave.Text = "บันทึก"
         '
@@ -429,10 +420,10 @@ Partial Class FrmPONew
         Me.BtnCancel.Appearance.Options.UseFont = True
         Me.BtnCancel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.BtnCancel.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.undo_16x16
-        Me.BtnCancel.Location = New System.Drawing.Point(74, 4)
+        Me.BtnCancel.Location = New System.Drawing.Point(6, 4)
         Me.BtnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnCancel.Name = "BtnCancel"
-        Me.BtnCancel.Size = New System.Drawing.Size(125, 35)
+        Me.BtnCancel.Size = New System.Drawing.Size(353, 35)
         Me.BtnCancel.TabIndex = 13
         Me.BtnCancel.Text = "ยกเลิก"
         '
@@ -459,7 +450,7 @@ Partial Class FrmPONew
         Me.Controls.Add(Me.gcList)
         Me.Controls.Add(Me.PnlLeft)
         Me.Name = "FrmPONew"
-        Me.Text = "เปิด PO"
+        Me.Text = "บันทึก Po"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.grpPoList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpPoList.ResumeLayout(False)
@@ -510,10 +501,9 @@ Partial Class FrmPONew
     Friend WithEvents LabelControl4 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents grpPoOrder As DevExpress.XtraEditors.GroupControl
     Friend WithEvents btnNewOrder As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents btnAdd As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents btnRemove As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PnlSave As DevExpress.XtraEditors.PanelControl
     Friend WithEvents BtnSave As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents BtnCancel As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PnlLeft As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents btnAdd As DevExpress.XtraEditors.SimpleButton
 End Class

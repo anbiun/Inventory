@@ -102,38 +102,7 @@ Module ImModule
             End If
         End If
     End Sub
-    Public Function Permission(_permis As UserGroup)
-        Select Case _permis
-            Case UserGroup.StockUser
-                FrmMatImport.grpSearch.Visible = True
-                FrmMatImport.pnlEdit.Visible = False
-                FrmLogs_Requisition.BtnDel.Visible = False
-                FrmMain.btnPOnew.Visibility = False
-                'FrmMain.btnTransfer.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
-                With FrmMain
-                    .ribGrpApprove.Visible = True
-                    .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
-                    .ribGrpSetting.Visible = False
-                    .ribGrpNewSub.Visible = False
-                End With
-                Return False
-            Case UserGroup.ApproveUser
-                FrmMatImport.pnlEdit.Visible = True
-                FrmMain.btnPOnew.Visibility = False
-                With FrmMain
-                    .ribGrpNewSub.Visible = False
-                    .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
-                    .ribGrpSetting.Visible = False
-                End With
-                Return True
-            Case UserGroup.Admin
-                FrmMatImport.pnlEdit.Visible = True
-                Return True
 
-        End Select
-
-        Return False
-    End Function
     Friend Function chkInput(grpBox As GroupControl, Optional Without As String = Nothing) As Boolean
         For Each ctr As Control In grpBox.Controls
             If TypeOf ctr Is TextBox Or TypeOf ctr Is TextEdit Then

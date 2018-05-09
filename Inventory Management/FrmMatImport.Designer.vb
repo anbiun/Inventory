@@ -35,7 +35,7 @@ Partial Class FrmMatImport
         Me.grpMatImport = New DevExpress.XtraEditors.GroupControl()
         Me.txtUnit3 = New DevExpress.XtraEditors.SpinEdit()
         Me.txtUnit1 = New DevExpress.XtraEditors.SpinEdit()
-        Me.btnRemove = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtPoNo = New System.Windows.Forms.TextBox()
         Me.txtTagID = New System.Windows.Forms.TextBox()
         Me.btnAdd = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
@@ -71,8 +71,6 @@ Partial Class FrmMatImport
         Me.GroupControl2 = New DevExpress.XtraEditors.GroupControl()
         Me.gcImportOrder = New DevExpress.XtraGrid.GridControl()
         Me.gvImportOrder = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.sluPO = New DevExpress.XtraEditors.SearchLookUpEdit()
-        Me.GridView4 = New DevExpress.XtraGrid.Views.Grid.GridView()
         CType(Me.luUnit1_name.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deImport.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deImport.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -104,18 +102,16 @@ Partial Class FrmMatImport
         Me.GroupControl2.SuspendLayout()
         CType(Me.gcImportOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvImportOrder, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.sluPO.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'luUnit1_name
         '
-        Me.luUnit1_name.Location = New System.Drawing.Point(274, 145)
+        Me.luUnit1_name.Location = New System.Drawing.Point(264, 145)
         Me.luUnit1_name.Name = "luUnit1_name"
         Me.luUnit1_name.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.luUnit1_name.Properties.Appearance.Options.UseFont = True
         Me.luUnit1_name.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.luUnit1_name.Size = New System.Drawing.Size(86, 28)
+        Me.luUnit1_name.Size = New System.Drawing.Size(96, 28)
         Me.luUnit1_name.TabIndex = 8
         '
         'deImport
@@ -134,7 +130,7 @@ Partial Class FrmMatImport
         '
         Me.lblUnit3_name.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblUnit3_name.Appearance.Options.UseFont = True
-        Me.lblUnit3_name.Location = New System.Drawing.Point(274, 182)
+        Me.lblUnit3_name.Location = New System.Drawing.Point(266, 182)
         Me.lblUnit3_name.Name = "lblUnit3_name"
         Me.lblUnit3_name.Size = New System.Drawing.Size(21, 21)
         Me.lblUnit3_name.TabIndex = 9
@@ -206,7 +202,7 @@ Partial Class FrmMatImport
         Me.grpMatImport.Appearance.Options.UseFont = True
         Me.grpMatImport.Controls.Add(Me.txtUnit3)
         Me.grpMatImport.Controls.Add(Me.txtUnit1)
-        Me.grpMatImport.Controls.Add(Me.btnRemove)
+        Me.grpMatImport.Controls.Add(Me.txtPoNo)
         Me.grpMatImport.Controls.Add(Me.txtTagID)
         Me.grpMatImport.Controls.Add(Me.luUnit1_name)
         Me.grpMatImport.Controls.Add(Me.btnAdd)
@@ -214,7 +210,6 @@ Partial Class FrmMatImport
         Me.grpMatImport.Controls.Add(Me.sluMat)
         Me.grpMatImport.Controls.Add(Me.LabelControl2)
         Me.grpMatImport.Controls.Add(Me.LabelControl13)
-        Me.grpMatImport.Controls.Add(Me.sluPO)
         Me.grpMatImport.Controls.Add(Me.lblLastTag)
         Me.grpMatImport.Controls.Add(Me.LabelControl8)
         Me.grpMatImport.Controls.Add(Me.LabelControl7)
@@ -224,7 +219,7 @@ Partial Class FrmMatImport
         Me.grpMatImport.Location = New System.Drawing.Point(2, 323)
         Me.grpMatImport.Name = "grpMatImport"
         Me.grpMatImport.ShowCaption = False
-        Me.grpMatImport.Size = New System.Drawing.Size(374, 291)
+        Me.grpMatImport.Size = New System.Drawing.Size(374, 256)
         Me.grpMatImport.TabIndex = 9
         '
         'txtUnit3
@@ -236,7 +231,7 @@ Partial Class FrmMatImport
         Me.txtUnit3.Properties.Appearance.Options.UseFont = True
         Me.txtUnit3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.txtUnit3.Properties.MaxLength = 6
-        Me.txtUnit3.Size = New System.Drawing.Size(116, 28)
+        Me.txtUnit3.Size = New System.Drawing.Size(106, 28)
         Me.txtUnit3.TabIndex = 12
         '
         'txtUnit1
@@ -248,19 +243,18 @@ Partial Class FrmMatImport
         Me.txtUnit1.Properties.Appearance.Options.UseFont = True
         Me.txtUnit1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.txtUnit1.Properties.MaxLength = 6
-        Me.txtUnit1.Size = New System.Drawing.Size(116, 28)
+        Me.txtUnit1.Size = New System.Drawing.Size(106, 28)
         Me.txtUnit1.TabIndex = 12
         '
-        'btnRemove
+        'txtPoNo
         '
-        Me.btnRemove.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.btnRemove.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.backward_16x16
-        Me.btnRemove.Location = New System.Drawing.Point(153, 249)
-        Me.btnRemove.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(207, 27)
-        Me.btnRemove.TabIndex = 11
-        Me.btnRemove.Text = " ลบจากรายการ"
+        Me.txtPoNo.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPoNo.Location = New System.Drawing.Point(152, 40)
+        Me.txtPoNo.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtPoNo.MaxLength = 10
+        Me.txtPoNo.Name = "txtPoNo"
+        Me.txtPoNo.Size = New System.Drawing.Size(208, 28)
+        Me.txtPoNo.TabIndex = 1
         '
         'txtTagID
         '
@@ -280,7 +274,7 @@ Partial Class FrmMatImport
         Me.btnAdd.Location = New System.Drawing.Point(153, 214)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(207, 27)
+        Me.btnAdd.Size = New System.Drawing.Size(207, 35)
         Me.btnAdd.TabIndex = 10
         Me.btnAdd.Text = "เพิ่มรายการ"
         '
@@ -389,10 +383,10 @@ Partial Class FrmMatImport
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(2, 614)
+        Me.PnlSave.Location = New System.Drawing.Point(2, 579)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(374, 134)
+        Me.PnlSave.Size = New System.Drawing.Size(374, 169)
         Me.PnlSave.TabIndex = 1
         Me.PnlSave.Visible = False
         '
@@ -476,7 +470,7 @@ Partial Class FrmMatImport
         Me.BtnNew.Location = New System.Drawing.Point(153, 227)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnNew.Name = "BtnNew"
-        Me.BtnNew.Size = New System.Drawing.Size(206, 27)
+        Me.BtnNew.Size = New System.Drawing.Size(206, 35)
         Me.BtnNew.TabIndex = 4
         Me.BtnNew.Text = "เพิ่มรายการ"
         '
@@ -697,26 +691,6 @@ Partial Class FrmMatImport
         Me.gvImportOrder.OptionsView.ColumnAutoWidth = False
         Me.gvImportOrder.OptionsView.ShowGroupPanel = False
         '
-        'sluPO
-        '
-        Me.sluPO.EditValue = ""
-        Me.sluPO.Location = New System.Drawing.Point(152, 40)
-        Me.sluPO.Name = "sluPO"
-        Me.sluPO.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sluPO.Properties.Appearance.Options.UseFont = True
-        Me.sluPO.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluPO.Properties.NullText = ""
-        Me.sluPO.Properties.View = Me.GridView4
-        Me.sluPO.Size = New System.Drawing.Size(208, 28)
-        Me.sluPO.TabIndex = 3
-        '
-        'GridView4
-        '
-        Me.GridView4.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView4.Name = "GridView4"
-        Me.GridView4.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView4.OptionsView.ShowGroupPanel = False
-        '
         'FrmMatImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -760,8 +734,6 @@ Partial Class FrmMatImport
         Me.GroupControl2.ResumeLayout(False)
         CType(Me.gcImportOrder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvImportOrder, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.sluPO.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -783,7 +755,6 @@ Partial Class FrmMatImport
     Friend WithEvents BtnEdit As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents grpSearch As DevExpress.XtraEditors.GroupControl
     Friend WithEvents PnlLeft As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents btnRemove As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnAdd As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents gcImportList As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvImportList As DevExpress.XtraGrid.Views.Grid.GridView
@@ -813,6 +784,5 @@ Partial Class FrmMatImport
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents sluPO As DevExpress.XtraEditors.SearchLookUpEdit
-    Friend WithEvents GridView4 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents txtPoNo As TextBox
 End Class

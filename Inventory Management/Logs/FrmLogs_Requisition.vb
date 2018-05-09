@@ -90,7 +90,6 @@ Public Class FrmLogs_Requisition
 
         FirstQry()
         LoadDef()
-        Permission(UserInfo.Permis)
         loadSuccess = True
     End Sub
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged

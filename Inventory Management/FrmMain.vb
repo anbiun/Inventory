@@ -53,6 +53,7 @@ Public Class FrmMain
         End If
     End Sub
 #End Region
+
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text += " v." + Version
         bsiLogin.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID
@@ -61,7 +62,7 @@ Public Class FrmMain
         bsiServer.Caption &= " | คลังวัสดุ " & UserInfo.LocName & " (" & UserInfo.SelectLoc & ")"
 
         XtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = ColorInfo.SoftBlue
-        Permission(UserInfo.Permis)
+        Dim setPermission As New Permission.Main(UserInfo.Permis)
     End Sub
     Private Sub ShowForm(frmName As Form, Optional popForm As List(Of Form) = Nothing)
         frmName.Icon = Icon.FromHandle(CType(currentBtn.ImageOptions.Image, Bitmap).GetHicon)
@@ -109,6 +110,7 @@ Public Class FrmMain
     Public Function ThumbnailCallBack() As Boolean
         Return False
     End Function
+
 #Region "RibbonPopup On Mouse Hover"
     Dim delayVal As Integer = 0
     Private Sub Delayer_Tick(sender As Object, e As EventArgs) Handles delayer.Tick

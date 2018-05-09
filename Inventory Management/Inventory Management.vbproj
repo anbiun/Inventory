@@ -305,6 +305,7 @@
     <Compile Include="Clss\ExcelExport.vb" />
     <Compile Include="Clss\GenRequestNo.vb" />
     <Compile Include="Clss\InOutFunc.vb" />
+    <Compile Include="Clss\Permission.vb" />
     <Compile Include="Clss\PoMain.vb" />
     <Compile Include="Clss\StringValue.vb" />
     <Compile Include="Clss\UserLogin.vb" />
@@ -526,6 +527,7 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -645,6 +647,7 @@
     <None Include="Resources\forward_16x161.png" />
     <None Include="Resources\download_32x32.png" />
     <None Include="Resources\sales_16x16.png" />
+    <None Include="Resources\remove_16x16.png" />
     <Content Include="Resources\T.ico" />
     <None Include="Resources\usergroup_32x32.png" />
     <None Include="Resources\usergroup_16x16.png" />

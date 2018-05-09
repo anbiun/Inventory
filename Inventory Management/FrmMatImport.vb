@@ -217,11 +217,18 @@ SubUnit:
             Select Case gv.Name
                 Case gvImportList.Name
                     gcImportOrder.DataSource = search("ImportOrder", "ImportID ='" & values & "'", "")
+                Case gvImportOrder.Name
+
             End Select
         Else
             gvSelect = gv
         End If
         If gvImportOrder.RowCount > 0 Then gvImportOrder.BestFitColumns() : gvImportOrder.Columns("Notation").Width *= 2
+        If gvSelect.FocusedColumn.FieldName = "del" Then
+            dtImportOrder.Rows(gv.GetDataSourceRowIndex(rw)).Delete()
+            dtImportOrder.AcceptChanges()
+        End If
+
         gv.SelectRow(rw)
         gv.Focus()
     End Sub
@@ -312,12 +319,12 @@ SubUnit:
             .View.Columns("GroupTag").Visible = False
         End With
 
-        With sluPO.Properties
-            .DataSource = DS.Tables("PoNo")
-            .ValueMember = "PoNo"
-            .DisplayMember = "PoNo"
-            .PopulateViewColumns()
-        End With
+        'With sluPO.Properties
+        '    .DataSource = DS.Tables("PoNo")
+        '    .ValueMember = "PoNo"
+        '    .DisplayMember = "PoNo"
+        '    .PopulateViewColumns()
+        'End With
     End Sub
     Private Sub LookUpEditValueChanged(sender As Object, e As EventArgs)
         If LoadSuccess = False Then Exit Sub
@@ -503,6 +510,7 @@ SubUnit:
         Return True
     End Function
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        If txtPoNo.TextLength <> 5 Then Return
         Dim matVal As String = gvImportOrder.GetFocusedRowCellValue("MatID")
         MatID = slClick(sluMat, "MatID")
         If MatID = matVal AndAlso chkUse() = False Then Exit Sub
@@ -537,6 +545,7 @@ Edit:
         gvImportOrder.BestFitColumns()
         'New Order
         'TagID += 1
+        If gvImportOrder.RowCount > 0 Then gvImportOrder.BestFitColumns() : gvImportOrder.Columns("Notation").Width *= 2
     End Sub
     Private Sub AddRow()
         'For Check Duplicat Order
@@ -592,7 +601,7 @@ Edit:
                 dr("Ratio") = ImReq.Ratio
                 dr("QtyPerUnit") = QtyPerUnit
                 dr("LocID") = UserInfo.SelectLoc
-                dr("PoNo") = sluPO.EditValue
+                dr("PoNo") = txtPoNo.Text
                 .Rows.Add(dr)
                 .AcceptChanges()
                 gcImportOrder.Refresh()
@@ -612,8 +621,9 @@ Edit:
             gcImportOrder.Refresh()
         End If
         txtTagID.Text = FindMissTag(gvImportOrder, Trim(txtTagID.Text))
+
     End Sub
-    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+    Private Sub btnRemove_Click(sender As Object, e As EventArgs)
         If chkUse() = False Then Exit Sub
         If gvSelect Is Nothing Then
             MsgBox("กรุณาเลือกแถวข้อมูลก่อน")
@@ -655,6 +665,7 @@ Edit:
 
 #Region "Other Control."
     Private Sub FrmMatImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         FirstQry(QryMode.All)
         gcImportList.DataSource = search("ImportList", "ImportDate='" & Today & "'", "")
         gcImportOrder.DataSource = DS.Tables("ImportOrder")
@@ -668,7 +679,10 @@ Edit:
         grpMatImport.Enabled = False
         deImport.EditValue = ImportDate
         BtnDelete.Enabled = True
-        Permission(UserInfo.Permis)
+        'Permission(UserInfo.Permis)
+        Dim ColDel As New ColumnButton.Editor With {.Caption = " ", .Image = My.Resources.remove_16x16, .ToolTip = "ลบรายการนี้", .Field = "del"}
+        Dim CreateCol As New ColumnButton.Main With {.gControl = gcImportOrder, .gView = gvImportOrder}
+        CreateCol.Add(ColDel)
         LoadSuccess = True
     End Sub
     Private Sub deImport_EditValueChanged(sender As Object, e As EventArgs) Handles deImport.EditValueChanged
@@ -683,7 +697,7 @@ Edit:
         RowClickFunc(gv)
         If e.Column.FieldName = "Notation" Then CType(sender, GridView).ShowEditor()
     End Sub
-    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress
+    Private Sub txtKeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTagID.KeyPress, txtBillNo.KeyPress, txtPoNo.KeyPress
         If e.KeyChar = "-" Then Return
         Dim ctrName As String = CType(sender, TextBox).Name
 
@@ -705,7 +719,7 @@ Edit:
 
     End Sub
     Private Sub txtBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtBillNo.TextChanged
-        If Permission(UserInfo.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
+        'If Permission(UserInfo.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
 
         gcImportList.DataSource = If(String.IsNullOrWhiteSpace(txtBillNo.Text),
                                      search("ImportList", "ImportDate='" & ImportDate & "'", ""),
@@ -734,7 +748,7 @@ Edit:
         SQL &= " SM.ProductName"
         SQL &= " FROM tbMat AS M INNER JOIN tbSubCategory AS SC ON M.CatID = SC.CatID AND M.SubCatID = SC.SubCatID"
         SQL &= " LEFT OUTER JOIN CombineSubMatName() SM ON M.MatID = SM.matID"
-        SQL &= " WHERE M.CatID+M.SubCatID = '" & sluSubCat.EditValue & "'"
+        SQL &= " WHERE M.CatID+M.SubCatID = '" & sluSubCat.EditValue & "' AND M.Stat <> 0"
         With sluMat.Properties
             Dim enableCol As String() = {"MatName", "SubCatName", "ProductName"}
             .ValueMember = "MatID"

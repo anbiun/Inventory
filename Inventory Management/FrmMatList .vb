@@ -493,7 +493,7 @@ lchangeMainLookup:
         GVMain.Columns("MatName").SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
 
         If DS.Tables("showingrid").Rows.Count > 0 Then
-            lblRatio_Name.Text = DS.Tables("showingrid")(0)("QtyOfUsing_Name")
+            lblRatio_Name.Text = DS.Tables("showingrid")(0)("Ratio_Name")
         End If
 
 

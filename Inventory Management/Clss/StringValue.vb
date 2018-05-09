@@ -38,7 +38,7 @@
                 .Add("unit1_sum", List("unit1"))
                 .Add("unit3_sum", List("unit3"))
                 .Add("username", List("userstock"))
-                .Add("PO", "เลขที่ใบ PO")
+                .Add("PoNo", "เลขที่ใบ PO")
 #End Region
 #Region "QC"
                 .Add("productid", "รหัสรายการ")
@@ -103,6 +103,7 @@
         If List.ContainsKey(StringKey) Then
             Result = List(StringKey)
         End If
+        If String.IsNullOrEmpty(Result) Then Return " "
         Return Result
     End Function
 End Class
