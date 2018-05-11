@@ -79,11 +79,9 @@ readVer:
     End Sub
 
     Private Sub TxtUser_TextChanged(sender As Object, e As EventArgs) Handles TxtUser.TextChanged
-        If loadSuccess = False Then Exit Sub
         UserInfo.UserID = Trim(TxtUser.Text)
     End Sub
     Private Sub TxtPassword_TextChanged(sender As Object, e As EventArgs) Handles TxtPassword.TextChanged
-        If loadSuccess = False Then Exit Sub
         UserInfo.Password = Trim(TxtPassword.Text)
     End Sub
     Private Sub comboLoc_SelectedIndexChanged(sender As Object, e As EventArgs)

@@ -32,7 +32,7 @@ Public Class FmgQCTarget
         gridInfo.hide.columns("productid")
         gridInfo.hide.columns("qcname")
         gridInfo.SetCaption()
-        gridInfo.SetFormatNumber({"QCTarget"})
+        gridInfo.SetFormat({"QCTarget"})
         gvList.OptionsView.ShowAutoFilterRow = True
 
         txtQuatername.Text = If(IsDBNull(DS.Tables("product")(0)("QCName")), "", DS.Tables("product")(0)("QCName"))

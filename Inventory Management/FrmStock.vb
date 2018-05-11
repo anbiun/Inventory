@@ -207,9 +207,9 @@ Public Class FrmStock
             .HIDE.Columns("AllowColor")
             .SetCaption()
             Dim ColList As String() = {"Unit1", "Unit3", "Dozen", "Warn"}
-            .SetFormatNumber(ColList)
+            .SetFormat(ColList)
             For i As Integer = 1 To 12
-                .SetFormatNumber({MonthName(i)}, "{0:n0}")
+                .SetFormat({MonthName(i)}, FormatType.Numeric, "{0:n0}")
             Next
         End With
 
@@ -411,7 +411,7 @@ Public Class FrmStock
                         gridInfo = New GridCaption(gvAdjust)
                         With gridInfo
                             .SetCaption()
-                            .SetFormatNumber({"Unit1", "Unit3"})
+                            .SetFormat({"Unit1", "Unit3"})
                         End With
                         With gvAdjust
                             .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left

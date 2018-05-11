@@ -38,7 +38,6 @@
                 .Add("unit1_sum", List("unit1"))
                 .Add("unit3_sum", List("unit3"))
                 .Add("username", List("userstock"))
-                .Add("PoNo", "เลขที่ใบ PO")
 #End Region
 #Region "QC"
                 .Add("productid", "รหัสรายการ")
@@ -81,6 +80,12 @@
                 .Add("Stat", "สถานะ")
                 .Add("matStat0", "เลิกใช้งาน")
                 .Add("matStat1", "ใช้งาน")
+#End Region
+#Region "PO"
+                .Add("PoNo", "เลขที่ใบ Po")
+                .Add("PoDate", "วันที่เปิด Po")
+                .Add("Owing", "ค้างส่ง")
+                .Add("DeliveryDate", "กำหนดส่ง")
 #End Region
 
             Catch ex As Exception

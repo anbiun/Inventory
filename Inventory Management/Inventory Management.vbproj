@@ -334,6 +334,12 @@
     <Compile Include="Logs\FrmLogs_Import.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logs\FrmLogs_Po.Designer.vb">
+      <DependentUpon>FrmLogs_Po.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logs\FrmLogs_Po.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logs\FrmLogs_Tag.Designer.vb">
       <DependentUpon>FrmLogs_Tag.vb</DependentUpon>
     </Compile>
@@ -473,6 +479,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Logs\FrmLogs_Import.resx">
       <DependentUpon>FrmLogs_Import.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logs\FrmLogs_Po.resx">
+      <DependentUpon>FrmLogs_Po.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logs\FrmLogs_Requisition.th.resx">
       <DependentUpon>FrmLogs_Requisition.vb</DependentUpon>

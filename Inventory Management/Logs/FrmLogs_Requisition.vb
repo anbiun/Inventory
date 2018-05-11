@@ -133,7 +133,7 @@ Public Class FrmLogs_Requisition
             .HIDE.Columns("subcatID")
             .HIDE.Columns("catid")
             .SetCaption()
-            .SetFormatNumber({"Unit1_Num", "Unit3_Num"})
+            .SetFormat({"Unit1_Num", "Unit3_Num"})
         End With
         With gvList
             If dtResult.Rows.Count < 1 Then Exit Sub

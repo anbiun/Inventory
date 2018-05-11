@@ -1,6 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
 Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.Utils
 
 Public Class GridCaption
     Public HIDE As New SelectColum
@@ -67,10 +68,12 @@ Public Class GridCaption
             StringKey.Add(Keys)
         End Sub
     End Class
-    Public Sub SetFormatNumber(ColumnsList As String(), Optional FormatString As String = "")
+    Public Sub SetFormat(ColumnsList As String(),
+                         Optional Format As FormatType = Nothing,
+                         Optional FormatString As String = "")
 
         For Each items As String In ColumnsList
-            GridViewName.Columns(items).DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+            GridViewName.Columns(items).DisplayFormat.FormatType = If(Format = Nothing, FormatType.Numeric, Format)
             GridViewName.Columns(items).DisplayFormat.FormatString = If(String.IsNullOrEmpty(FormatString), "{0:n1}", FormatString)
         Next
 

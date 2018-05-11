@@ -111,7 +111,7 @@ Public Class FrmLogs_Import
             .HIDE.Columns("SubCatID")
             .HIDE.Columns("SupplierID")
             .SetCaption()
-            .SetFormatNumber({"Unit1", "Unit3"})
+            .SetFormat({"Unit1", "Unit3"})
         End With
         With gvList
             If gvList.RowCount < 1 Then Exit Sub

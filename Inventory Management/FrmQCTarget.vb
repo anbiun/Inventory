@@ -23,7 +23,7 @@ Public Class FrmQCTarget
             gvList.Columns(month + 1).Caption = MonthName(month)
             NumberColList.Add(gvList.Columns(month + 1).FieldName)
         Next
-        gridInfo.SetFormatNumber(NumberColList.ToArray)
+        gridInfo.SetFormat(NumberColList.ToArray)
         gvList.OptionsView.ShowAutoFilterRow = True
 
     End Sub

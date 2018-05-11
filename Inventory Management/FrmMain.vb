@@ -16,7 +16,7 @@ Public Class FrmMain
     Private Sub ButtonClick(sender As Object, e As ItemClickEventArgs) Handles btnMatList.ItemClick _
         , btnMatImport.ItemClick, btnStock.ItemClick, btnUnitManager.ItemClick, btnSupplier.ItemClick, btnLogOut.ItemClick _
         , btnApprove.ItemClick, btnRequsition.ItemClick, btnLogs_Req.ItemClick, btnSubMat.ItemClick, btnTransfer.ItemClick _
-        , btnLogs_Import.ItemClick, btnLogs_Transfer.ItemClick, btnQCTarget.ItemClick, btnPOnew.ItemClick
+        , btnLogs_Import.ItemClick, btnLogs_Transfer.ItemClick, btnQCTarget.ItemClick, btnPOnew.ItemClick, btnPOList.ItemClick
         Dim btnBind As New Dictionary(Of BarItem, Form)
         With btnBind
             .Add(btnMatList, FrmMatList)
@@ -33,6 +33,7 @@ Public Class FrmMain
             .Add(btnUnitManager, FmgUnit)
             .Add(btnQCTarget, FrmQCTarget)
             .Add(btnPOnew, FrmPONew)
+            .Add(btnPOList, FrmLogs_Po)
         End With
         Dim popUpForm As New List(Of Form)
         With popUpForm
@@ -53,7 +54,6 @@ Public Class FrmMain
         End If
     End Sub
 #End Region
-
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text += " v." + Version
         bsiLogin.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID

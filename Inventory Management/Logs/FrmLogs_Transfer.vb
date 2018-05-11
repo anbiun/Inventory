@@ -10,7 +10,6 @@ Public Class FrmLogs_Transfer
     Dim locExpr As String
     Dim ApInfo As New ApproveInfo With {.FStat = "ApproveStat"}
     Private Sub FrmLogs_Transfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         LoadDef()
     End Sub
     Private Sub LoadDef()
@@ -92,7 +91,7 @@ Public Class FrmLogs_Transfer
             .HIDE.Columns("idvalue")
             .HIDE.Columns("LocID_Src")
             .SetCaption()
-            .SetFormatNumber({"Unit1_Num", "Unit3_Num"})
+            .SetFormat({"Unit1_Num", "Unit3_Num"})
         End With
         With gvList
             If gvList.RowCount < 1 Then Exit Sub
