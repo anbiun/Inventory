@@ -173,6 +173,4 @@ Public Class FrmLogs_Transfer
             Return
         End If
     End Sub
-
-
 End Class

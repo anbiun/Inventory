@@ -89,6 +89,11 @@ Public Class FrmLogs_Po
         GridSetting.gView.ExpandAllGroups()
     End Sub
     Private Sub BtnDel_Click(sender As Object, e As EventArgs) Handles BtnDel.Click
+        FrmPONew.Dispose()
+        FrmPONew.EditPO = True
+        FrmMain.ShowForm(FrmPONew)
+
+        Return
         Dim v As GridView = GridSetting.gView
 
         Dim PoNo As String = getGroupValue(GridSetting.gView, GridSetting.gControl, "PoNo", "PoNo").ToString
@@ -161,5 +166,6 @@ Public Class FrmLogs_Po
                 End If
             End If
         End Sub
+
     End Class
 End Class

@@ -64,7 +64,7 @@ Public Class FrmMain
         XtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = ColorInfo.SoftBlue
         Dim setPermission As New Permission.Main(UserInfo.Permis)
     End Sub
-    Private Sub ShowForm(frmName As Form, Optional popForm As List(Of Form) = Nothing)
+    Friend Sub ShowForm(frmName As Form, Optional popForm As List(Of Form) = Nothing)
         frmName.Icon = Icon.FromHandle(CType(currentBtn.ImageOptions.Image, Bitmap).GetHicon)
         If popForm IsNot Nothing AndAlso popForm.Contains(frmName) Then
             frmName.TopMost = True

@@ -10,6 +10,7 @@ Imports DevExpress.XtraGrid.Views.Grid
 Public Class FrmPONew
     Dim dtSupplier, dtMat, dtResult, dtSubCat As New DataTable
     Dim PoID As String
+    Property EditPO As Boolean = False
     Sub New()
         loadSuccess = False
         InitializeComponent()
@@ -153,6 +154,11 @@ Public Class FrmPONew
                          }
         Dim Buttons As New ColumnButton.Main With {.gControl = gcList, .gView = gvList}
         Buttons.Add(btnDel)
+        If EditPO Then
+            MsgBox("EditPO" & EditPO.ToString)
+            grpPoList.Enabled = True
+            Return
+        End If
         loadSuccess = True
     End Sub
     Private Sub sluSubCat_EditValueChanged(sender As Object, e As EventArgs) Handles sluSubCat.EditValueChanged
@@ -214,63 +220,8 @@ Public Class FrmPONew
         view.RefreshData()
     End Sub
 #End Region
+    Private Class Edit
 
+    End Class
 End Class
 
-Namespace ColumnButton
-    Public Class Editor
-        Public Property Caption As String
-        Public Property ToolTip As String
-        Public Property Image As Image
-        Public Property ID As String
-        Public Property Field As String
-    End Class
-    Public Class Main
-        Public Property gControl As GridControl
-        Public Property gView As GridView
-        Private EditorList As New List(Of Editor)
-        Private Added As New List(Of String)
-        Public Sub Add(Val As Editor, Optional valList As Editor() = Nothing)
-            If valList IsNot Nothing Then
-                For Each items As Editor In valList
-                    Val.ID = genID().ToString
-                    EditorList.Add(Val)
-                Next
-            End If
-            Val.ID = genID().ToString
-            EditorList.Add(Val)
-            CreateCol()
-        End Sub
-        Private Sub CreateCol()
-            For Each Keys As Editor In EditorList
-                If Added.Contains(Keys.ID.ToLower, StringComparer.OrdinalIgnoreCase) Then
-                    Continue For
-                End If
-                Dim RepoBtn As New RepositoryItemButtonEdit
-                Dim Editor As New EditorButton
-                Dim col As New GridColumn
-                With Editor
-                    .Kind = ButtonPredefines.Glyph
-                    .Image = Keys.Image
-                    .Appearance.BackColor = Color.Azure
-                    .Caption = Keys.Caption
-                    .ToolTip = Keys.ToolTip
-                    .Appearance.Options.UseTextOptions = True
-                End With
-                With RepoBtn
-                    .TextEditStyle = TextEditStyles.HideTextEditor
-                    .Buttons.Clear()
-                    .Buttons.Add(Editor)
-                End With
-                With col
-                    col = gView.Columns.AddVisible(Keys.Field, " ")
-                    col.UnboundType = DevExpress.Data.UnboundColumnType.[Object]
-                    col.ColumnEdit = RepoBtn
-                    col.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways
-                End With
-                gControl.RepositoryItems.Add(RepoBtn)
-                Added.Add(Keys.ID)
-            Next
-        End Sub
-    End Class
-End Namespace

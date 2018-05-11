@@ -9,7 +9,9 @@ Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid
 Imports System.Globalization
 Imports System.Threading
-
+Imports DevExpress.XtraEditors.Repository
+Imports DevExpress.XtraGrid.Columns
+Imports DevExpress.XtraEditors.Controls
 
 Module ImModule
     Public CategoryTxt As String
@@ -270,3 +272,61 @@ Module ImModule
         Public Gray As Color = Hex("f0f0f0")
     End Class
 End Module
+
+Namespace ColumnButton
+    Public Class Editor
+        Public Property Caption As String
+        Public Property ToolTip As String
+        Public Property Image As Image
+        Public Property ID As String
+        Public Property Field As String
+    End Class
+    Public Class Main
+        Public Property gControl As GridControl
+        Public Property gView As GridView
+        Private EditorList As New List(Of Editor)
+        Private Added As New List(Of String)
+        Public Sub Add(Val As Editor, Optional valList As Editor() = Nothing)
+            If valList IsNot Nothing Then
+                For Each items As Editor In valList
+                    Val.ID = genID().ToString
+                    EditorList.Add(Val)
+                Next
+            End If
+            Val.ID = genID().ToString
+            EditorList.Add(Val)
+            CreateCol()
+        End Sub
+        Private Sub CreateCol()
+            For Each Keys As Editor In EditorList
+                If Added.Contains(Keys.ID.ToLower, StringComparer.OrdinalIgnoreCase) Then
+                    Continue For
+                End If
+                Dim RepoBtn As New RepositoryItemButtonEdit
+                Dim Editor As New EditorButton
+                Dim col As New GridColumn
+                With Editor
+                    .Kind = ButtonPredefines.Glyph
+                    .Image = Keys.Image
+                    .Appearance.BackColor = Color.Azure
+                    .Caption = Keys.Caption
+                    .ToolTip = Keys.ToolTip
+                    .Appearance.Options.UseTextOptions = True
+                End With
+                With RepoBtn
+                    .TextEditStyle = TextEditStyles.HideTextEditor
+                    .Buttons.Clear()
+                    .Buttons.Add(Editor)
+                End With
+                With col
+                    col = gView.Columns.AddVisible(Keys.Field, " ")
+                    col.UnboundType = DevExpress.Data.UnboundColumnType.[Object]
+                    col.ColumnEdit = RepoBtn
+                    col.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways
+                End With
+                gControl.RepositoryItems.Add(RepoBtn)
+                Added.Add(Keys.ID)
+            Next
+        End Sub
+    End Class
+End Namespace
