@@ -31,7 +31,7 @@ Public Class FrmLogs_Import
         End With
 
         SQL = "Select LocID,LocName FROM tbLocation"
-        SQL &= If(UserInfo.permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
+        SQL &= If(User.Permission <= User.UserGroup.Manger, " WHERE LocID='" & User.SelectLoc & "'", "")
         dsTbl("location")
         With clbInfo
             .setControl = clbLoc

@@ -26,7 +26,7 @@ Public Class FrmLogs_Transfer
         With clbInfo
             .setControl = clbLoc
             SQL = "SELECT LocID,LocName FROM tbLocation"
-            SQL &= If(UserInfo.Permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
+            SQL &= If(User.Permission <= User.UserGroup.Manger, " WHERE LocID='" & User.SelectLoc & "'", "")
             .ValueMember = "LocID"
             .DisplayMember = "LocName"
             .Datasource = dsTbl("clbloc")

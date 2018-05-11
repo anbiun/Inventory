@@ -51,17 +51,26 @@ Public Class FrmStock
             With Cols
                 .Add("A4", "SubCatName")
                 .Add("B4", "MatName")
-                .Add("C4", "Warn")
-                .Add("D4", "เดือน")
-                .Add("E4", "Unit1")
-                .Add("F4", "Unit1_Name")
-                .Add("G4", "Unit3")
-                .Add("H4", "Unit3_Name")
-                .Add("I4", "Dozen")
-                .Add("J4", "โหล")
-                .Add("K4", "JL")
-                .Add("L4", "KIWI")
-                .Add("M4", "JLK")
+                .Add("C4", "AllowColor")
+                .Add("D4", "Warn")
+                .Add("E4", "เดือน")
+                .Add("F4", "Unit1")
+                .Add("G4", "Unit1_Name")
+                .Add("H4", "Unit3")
+                .Add("I4", "Unit3_Name")
+                .Add("J4", "Dozen")
+                .Add("K4", "โหล")
+                .Add("L4", "JL")
+                .Add("M4", "KIWI")
+                .Add("N4", "JLK")
+                Dim colMonth As String = "O/P/Q/R/S/T/U/V/W/X/Y/Z"
+                Dim startMonth As Integer = 0
+                For Each cMont As String In colMonth.Split((New Char() {"/"c}))
+                    startMonth += 1
+                    .Add(cMont & "4", MonthName(startMonth))
+                Next
+
+
             End With
             Try
                 Dim strFileName As String = Directory.GetParent(Application.StartupPath).ToString + "\template\template_stock.xls"
@@ -107,12 +116,13 @@ Public Class FrmStock
 
                         'Cell Colour
                         Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn"))
-                        Dim warn_month As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn_Month"))
-                        Dim CellRange As String = "A" & 4 + gvRow & ":" & "M" & 4 + gvRow
+                        Dim Minimum As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn_Month"))
+                        Dim AllowColor As Integer = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "AllowColor")), 0, gvMain.GetRowCellDisplayText(gvRow, "AllowColor"))
+                        Dim CellRange As String = "A" & 4 + gvRow & ":" & "Z" & 4 + gvRow
                         With xlWorkSheet
-                            If warn >= 2 Then
+                            If warn >= 2 Or AllowColor = 0 Then
                                 .Cells.Range(CellRange).Style = Stock_Normal
-                            ElseIf warn <= 1 Then
+                            ElseIf warn <= 1 AndAlso AllowColor = 1 Then
                                 .Cells.Range(CellRange).Style = Stock_Danger
                             Else
                                 .Cells.Range(CellRange).Style = Stock_Warning
@@ -132,9 +142,22 @@ Public Class FrmStock
                                     Col = ch
                                 End If
                             Next
-
+                            Dim currentCollumns As String
+                            currentCollumns = Col
                             xlRange = CType(xlWorkSheet.Cells.Range(Col & ColRow + gvRow), Excel.Range)
-
+                            If Cols.Values(i) = "AllowColor" Then
+                                If GvSource.GetRowCellDisplayText(gvRow, "AllowColor").ToString = "0" Then
+                                    xlRange.Value2 = "ไม่มีเป้า QC"
+                                Else
+                                    xlRange.Value2 = ""
+                                End If
+                                Continue For
+                            ElseIf Cols.Values(i) = "เดือน" Or Cols.Values(i) = "โหล" Then
+                                If GvSource.GetRowCellDisplayText(gvRow, "MatName").ToString = "" Then
+                                    xlRange.Value2 = ""
+                                    Continue For
+                                End If
+                            End If
                             Try
                                 xlRange.Value2 = GvSource.GetRowCellDisplayText(gvRow, Cols.Values(i))
                             Catch ex As Exception
@@ -206,7 +229,7 @@ Public Class FrmStock
             .HIDE.Columns("productname")
             .HIDE.Columns("AllowColor")
             .SetCaption()
-            Dim ColList As String() = {"Unit1", "Unit3", "Dozen", "Warn"}
+            Dim ColList As String() = {"Unit1", "Unit3", "Dozen", "Warn", "JL", "KIWI", "JLK"}
             .SetFormat(ColList)
             For i As Integer = 1 To 12
                 .SetFormat({MonthName(i)}, FormatType.Numeric, "{0:n0}")
@@ -238,7 +261,7 @@ Public Class FrmStock
     Dim sizeH As Integer = 0
     Private Sub FrmStock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadSuccess = False
-        If UserInfo.Permis <= 3 Then expandAdjust.Enabled = False
+        If User.Permission <= 3 Then expandAdjust.Enabled = False
         SQL = "SELECT CatID,CatName FROM tbCategory"
         With slCat.Properties
             .DataSource = dsTbl("cat")
@@ -261,6 +284,7 @@ Public Class FrmStock
         lastStock.Text += " " & _XLSGetHeader()
         GvFormat()
         cbStat.SelectedIndex = 0
+        slCat.EditValue = Nothing
         loadSuccess = True
     End Sub
     Private Sub btnExPortExcel_Click(sender As Object, e As EventArgs) Handles btnExportExcel.Click
@@ -537,6 +561,10 @@ Public Class FrmStock
                 infox.CalcViewInfo()
             End If
         End If
+        'Dim colList As String() = {"JL", "KIWI", "JLK"}
+        'If colList.Contains(e.Column.FieldName) Then
+        '    e.DisplayText = String.Format("{0} {1}", e.CellValue, gvMain.GetRowCellValue(e.RowHandle, "Unit3_Name"))
+        'End If
     End Sub
     Private Sub cbStat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbStat.SelectedIndexChanged
         If cbStat.SelectedIndex <> 1 Then

@@ -1,4 +1,6 @@
-﻿Imports System.Data.SqlClient
+﻿Option Explicit On
+Option Strict On
+Imports System.Data.SqlClient
 Imports System.Text
 Imports System.Text.RegularExpressions
 Imports DevExpress.XtraEditors
@@ -12,7 +14,6 @@ Imports System.Threading
 Imports DevExpress.XtraEditors.Repository
 Imports DevExpress.XtraGrid.Columns
 Imports DevExpress.XtraEditors.Controls
-
 Module ImModule
     Public CategoryTxt As String
     Public CategoryValue As String
@@ -28,7 +29,7 @@ Module ImModule
 
     Public FoundRow As DataRow()
     Dim txtReadStr As String
-    Public UserInfo As New UserLogin
+    Public User As New UserInfo
     Public ParamList As New List(Of SqlParameter)
     Public Version As String
     Public tmpSQL As String
@@ -43,20 +44,15 @@ Module ImModule
         CultureInfo.DefaultThreadCurrentUICulture = Culture
     End Sub
     'ตัวแปร
-    Friend Enum idFor
+    Friend Enum IdFor
         MainCategory
         SubCategory
         Store
         Unit
         Location
     End Enum
-    Public Enum UserGroup
-        Admin = 5
-        StockUser = 0
-        ApproveUser = 1
-    End Enum
     'Dataset Create/Clear Table
-    Public Sub clsDS(values As String())
+    Public Sub ClsDS(values As String())
         For Each dtname As String In values
             If DS.Tables(dtname) IsNot Nothing Then
                 DS.Tables(dtname).Clear()
@@ -64,7 +60,7 @@ Module ImModule
         Next
     End Sub
     'ทั่วไป
-    Public Function genID(Optional idFor As idFor = Nothing)
+    Public Function GenID(Optional idFor As IdFor = Nothing) As String
         If idFor = Nothing Then
             Dim s As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             Static r As Random = New Random()
@@ -88,12 +84,12 @@ Module ImModule
             Return newId
         Else
             empStr = DS.Tables(tbName).Rows(0)(0).ToString.Substring(0, padNum)
-            empInt = Trim(DS.Tables(tbName).Rows(0)(0).ToString.Substring(padNum)) + 1
-            newId = empStr + empInt.ToString().PadLeft(3, "00")
+            empInt = CInt(Trim(DS.Tables(tbName).Rows(0)(0).ToString.Substring(padNum))) + 1
+            newId = empStr + empInt.ToString().PadLeft(3, CChar("00"))
         End If
         Return newId
     End Function
-    Public Sub numOnly(e As KeyPressEventArgs)
+    Public Sub NumOnly(e As KeyPressEventArgs)
         If e.KeyChar <> ControlChars.Back Then
             e.Handled = Not (Char.IsDigit(e.KeyChar) Or e.KeyChar = ".")
         End If
@@ -104,21 +100,20 @@ Module ImModule
             End If
         End If
     End Sub
-
-    Friend Function chkInput(grpBox As GroupControl, Optional Without As String = Nothing) As Boolean
+    Friend Function ChkInput(grpBox As GroupControl, Optional Without As String = Nothing) As Boolean
         For Each ctr As Control In grpBox.Controls
-            If TypeOf ctr Is TextBox Or TypeOf ctr Is TextEdit Then
+            If TypeOf ctr Is TextBox Then
                 If String.IsNullOrEmpty(ctr.Text) And ctr.Name <> Without Then
                     ctr.Focus()
                     Return False
                 End If
             ElseIf TypeOf ctr Is SearchLookUpEdit Then
-                If CType(ctr, SearchLookUpEdit).EditValue = Nothing Then
+                If CType(ctr, SearchLookUpEdit).EditValue Is Nothing Then
                     ctr.Focus()
                     Return False
                 End If
             ElseIf TypeOf ctr Is DateEdit Then
-                If CType(ctr, DateEdit).EditValue = Nothing Then
+                If CType(ctr, DateEdit).EditValue Is Nothing Then
                     ctr.Focus()
                     Return False
                 End If
@@ -126,13 +121,13 @@ Module ImModule
         Next
         Return True
     End Function
-    Friend Function slClick(slookup As DevExpress.XtraEditors.SearchLookUpEdit, field As String)
+    Friend Function SlClick(slookup As DevExpress.XtraEditors.SearchLookUpEdit, field As String) As String
         Dim vw As GridView = slookup.Properties.View
         Dim rw As Integer = slookup.Properties.GetIndexByKeyValue(slookup.EditValue)
-        field = vw.GetRowCellValue(rw, field)
+        field = CType(vw.GetRowCellValue(rw, field), String)
         Return field
     End Function
-    Friend Function Find(table As String, values As String, Optional sort As String = "")
+    Friend Function Find(table As String, values As String, Optional sort As String = "") As DataView
         DV = New DataView(DS.Tables(table), values, sort, DataViewRowState.CurrentRows)
         Return DV
     End Function
@@ -155,15 +150,15 @@ Module ImModule
         Next
         Return result
     End Function
-    Public Function getGroupValue(gridname As Object, gridcontrol As Object, inpField As String, outpField As String)
-        Dim gvList As GridView = gridname
-        Dim gcList As GridControl = gridcontrol
+    Public Function GetGroupValue(gridname As Object, gridcontrol As Object, inpField As String, outpField As String) As String
+        Dim gvList As GridView = CType(gridname, GridView)
+        Dim gcList As GridControl = CType(gridcontrol, GridControl)
         Dim result As String = String.Empty
         If IsDBNull(gvList.FocusedValue) Then
             Return Nothing
         End If
-        Dim values As String = gvList.GetFocusedValue
-        Dim vw As ColumnView = gcList.MainView
+        Dim values As String = CType(gvList.GetFocusedValue, String)
+        Dim vw As ColumnView = CType(gcList.MainView, ColumnView)
 
         Try
             Dim rhandle As Integer = 0
@@ -173,8 +168,8 @@ Module ImModule
                 If rhandle = DevExpress.XtraGrid.GridControl.InvalidRowHandle Then
                     Exit While
                 End If
-                If gvList.GetRowCellValue(rhandle, inpField) = values Then
-                    result = gvList.GetRowCellValue(rhandle, outpField)
+                If gvList.GetRowCellValue(rhandle, inpField).ToString = values Then
+                    result = gvList.GetRowCellValue(rhandle, outpField).ToString
                     Exit While
                 End If
                 rhandle += 1
@@ -186,7 +181,7 @@ Module ImModule
     End Function
 
     'ไม่ได้ใช้
-    Public Function convertDate(values As DateTime)
+    Public Function ConvertDate(values As DateTime) As String
         Dim result As String
         result = values.Year & values.ToString("-MM-dd")
         Return result
@@ -196,7 +191,7 @@ Module ImModule
             Dim con As New System.Data.SqlClient.SqlConnection("Data Source=jlproducts.ddns.net;Initial Catalog=Inventory;Persist Security Info=True;User ID=sa;Password=JLproducts147")
             Dim com As New System.Data.SqlClient.SqlCommand("select getDate()", con)
             If con.State = ConnectionState.Closed Then con.Open()
-            Dim dateServer As DateTime = com.ExecuteScalar()
+            Dim dateServer As DateTime = CDate(com.ExecuteScalar())
             con.Close()
             Return dateServer.ToString("dd/MM/yyyy HH:mm:ss")
         Catch ex As Exception
@@ -241,7 +236,7 @@ Module ImModule
         'เลือก Location
         Dim LocSelect As New List(Of String)
         For Each item As DataRowView In checkList
-            LocSelect.Add(item.Row(0))
+            LocSelect.Add(item.Row(0).ToString)
         Next
         For Each item In LocSelect
             If item IsNot LocSelect.Last Then

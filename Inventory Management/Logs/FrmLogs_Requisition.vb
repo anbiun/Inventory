@@ -36,7 +36,7 @@ Public Class FrmLogs_Requisition
         End With
 
         SQL = "Select LocID,LocName FROM tbLocation"
-        SQL &= If(UserInfo.Permis <= UserGroup.ApproveUser, " WHERE LocID='" & UserInfo.SelectLoc & "'", "")
+        SQL &= If(User.Permission <= UserInfo.UserGroup.Manger, " WHERE LocID='" & User.SelectLoc & "'", "")
         Dim abc = SQL
         dsTbl("location")
         With clbInfo

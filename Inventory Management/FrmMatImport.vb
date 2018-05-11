@@ -110,6 +110,11 @@ SubUnit:
     End Sub
     Private Sub cancelFunc()
         'PnlbtnItem.Visible = If(Permission(_Permis) = True, True, False)
+        sluSubCat.EditValue = Nothing
+        sluMat.EditValue = Nothing
+        sluSupplier.EditValue = Nothing
+        luUnit1_name.EditValue = Nothing
+
         grpMatImport.Visible = True
         grpMatImport.Enabled = False
         grpSearch.Enabled = True
@@ -217,14 +222,12 @@ SubUnit:
             Select Case gv.Name
                 Case gvImportList.Name
                     gcImportOrder.DataSource = search("ImportOrder", "ImportID ='" & values & "'", "")
-                Case gvImportOrder.Name
-
             End Select
         Else
             gvSelect = gv
         End If
         If gvImportOrder.RowCount > 0 Then gvImportOrder.BestFitColumns() : gvImportOrder.Columns("Notation").Width *= 2
-        If gvSelect.FocusedColumn.FieldName = "del" Then
+        If gvImportOrder.FocusedColumn.FieldName = "del" And dtImportOrder.Rows.Count > 0 Then
             dtImportOrder.Rows(gv.GetDataSourceRowIndex(rw)).Delete()
             dtImportOrder.AcceptChanges()
         End If
@@ -238,7 +241,7 @@ SubUnit:
             clsDS({"transfer"})
             SQL = "INSERT INTO tbStock (MatID, Unit1, Unit1_ID, Unit3, TagID, ImportDate, ImportID, LocID)"
             SQL &= " SELECT tbImportOrder.MatID, tbImportOrder.Unit1_Sum AS Unit1, tbImportOrder.Unit1_ID, tbImportOrder.Unit3_Sum AS Unit3,"
-            SQL &= " tbImportOrder.TagID, tbImportList.ImportDate, tbImportList.ImportID,'" & UserInfo.SelectLoc & "' AS LocID"
+            SQL &= " tbImportOrder.TagID, tbImportList.ImportDate, tbImportList.ImportID,'" & User.SelectLoc & "' AS LocID"
             SQL &= " FROM tbImportOrder INNER JOIN tbImportList ON tbImportOrder.ImportID = tbImportList.ImportID INNER JOIN tbMat ON tbImportOrder.MatID = tbMat.MatID"
             SQL &= " INNER JOIN tbSubCategory ON tbMat.SubCatID = tbSubCategory.SubCatID"
             SQL &= " WHERE (tbImportOrder.ImportID = '" & ImportID & "') "
@@ -253,7 +256,7 @@ SubUnit:
     End Function
     Private Function FindMissTag(GridValue As GridView, CurrentTag As String) As String
         Dim TagList As New List(Of String)
-        Dim STag As String = slClick(sluMat, "TagID") + UserInfo.SelectLoc.Substring(5, 1)
+        Dim STag As String = slClick(sluMat, "TagID") + User.SelectLoc.Substring(5, 1)
         Dim Ret As String = CurrentTag
         TagList.Add(STag + lblLastTag.Text)
         For i As Integer = 0 To GridValue.RowCount - 1
@@ -279,7 +282,7 @@ SubUnit:
         'SQL &= " WHERE M.SubCatID ='" & slClick(sluSubCat, "SubCatID") & "'"
         'SQL &= " AND M.CatID='" & slClick(sluSubCat, "CatID") & "'"
         SQL &= " WHERE M.CatID+M.SubCatID LIKE '%" & sluSubCat.EditValue & "'"
-        SQL &= " AND O.LocID='" & UserInfo.SelectLoc & "'"
+        SQL &= " AND O.LocID='" & User.SelectLoc & "'"
         dsTbl("gettag")
 
         If DS.Tables("gettag").Rows.Count > 0 Then
@@ -423,6 +426,7 @@ SubUnit:
         Dim btn As SimpleButton = CType(sender, SimpleButton)
         Select Case btn.Name
             Case BtnNew.Name
+                If User.Permission < UserInfo.UserGroup.Manger And txtBillNo.TextLength <> 5 Then MessageBox.Show(LabelControl10.Text & "ไม่ถูกต้อง", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
                 If chkInput(grpSearch, txtImportNote.Name) = False Then Exit Sub
                 If chkDuplicate(Trim(txtBillNo.Text), "ImportList", "ImportDate='" & deImport.EditValue & "' AND BillNo='") = False Then
                     MessageBox.Show("เลขที่เอกสารนี้มีในระบบแล้ว", "เลขที่ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -457,8 +461,8 @@ SubUnit:
                 dtRow("BillNo") = txtBillNo.Text
                 dtRow("supplierName") = sluSupplier.Text
                 dtRow("supplierID") = sluSupplier.EditValue
-                dtRow("UserStock_ID") = UserInfo.UserID
-                dtRow("UserStock_Name") = UserInfo.UserName
+                dtRow("UserStock_ID") = User.UserID
+                dtRow("UserStock_Name") = User.UserName
                 dtRow("Notation") = txtImportNote.Text
                 dtImportList.Rows.Add(dtRow)
 
@@ -510,7 +514,19 @@ SubUnit:
         Return True
     End Function
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If txtPoNo.TextLength <> 5 Then Return
+        Dim findPono As Func(Of String, Boolean) = Function(Pono As String)
+                                                       SQL = "SELECT PoNo FROM tbPo"
+                                                       SQL &= " WHERE PoNo ='" & Pono & "'"
+                                                       dsTbl("find")
+                                                       If DS.Tables("find").Rows.Count > 0 Then Return True
+                                                       If MessageBox.Show("เลขที่ Po นี้ยังไม่เคยเปิดการสั่งซื้อ ยืนยันการเพิ่มหรือไม่ ?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                                                           Return True
+                                                       End If
+                                                       Return False
+                                                   End Function
+        If User.Permission < User.UserGroup.Manger AndAlso findPono(txtPoNo.Text) = False Then Return
+        If txtPoNo.TextLength <> 5 AndAlso User.Permission < User.UserGroup.Manger Then MessageBox.Show("เลขที่ใบ PO ไม่ถูกต้องกรุณาตรวจสอบ", "รูปแบบ PO ไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
+
         Dim matVal As String = gvImportOrder.GetFocusedRowCellValue("MatID")
         MatID = slClick(sluMat, "MatID")
         If MatID = matVal AndAlso chkUse() = False Then Exit Sub
@@ -522,7 +538,7 @@ SubUnit:
             End If
         End If
 
-        If chkDuplicate(Trim(UserInfo.SelectLoc.Substring(5, 1) & txtTagID.Text), "ImportOrder", "MatID LIKE '" & MatID.Substring(0, 4) & "%' AND TagID Like '%") = False Then
+        If chkDuplicate(Trim(User.SelectLoc.Substring(5, 1) & txtTagID.Text), "ImportOrder", "MatID LIKE '" & MatID.Substring(0, 4) & "%' AND TagID Like '%") = False Then
             MessageBox.Show("TagID. นี้เคยลงในระบบแล้ว ไม่สามารถเพิ่มซ้ำได้", "TagID. ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Exit Sub
         ElseIf Trim(txtTagID.TextLength <> lblLastTag.Text.Length) Then
@@ -585,7 +601,7 @@ Edit:
                     End If
                 Next
                 '--end chk
-                TagID = slClick(sluMat, "TagID") + UserInfo.SelectLoc.Substring(5, 1) + Trim(txtTagID.Text)
+                TagID = slClick(sluMat, "TagID") + User.SelectLoc.Substring(5, 1) + Trim(txtTagID.Text)
                 dr = .NewRow
                 dr("ImportOrID") = ImportOrID
                 dr("MatName") = sluMat.Text
@@ -600,7 +616,7 @@ Edit:
                 dr("TagID") = TagID
                 dr("Ratio") = ImReq.Ratio
                 dr("QtyPerUnit") = QtyPerUnit
-                dr("LocID") = UserInfo.SelectLoc
+                dr("LocID") = User.SelectLoc
                 dr("PoNo") = txtPoNo.Text
                 .Rows.Add(dr)
                 .AcceptChanges()
@@ -665,7 +681,6 @@ Edit:
 
 #Region "Other Control."
     Private Sub FrmMatImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         FirstQry(QryMode.All)
         gcImportList.DataSource = search("ImportList", "ImportDate='" & Today & "'", "")
         gcImportOrder.DataSource = DS.Tables("ImportOrder")
@@ -679,10 +694,14 @@ Edit:
         grpMatImport.Enabled = False
         deImport.EditValue = ImportDate
         BtnDelete.Enabled = True
-        'Permission(UserInfo.Permis)
+        'Permission(User.Permis)
         Dim ColDel As New ColumnButton.Editor With {.Caption = " ", .Image = My.Resources.remove_16x16, .ToolTip = "ลบรายการนี้", .Field = "del"}
         Dim CreateCol As New ColumnButton.Main With {.gControl = gcImportOrder, .gView = gvImportOrder}
         CreateCol.Add(ColDel)
+        sluSubCat.EditValue = Nothing
+        sluMat.EditValue = Nothing
+        sluSupplier.EditValue = Nothing
+        luUnit1_name.EditValue = Nothing
         LoadSuccess = True
     End Sub
     Private Sub deImport_EditValueChanged(sender As Object, e As EventArgs) Handles deImport.EditValueChanged
@@ -705,9 +724,9 @@ Edit:
             If ctrName = txtBillNo.Name Then
                 numOnly(e)
                 Dim ReqNo As New GenRequestNo With {
-                    .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
-                    .SetTable = "tbImportList",
-                    .SetField = "BillNo"}
+                        .SetDate = If(LoadSuccess = False, Nothing, deImport.EditValue),
+                        .SetTable = "tbImportList",
+                        .SetField = "BillNo"}
                 CType(sender, TextBox).Text = ReqNo.Gen
             ElseIf ctrName = txtTagID.Name Then
                 numOnly(e)
@@ -719,7 +738,7 @@ Edit:
 
     End Sub
     Private Sub txtBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtBillNo.TextChanged
-        'If Permission(UserInfo.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
+        'If Permission(User.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
 
         gcImportList.DataSource = If(String.IsNullOrWhiteSpace(txtBillNo.Text),
                                      search("ImportList", "ImportDate='" & ImportDate & "'", ""),

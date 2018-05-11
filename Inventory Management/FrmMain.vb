@@ -46,7 +46,8 @@ Public Class FrmMain
         currentBtn = e.Item
         If currentBtn.Name = btnLogOut.Name Then
             bsiLogin.Caption = ""
-            UserInfo.Logout()
+            User.Logout()
+            loadSuccess = True
             FrmLogin.Show()
             Me.Dispose()
         Else
@@ -56,13 +57,11 @@ Public Class FrmMain
 #End Region
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text += " v." + Version
-        bsiLogin.Caption = "สวัสดีคุณ " & UserInfo.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & UserInfo.UserID
+        bsiLogin.Caption = "สวัสดีคุณ " & User.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & User.UserID
         bsiServer.Caption = "เชื่อมต่อกับ " & varIP
         bsiServer.Caption &= " | ฐานข้อมูล " & varDB
-        bsiServer.Caption &= " | คลังวัสดุ " & UserInfo.LocName & " (" & UserInfo.SelectLoc & ")"
-
+        bsiServer.Caption &= " | คลังวัสดุ " & User.LocName & " (" & User.SelectLoc & ")"
         XtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = ColorInfo.SoftBlue
-        Dim setPermission As New Permission.Main(UserInfo.Permis)
     End Sub
     Friend Sub ShowForm(frmName As Form, Optional popForm As List(Of Form) = Nothing)
         frmName.Icon = Icon.FromHandle(CType(currentBtn.ImageOptions.Image, Bitmap).GetHicon)

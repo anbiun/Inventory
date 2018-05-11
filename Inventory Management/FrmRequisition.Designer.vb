@@ -193,6 +193,7 @@ Partial Class FrmRequisition
         Me.deDate.Properties.Appearance.Options.UseFont = True
         Me.deDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deDate.Properties.NullText = "กรุณาเลือก"
         Me.deDate.Size = New System.Drawing.Size(193, 28)
         Me.deDate.TabIndex = 1
         '
@@ -235,6 +236,8 @@ Partial Class FrmRequisition
         Me.slTagID.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slTagID.Properties.Appearance.Options.UseFont = True
         Me.slTagID.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slTagID.Properties.NullText = "กรุณาเลือก"
+        Me.slTagID.Properties.NullValuePrompt = "กรุณาเลือก"
         Me.slTagID.Properties.View = Me.SearchLookUpEdit1View
         Me.slTagID.Size = New System.Drawing.Size(192, 28)
         Me.slTagID.TabIndex = 18
@@ -285,7 +288,7 @@ Partial Class FrmRequisition
         Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluSubCat.Properties.Appearance.Options.UseFont = True
         Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluSubCat.Properties.NullText = ""
+        Me.sluSubCat.Properties.NullText = "กรุณาเลือก"
         Me.sluSubCat.Properties.View = Me.GridView1
         Me.sluSubCat.Size = New System.Drawing.Size(192, 28)
         Me.sluSubCat.TabIndex = 0

@@ -35,7 +35,7 @@ Public Class FrmApprove
             dsTbl("alltransfer")
             Exit Sub
         Else
-            SQL &= " WHERE TF.LocID_Dest='" & UserInfo.SelectLoc & "' AND TFDE.Stat = 0"
+            SQL &= " WHERE TF.LocID_Dest='" & User.SelectLoc & "' AND TFDE.Stat = 0"
         End If
 
         dsTbl("transfer")
@@ -148,8 +148,8 @@ Public Class FrmApprove
         LoadDef()
         gcList.DataSource = dtList
         GVFomat()
-        lbUserStock.Text = UserInfo.UserName
-        UserStock = UserInfo.UserID
+        lbUserStock.Text = User.UserName
+        UserStock = User.UserID
         'CreateCheckCol(gcList, gvList)
         gvList.OptionsSelection.EnableAppearanceFocusedRow = False
         SQL = "SELECT * FROM tbApprove"
@@ -183,7 +183,7 @@ Public Class FrmApprove
         SQL = "DELETE FROM tbTransfer_Detail
                WHERE TransferID = '" & TransferID & "'"
         'update ApproveUser
-        SQL &= "UPDATE tbTransfer SET UserApprove='" & UserInfo.UserID & "'
+        SQL &= "UPDATE tbTransfer SET UserApprove='" & User.UserID & "'
                 WHERE TransferID ='" & TransferID & "'"
         dsTbl("delOld")
 

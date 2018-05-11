@@ -108,6 +108,8 @@ Public Class FrmRequisition
         End With
     End Sub
     Private Sub cancelFunc()
+        slTagID.EditValue = Nothing
+        sluSubCat.EditValue = Nothing
         grpMat.Enabled = False
         grpRequest.Enabled = True
         PnlSave.Visible = False
@@ -123,9 +125,11 @@ Public Class FrmRequisition
         FirstQry()
         gcList.DataSource = dtList
         GVFomat()
-        lbUserStock.Text = UserInfo.UserName
-        UserStock = UserInfo.UserID
+        lbUserStock.Text = User.UserName
+        UserStock = User.UserID
         LoadAutoCom()
+        slTagID.EditValue = Nothing
+        sluSubCat.EditValue = Nothing
         LoadFlag = True
     End Sub
 #End Region
@@ -191,7 +195,7 @@ Public Class FrmRequisition
                 dr("UserStock") = UserStock
                 dr("RequestDate") = RequestDate
                 dr("RequestNo") = RequestNo
-                dr("LocID") = UserInfo.SelectLoc
+                dr("LocID") = User.SelectLoc
                 .Rows.Add(dr)
                 .AcceptChanges()
                 gcList.Refresh()
@@ -306,7 +310,7 @@ Public Class FrmRequisition
         'AND S.ImportID = O.ImportID "
         SQL &= "LEFT OUTER JOIN CombineSubMatName() SM ON S.MatID = SM.MatID"
 
-        SQL &= " WHERE S.LocID = '" & UserInfo.SelectLoc & "' AND SC.SubCatID = '" & sluSubCat.EditValue & "'"
+        SQL &= " WHERE S.LocID = '" & User.SelectLoc & "' AND SC.SubCatID = '" & sluSubCat.EditValue & "'"
         SQL &= " AND S.Stat > 0"
         SQL &= " ORDER BY S.MatID"
         Dim sqlDbug As String = SQL

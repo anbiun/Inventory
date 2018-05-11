@@ -156,6 +156,8 @@ Partial Class FrmLogs_Transfer
         Me.deSDate.Properties.Appearance.Options.UseFont = True
         Me.deSDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deSDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deSDate.Properties.NullDate = "กรุณาเลือก"
+        Me.deSDate.Properties.NullText = "กรุณาเลือก"
         Me.deSDate.Size = New System.Drawing.Size(127, 28)
         Me.deSDate.TabIndex = 15
         '
@@ -194,6 +196,8 @@ Partial Class FrmLogs_Transfer
         Me.deEDate.Properties.Appearance.Options.UseFont = True
         Me.deEDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deEDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deEDate.Properties.NullDate = "กรุณาเลือก"
+        Me.deEDate.Properties.NullText = "กรุณาเลือก"
         Me.deEDate.Size = New System.Drawing.Size(127, 28)
         Me.deEDate.TabIndex = 15
         '

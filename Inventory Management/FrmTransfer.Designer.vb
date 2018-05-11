@@ -182,6 +182,8 @@ Partial Class FrmTransfer
         Me.deDate.Properties.Appearance.Options.UseFont = True
         Me.deDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deDate.Properties.NullDate = "กรุณาเลือก"
+        Me.deDate.Properties.NullText = "กรุณาเลือก"
         Me.deDate.Size = New System.Drawing.Size(192, 28)
         Me.deDate.TabIndex = 15
         '
@@ -224,7 +226,7 @@ Partial Class FrmTransfer
         Me.slTagID.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slTagID.Properties.Appearance.Options.UseFont = True
         Me.slTagID.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.slTagID.Properties.NullText = ""
+        Me.slTagID.Properties.NullText = "กรุณาเลือก"
         Me.slTagID.Properties.View = Me.SearchLookUpEdit1View
         Me.slTagID.Size = New System.Drawing.Size(192, 28)
         Me.slTagID.TabIndex = 18
@@ -307,6 +309,7 @@ Partial Class FrmTransfer
         Me.slLocDest.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slLocDest.Properties.Appearance.Options.UseFont = True
         Me.slLocDest.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slLocDest.Properties.NullText = "กรุณาเลือก"
         Me.slLocDest.Properties.View = Me.GridView1
         Me.slLocDest.Size = New System.Drawing.Size(192, 28)
         Me.slLocDest.TabIndex = 18

@@ -69,7 +69,7 @@ readVer:
                     Exit Sub
                 End If
             Next
-            UserInfo.Login()
+            User.Login()
             showSelectLoc()
         End If
     End Sub
@@ -79,15 +79,17 @@ readVer:
     End Sub
 
     Private Sub TxtUser_TextChanged(sender As Object, e As EventArgs) Handles TxtUser.TextChanged
-        UserInfo.UserID = Trim(TxtUser.Text)
+        If loadSuccess = False Then Return
+        User.UserID = Trim(TxtUser.Text)
     End Sub
     Private Sub TxtPassword_TextChanged(sender As Object, e As EventArgs) Handles TxtPassword.TextChanged
-        UserInfo.Password = Trim(TxtPassword.Text)
+        If loadSuccess = False Then Return
+        User.Password = Trim(TxtPassword.Text)
     End Sub
     Private Sub comboLoc_SelectedIndexChanged(sender As Object, e As EventArgs)
         If loadSuccess = False Then Exit Sub
-        UserInfo.SelectLoc = comboloc.SelectedValue
-        UserInfo.LocName = comboloc.Text
+        User.SelectLoc = comboloc.SelectedValue
+        User.LocName = comboloc.Text
     End Sub
     Private Sub showSelectLoc()
         loadSuccess = False
@@ -98,13 +100,13 @@ readVer:
             item.Enabled = False
         Next
 
-        If UserInfo.Stat > 0 Then
+        If User.Stat > 0 Then
             'pnSelectLoc.Visible = True
             SQL = "SELECT tbLocation.LocID, tbLocation.LocName, tbLocation.LocShort, tbLogin.UserID"
             SQL &= " FROM tbLocation INNER JOIN tbLocation_Permis ON tbLocation.LocID = tbLocation_Permis.LocID_Src "
             SQL &= " INNER JOIN tbLogin ON tbLocation_Permis.UserID = tbLogin.UserID"
-            SQL &= " WHERE tbLocation_Permis.UserID = '" & UserInfo.UserID & "'"
-            If UserInfo.Permis > UserGroup.ApproveUser Then
+            SQL &= " WHERE tbLocation_Permis.UserID = '" & User.UserID & "'"
+            If User.Permission > User.UserGroup.Manger Then
                 SQL = "SELECT LocID,LocName FROM tbLocation"
             End If
             dsTbl("location")
@@ -118,7 +120,7 @@ readVer:
             LoadDef()
         End If
         'change pwd enable
-        lbChangePwd.Visible = If(UserInfo.Stat > 0, True, False)
+        lbChangePwd.Visible = If(User.Stat > 0, True, False)
         loadSuccess = True
     End Sub
     Private Sub FrmLogin_Close(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -137,13 +139,13 @@ readVer:
 
     Private Sub Btn_Login()
         If comboloc.Items.Count > 0 Then
-            UserInfo.SelectLoc = comboloc.SelectedValue
-            UserInfo.LocName = comboloc.Text
+            User.SelectLoc = comboloc.SelectedValue
+            User.LocName = comboloc.Text
         Else
             showSelectLoc
             Exit Sub
         End If
-        If UserInfo.SelectLoc IsNot Nothing Then
+        If User.SelectLoc IsNot Nothing Then
             FrmMain.Show()
             Me.Hide()
             LoadDef()
@@ -151,12 +153,12 @@ readVer:
     End Sub
     Private Sub Btn_Cancel()
         LoadDef()
-        UserInfo.Logout()
+        User.Logout()
         Exit Sub
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        UserInfo.Login()
+        User.Login()
         showSelectLoc()
     End Sub
     Private Sub lbChangePwd_Click(sender As Object, e As EventArgs) Handles lbChangePwd.Click
@@ -173,11 +175,11 @@ readVer:
         End If
         If Not String.IsNullOrEmpty(cfPwd) AndAlso newPwd.Equals(cfPwd) Then
             SQL = "UPDATE tbLogin SET UserPwd='" & cfPwd & "'
-                   WHERE UserID='" & UserInfo.UserID & "'"
+                   WHERE UserID='" & User.UserID & "'"
             dsTbl("update")
             MessageBox.Show("เปลี่ยนรหัสผ่านแล้ว", "เปลี่ยนรหัสผ่าน", MessageBoxButtons.OK, MessageBoxIcon.Information)
             LoadDef()
-            TxtUser.Text = UserInfo.UserID
+            TxtUser.Text = User.UserID
             TxtPassword.Select()
         Else
             Return

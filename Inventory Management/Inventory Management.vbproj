@@ -305,10 +305,9 @@
     <Compile Include="Clss\ExcelExport.vb" />
     <Compile Include="Clss\GenRequestNo.vb" />
     <Compile Include="Clss\InOutFunc.vb" />
-    <Compile Include="Clss\Permission.vb" />
     <Compile Include="Clss\PoMain.vb" />
     <Compile Include="Clss\StringValue.vb" />
-    <Compile Include="Clss\UserLogin.vb" />
+    <Compile Include="Clss\UserInfo.vb" />
     <Compile Include="Clss\GridCaption.vb" />
     <Compile Include="dlgProgress.Designer.vb">
       <DependentUpon>dlgProgress.vb</DependentUpon>
@@ -536,7 +535,6 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

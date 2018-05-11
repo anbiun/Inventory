@@ -90,6 +90,8 @@ Partial Class FrmLogs_Requisition
         Me.deSDate.Properties.Appearance.Options.UseFont = True
         Me.deSDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(CType(resources.GetObject("deSDate.Properties.Buttons"), DevExpress.XtraEditors.Controls.ButtonPredefines))})
         Me.deSDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(CType(resources.GetObject("deSDate.Properties.CalendarTimeProperties.Buttons"), DevExpress.XtraEditors.Controls.ButtonPredefines))})
+        Me.deSDate.Properties.NullDate = "กรุณาเลือก"
+        Me.deSDate.Properties.NullText = resources.GetString("deSDate.Properties.NullText")
         '
         'lbSDate
         '
@@ -109,6 +111,8 @@ Partial Class FrmLogs_Requisition
         Me.deEDate.Properties.Appearance.Options.UseFont = True
         Me.deEDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(CType(resources.GetObject("deEDate.Properties.Buttons"), DevExpress.XtraEditors.Controls.ButtonPredefines))})
         Me.deEDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(CType(resources.GetObject("deEDate.Properties.CalendarTimeProperties.Buttons"), DevExpress.XtraEditors.Controls.ButtonPredefines))})
+        Me.deEDate.Properties.NullDate = "กรุณาเลือก"
+        Me.deEDate.Properties.NullText = resources.GetString("deEDate.Properties.NullText")
         '
         'GroupControl3
         '
@@ -315,6 +319,7 @@ Partial Class FrmLogs_Requisition
         Me.slCat.Properties.Appearance.Options.UseFont = True
         Me.slCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(CType(resources.GetObject("slCat.Properties.Buttons"), DevExpress.XtraEditors.Controls.ButtonPredefines))})
         Me.slCat.Properties.NullText = resources.GetString("slCat.Properties.NullText")
+        Me.slCat.Properties.NullValuePrompt = resources.GetString("slCat.Properties.NullValuePrompt")
         Me.slCat.Properties.View = Me.SearchLookUpEdit1View
         '
         'SearchLookUpEdit1View

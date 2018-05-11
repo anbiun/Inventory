@@ -201,7 +201,7 @@ Public Class FrmPONew
                         '" & sluSupplier.EditValue.ToString & "',
                         '" & convertDate(CDate(deDate.EditValue)).ToString & "',
                         '" & convertDate(CDate(deDelivery.EditValue)).ToString & "',
-                        '" & UserInfo.UserID & "'
+                        '" & User.UserID & "'
                         )"
         dsTbl("InsertPO")
         blkCpy("tbPo_Detail", dtResult, {"PoDetailID", "MatID", "Unit3", "PoID"})

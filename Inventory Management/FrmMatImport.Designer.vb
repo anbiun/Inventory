@@ -111,6 +111,7 @@ Partial Class FrmMatImport
         Me.luUnit1_name.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.luUnit1_name.Properties.Appearance.Options.UseFont = True
         Me.luUnit1_name.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.luUnit1_name.Properties.NullText = "เลือก"
         Me.luUnit1_name.Size = New System.Drawing.Size(96, 28)
         Me.luUnit1_name.TabIndex = 8
         '
@@ -154,7 +155,7 @@ Partial Class FrmMatImport
         Me.sluSupplier.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluSupplier.Properties.Appearance.Options.UseFont = True
         Me.sluSupplier.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluSupplier.Properties.NullText = ""
+        Me.sluSupplier.Properties.NullText = "กรุณาเลือก"
         Me.sluSupplier.Properties.View = Me.GridView3
         Me.sluSupplier.Size = New System.Drawing.Size(206, 28)
         Me.sluSupplier.TabIndex = 3
@@ -174,7 +175,7 @@ Partial Class FrmMatImport
         Me.sluMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluMat.Properties.Appearance.Options.UseFont = True
         Me.sluMat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluMat.Properties.NullText = ""
+        Me.sluMat.Properties.NullText = "กรุณาเลือก"
         Me.sluMat.Properties.View = Me.SearchLookUpEdit1View
         Me.sluMat.Size = New System.Drawing.Size(208, 28)
         Me.sluMat.TabIndex = 7
@@ -363,7 +364,7 @@ Partial Class FrmMatImport
         Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluSubCat.Properties.Appearance.Options.UseFont = True
         Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluSubCat.Properties.NullText = ""
+        Me.sluSubCat.Properties.NullText = "กรุณาเลือก"
         Me.sluSubCat.Properties.View = Me.GridView1
         Me.sluSubCat.Size = New System.Drawing.Size(206, 28)
         Me.sluSubCat.TabIndex = 7

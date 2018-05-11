@@ -5,8 +5,8 @@ Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 
 Public Class FrmTransfer
     Dim TagID As String, TransferNo As String,
-        LocID_Src As String = UserInfo.SelectLoc, LocID_Dest As String,
-        UserStock As String = UserInfo.UserID,
+        LocID_Src As String = User.SelectLoc, LocID_Dest As String,
+        UserStock As String = User.UserID,
         MatName As String, MatID As String,
         Unit1_Num As Double, Unit3_Num As Double, PerUnit1 As Double,
         Unit1_Name As String, Unit3_Name As String,
@@ -24,7 +24,7 @@ Public Class FrmTransfer
         SQL &= " tbUnit AS U1 ON S.Unit1_ID = U1.UnitID INNER JOIN"
         SQL &= " tbSubCategory AS SC ON M.SubCatID = SC.SubCatID INNER JOIN"
         SQL &= " tbUnit AS U3 ON SC.Unit3_ID = U3.UnitID"
-        SQL &= " WHERE S.LocID = '" & UserInfo.SelectLoc & "' AND S.Stat <> 0 AND Unit3 > 0.1"
+        SQL &= " WHERE S.LocID = '" & User.SelectLoc & "' AND S.Stat <> 0 AND Unit3 > 0.1"
         SQL &= " ORDER BY S.MatID"
         dsTbl("stock")
 
@@ -34,7 +34,7 @@ Public Class FrmTransfer
                 '' MatName,Unit1_Num,'' Unit1_Name,
                    Unit3_Num,'' Unit3_Name,
                 '' LocSrc,'' LocDest,
-                TransferID
+                TransferID,Notation
               FROM tbTransfer_Detail"
         dsTbl("Transfer_Detail")
         dtTransfer_Detail = DS.Tables("Transfer_Detail").Clone
@@ -42,7 +42,7 @@ Public Class FrmTransfer
         SQL = "Select * From tbTransfer"
         dtTransfer = dsTbl("transfer")
 
-        SQL = "Select * From tbLocation Where LocID <> '" & UserInfo.SelectLoc & "'"
+        SQL = "Select * From tbLocation Where LocID <> '" & User.SelectLoc & "'"
         dsTbl("location")
     End Sub
     Private Sub LoadDef()
@@ -134,8 +134,8 @@ Public Class FrmTransfer
         LoadDef()
         gcList.DataSource = dtTransfer_Detail
         GVFomat()
-        lbUserStock.Text = UserInfo.UserName
-        UserStock = UserInfo.UserID
+        lbUserStock.Text = User.UserName
+        UserStock = User.UserID
     End Sub
 #End Region
 
@@ -185,9 +185,10 @@ Public Class FrmTransfer
                 dtr("Unit1_Name") = Unit1_Name
                 dtr("Unit3_Num") = Unit3_Num
                 dtr("unit3_Name") = Unit3_Name
-                dtr("LocSrc") = UserInfo.LocName
+                dtr("LocSrc") = User.LocName
                 dtr("LocDest") = slClick(slLocDest, "LocName")
                 dtr("TransferNo") = TransferNo
+                dtr("Notation") = txtNotation.Text
                 .Rows.Add(dtr)
                 .AcceptChanges()
                 gcList.Refresh()
@@ -213,9 +214,9 @@ Public Class FrmTransfer
         For Each tbName As DataTable In tbList
             Select Case tbName.TableName
                 Case dtTransfer.TableName
-                    fieldList = {"TransferID", "TransferNo", "DateTransfer", "LocID_Src", "LocID_Dest", "UserStock", "Notation"}
+                    fieldList = {"TransferID", "TransferNo", "DateTransfer", "LocID_Src", "LocID_Dest", "UserStock"}
                 Case dtTransfer_Detail.TableName
-                    fieldList = {"TransferID", "TagID", "Unit1_Num", "Unit3_Num"}
+                    fieldList = {"TransferID", "TagID", "Unit1_Num", "Unit3_Num", "Notation"}
             End Select
             blkCpy("tb" & tbName.TableName, tbName, fieldList)
         Next
@@ -226,9 +227,10 @@ Public Class FrmTransfer
         cancelFunc()
     End Sub
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+        If txtTransferNo.Text.Length <> 5 AndAlso User.Permission < UserInfo.UserGroup.Manger Then MessageBox.Show("เลขที่เอกสารไม่ถูกต้อง กรูณาตรวจสอบ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning) : Return
         SQL = "SELECT TransferNo FROM tbTransfer WHERE TransferNo = '" & txtTransferNo.Text & "'"
         dsTbl("check")
-        If DS.Tables("check").Rows.Count > 0 And String.IsNullOrEmpty(txtNotation.text) Then
+        If DS.Tables("check").Rows.Count > 0 And String.IsNullOrEmpty(txtNotation.Text) Then
             MessageBox.Show("กรุณากรอกหมายเหตุ เนื่องจากบิลนี้เคยทำรายการแล้ว", "เลขที่บิลซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Information)
             txtNotation.Focus()
             Return
@@ -238,7 +240,7 @@ Public Class FrmTransfer
         PnlSave.Visible = True
         txtUnit1.Text = ""
         txtUnit3.Text = ""
-        TransferID = genID()
+        TransferID = GenID()
 
         Dim dr As DataRow
         With dtTransfer
@@ -247,7 +249,7 @@ Public Class FrmTransfer
             dr("TransferID") = TransferID
             dr("TransferNo") = TransferNo
             dr("DateTransfer") = TransferDate
-            dr("LocID_Src") = UserInfo.SelectLoc
+            dr("LocID_Src") = User.SelectLoc
             dr("LocID_Dest") = LocID_Dest
             dr("UserStock") = UserStock
             .Rows.Add(dr)

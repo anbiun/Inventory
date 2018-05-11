@@ -34,27 +34,27 @@ Partial Class FrmLogs_Import
         Me.lbCat = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
+        Me.gcList = New DevExpress.XtraGrid.GridControl()
+        Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.deSDate = New DevExpress.XtraEditors.DateEdit()
         Me.lbEDate = New System.Windows.Forms.Label()
         Me.deEDate = New DevExpress.XtraEditors.DateEdit()
         Me.lbSDate = New System.Windows.Forms.Label()
         Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
-        Me.gcList = New DevExpress.XtraGrid.GridControl()
-        Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
         CType(Me.clbSubCat, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.clbLoc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.slCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl3.SuspendLayout()
+        CType(Me.gcList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deSDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deSDate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deEDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deEDate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl1.SuspendLayout()
-        CType(Me.gcList, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'rdDate_By
@@ -179,71 +179,6 @@ Partial Class FrmLogs_Import
         Me.GroupControl3.TabIndex = 18
         Me.GroupControl3.Text = "ประวัติรายการนำเข้า"
         '
-        'deSDate
-        '
-        Me.deSDate.EditValue = Nothing
-        Me.deSDate.Location = New System.Drawing.Point(71, 505)
-        Me.deSDate.Name = "deSDate"
-        Me.deSDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.deSDate.Properties.Appearance.Options.UseFont = True
-        Me.deSDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deSDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deSDate.Size = New System.Drawing.Size(164, 28)
-        Me.deSDate.TabIndex = 15
-        '
-        'lbEDate
-        '
-        Me.lbEDate.AutoSize = True
-        Me.lbEDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbEDate.Location = New System.Drawing.Point(38, 541)
-        Me.lbEDate.Name = "lbEDate"
-        Me.lbEDate.Size = New System.Drawing.Size(27, 24)
-        Me.lbEDate.TabIndex = 13
-        Me.lbEDate.Text = "ถึง"
-        '
-        'deEDate
-        '
-        Me.deEDate.EditValue = Nothing
-        Me.deEDate.Location = New System.Drawing.Point(71, 539)
-        Me.deEDate.Name = "deEDate"
-        Me.deEDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.deEDate.Properties.Appearance.Options.UseFont = True
-        Me.deEDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deEDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deEDate.Size = New System.Drawing.Size(164, 28)
-        Me.deEDate.TabIndex = 15
-        '
-        'lbSDate
-        '
-        Me.lbSDate.AutoSize = True
-        Me.lbSDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.lbSDate.Location = New System.Drawing.Point(22, 507)
-        Me.lbSDate.Name = "lbSDate"
-        Me.lbSDate.Size = New System.Drawing.Size(43, 24)
-        Me.lbSDate.TabIndex = 13
-        Me.lbSDate.Text = "วันที่"
-        '
-        'GroupControl1
-        '
-        Me.GroupControl1.Controls.Add(Me.rdDate_By)
-        Me.GroupControl1.Controls.Add(Me.rdDate_All)
-        Me.GroupControl1.Controls.Add(Me.slCat)
-        Me.GroupControl1.Controls.Add(Me.btnSearch)
-        Me.GroupControl1.Controls.Add(Me.clbSubCat)
-        Me.GroupControl1.Controls.Add(Me.clbLoc)
-        Me.GroupControl1.Controls.Add(Me.Label1)
-        Me.GroupControl1.Controls.Add(Me.lbCat)
-        Me.GroupControl1.Controls.Add(Me.Label3)
-        Me.GroupControl1.Controls.Add(Me.deSDate)
-        Me.GroupControl1.Controls.Add(Me.lbEDate)
-        Me.GroupControl1.Controls.Add(Me.deEDate)
-        Me.GroupControl1.Controls.Add(Me.lbSDate)
-        Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.GroupControl1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(253, 643)
-        Me.GroupControl1.TabIndex = 19
-        '
         'gcList
         '
         Me.gcList.Dock = System.Windows.Forms.DockStyle.Fill
@@ -320,6 +255,75 @@ Partial Class FrmLogs_Import
         Me.gvList.OptionsView.ShowGroupPanel = False
         Me.gvList.OptionsView.ShowIndicator = False
         '
+        'deSDate
+        '
+        Me.deSDate.EditValue = Nothing
+        Me.deSDate.Location = New System.Drawing.Point(71, 505)
+        Me.deSDate.Name = "deSDate"
+        Me.deSDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deSDate.Properties.Appearance.Options.UseFont = True
+        Me.deSDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deSDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deSDate.Properties.NullDate = "กรุณาเลือก"
+        Me.deSDate.Properties.NullText = "กรุณาเลือก"
+        Me.deSDate.Size = New System.Drawing.Size(164, 28)
+        Me.deSDate.TabIndex = 15
+        '
+        'lbEDate
+        '
+        Me.lbEDate.AutoSize = True
+        Me.lbEDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.lbEDate.Location = New System.Drawing.Point(38, 541)
+        Me.lbEDate.Name = "lbEDate"
+        Me.lbEDate.Size = New System.Drawing.Size(27, 24)
+        Me.lbEDate.TabIndex = 13
+        Me.lbEDate.Text = "ถึง"
+        '
+        'deEDate
+        '
+        Me.deEDate.EditValue = Nothing
+        Me.deEDate.Location = New System.Drawing.Point(71, 539)
+        Me.deEDate.Name = "deEDate"
+        Me.deEDate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deEDate.Properties.Appearance.Options.UseFont = True
+        Me.deEDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deEDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.deEDate.Properties.NullDate = "กรุณาเลือก"
+        Me.deEDate.Properties.NullText = "กรุณาเลือก"
+        Me.deEDate.Size = New System.Drawing.Size(164, 28)
+        Me.deEDate.TabIndex = 15
+        '
+        'lbSDate
+        '
+        Me.lbSDate.AutoSize = True
+        Me.lbSDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.lbSDate.Location = New System.Drawing.Point(22, 507)
+        Me.lbSDate.Name = "lbSDate"
+        Me.lbSDate.Size = New System.Drawing.Size(43, 24)
+        Me.lbSDate.TabIndex = 13
+        Me.lbSDate.Text = "วันที่"
+        '
+        'GroupControl1
+        '
+        Me.GroupControl1.Controls.Add(Me.rdDate_By)
+        Me.GroupControl1.Controls.Add(Me.rdDate_All)
+        Me.GroupControl1.Controls.Add(Me.slCat)
+        Me.GroupControl1.Controls.Add(Me.btnSearch)
+        Me.GroupControl1.Controls.Add(Me.clbSubCat)
+        Me.GroupControl1.Controls.Add(Me.clbLoc)
+        Me.GroupControl1.Controls.Add(Me.Label1)
+        Me.GroupControl1.Controls.Add(Me.lbCat)
+        Me.GroupControl1.Controls.Add(Me.Label3)
+        Me.GroupControl1.Controls.Add(Me.deSDate)
+        Me.GroupControl1.Controls.Add(Me.lbEDate)
+        Me.GroupControl1.Controls.Add(Me.deEDate)
+        Me.GroupControl1.Controls.Add(Me.lbSDate)
+        Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.GroupControl1.Location = New System.Drawing.Point(0, 0)
+        Me.GroupControl1.Name = "GroupControl1"
+        Me.GroupControl1.Size = New System.Drawing.Size(253, 643)
+        Me.GroupControl1.TabIndex = 19
+        '
         'FrmLogs_Import
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -335,6 +339,8 @@ Partial Class FrmLogs_Import
         CType(Me.slCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl3.ResumeLayout(False)
+        CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deSDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deSDate.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deEDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -342,8 +348,6 @@ Partial Class FrmLogs_Import
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl1.ResumeLayout(False)
         Me.GroupControl1.PerformLayout()
-        CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

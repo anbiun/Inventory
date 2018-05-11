@@ -87,6 +87,14 @@
                 .Add("Owing", "ค้างส่ง")
                 .Add("DeliveryDate", "กำหนดส่ง")
 #End Region
+#Region "Stock"
+                For i As Integer = 1 To 12
+                    .Add(MonthName(i), MonthName(i))
+                Next
+                .Add("JL", "JL")
+                .Add("kiwi", "KIWI")
+                .Add("JLK", "JLK")
+#End Region
 
             Catch ex As Exception
                 Dim st As New StackTrace(True)
