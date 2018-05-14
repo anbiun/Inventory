@@ -140,7 +140,9 @@ Partial Class FrmLogs_Import
         Me.slCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slCat.Properties.Appearance.Options.UseFont = True
         Me.slCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.slCat.Properties.NullText = "กรุณาเลือกหมวดวัสดุ"
+        Me.slCat.Properties.NullText = ""
+        Me.slCat.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.slCat.Properties.NullValuePromptShowForEmptyValue = True
         Me.slCat.Properties.View = Me.SearchLookUpEdit1View
         Me.slCat.Size = New System.Drawing.Size(212, 28)
         Me.slCat.TabIndex = 32
@@ -264,8 +266,9 @@ Partial Class FrmLogs_Import
         Me.deSDate.Properties.Appearance.Options.UseFont = True
         Me.deSDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deSDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deSDate.Properties.NullDate = "กรุณาเลือก"
-        Me.deSDate.Properties.NullText = "กรุณาเลือก"
+        Me.deSDate.Properties.NullDate = ""
+        Me.deSDate.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.deSDate.Properties.NullValuePromptShowForEmptyValue = True
         Me.deSDate.Size = New System.Drawing.Size(164, 28)
         Me.deSDate.TabIndex = 15
         '
@@ -288,8 +291,9 @@ Partial Class FrmLogs_Import
         Me.deEDate.Properties.Appearance.Options.UseFont = True
         Me.deEDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deEDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deEDate.Properties.NullDate = "กรุณาเลือก"
-        Me.deEDate.Properties.NullText = "กรุณาเลือก"
+        Me.deEDate.Properties.NullDate = ""
+        Me.deEDate.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.deEDate.Properties.NullValuePromptShowForEmptyValue = True
         Me.deEDate.Size = New System.Drawing.Size(164, 28)
         Me.deEDate.TabIndex = 15
         '

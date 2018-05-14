@@ -44,22 +44,10 @@ Public Class UserInfo
     End Function
     Private Sub SetPermission(InputPermis As Integer)
         Select Case InputPermis
+
             Case UserGroup.User
                 Permission = UserGroup.User
-inheritUser:
-                With FrmMatImport
-                    .grpSearch.Visible = True
-                    .grpSearch.Visible = True
-                    .pnlEdit.Visible = False
-                End With
-                FrmLogs_Requisition.BtnDel.Visible = False
-                With FrmMain
-                    .ribGrpApprove.Visible = True
-                    .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
-                    .ribGrpSetting.Visible = False
-                    .ribGrpNewSub.Visible = False
-                    .RibbonPage2.Visible = False
-                End With
+                Dim ulv As New UserLevel
             Case UserGroup.Po
                 Permission = UserGroup.Po
                 With FrmMatList
@@ -76,9 +64,9 @@ inheritUser:
                 End With
             Case UserGroup.Stock
                 Permission = UserGroup.Stock
+                Dim ulv As New UserLevel
                 FrmMain.btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
                 FrmMain.ribGrpSetting.Visible = True
-                GoTo inheritUser
             Case UserGroup.Manger
                 Access = True
                 Permission = UserGroup.Manger
@@ -87,10 +75,26 @@ inheritUser:
                 Access = True
                 Permission = UserGroup.Admin
             Case Else
+                Dim ulv As New UserLevel
                 Access = False
                 Permission = UserGroup.User
-                GoTo inheritUser
         End Select
     End Sub
-
+    Private Class UserLevel
+        Sub New()
+            With FrmMatImport
+                .grpSearch.Visible = True
+                .grpSearch.Visible = True
+                .pnlEdit.Visible = False
+            End With
+            FrmLogs_Requisition.BtnDel.Visible = False
+            With FrmMain
+                .ribGrpApprove.Visible = True
+                .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                .ribGrpSetting.Visible = False
+                .ribGrpNewSub.Visible = False
+                .RibbonPage2.Visible = False
+            End With
+        End Sub
+    End Class
 End Class

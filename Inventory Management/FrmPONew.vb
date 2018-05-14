@@ -174,8 +174,8 @@ Public Class FrmPONew
         lblUnit3_name.Text = FoundRow(0)("Unit3_Name").ToString
     End Sub
     Private Sub btnNewOrder_Click(sender As Object, e As EventArgs) Handles btnNewOrder.Click
-        If txtPO.TextLength <> 5 Then Return
-        grpPoOrder.Enabled = If(chkInput(grpPoList), True, False)
+        If txtPO.TextLength <> 5 Or ChkInput(grpPoList) = False Then Return
+        grpPoOrder.Enabled = True
         grpPoList.Enabled = False
         PnlSave.Visible = True
         dtResult.Clear()
@@ -184,7 +184,7 @@ Public Class FrmPONew
 
     End Sub
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If CInt(txtUnit1.EditValue) <= 0 Then Return
+        If CInt(txtUnit1.EditValue) <= 0 Or String.IsNullOrEmpty(sluMat.EditValue.ToString) Then Return
         AddRow()
         gvList.BestFitColumns()
     End Sub

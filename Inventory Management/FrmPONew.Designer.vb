@@ -105,7 +105,9 @@ Partial Class FrmPONew
         Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluSubCat.Properties.Appearance.Options.UseFont = True
         Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluSubCat.Properties.NullText = "กรุณาเลือก"
+        Me.sluSubCat.Properties.NullText = ""
+        Me.sluSubCat.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.sluSubCat.Properties.NullValuePromptShowForEmptyValue = True
         Me.sluSubCat.Properties.View = Me.GridView1
         Me.sluSubCat.Size = New System.Drawing.Size(193, 28)
         Me.sluSubCat.TabIndex = 13
@@ -126,7 +128,8 @@ Partial Class FrmPONew
         Me.deDelivery.Properties.Appearance.Options.UseFont = True
         Me.deDelivery.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDelivery.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.deDelivery.Properties.NullText = "กรุณาเลือก"
+        Me.deDelivery.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.deDelivery.Properties.NullValuePromptShowForEmptyValue = True
         Me.deDelivery.Size = New System.Drawing.Size(193, 28)
         Me.deDelivery.TabIndex = 23
         '
@@ -151,10 +154,13 @@ Partial Class FrmPONew
         Me.sluSupplier.EditValue = ""
         Me.sluSupplier.Location = New System.Drawing.Point(142, 33)
         Me.sluSupplier.Name = "sluSupplier"
+        Me.sluSupplier.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.[True]
         Me.sluSupplier.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluSupplier.Properties.Appearance.Options.UseFont = True
         Me.sluSupplier.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluSupplier.Properties.NullText = "กรุณาเลือก"
+        Me.sluSupplier.Properties.NullText = ""
+        Me.sluSupplier.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.sluSupplier.Properties.NullValuePromptShowForEmptyValue = True
         Me.sluSupplier.Properties.View = Me.GridView3
         Me.sluSupplier.Size = New System.Drawing.Size(193, 28)
         Me.sluSupplier.TabIndex = 17
@@ -176,7 +182,8 @@ Partial Class FrmPONew
         Me.deDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDate.Properties.NullDate = ""
-        Me.deDate.Properties.NullText = "กรุณาเลือก"
+        Me.deDate.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.deDate.Properties.NullValuePromptShowForEmptyValue = True
         Me.deDate.Size = New System.Drawing.Size(193, 28)
         Me.deDate.TabIndex = 23
         '
@@ -304,7 +311,9 @@ Partial Class FrmPONew
         Me.sluMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluMat.Properties.Appearance.Options.UseFont = True
         Me.sluMat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluMat.Properties.NullText = "กรุณาเลือก"
+        Me.sluMat.Properties.NullText = ""
+        Me.sluMat.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.sluMat.Properties.NullValuePromptShowForEmptyValue = True
         Me.sluMat.Properties.View = Me.SearchLookUpEdit1View
         Me.sluMat.Size = New System.Drawing.Size(193, 28)
         Me.sluMat.TabIndex = 14

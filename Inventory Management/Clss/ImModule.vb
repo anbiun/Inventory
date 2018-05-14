@@ -102,18 +102,24 @@ Module ImModule
     End Sub
     Friend Function ChkInput(grpBox As GroupControl, Optional Without As String = Nothing) As Boolean
         For Each ctr As Control In grpBox.Controls
+            If ctr.Name = Without Then Continue For
             If TypeOf ctr Is TextBox Then
-                If String.IsNullOrEmpty(ctr.Text) And ctr.Name <> Without Then
+                If String.IsNullOrEmpty(ctr.Text) Then
+                    ctr.Focus()
+                    Return False
+                End If
+            ElseIf TypeOf ctr Is TextEdit Then
+                If String.IsNullOrEmpty(ctr.Text) Then
                     ctr.Focus()
                     Return False
                 End If
             ElseIf TypeOf ctr Is SearchLookUpEdit Then
-                If CType(ctr, SearchLookUpEdit).EditValue Is Nothing Then
+                If CType(ctr, SearchLookUpEdit).EditValue Is Nothing Or String.IsNullOrEmpty(CType(ctr, SearchLookUpEdit).EditValue.ToString) Then
                     ctr.Focus()
                     Return False
                 End If
             ElseIf TypeOf ctr Is DateEdit Then
-                If CType(ctr, DateEdit).EditValue Is Nothing Then
+                If CType(ctr, DateEdit).EditValue Is Nothing Or String.IsNullOrEmpty(CType(ctr, DateEdit).EditValue.ToString) Then
                     ctr.Focus()
                     Return False
                 End If

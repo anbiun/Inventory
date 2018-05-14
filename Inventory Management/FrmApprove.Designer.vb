@@ -145,6 +145,9 @@ Partial Class FrmApprove
         Me.slTransferNo.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slTransferNo.Properties.Appearance.Options.UseFont = True
         Me.slTransferNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.slTransferNo.Properties.NullText = ""
+        Me.slTransferNo.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.slTransferNo.Properties.NullValuePromptShowForEmptyValue = True
         Me.slTransferNo.Properties.View = Me.SearchLookUpEdit1View
         Me.slTransferNo.Size = New System.Drawing.Size(124, 28)
         Me.slTransferNo.TabIndex = 18

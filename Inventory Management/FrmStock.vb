@@ -261,7 +261,7 @@ Public Class FrmStock
     Dim sizeH As Integer = 0
     Private Sub FrmStock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadSuccess = False
-        If User.Permission <= 3 Then expandAdjust.Enabled = False
+        If User.Permission <= UserInfo.UserGroup.Manger Then expandAdjust.Enabled = False
         SQL = "SELECT CatID,CatName FROM tbCategory"
         With slCat.Properties
             .DataSource = dsTbl("cat")

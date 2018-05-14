@@ -339,12 +339,6 @@
     <Compile Include="Logs\FrmLogs_Po.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Logs\FrmLogs_Tag.Designer.vb">
-      <DependentUpon>FrmLogs_Tag.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Logs\FrmLogs_Tag.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Logs\FrmLogs_Transfer.Designer.vb">
       <DependentUpon>FrmLogs_Transfer.vb</DependentUpon>
     </Compile>
@@ -485,9 +479,6 @@
     <EmbeddedResource Include="Logs\FrmLogs_Requisition.th.resx">
       <DependentUpon>FrmLogs_Requisition.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Logs\FrmLogs_Tag.resx">
-      <DependentUpon>FrmLogs_Tag.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Logs\FrmLogs_Transfer.resx">
       <DependentUpon>FrmLogs_Transfer.vb</DependentUpon>
     </EmbeddedResource>
@@ -535,6 +526,7 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

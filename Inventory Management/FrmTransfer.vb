@@ -227,6 +227,7 @@ Public Class FrmTransfer
         cancelFunc()
     End Sub
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+        If ChkInput(grpRequest, txtNotation.Name) = False Then Return
         If txtTransferNo.Text.Length <> 5 AndAlso User.Permission < UserInfo.UserGroup.Manger Then MessageBox.Show("เลขที่เอกสารไม่ถูกต้อง กรูณาตรวจสอบ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning) : Return
         SQL = "SELECT TransferNo FROM tbTransfer WHERE TransferNo = '" & txtTransferNo.Text & "'"
         dsTbl("check")
@@ -260,6 +261,7 @@ Public Class FrmTransfer
 
 #Region "Other Control"
     Private Sub deDate_EditValueChanged(sender As Object, e As EventArgs) Handles deDate.EditValueChanged
+        If String.IsNullOrEmpty(deDate.EditValue) Then Return
         TransferDate = deDate.EditValue
     End Sub
     Private Sub slTagID_EditValueChanged(sender As Object, e As EventArgs) Handles slTagID.EditValueChanged, slLocDest.EditValueChanged

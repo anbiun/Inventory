@@ -106,7 +106,7 @@ readVer:
             SQL &= " FROM tbLocation INNER JOIN tbLocation_Permis ON tbLocation.LocID = tbLocation_Permis.LocID_Src "
             SQL &= " INNER JOIN tbLogin ON tbLocation_Permis.UserID = tbLogin.UserID"
             SQL &= " WHERE tbLocation_Permis.UserID = '" & User.UserID & "'"
-            If User.Permission > User.UserGroup.Manger Then
+            If User.Permission > UserInfo.UserGroup.Manger Then
                 SQL = "SELECT LocID,LocName FROM tbLocation"
             End If
             dsTbl("location")

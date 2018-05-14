@@ -198,6 +198,7 @@ Public Class FrmApprove
         LoadDef()
     End Sub
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+        If String.IsNullOrEmpty(TransferID) Then Return
         grpRequest.Enabled = False
         PnlSave.Visible = True
 

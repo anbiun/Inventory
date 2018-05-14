@@ -220,7 +220,8 @@ Partial Class FrmLogs_Po
         Me.deSDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deSDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deSDate.Properties.NullDate = "กรุณาเลือก"
-        Me.deSDate.Properties.NullText = "กรุณาเลือก"
+        Me.deSDate.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.deSDate.Properties.NullValuePromptShowForEmptyValue = True
         Me.deSDate.Size = New System.Drawing.Size(127, 28)
         Me.deSDate.TabIndex = 15
         '
@@ -260,7 +261,8 @@ Partial Class FrmLogs_Po
         Me.deEDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deEDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deEDate.Properties.NullDate = "กรุณาเลือก"
-        Me.deEDate.Properties.NullText = "กรุณาเลือก"
+        Me.deEDate.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.deEDate.Properties.NullValuePromptShowForEmptyValue = True
         Me.deEDate.Size = New System.Drawing.Size(127, 28)
         Me.deEDate.TabIndex = 15
         '
@@ -276,7 +278,9 @@ Partial Class FrmLogs_Po
         Me.slCat.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.slCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.slCat.Properties.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.slCat.Properties.NullText = "กรุณาเลือกหมวดวัสดุ"
+        Me.slCat.Properties.NullText = ""
+        Me.slCat.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.slCat.Properties.NullValuePromptShowForEmptyValue = True
         Me.slCat.Properties.View = Me.SearchLookUpEdit1View
         Me.slCat.Size = New System.Drawing.Size(210, 28)
         Me.slCat.TabIndex = 32

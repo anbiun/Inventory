@@ -203,10 +203,13 @@ Partial Class FrmStock
         Me.slCat.EditValue = ""
         Me.slCat.Location = New System.Drawing.Point(16, 63)
         Me.slCat.Name = "slCat"
+        Me.slCat.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.[True]
         Me.slCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.slCat.Properties.Appearance.Options.UseFont = True
         Me.slCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.slCat.Properties.NullText = "กรุณาเลือกหมวดวัสดุ"
+        Me.slCat.Properties.NullText = ""
+        Me.slCat.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.slCat.Properties.NullValuePromptShowForEmptyValue = True
         Me.slCat.Properties.View = Me.SearchLookUpEdit1View
         Me.slCat.Size = New System.Drawing.Size(212, 28)
         Me.slCat.TabIndex = 25
