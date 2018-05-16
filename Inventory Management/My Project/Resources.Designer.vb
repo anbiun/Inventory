@@ -383,6 +383,26 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property newTransfer_16x16() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("newTransfer_16x16", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property newTransfer_32x32() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("newTransfer_32x32", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property next_16x16() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("next_16x16", resourceCulture)
@@ -466,6 +486,26 @@ Namespace My.Resources
         Friend ReadOnly Property undo_16x16() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("undo_16x16", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property wraptext2_16x16() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("wraptext2_16x16", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property wraptext2_32x32() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("wraptext2_32x32", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

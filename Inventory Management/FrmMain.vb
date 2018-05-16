@@ -55,7 +55,22 @@ Public Class FrmMain
         End If
     End Sub
 #End Region
+    Public Sub setTransferImg()
+        SQL = "select Stat from tbTransfer_Detail where Stat = 0"
+        dsTbl("findTransfer")
+        With btnLogs_Transfer.ImageOptions
+            If DS.Tables("findTransfer").Rows.Count >= 1 Then
+                .LargeImage = My.Resources.newTransfer_32x32
+                .Image = My.Resources.newTransfer_16x16
+            Else
+                .LargeImage = My.Resources.wraptext2_32x32
+                .Image = My.Resources.wraptext2_16x16
+            End If
+        End With
+    End Sub
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        setTransferImg()
+
         Me.Text += " v." + Version
         bsiLogin.Caption = "สวัสดีคุณ " & User.UserName & " ขณะนี้ Login ด้วยสิทธ์ User : " & User.UserID
         bsiServer.Caption = "เชื่อมต่อกับ " & varIP

@@ -199,7 +199,6 @@ Public Class Grid
 
     End Sub
 End Class
-
 Public Class SendEdit
     Private _gView As New GridView
     Public Property gControl As GridControl
@@ -228,7 +227,6 @@ Public Class SendEdit
         End If
     End Sub
 End Class
-
 Public Class GridViewColumnButtonMenu
     Inherits GridViewMenu
     Public Sub New(ByVal View As DevExpress.XtraGrid.Views.Grid.GridView)
@@ -277,8 +275,6 @@ Public Class GridViewColumnButtonMenu
                 View.ExpandAllGroups()
             End If
         End If
-
-
 
     End Sub
 End Class

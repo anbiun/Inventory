@@ -70,6 +70,8 @@ Partial Class FrmMain
         Me.btnQCTarget = New DevExpress.XtraBars.BarButtonItem()
         Me.btnUserMng = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPOnew = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnPOList = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection(Me.components)
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribGrpNewSub = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -80,13 +82,11 @@ Partial Class FrmMain
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPage2 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPageGroup4 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
         Me.delayer = New System.Windows.Forms.Timer(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.XtraTabbedMdiManager1 = New DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(Me.components)
-        Me.btnPOList = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
-        Me.RibbonPageGroup4 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.appMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ribbonImageCollection, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -427,8 +427,8 @@ Partial Class FrmMain
         '
         Me.btnLogs_Transfer.Caption = "ประวัติโอนย้าย"
         Me.btnLogs_Transfer.Id = 81
-        Me.btnLogs_Transfer.ImageOptions.Image = CType(resources.GetObject("btnLogs_Transfer.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnLogs_Transfer.ImageOptions.LargeImage = CType(resources.GetObject("btnLogs_Transfer.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnLogs_Transfer.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.wraptext2_16x16
+        Me.btnLogs_Transfer.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.wraptext2_32x32
         Me.btnLogs_Transfer.Name = "btnLogs_Transfer"
         '
         'btnQCTarget
@@ -452,6 +452,20 @@ Partial Class FrmMain
         Me.btnPOnew.ImageOptions.Image = CType(resources.GetObject("btnPOnew.ImageOptions.Image"), System.Drawing.Image)
         Me.btnPOnew.ImageOptions.LargeImage = CType(resources.GetObject("btnPOnew.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnPOnew.Name = "btnPOnew"
+        '
+        'btnPOList
+        '
+        Me.btnPOList.Caption = "ดูรายการใบ PO"
+        Me.btnPOList.Id = 87
+        Me.btnPOList.ImageOptions.Image = CType(resources.GetObject("btnPOList.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnPOList.ImageOptions.LargeImage = CType(resources.GetObject("btnPOList.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnPOList.Name = "btnPOList"
+        '
+        'BarButtonItem1
+        '
+        Me.BarButtonItem1.Caption = "BarButtonItem1"
+        Me.BarButtonItem1.Id = 88
+        Me.BarButtonItem1.Name = "BarButtonItem1"
         '
         'ribbonImageCollectionLarge
         '
@@ -533,6 +547,12 @@ Partial Class FrmMain
         Me.RibbonPageGroup3.ItemLinks.Add(Me.btnPOList)
         Me.RibbonPageGroup3.Name = "RibbonPageGroup3"
         '
+        'RibbonPageGroup4
+        '
+        Me.RibbonPageGroup4.ItemLinks.Add(Me.btnLogOut)
+        Me.RibbonPageGroup4.Name = "RibbonPageGroup4"
+        Me.RibbonPageGroup4.Text = "ออก"
+        '
         'ribbonStatusBar
         '
         Me.ribbonStatusBar.ItemLinks.Add(Me.bsiLogin)
@@ -560,26 +580,6 @@ Partial Class FrmMain
         Me.XtraTabbedMdiManager1.PinPageButtonShowMode = DevExpress.XtraTab.PinPageButtonShowMode.InActiveTabPageHeader
         Me.XtraTabbedMdiManager1.ShowFloatingDropHint = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabbedMdiManager1.ShowHeaderFocus = DevExpress.Utils.DefaultBoolean.[True]
-        '
-        'btnPOList
-        '
-        Me.btnPOList.Caption = "ดูรายการใบ PO"
-        Me.btnPOList.Id = 87
-        Me.btnPOList.ImageOptions.Image = CType(resources.GetObject("btnPOList.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnPOList.ImageOptions.LargeImage = CType(resources.GetObject("btnPOList.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnPOList.Name = "btnPOList"
-        '
-        'BarButtonItem1
-        '
-        Me.BarButtonItem1.Caption = "BarButtonItem1"
-        Me.BarButtonItem1.Id = 88
-        Me.BarButtonItem1.Name = "BarButtonItem1"
-        '
-        'RibbonPageGroup4
-        '
-        Me.RibbonPageGroup4.ItemLinks.Add(Me.btnLogOut)
-        Me.RibbonPageGroup4.Name = "RibbonPageGroup4"
-        Me.RibbonPageGroup4.Text = "ออก"
         '
         'FrmMain
         '

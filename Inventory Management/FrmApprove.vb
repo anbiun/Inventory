@@ -191,6 +191,7 @@ Public Class FrmApprove
         fieldList = {"TransferID", "TagID", "Unit1_Num", "Unit3_Num", "Stat", "Notation"}
         blkCpy("tbTransfer_Detail", gcList.DataSource, fieldList)
         MsgBox("successfully", MsgBoxStyle.Information)
+        FrmMain.setTransferImg()
         btnCancel.PerformClick()
     End Sub
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
