@@ -272,7 +272,41 @@ Module ImModule
         Public SoftGreen As Color = Hex("ddfd7c")
         Public Gray As Color = Hex("f0f0f0")
     End Class
+    Public EditorPO As New EditPO
 End Module
+
+Public Class EditPO
+    Public setControl As New ctrList
+    Public Property PoNo As String
+    Public Property SupplierID As String
+    Public Property PoDate As String
+    Public Property DelivDate As String
+    Public Property IDVal As String
+    Public Property dtResult As DataTable
+    Public Property UnitName As String
+    Public Property PoDetailID As String
+    Public Property MatID As String
+    Public Property PoID As String
+    Public Sub LoadEdit()
+        With setControl
+            .PoNo.Text = PoNo
+            .Supplier.EditValue = SupplierID
+            .PoDate.EditValue = PoDate
+            .DelivDate.EditValue = DelivDate
+            .SubCat.EditValue = IDVal
+            .gcResult.DataSource = dtResult
+        End With
+    End Sub
+    Public Class ctrList
+        Public Property PoNo As TextBox
+        Public Property Supplier As SearchLookUpEdit
+        Public Property PoDate As DateEdit
+        Public Property DelivDate As DateEdit
+        Public Property SubCat As SearchLookUpEdit
+        Public Property gcResult As GridControl
+        Public Property gvResult As GridView
+    End Class
+End Class
 
 Namespace ColumnButton
     Public Class Editor
@@ -331,3 +365,4 @@ Namespace ColumnButton
         End Sub
     End Class
 End Namespace
+

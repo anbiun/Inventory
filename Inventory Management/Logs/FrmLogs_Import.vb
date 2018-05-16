@@ -1,6 +1,8 @@
 ﻿Imports ConDB.Main
 Imports System.Data.SqlClient
 Imports DevExpress.XtraGrid
+Imports DevExpress.XtraGrid.Views.Grid
+
 Public Class FrmLogs_Import
 #Region "Code Sub Func."
     Private Function getExpr(control As DevExpress.XtraEditors.CheckedListBoxControl, field As String)
@@ -19,7 +21,7 @@ Public Class FrmLogs_Import
         Return ret
     End Function
     Private Sub FirstQry()
-        Sql = "Select CatID,CatName FROM tbCategory"
+        SQL = "Select CatID,CatName FROM tbCategory"
         dsTbl("category")
         With slCat.Properties
             .DataSource = DS.Tables("category")
@@ -31,7 +33,7 @@ Public Class FrmLogs_Import
         End With
 
         SQL = "Select LocID,LocName FROM tbLocation"
-        SQL &= If(User.Permission <= User.UserGroup.Manger, " WHERE LocID='" & User.SelectLoc & "'", "")
+        SQL &= If(User.Permission <= UserInfo.UserGroup.Manger, " WHERE LocID='" & User.SelectLoc & "'", "")
         dsTbl("location")
         With clbInfo
             .setControl = clbLoc
@@ -53,17 +55,17 @@ Public Class FrmLogs_Import
         deEDate.Enabled = False
     End Sub
     Private Sub Find()
-        Sql = "IF OBJECT_ID('tempdb..#Loc') IS NOT NULL DROP table #Loc
+        SQL = "IF OBJECT_ID('tempdb..#Loc') IS NOT NULL DROP table #Loc
                 If OBJECT_ID('tempdb..#Cat') IS NOT NULL DROP table #Cat
                 SELECT * INTO #Loc FROM vwLogs_Import"
-        Sql &= " WHERE " & getExpr(clbLoc, "LocID") & ""
-        Sql &= "SELECT * INTO #Cat FROM #Loc"
-        Sql &= " WHERE " & getExpr(clbSubCat, "CatID+SubCatID") & ""
+        SQL &= " WHERE " & getExpr(clbLoc, "LocID") & ""
+        SQL &= "SELECT * INTO #Cat FROM #Loc"
+        SQL &= " WHERE " & getExpr(clbSubCat, "CatID+SubCatID") & ""
 
         If rdDate_By.Checked = True Then
-            Sql &= "SELECT * FROM #Cat"
-            SQL &= " WHERE ImportDate >='" & convertDate(deSDate.EditValue) & "'"
-            SQL &= " AND ImportDate <='" & convertDate(deEDate.EditValue) & "'"
+            SQL &= "SELECT * FROM #Cat"
+            SQL &= " WHERE ImportDate >='" & ConvertDate(deSDate.EditValue) & "'"
+            SQL &= " AND ImportDate <='" & ConvertDate(deEDate.EditValue) & "'"
         End If
         SQL &= "SELECT * FROM #Cat ORDER By ImportDate"
         Dim SQ As String = SQL
@@ -81,8 +83,8 @@ Public Class FrmLogs_Import
     End Sub
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
         If loadSuccess = False Then Exit Sub
-        Sql = "Select CatID+SubCatID As IDValue,SubCatName FROM tbSubcategory"
-        Sql &= " WHERE CatID='" & slClick(sender, "CatID") & "'"
+        SQL = "Select CatID+SubCatID As IDValue,SubCatName FROM tbSubcategory"
+        SQL &= " WHERE CatID='" & SlClick(sender, "CatID") & "'"
         dsTbl("subcat")
 
         With clbInfo
@@ -187,6 +189,24 @@ Public Class FrmLogs_Import
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck, clbLoc.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub
-#End Region
 
+    Private Sub gvList_MouseDown(sender As Object, e As MouseEventArgs) Handles gvList.MouseDown
+        Dim view As GridView = CType(sender, GridView)
+        If e.Button = MouseButtons.Right Then
+            'If String.IsNullOrEmpty(GetGroupValue(_gView, gControl, "PoNo", "PoNo")) Then Return
+            'ShowMenu(view.CalcHitInfo(New Point(e.X, e.Y)))
+
+        End If
+    End Sub
+    'Private Sub ShowMenu(ByVal hi As GridHitInfo)
+    '    Dim menu As GridViewMenu = Nothing
+    '    If hi.HitTest = DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.Row Then
+    '        menu = New GridViewColumnButtonMenu(hi.View)
+    '        menu.Init(hi)
+    '        menu.Show(hi.HitPoint)
+    '    End If
+    'End Sub
+
+#End Region
 End Class
+

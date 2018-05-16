@@ -4,6 +4,7 @@ Imports DevExpress.XtraEditors.BaseCheckedListBoxControl
 
 Public Class BindingSet
     Private BindingArray As New Dictionary(Of String, BindingSource)
+    Dim QryBind As New Dictionary(Of String, String)
     Private _BindingName As String
     Property Name
         Set(value)
@@ -28,6 +29,12 @@ Public Class BindingSet
             BindingArray.Add(Name, New BindingSource)
         End If
         BindingArray(Name).DataSource = DTResult
+        If Not QryBind.ContainsKey(Name) Then
+            QryBind.Add(Name, sqlstring)
+        End If
+    End Sub
+    Sub Refresh()
+        Qry(QryBind(Name))
     End Sub
     Function Find(BindingName As String) As Boolean
         If BindingArray.ContainsKey(BindingName) Then Return True

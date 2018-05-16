@@ -1,21 +1,24 @@
 ﻿Option Explicit On
 Option Strict On
 Imports ConDB.Main
+Imports DevExpress.Utils.Menu
+Imports DevExpress.XtraEditors
 Imports DevExpress.XtraEditors.Controls
 Imports DevExpress.XtraEditors.Repository
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Columns
+Imports DevExpress.XtraGrid.Menu
 Imports DevExpress.XtraGrid.Views.Grid
 
 Public Class FrmPONew
     Dim dtSupplier, dtMat, dtResult, dtSubCat As New DataTable
     Dim PoID As String
-    Property EditPO As Boolean = False
+    Property Edit As Boolean = False
     Sub New()
         loadSuccess = False
         InitializeComponent()
         AddHandler txtPO.KeyPress, Sub(sender As Object, e As KeyPressEventArgs)
-                                       numOnly(e)
+                                       NumOnly(e)
                                    End Sub
     End Sub
 #Region "Code"
@@ -60,7 +63,6 @@ Public Class FrmPONew
             .ValueMember = "supplierID"
         End With
 
-
         With sluSubCat.Properties
             .DataSource = dtSubCat
             .View.PopulateColumns()
@@ -81,13 +83,14 @@ Public Class FrmPONew
             With dtResult
                 dr = .NewRow
                 dr = dtResult.NewRow
-                dr("PoDetailID") = genID().ToString
+                dr("PoDetailID") = GenID().ToString
                 dr("MatID") = sluMat.EditValue
                 dr("MatName") = sluMat.Text
                 dr("Unit3") = txtUnit1.Text
                 dr("Unit3_Name") = lblUnit3_name.Text
                 dr("SubCatName") = sluSubCat.Text
                 dr("PoID") = PoID
+                dr("Stat") = 0
                 .Rows.Add(dr)
                 .AcceptChanges()
                 gcList.Refresh()
@@ -154,12 +157,27 @@ Public Class FrmPONew
                          }
         Dim Buttons As New ColumnButton.Main With {.gControl = gcList, .gView = gvList}
         Buttons.Add(btnDel)
-        If EditPO Then
-            MsgBox("EditPO" & EditPO.ToString)
-            grpPoList.Enabled = True
-            Return
-        End If
         loadSuccess = True
+
+        If Edit Then
+            With EditorPO.setControl
+                .PoNo = txtPO
+                .Supplier = sluSupplier
+                .PoDate = deDate
+                .DelivDate = deDelivery
+                .gvResult = gvList
+                .gcResult = gcList
+                .SubCat = sluSubCat
+            End With
+            PoID = EditorPO.PoID
+            dtResult = EditorPO.dtResult
+            EditorPO.LoadEdit()
+            gvList.BestFitColumns()
+            grpPoList.Enabled = False
+            grpPoOrder.Enabled = True
+            PnlSave.Visible = True
+        End If
+
     End Sub
     Private Sub sluSubCat_EditValueChanged(sender As Object, e As EventArgs) Handles sluSubCat.EditValueChanged
         If loadSuccess = False Then Return
@@ -179,7 +197,7 @@ Public Class FrmPONew
         grpPoList.Enabled = False
         PnlSave.Visible = True
         dtResult.Clear()
-        PoID = genID().ToString
+        PoID = GenID().ToString
         GVFormat()
 
     End Sub
@@ -190,21 +208,22 @@ Public Class FrmPONew
     End Sub
     Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged
         txtUnit1.EditValue = If(CInt(txtUnit1.EditValue) < 0, 0, txtUnit1.EditValue)
-
     End Sub
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         If dtResult.Rows.Count <= 0 Then Return
         If MessageBox.Show("ยืนยันการบันทึกข้อมุล", "บันทึกข้อมูล PO", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) = DialogResult.No Then Return
-        SQL = "INSERT INTO tbPO (PoID,PoNo,SupplierID,PoDate,DeliveryDate,UserID)
+        SQL = "DELETE FROM tbPO WHERE PoID = '" & PoID & "'
+               DELETE FROM tbPo_Detail WHERE PoID = '" & PoID & "'
+                INSERT INTO tbPO (PoID,PoNo,SupplierID,PoDate,DeliveryDate,UserID)
                 VALUES ('" & PoID & "',
                         '" & txtPO.Text & "',
                         '" & sluSupplier.EditValue.ToString & "',
-                        '" & convertDate(CDate(deDate.EditValue)).ToString & "',
-                        '" & convertDate(CDate(deDelivery.EditValue)).ToString & "',
+                        '" & ConvertDate(CDate(deDate.EditValue)).ToString & "',
+                        '" & ConvertDate(CDate(deDelivery.EditValue)).ToString & "',
                         '" & User.UserID & "'
                         )"
         dsTbl("InsertPO")
-        blkCpy("tbPo_Detail", dtResult, {"PoDetailID", "MatID", "Unit3", "PoID"})
+        blkCpy("tbPo_Detail", dtResult, {"PoDetailID", "MatID", "Unit3", "PoID", "Stat"})
         MessageBox.Show("บันทึกข้อมุล PO เรียบร้อยแล้ว", "บันทึกข้อมูล PO", MessageBoxButtons.OK, MessageBoxIcon.Information)
         LoadDef()
     End Sub
@@ -214,14 +233,14 @@ Public Class FrmPONew
     Friend Sub CellClick(sender As Object, e As RowCellClickEventArgs) Handles gvList.RowCellClick
         Dim view As GridView = CType(sender, GridView)
         If view.FocusedColumn.FieldName = "del" Then
+            If view.GetFocusedRowCellValue("Stat").ToString = "1" Then MessageBox.Show("ไม่สามารถแก้ไขได้ เนื่องจากรายการนี้มีการส่งของแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
             dtResult.Rows(gvList.GetDataSourceRowIndex(e.RowHandle)).Delete()
             dtResult.AcceptChanges()
         End If
         view.RefreshData()
     End Sub
 #End Region
-    Private Class Edit
 
-    End Class
+
 End Class
 

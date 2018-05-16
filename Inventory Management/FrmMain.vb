@@ -12,7 +12,7 @@ Public Class FrmMain
         Me.InitSkinGallery()
     End Sub
 #Region "Button Control"
-    Dim currentBtn As BarItem
+    Property currentBtn As BarItem
     Private Sub ButtonClick(sender As Object, e As ItemClickEventArgs) Handles btnMatList.ItemClick _
         , btnMatImport.ItemClick, btnStock.ItemClick, btnUnitManager.ItemClick, btnSupplier.ItemClick, btnLogOut.ItemClick _
         , btnApprove.ItemClick, btnRequsition.ItemClick, btnLogs_Req.ItemClick, btnSubMat.ItemClick, btnTransfer.ItemClick _

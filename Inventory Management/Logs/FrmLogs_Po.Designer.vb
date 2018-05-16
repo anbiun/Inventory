@@ -22,7 +22,6 @@ Partial Class FrmLogs_Po
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogs_Po))
         Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
         Me.gcResult = New DevExpress.XtraGrid.GridControl()
         Me.gvResult = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -41,7 +40,6 @@ Partial Class FrmLogs_Po
         Me.line1 = New DevExpress.XtraEditors.PanelControl()
         Me.rdDate_All = New System.Windows.Forms.RadioButton()
         Me.rdDate_By = New System.Windows.Forms.RadioButton()
-        Me.BtnDel = New DevExpress.XtraEditors.SimpleButton()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl3.SuspendLayout()
         CType(Me.gcResult, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -155,7 +153,6 @@ Partial Class FrmLogs_Po
         '
         Me.GroupControl1.Controls.Add(Me.btnSearch)
         Me.GroupControl1.Controls.Add(Me.pnlRightFilter)
-        Me.GroupControl1.Controls.Add(Me.BtnDel)
         Me.GroupControl1.Dock = System.Windows.Forms.DockStyle.Right
         Me.GroupControl1.Location = New System.Drawing.Point(585, 0)
         Me.GroupControl1.Name = "GroupControl1"
@@ -352,20 +349,6 @@ Partial Class FrmLogs_Po
         Me.rdDate_By.Text = "ค้นหาระบุวันที่"
         Me.rdDate_By.UseVisualStyleBackColor = True
         '
-        'BtnDel
-        '
-        Me.BtnDel.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.BtnDel.Appearance.Options.UseFont = True
-        Me.BtnDel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
-        Me.BtnDel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BtnDel.ImageOptions.Image = CType(resources.GetObject("BtnDel.ImageOptions.Image"), System.Drawing.Image)
-        Me.BtnDel.Location = New System.Drawing.Point(5, 520)
-        Me.BtnDel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.BtnDel.Name = "BtnDel"
-        Me.BtnDel.Size = New System.Drawing.Size(214, 33)
-        Me.BtnDel.TabIndex = 34
-        Me.BtnDel.Text = "ยกเลิกรายการที่เลือก"
-        '
         'FrmLogs_Po
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -414,7 +397,6 @@ Partial Class FrmLogs_Po
     Friend WithEvents line1 As DevExpress.XtraEditors.PanelControl
     Friend WithEvents rdDate_All As RadioButton
     Friend WithEvents rdDate_By As RadioButton
-    Friend WithEvents BtnDel As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents gcResult As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvResult As DevExpress.XtraGrid.Views.Grid.GridView
 End Class
