@@ -34,7 +34,9 @@ Public Class BindingSet
         End If
     End Sub
     Sub Refresh()
-        Qry(QryBind(Name))
+        If QryBind.Keys.Contains(Name) Then
+            Qry(QryBind(Name))
+        End If
     End Sub
     Function Find(BindingName As String) As Boolean
         If BindingArray.ContainsKey(BindingName) Then Return True

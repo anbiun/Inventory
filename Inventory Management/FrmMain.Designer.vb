@@ -278,10 +278,6 @@ Partial Class FrmMain
         Me.btnMatList.Id = 64
         Me.btnMatList.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.document_add32
         Me.btnMatList.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.document_add32
-        Me.btnMatList.ItemAppearance.Hovered.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnMatList.ItemAppearance.Hovered.Options.UseFont = True
-        Me.btnMatList.ItemAppearance.Normal.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.btnMatList.ItemAppearance.Normal.Options.UseFont = True
         Me.btnMatList.Name = "btnMatList"
         '
         'btnLogOut
@@ -306,10 +302,6 @@ Partial Class FrmMain
         Me.btnMatImport.Id = 67
         Me.btnMatImport.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources._Get
         Me.btnMatImport.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources._Get
-        Me.btnMatImport.ItemAppearance.Hovered.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnMatImport.ItemAppearance.Hovered.Options.UseFont = True
-        Me.btnMatImport.ItemAppearance.Normal.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.btnMatImport.ItemAppearance.Normal.Options.UseFont = True
         Me.btnMatImport.LargeWidth = 100
         Me.btnMatImport.Name = "btnMatImport"
         '
@@ -483,8 +475,6 @@ Partial Class FrmMain
         '
         'RibbonPage1
         '
-        Me.RibbonPage1.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.RibbonPage1.Appearance.Options.UseFont = True
         Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.ribGrpNewMat, Me.ribGrpImport, Me.ribGrpApprove, Me.RibbonPageGroup1, Me.ribGrpSetting, Me.RibbonPageGroup2})
         Me.RibbonPage1.Name = "RibbonPage1"
         Me.RibbonPage1.Text = "ข้อมูลวัสดุ"

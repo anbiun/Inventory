@@ -34,6 +34,8 @@ Public Class FrmStock
         PO.ToolTipControl = tooltipGcMain
     End Sub
     Private Sub ExportXLS()
+        gcMain.ShowPrintPreview()
+        Return
         If gvMain.RowCount < 1 Then Exit Sub
         Dim saveFileDialog1 As New SaveFileDialog()
         saveFileDialog1.Filter = "Excel 97-2003 (*.xls) |*.xls"
@@ -52,24 +54,24 @@ Public Class FrmStock
                 .Add("A4", "SubCatName")
                 .Add("B4", "MatName")
                 .Add("C4", "AllowColor")
-                .Add("D4", "Warn")
-                .Add("E4", "เดือน")
-                .Add("F4", "Unit1")
-                .Add("G4", "Unit1_Name")
-                .Add("H4", "Unit3")
-                .Add("I4", "Unit3_Name")
-                .Add("J4", "Dozen")
-                .Add("K4", "โหล")
-                .Add("L4", "JL")
-                .Add("M4", "KIWI")
-                .Add("N4", "JLK")
-                Dim colMonth As String = "O/P/Q/R/S/T/U/V/W/X/Y/Z"
+                .Add("D4", "img/PoStat")
+                .Add("E4", "Warn")
+                .Add("F4", "เดือน")
+                .Add("G4", "Unit1")
+                .Add("H4", "Unit1_Name")
+                .Add("I4", "Unit3")
+                .Add("J4", "Unit3_Name")
+                .Add("K4", "Dozen")
+                .Add("L4", "โหล")
+                .Add("M4", "JL")
+                .Add("N4", "KIWI")
+                .Add("O4", "JLK")
+                Dim colMonth As String = "P/Q/R/S/T/U/V/W/X/Y/Z/AA"
                 Dim startMonth As Integer = 0
                 For Each cMont As String In colMonth.Split((New Char() {"/"c}))
                     startMonth += 1
                     .Add(cMont & "4", MonthName(startMonth))
                 Next
-
 
             End With
             Try
@@ -110,41 +112,53 @@ Public Class FrmStock
                     xlRange.Value2 = "สต๊อกวัสดุยอด ณ วันที่ " & _XLSGetHeader()
                     GvSource.ExpandAllGroups()
                     For gvRow As Integer = 0 To GvSource.RowCount - 1
-                        'If String.IsNullOrEmpty(GvSource.GetRowCellDisplayText(gvRow, 1)) Then
-                        '    Continue For
-                        'End If
+                        'set cell colour
+                        Dim SetCellColor As Func(Of Integer, String) = Function(Row As Integer)
+                                                                           Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "Warn")), 0, gvMain.GetRowCellDisplayText(Row, "Warn"))
+                                                                           Dim Minimum As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(Row, "Warn_Month"))
+                                                                           Dim AllowColor As Integer = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "AllowColor")), 0, gvMain.GetRowCellDisplayText(Row, "AllowColor"))
+                                                                           Dim CellRange As String = String.Format("A{0}:AA{0}", 4 + Row)
+                                                                           With xlWorkSheet
+                                                                               If warn >= 2 Or AllowColor = 0 Then
+                                                                                   .Cells.Range(CellRange).Style = Stock_Normal
+                                                                               ElseIf warn <= 1 AndAlso AllowColor = 1 Then
+                                                                                   .Cells.Range(CellRange).Style = Stock_Danger
+                                                                               Else
+                                                                                   .Cells.Range(CellRange).Style = Stock_Warning
+                                                                               End If
+                                                                           End With
+                                                                           Return Nothing
+                                                                       End Function
+                        SetCellColor(gvRow) 'end
 
-                        'Cell Colour
-                        Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn"))
-                        Dim Minimum As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(gvRow, "Warn_Month"))
-                        Dim AllowColor As Integer = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(gvRow, "AllowColor")), 0, gvMain.GetRowCellDisplayText(gvRow, "AllowColor"))
-                        Dim CellRange As String = "A" & 4 + gvRow & ":" & "Z" & 4 + gvRow
-                        With xlWorkSheet
-                            If warn >= 2 Or AllowColor = 0 Then
-                                .Cells.Range(CellRange).Style = Stock_Normal
-                            ElseIf warn <= 1 AndAlso AllowColor = 1 Then
-                                .Cells.Range(CellRange).Style = Stock_Danger
-                            Else
-                                .Cells.Range(CellRange).Style = Stock_Warning
-                            End If
-                        End With
+                        'get Image
+                        Dim getImg As Func(Of String, Image) = Function(Row As Integer)
+                                                                   Dim vInfo As GridViewInfo = gvMain.GetViewInfo
+                                                                   Dim cellInfo As GridCellInfo = vInfo.GetGridCellInfo(Row, gvMain.Columns("PoStat"))
+                                                                   If cellInfo Is Nothing Then Return Nothing
+                                                                   Dim tvInfo As ViewInfo.TextEditViewInfo = TryCast(cellInfo.ViewInfo, ViewInfo.TextEditViewInfo)
+                                                                   Dim oImage As Image
+                                                                   oImage = tvInfo.ContextImage
 
-                        'end
+                                                                   Return oImage
+                                                               End Function
 
+                        'set export value
                         For i As Integer = 0 To Cols.Count - 1
                             Dim Col As String = String.Empty
                             Dim ColRow As Integer = 0
                             Dim Chars() As Char = Cols.Keys(i).ToCharArray()
+                            'get เลขคอลัม excel
                             For Each ch As Char In Chars
                                 If Char.IsDigit(ch) Then
                                     ColRow = ch.ToString
                                 Else
-                                    Col = ch
+                                    Col += ch
                                 End If
                             Next
-                            Dim currentCollumns As String
-                            currentCollumns = Col
-                            xlRange = CType(xlWorkSheet.Cells.Range(Col & ColRow + gvRow), Excel.Range)
+                            Dim currentCollumns As String = String.Format("{0}{1}", Col, ColRow + gvRow)
+
+                            xlRange = CType(xlWorkSheet.Cells.Range(currentCollumns), Excel.Range)
                             If Cols.Values(i) = "AllowColor" Then
                                 If GvSource.GetRowCellDisplayText(gvRow, "AllowColor").ToString = "0" Then
                                     xlRange.Value2 = "ไม่มีเป้า QC"
@@ -161,9 +175,17 @@ Public Class FrmStock
                             Try
                                 xlRange.Value2 = GvSource.GetRowCellDisplayText(gvRow, Cols.Values(i))
                             Catch ex As Exception
-                                xlRange.Value2 = Cols.Values(i)
+                                If Cols.Values(i).Contains("img") Then
+                                    If getImg(gvRow) Is Nothing Then Continue For
+                                    Clipboard.SetImage(getImg(gvRow))
+                                    xlWorkSheet.Paste(xlRange)
+                                    'xlRange.PasteSpecial(Microsoft.Office.Interop.Excel.XlPasteType.xlPasteAll)
+                                Else
+                                    xlRange.Value2 = Cols.Values(i)
+                                End If
                             End Try
                         Next
+
                         frmProg.SetProgress(gvRow)
                     Next
 
