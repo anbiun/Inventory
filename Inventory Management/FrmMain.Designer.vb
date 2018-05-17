@@ -74,7 +74,7 @@ Partial Class FrmMain
         Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonImageCollectionLarge = New DevExpress.Utils.ImageCollection(Me.components)
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
-        Me.ribGrpNewSub = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.ribGrpNewMat = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribGrpImport = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribGrpApprove = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -485,15 +485,15 @@ Partial Class FrmMain
         '
         Me.RibbonPage1.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.RibbonPage1.Appearance.Options.UseFont = True
-        Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.ribGrpNewSub, Me.ribGrpImport, Me.ribGrpApprove, Me.RibbonPageGroup1, Me.ribGrpSetting, Me.RibbonPageGroup2})
+        Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.ribGrpNewMat, Me.ribGrpImport, Me.ribGrpApprove, Me.RibbonPageGroup1, Me.ribGrpSetting, Me.RibbonPageGroup2})
         Me.RibbonPage1.Name = "RibbonPage1"
         Me.RibbonPage1.Text = "ข้อมูลวัสดุ"
         '
-        'ribGrpNewSub
+        'ribGrpNewMat
         '
-        Me.ribGrpNewSub.ItemLinks.Add(Me.btnMatList)
-        Me.ribGrpNewSub.Name = "ribGrpNewSub"
-        Me.ribGrpNewSub.Text = "เพิ่มข้อมูล"
+        Me.ribGrpNewMat.ItemLinks.Add(Me.btnMatList)
+        Me.ribGrpNewMat.Name = "ribGrpNewMat"
+        Me.ribGrpNewMat.Text = "เพิ่มข้อมูล"
         '
         'ribGrpImport
         '
@@ -629,7 +629,7 @@ Partial Class FrmMain
     Private WithEvents ribbonImageCollectionLarge As DevExpress.Utils.ImageCollection
     Friend WithEvents RibbonPage1 As DevExpress.XtraBars.Ribbon.RibbonPage
     Friend WithEvents btnMatList As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents ribGrpNewSub As DevExpress.XtraBars.Ribbon.RibbonPageGroup
+    Friend WithEvents ribGrpNewMat As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents btnLogOut As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup2 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents BarButtonItem2 As DevExpress.XtraBars.BarButtonItem

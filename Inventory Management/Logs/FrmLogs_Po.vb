@@ -125,7 +125,6 @@ Public Class FrmLogs_Po
         clbInfo.SelectAllCheck(sender, e)
     End Sub
 
-
 End Class
 Public Class Grid
     Property gControl As GridControl
@@ -162,6 +161,7 @@ Public Class Grid
         End With
     End Sub
     Overridable Sub CustomDrawCell(ByVal sender As Object, ByVal e As Views.Base.RowCellCustomDrawEventArgs)
+
         If e.CellValue Is Nothing Then Exit Sub
         Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
         Dim infox As TextEditViewInfo = TryCast(gcix.ViewInfo, TextEditViewInfo)

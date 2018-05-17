@@ -54,6 +54,7 @@ Public Class UserInfo
                     .PnlTreeButton.Visible = False
                 End With
                 With FrmMain
+                    .ribGrpNewMat.Visible = False
                     .ribGrpImport.Visible = False
                     .btnTransfer.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
                     .btnLogs_Req.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
@@ -92,7 +93,7 @@ Public Class UserInfo
                 .ribGrpApprove.Visible = True
                 .btnStock.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
                 .ribGrpSetting.Visible = False
-                .ribGrpNewSub.Visible = False
+                .ribGrpNewMat.Visible = False
                 .RibbonPage2.Visible = False
             End With
         End Sub

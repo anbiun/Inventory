@@ -225,6 +225,8 @@ Public Class FrmPONew
         dsTbl("InsertPO")
         blkCpy("tbPo_Detail", dtResult, {"PoDetailID", "MatID", "Unit3", "PoID", "Stat"})
         MessageBox.Show("บันทึกข้อมุล PO เรียบร้อยแล้ว", "บันทึกข้อมูล PO", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        BindInfo.Name = "logpo"
+        BindInfo.Refresh()
         LoadDef()
     End Sub
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
