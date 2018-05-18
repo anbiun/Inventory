@@ -169,9 +169,9 @@ Public Class Grid
             e.DisplayText = String.Empty
             If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "PoStat" Then
                 If e.CellValue.ToString = "1" Then
-                    infox.ContextImage = My.Resources.apply_16x16
+                    infox.ContextImage = My.Resources.postat1_16x16
                 ElseIf e.CellValue.ToString = "2" Then
-                    infox.ContextImage = My.Resources.about_16x16
+                    infox.ContextImage = My.Resources.postat2_16x16
                 ElseIf e.CellValue.ToString = "0" Then
                     infox.ContextImage = My.Resources.sales_16x16
                 End If

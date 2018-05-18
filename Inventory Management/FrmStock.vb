@@ -34,8 +34,6 @@ Public Class FrmStock
         PO.ToolTipControl = tooltipGcMain
     End Sub
     Private Sub ExportXLS()
-        gcMain.ShowPrintPreview()
-        Return
         If gvMain.RowCount < 1 Then Exit Sub
         Dim saveFileDialog1 As New SaveFileDialog()
         saveFileDialog1.Filter = "Excel 97-2003 (*.xls) |*.xls"
@@ -564,7 +562,7 @@ Public Class FrmStock
                 ElseIf e.CellValue = "1" Then
                     infox.ContextImage = Nothing
                 ElseIf e.CellValue = "2" Then
-                    infox.ContextImage = My.Resources.about_16x16
+                    infox.ContextImage = My.Resources.postat2_16x16
                 ElseIf e.CellValue = "0" Then
                     infox.ContextImage = My.Resources.sales_16x16
                 End If

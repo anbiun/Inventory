@@ -526,7 +526,6 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -647,6 +646,10 @@
     <None Include="Resources\download_32x32.png" />
     <None Include="Resources\sales_16x16.png" />
     <None Include="Resources\remove_16x16.png" />
+    <None Include="Resources\postat1_16x16.png" />
+    <None Include="Resources\postat1_32x32.png" />
+    <None Include="Resources\postat2_16x16.png" />
+    <None Include="Resources\postat2_32x32.png" />
     <Content Include="Resources\T.ico" />
     <None Include="Resources\usergroup_32x32.png" />
     <None Include="Resources\usergroup_16x16.png" />
