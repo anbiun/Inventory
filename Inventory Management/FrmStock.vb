@@ -19,6 +19,22 @@ Public Class FrmStock
     Dim GvSource As New GridView
     Dim PO As POFunction.ToolTip
 #Region "Code Side"
+    'SetAdjust Control
+    Sub New()
+        InitializeComponent()
+        Dim ADJ As New AdJust
+        With ADJ
+            .Unit1 = txtUnit1
+            .Unit3 = txtUnit3
+            .BtnSave = btnAdJust
+        End With
+        AddHandler ADJ.Unit1.EditValueChanged, AddressOf ADJ.UnitTextChange
+        AddHandler ADJ.Unit3.EditValueChanged, AddressOf ADJ.UnitTextChange
+        AddHandler ADJ.BtnSave.Click, AddressOf ADJ.Save
+        AddHandler lbRatio.TextChanged, Sub()
+                                            ADJ.Ratio = If(IsNumeric(lbRatio.Text), CInt(lbRatio.Text), 0)
+                                        End Sub
+    End Sub
     Private Sub getStockSP()
         With BindInfo
             .Name = "stock"
@@ -344,7 +360,7 @@ Public Class FrmStock
     End Sub
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
         If loadSuccess = False Then Exit Sub
-        SQL = "SELECT CatID+SubCatID AS IDvalue,SubCatName FROM tbSubcategory WHERE CatID='" & slClick(slCat, "CatID") & "'"
+        SQL = "SELECT CatID+SubCatID AS IDvalue,SubCatName FROM tbSubcategory WHERE CatID='" & SlClick(slCat, "CatID") & "'"
         With clbInfo
             .setControl = clbSubCat
             .DisplayMember = "SubCatName"
@@ -386,10 +402,10 @@ Public Class FrmStock
         Dim ExportDate As New List(Of String)
         Dim ExportDay As New List(Of String)
         For Each item As DataRow In DS.Tables("getdate").Rows
-            If item("ExportDate") IsNot DBNull.Value Then ExportDate.Add(convertDate(item("ExportDate")))
+            If item("ExportDate") IsNot DBNull.Value Then ExportDate.Add(ConvertDate(item("ExportDate")))
         Next
 
-        If ExportDate.Contains(convertDate(dt)) Then Return True
+        If ExportDate.Contains(ConvertDate(dt)) Then Return True
         'If ExportDay.Contains(dt.DayOfWeek) Then Return True
         ''the specified date is a Saturday or Holiday
         'If dt.DayOfWeek = DayOfWeek.Saturday Or dt.DayOfWeek = DayOfWeek.Sunday Then
@@ -477,7 +493,7 @@ Public Class FrmStock
                     lbUnit1.Text = Unit1
                     lbUnit3.Text = Unit3
                     txtUnit1.EditValue = Unit1
-                    txtUnit2.EditValue = Unit3
+                    txtUnit3.EditValue = Unit3
 
                     lbUnit1_Name.Text = getCellVal("Unit1_Name")
                     lbUnit3_Name.Text = getCellVal("Unit3_Name")
@@ -501,50 +517,6 @@ Public Class FrmStock
         loadSuccess = True
         Dim clb As CheckedListBox = CType(sender, CheckedListBox)
         clb.Size = New System.Drawing.Size(clb.Width, defH)
-    End Sub
-    Private Sub btnAdJust_Click(sender As Object, e As EventArgs) Handles btnAdJust.Click
-        If chkInput(grpAdjust) = False Then
-            MessageBox.Show("Check Input", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Exit Sub
-        End If
-        Dim Stat As Func(Of Integer) = Function()
-                                           If cbStat.Text = "คงเหลือ" Then
-                                               Return 1
-                                           ElseIf cbStat.Text = "หมดแล้ว" Then
-                                               Return 2
-                                           Else
-                                               Return 0
-                                           End If
-                                       End Function
-        SQL = "UPDATE tbStock"
-        SQL &= " SET Unit1='" & CDbl(lbU1.Text) & "'"
-        SQL &= " ,Unit3='" & CDbl(lbU2.Text) & "'"
-        SQL &= " ,Stat='" & Stat() & "'"
-        SQL &= " WHERE TagID='" & lbTagID.Text & "'"
-        SQL &= " AND LocID='" & LocID & "'"
-        dsTbl("adjust")
-        BindInfo.Excute()
-        gvMain.ExpandAllGroups()
-        gvRowClick(gvMain, Nothing, gvMain.FocusedRowHandle)
-
-    End Sub
-    Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged, txtUnit2.EditValueChanged, txtUnit3.EditValueChanged
-        Dim spiCtr As DevExpress.XtraEditors.SpinEdit = CType(sender, DevExpress.XtraEditors.SpinEdit)
-        Dim Unit1, Unit2, Unit3 As Double
-        lbQtyPerUnit.Text = If(lbQtyPerUnit.Text = 0, 1, lbQtyPerUnit.Text)
-        Unit1 = txtUnit1.EditValue
-        Unit2 = txtUnit2.EditValue
-        Unit3 = txtUnit3.EditValue
-
-        If spiCtr.Name = txtUnit2.Name Then
-            Unit3 += (Unit2 * (lbQtyPerUnit.Text * 12))
-        ElseIf spiCtr.Name = txtUnit1.Name Then
-            Unit3 += (Unit1 * ((lbQtyPerUnit.Text * 12) * lbRatio.Text))
-        End If
-        lbU1.Text = CDbl((Unit3 / (lbQtyPerUnit.Text * 12)) / lbRatio.Text).ToString("#,0.0")
-        lbU2.Text = CDbl(Unit3 / (lbQtyPerUnit.Text * 12)).ToString("#,0.0")
-        lbU3.Text = CDbl(Unit3).ToString("#,0.0")
-
     End Sub
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbLoc.ItemCheck, clbSubCat.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
@@ -586,11 +558,59 @@ Public Class FrmStock
         '    e.DisplayText = String.Format("{0} {1}", e.CellValue, gvMain.GetRowCellValue(e.RowHandle, "Unit3_Name"))
         'End If
     End Sub
-    Private Sub cbStat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbStat.SelectedIndexChanged
-        If cbStat.SelectedIndex <> 1 Then
-            lbU1.Text = 0
-            lbU2.Text = 0
-            lbU3.Text = 0
-        End If
-    End Sub
+
+
+    Private Class AdJust
+        Property Unit1 As SpinEdit
+        Property Unit3 As SpinEdit
+        Property BtnSave As SimpleButton
+        Property Ratio As Integer
+        Dim U1 As Double = 0
+        Dim U3 As Double = 0
+
+        Protected Friend Sub UnitTextChange(sender As Object, e As EventArgs)
+            If loadSuccess = False Then Return
+            Dim spiCtr As SpinEdit = TryCast(sender, SpinEdit)
+            If spiCtr.Name = Unit1.Name Then
+                Unit3.EditValue = Unit1.EditValue * Ratio
+            Else
+                Unit1.EditValue = Math.Round(Unit3.EditValue / Ratio, 1)
+            End If
+
+        End Sub
+        Protected Friend Sub Save(sender As Object, e As EventArgs)
+            If ChkInput(FrmStock.grpAdjust) = False Then
+                MessageBox.Show("check input", "error", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Exit Sub
+            End If
+
+            Dim stat As Func(Of Integer) = Function()
+                                               If FrmStock.cbStat.Text = "คงเหลือ" Then
+                                                   Return 1
+                                               ElseIf FrmStock.Text = "หมดแล้ว" Then
+                                                   Return 2
+                                               Else
+                                                   Return 0
+                                               End If
+                                           End Function
+            If stat() <> 1 Then
+                U1 = 0
+                U3 = 0
+            Else
+                U1 = CDbl(Unit1.EditValue)
+                U3 = CDbl(Unit3.EditValue)
+            End If
+
+            SQL = "update tbstock"
+            SQL &= " set unit1='" & U1 & "'"
+            SQL &= " ,unit3='" & U3 & "'"
+            SQL &= " ,stat='" & stat() & "'"
+            SQL &= " where tagid='" & FrmStock.lbTagID.Text & "'"
+            SQL &= " and locid='" & FrmStock.LocID & "'"
+            dsTbl("adjust")
+            BindInfo.Excute()
+            FrmStock.gvMain.ExpandAllGroups()
+            FrmStock.gvRowClick(FrmStock.gvMain, Nothing, FrmStock.gvMain.FocusedRowHandle)
+        End Sub
+    End Class
 End Class

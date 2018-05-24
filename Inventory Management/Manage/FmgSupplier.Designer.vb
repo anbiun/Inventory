@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FmgSupplier
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,74 +20,55 @@ Partial Class FmgSupplier
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FmgSupplier))
         Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
-        Me.btnCancle = New DevExpress.XtraEditors.SimpleButton()
-        Me.btnSave = New DevExpress.XtraEditors.SimpleButton()
         Me.gcList = New DevExpress.XtraGrid.GridControl()
         Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
-        Me.tab1_SupplierFix = New DevExpress.XtraTab.XtraTabPage()
-        Me.tab1_GrpInput = New DevExpress.XtraEditors.GroupControl()
         Me.tab1_lblUnitName = New System.Windows.Forms.Label()
-        Me.tab1_btnAddList = New DevExpress.XtraEditors.SimpleButton()
-        Me.tab1_txtName = New DevExpress.XtraEditors.TextEdit()
-        Me.tab1_btnDelList = New DevExpress.XtraEditors.SimpleButton()
-        Me.tab1_txtOldName = New DevExpress.XtraEditors.TextEdit()
-        Me.tab1_GrpBtn = New DevExpress.XtraEditors.GroupControl()
-        Me.tab1_btnNew = New DevExpress.XtraEditors.SimpleButton()
-        Me.tab1_btnEdit = New DevExpress.XtraEditors.SimpleButton()
-        Me.tab1_btnRemove = New DevExpress.XtraEditors.SimpleButton()
-        Me.tabControl = New DevExpress.XtraTab.XtraTabControl()
-        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.txtName = New DevExpress.XtraEditors.TextEdit()
+        Me.grpSupplier = New DevExpress.XtraEditors.GroupControl()
+        Me.BtnNew = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtAddress = New DevExpress.XtraEditors.MemoEdit()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.grpMat = New DevExpress.XtraEditors.GroupControl()
+        Me.BtnAdd = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtRatio = New DevExpress.XtraEditors.SpinEdit()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
+        Me.sluSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.LabelControl13 = New DevExpress.XtraEditors.LabelControl()
+        Me.lblUnit3_name = New DevExpress.XtraEditors.LabelControl()
+        Me.PnlSave = New DevExpress.XtraEditors.PanelControl()
+        Me.BtnSave = New DevExpress.XtraEditors.SimpleButton()
+        Me.BtnCancel = New DevExpress.XtraEditors.SimpleButton()
+        Me.PnlLeft = New DevExpress.XtraEditors.PanelControl()
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupControl3.SuspendLayout()
-        Me.tab1_SupplierFix.SuspendLayout()
-        CType(Me.tab1_GrpInput, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tab1_GrpInput.SuspendLayout()
-        CType(Me.tab1_txtName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tab1_txtOldName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tab1_GrpBtn, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tab1_GrpBtn.SuspendLayout()
-        CType(Me.tabControl, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tabControl.SuspendLayout()
-        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelControl1.SuspendLayout()
+        CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grpSupplier, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpSupplier.SuspendLayout()
+        CType(Me.txtAddress.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grpMat, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpMat.SuspendLayout()
+        CType(Me.txtRatio.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.sluSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PnlSave, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PnlSave.SuspendLayout()
+        CType(Me.PnlLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PnlLeft.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnCancle
-        '
-        Me.btnCancle.ImageOptions.Image = CType(resources.GetObject("btnCancle.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnCancle.Location = New System.Drawing.Point(4, 6)
-        Me.btnCancle.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnCancle.Name = "btnCancle"
-        Me.btnCancle.Size = New System.Drawing.Size(77, 40)
-        Me.btnCancle.TabIndex = 3
-        Me.btnCancle.Text = "ยกเลิก"
-        '
-        'btnSave
-        '
-        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnSave.Location = New System.Drawing.Point(112, 8)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(84, 40)
-        Me.btnSave.TabIndex = 3
-        Me.btnSave.Text = "บันทึก"
         '
         'gcList
         '
         Me.gcList.Dock = System.Windows.Forms.DockStyle.Fill
         GridLevelNode1.RelationName = "Level1"
         Me.gcList.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
-        Me.gcList.Location = New System.Drawing.Point(0, 198)
+        Me.gcList.Location = New System.Drawing.Point(342, 0)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(459, 358)
+        Me.gcList.Size = New System.Drawing.Size(766, 492)
         Me.gcList.TabIndex = 9
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -99,207 +80,282 @@ Partial Class FmgSupplier
         Me.gvList.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click
         Me.gvList.OptionsView.ShowGroupPanel = False
         '
-        'GroupControl3
-        '
-        Me.GroupControl3.Controls.Add(Me.btnCancle)
-        Me.GroupControl3.Controls.Add(Me.btnSave)
-        Me.GroupControl3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupControl3.Location = New System.Drawing.Point(257, 2)
-        Me.GroupControl3.Name = "GroupControl3"
-        Me.GroupControl3.ShowCaption = False
-        Me.GroupControl3.Size = New System.Drawing.Size(200, 52)
-        Me.GroupControl3.TabIndex = 8
-        Me.GroupControl3.Text = "GroupControl3"
-        '
-        'tab1_SupplierFix
-        '
-        Me.tab1_SupplierFix.Controls.Add(Me.tab1_GrpInput)
-        Me.tab1_SupplierFix.Controls.Add(Me.tab1_GrpBtn)
-        Me.tab1_SupplierFix.Margin = New System.Windows.Forms.Padding(2)
-        Me.tab1_SupplierFix.Name = "tab1_SupplierFix"
-        Me.tab1_SupplierFix.Size = New System.Drawing.Size(452, 163)
-        Me.tab1_SupplierFix.Text = "ข้อมูลผู้ขาย"
-        '
-        'tab1_GrpInput
-        '
-        Me.tab1_GrpInput.Controls.Add(Me.tab1_lblUnitName)
-        Me.tab1_GrpInput.Controls.Add(Me.tab1_btnAddList)
-        Me.tab1_GrpInput.Controls.Add(Me.tab1_txtName)
-        Me.tab1_GrpInput.Controls.Add(Me.tab1_btnDelList)
-        Me.tab1_GrpInput.Controls.Add(Me.tab1_txtOldName)
-        Me.tab1_GrpInput.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.tab1_GrpInput.Location = New System.Drawing.Point(0, 80)
-        Me.tab1_GrpInput.Name = "tab1_GrpInput"
-        Me.tab1_GrpInput.ShowCaption = False
-        Me.tab1_GrpInput.Size = New System.Drawing.Size(452, 83)
-        Me.tab1_GrpInput.TabIndex = 25
-        '
         'tab1_lblUnitName
         '
         Me.tab1_lblUnitName.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_lblUnitName.Location = New System.Drawing.Point(32, 12)
+        Me.tab1_lblUnitName.Location = New System.Drawing.Point(52, 44)
         Me.tab1_lblUnitName.Name = "tab1_lblUnitName"
-        Me.tab1_lblUnitName.Size = New System.Drawing.Size(87, 22)
+        Me.tab1_lblUnitName.Size = New System.Drawing.Size(83, 22)
         Me.tab1_lblUnitName.TabIndex = 20
         Me.tab1_lblUnitName.Text = "ชื่อผู้ขาย"
         Me.tab1_lblUnitName.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'tab1_btnAddList
+        'txtName
         '
-        Me.tab1_btnAddList.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_btnAddList.Appearance.Options.UseFont = True
-        Me.tab1_btnAddList.ImageOptions.Image = CType(resources.GetObject("tab1_btnAddList.ImageOptions.Image"), System.Drawing.Image)
-        Me.tab1_btnAddList.Location = New System.Drawing.Point(259, 42)
-        Me.tab1_btnAddList.Margin = New System.Windows.Forms.Padding(2)
-        Me.tab1_btnAddList.Name = "tab1_btnAddList"
-        Me.tab1_btnAddList.Size = New System.Drawing.Size(130, 27)
-        Me.tab1_btnAddList.TabIndex = 11
-        Me.tab1_btnAddList.Text = "เพิ่มรายการ"
+        Me.txtName.Location = New System.Drawing.Point(151, 41)
+        Me.txtName.Name = "txtName"
+        Me.txtName.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtName.Properties.Appearance.Options.UseFont = True
+        Me.txtName.Size = New System.Drawing.Size(174, 28)
+        Me.txtName.TabIndex = 23
         '
-        'tab1_txtName
+        'grpSupplier
         '
-        Me.tab1_txtName.Location = New System.Drawing.Point(125, 9)
-        Me.tab1_txtName.Name = "tab1_txtName"
-        Me.tab1_txtName.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_txtName.Properties.Appearance.Options.UseFont = True
-        Me.tab1_txtName.Size = New System.Drawing.Size(264, 28)
-        Me.tab1_txtName.TabIndex = 23
+        Me.grpSupplier.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grpSupplier.AppearanceCaption.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.grpSupplier.AppearanceCaption.Options.UseFont = True
+        Me.grpSupplier.AppearanceCaption.Options.UseForeColor = True
+        Me.grpSupplier.Controls.Add(Me.BtnNew)
+        Me.grpSupplier.Controls.Add(Me.txtAddress)
+        Me.grpSupplier.Controls.Add(Me.txtName)
+        Me.grpSupplier.Controls.Add(Me.Label1)
+        Me.grpSupplier.Controls.Add(Me.tab1_lblUnitName)
+        Me.grpSupplier.Dock = System.Windows.Forms.DockStyle.Top
+        Me.grpSupplier.Location = New System.Drawing.Point(2, 2)
+        Me.grpSupplier.Name = "grpSupplier"
+        Me.grpSupplier.Size = New System.Drawing.Size(338, 230)
+        Me.grpSupplier.TabIndex = 24
+        Me.grpSupplier.Text = "รายละเอียดผู้ขาย"
         '
-        'tab1_btnDelList
+        'BtnNew
         '
-        Me.tab1_btnDelList.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_btnDelList.Appearance.Options.UseFont = True
-        Me.tab1_btnDelList.ImageOptions.Image = CType(resources.GetObject("tab1_btnDelList.ImageOptions.Image"), System.Drawing.Image)
-        Me.tab1_btnDelList.Location = New System.Drawing.Point(125, 42)
-        Me.tab1_btnDelList.Margin = New System.Windows.Forms.Padding(2)
-        Me.tab1_btnDelList.Name = "tab1_btnDelList"
-        Me.tab1_btnDelList.Size = New System.Drawing.Size(130, 27)
-        Me.tab1_btnDelList.TabIndex = 11
-        Me.tab1_btnDelList.Text = "ลบรายการ"
+        Me.BtnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.BtnNew.Appearance.Options.UseFont = True
+        Me.BtnNew.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.BtnNew.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.apply_32x32
+        Me.BtnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
+        Me.BtnNew.Location = New System.Drawing.Point(151, 184)
+        Me.BtnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnNew.Name = "BtnNew"
+        Me.BtnNew.Size = New System.Drawing.Size(174, 35)
+        Me.BtnNew.TabIndex = 25
+        Me.BtnNew.Text = "ตกลง"
         '
-        'tab1_txtOldName
+        'txtAddress
         '
-        Me.tab1_txtOldName.Location = New System.Drawing.Point(125, 43)
-        Me.tab1_txtOldName.Name = "tab1_txtOldName"
-        Me.tab1_txtOldName.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_txtOldName.Properties.Appearance.Options.UseFont = True
-        Me.tab1_txtOldName.Size = New System.Drawing.Size(264, 28)
-        Me.tab1_txtOldName.TabIndex = 23
+        Me.txtAddress.Location = New System.Drawing.Point(151, 79)
+        Me.txtAddress.Name = "txtAddress"
+        Me.txtAddress.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAddress.Properties.Appearance.Options.UseFont = True
+        Me.txtAddress.Size = New System.Drawing.Size(174, 96)
+        Me.txtAddress.TabIndex = 24
         '
-        'tab1_GrpBtn
+        'Label1
         '
-        Me.tab1_GrpBtn.Controls.Add(Me.tab1_btnNew)
-        Me.tab1_GrpBtn.Controls.Add(Me.tab1_btnEdit)
-        Me.tab1_GrpBtn.Controls.Add(Me.tab1_btnRemove)
-        Me.tab1_GrpBtn.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tab1_GrpBtn.Location = New System.Drawing.Point(0, 0)
-        Me.tab1_GrpBtn.Name = "tab1_GrpBtn"
-        Me.tab1_GrpBtn.Size = New System.Drawing.Size(452, 163)
-        Me.tab1_GrpBtn.TabIndex = 24
-        Me.tab1_GrpBtn.Text = "เลือกการทำงาน"
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(52, 117)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(83, 22)
+        Me.Label1.TabIndex = 20
+        Me.Label1.Text = "ที่อยู่"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'tab1_btnNew
+        'grpMat
         '
-        Me.tab1_btnNew.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_btnNew.Appearance.Options.UseFont = True
-        Me.tab1_btnNew.ImageOptions.Image = CType(resources.GetObject("tab1_btnNew.ImageOptions.Image"), System.Drawing.Image)
-        Me.tab1_btnNew.Location = New System.Drawing.Point(56, 40)
-        Me.tab1_btnNew.Margin = New System.Windows.Forms.Padding(2)
-        Me.tab1_btnNew.Name = "tab1_btnNew"
-        Me.tab1_btnNew.Size = New System.Drawing.Size(143, 30)
-        Me.tab1_btnNew.TabIndex = 11
-        Me.tab1_btnNew.Text = "ข้อมูลใหม่"
+        Me.grpMat.AppearanceCaption.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grpMat.AppearanceCaption.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.grpMat.AppearanceCaption.Options.UseFont = True
+        Me.grpMat.AppearanceCaption.Options.UseForeColor = True
+        Me.grpMat.Controls.Add(Me.BtnAdd)
+        Me.grpMat.Controls.Add(Me.txtRatio)
+        Me.grpMat.Controls.Add(Me.LabelControl3)
+        Me.grpMat.Controls.Add(Me.sluSubCat)
+        Me.grpMat.Controls.Add(Me.LabelControl13)
+        Me.grpMat.Controls.Add(Me.lblUnit3_name)
+        Me.grpMat.Dock = System.Windows.Forms.DockStyle.Top
+        Me.grpMat.Location = New System.Drawing.Point(2, 232)
+        Me.grpMat.Name = "grpMat"
+        Me.grpMat.Size = New System.Drawing.Size(338, 156)
+        Me.grpMat.TabIndex = 30
+        Me.grpMat.Text = "วัสดุที่ขาย"
         '
-        'tab1_btnEdit
+        'BtnAdd
         '
-        Me.tab1_btnEdit.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_btnEdit.Appearance.Options.UseFont = True
-        Me.tab1_btnEdit.ImageOptions.Image = CType(resources.GetObject("tab1_btnEdit.ImageOptions.Image"), System.Drawing.Image)
-        Me.tab1_btnEdit.Location = New System.Drawing.Point(216, 40)
-        Me.tab1_btnEdit.Margin = New System.Windows.Forms.Padding(2)
-        Me.tab1_btnEdit.Name = "tab1_btnEdit"
-        Me.tab1_btnEdit.Size = New System.Drawing.Size(86, 30)
-        Me.tab1_btnEdit.TabIndex = 11
-        Me.tab1_btnEdit.Text = "แก้ไข"
+        Me.BtnAdd.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.BtnAdd.Appearance.Options.UseFont = True
+        Me.BtnAdd.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.BtnAdd.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.forward_16x161
+        Me.BtnAdd.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
+        Me.BtnAdd.Location = New System.Drawing.Point(151, 107)
+        Me.BtnAdd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnAdd.Name = "BtnAdd"
+        Me.BtnAdd.Size = New System.Drawing.Size(174, 35)
+        Me.BtnAdd.TabIndex = 14
+        Me.BtnAdd.Text = "เพิ่มรายการ"
         '
-        'tab1_btnRemove
+        'txtRatio
         '
-        Me.tab1_btnRemove.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_btnRemove.Appearance.Options.UseFont = True
-        Me.tab1_btnRemove.ImageOptions.Image = CType(resources.GetObject("tab1_btnRemove.ImageOptions.Image"), System.Drawing.Image)
-        Me.tab1_btnRemove.Location = New System.Drawing.Point(306, 40)
-        Me.tab1_btnRemove.Margin = New System.Windows.Forms.Padding(2)
-        Me.tab1_btnRemove.Name = "tab1_btnRemove"
-        Me.tab1_btnRemove.Size = New System.Drawing.Size(83, 30)
-        Me.tab1_btnRemove.TabIndex = 11
-        Me.tab1_btnRemove.Text = "ลบ"
+        Me.txtRatio.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtRatio.Location = New System.Drawing.Point(151, 72)
+        Me.txtRatio.Name = "txtRatio"
+        Me.txtRatio.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRatio.Properties.Appearance.Options.UseFont = True
+        Me.txtRatio.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.txtRatio.Properties.MaxLength = 6
+        Me.txtRatio.Size = New System.Drawing.Size(112, 28)
+        Me.txtRatio.TabIndex = 12
         '
-        'tabControl
+        'LabelControl3
         '
-        Me.tabControl.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tabControl.Location = New System.Drawing.Point(0, 0)
-        Me.tabControl.Margin = New System.Windows.Forms.Padding(2)
-        Me.tabControl.Name = "tabControl"
-        Me.tabControl.SelectedTabPage = Me.tab1_SupplierFix
-        Me.tabControl.Size = New System.Drawing.Size(459, 198)
-        Me.tabControl.TabIndex = 7
-        Me.tabControl.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.tab1_SupplierFix})
+        Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl3.Appearance.Options.UseFont = True
+        Me.LabelControl3.Appearance.Options.UseTextOptions = True
+        Me.LabelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.LabelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelControl3.Location = New System.Drawing.Point(43, 41)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(92, 21)
+        Me.LabelControl3.TabIndex = 12
+        Me.LabelControl3.Text = "ประเภทวัสดุ"
         '
-        'PanelControl1
+        'sluSubCat
         '
-        Me.PanelControl1.Controls.Add(Me.GroupControl3)
-        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 556)
-        Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(459, 56)
-        Me.PanelControl1.TabIndex = 10
+        Me.sluSubCat.EditValue = ""
+        Me.sluSubCat.Location = New System.Drawing.Point(151, 38)
+        Me.sluSubCat.Name = "sluSubCat"
+        Me.sluSubCat.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.[True]
+        Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sluSubCat.Properties.Appearance.Options.UseFont = True
+        Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.sluSubCat.Properties.NullText = ""
+        Me.sluSubCat.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.sluSubCat.Properties.NullValuePromptShowForEmptyValue = True
+        Me.sluSubCat.Properties.View = Me.GridView1
+        Me.sluSubCat.Size = New System.Drawing.Size(174, 28)
+        Me.sluSubCat.TabIndex = 10
+        '
+        'GridView1
+        '
+        Me.GridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView1.Name = "GridView1"
+        Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView1.OptionsView.ShowGroupPanel = False
+        '
+        'LabelControl13
+        '
+        Me.LabelControl13.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl13.Appearance.Options.UseFont = True
+        Me.LabelControl13.Location = New System.Drawing.Point(13, 75)
+        Me.LabelControl13.Name = "LabelControl13"
+        Me.LabelControl13.Size = New System.Drawing.Size(107, 21)
+        Me.LabelControl13.TabIndex = 13
+        Me.LabelControl13.Text = "ขนาดบรรจุภันฑ์"
+        '
+        'lblUnit3_name
+        '
+        Me.lblUnit3_name.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUnit3_name.Appearance.Options.UseFont = True
+        Me.lblUnit3_name.Location = New System.Drawing.Point(269, 75)
+        Me.lblUnit3_name.Name = "lblUnit3_name"
+        Me.lblUnit3_name.Size = New System.Drawing.Size(21, 21)
+        Me.lblUnit3_name.TabIndex = 9
+        Me.lblUnit3_name.Text = "ชิ้น"
+        '
+        'PnlSave
+        '
+        Me.PnlSave.Appearance.BackColor = System.Drawing.Color.Transparent
+        Me.PnlSave.Appearance.Options.UseBackColor = True
+        Me.PnlSave.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+        Me.PnlSave.Controls.Add(Me.BtnSave)
+        Me.PnlSave.Controls.Add(Me.BtnCancel)
+        Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PnlSave.Location = New System.Drawing.Point(2, 388)
+        Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PnlSave.Name = "PnlSave"
+        Me.PnlSave.Size = New System.Drawing.Size(338, 102)
+        Me.PnlSave.TabIndex = 31
+        Me.PnlSave.Visible = False
+        '
+        'BtnSave
+        '
+        Me.BtnSave.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnSave.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.BtnSave.Appearance.Options.UseFont = True
+        Me.BtnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.BtnSave.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.download_32x32
+        Me.BtnSave.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
+        Me.BtnSave.Location = New System.Drawing.Point(193, 4)
+        Me.BtnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnSave.Name = "BtnSave"
+        Me.BtnSave.Size = New System.Drawing.Size(132, 35)
+        Me.BtnSave.TabIndex = 12
+        Me.BtnSave.Text = "บันทึก"
+        '
+        'BtnCancel
+        '
+        Me.BtnCancel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnCancel.Appearance.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.BtnCancel.Appearance.Options.UseFont = True
+        Me.BtnCancel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
+        Me.BtnCancel.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.undo_16x16
+        Me.BtnCancel.Location = New System.Drawing.Point(43, 4)
+        Me.BtnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BtnCancel.Name = "BtnCancel"
+        Me.BtnCancel.Size = New System.Drawing.Size(132, 35)
+        Me.BtnCancel.TabIndex = 13
+        Me.BtnCancel.Text = "ยกเลิก"
+        '
+        'PnlLeft
+        '
+        Me.PnlLeft.Controls.Add(Me.PnlSave)
+        Me.PnlLeft.Controls.Add(Me.grpMat)
+        Me.PnlLeft.Controls.Add(Me.grpSupplier)
+        Me.PnlLeft.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PnlLeft.Location = New System.Drawing.Point(0, 0)
+        Me.PnlLeft.Name = "PnlLeft"
+        Me.PnlLeft.Size = New System.Drawing.Size(342, 492)
+        Me.PnlLeft.TabIndex = 32
         '
         'FmgSupplier
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(459, 612)
+        Me.ClientSize = New System.Drawing.Size(1108, 492)
         Me.Controls.Add(Me.gcList)
-        Me.Controls.Add(Me.tabControl)
-        Me.Controls.Add(Me.PanelControl1)
+        Me.Controls.Add(Me.PnlLeft)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "FmgSupplier"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ข้อมูลผู้ขาย"
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupControl3.ResumeLayout(False)
-        Me.tab1_SupplierFix.ResumeLayout(False)
-        CType(Me.tab1_GrpInput, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tab1_GrpInput.ResumeLayout(False)
-        CType(Me.tab1_txtName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tab1_txtOldName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tab1_GrpBtn, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tab1_GrpBtn.ResumeLayout(False)
-        CType(Me.tabControl, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tabControl.ResumeLayout(False)
-        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelControl1.ResumeLayout(False)
+        CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grpSupplier, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpSupplier.ResumeLayout(False)
+        CType(Me.txtAddress.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grpMat, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpMat.ResumeLayout(False)
+        Me.grpMat.PerformLayout()
+        CType(Me.txtRatio.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.sluSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PnlSave, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PnlSave.ResumeLayout(False)
+        CType(Me.PnlLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PnlLeft.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents btnCancle As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents btnSave As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents gcList As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvList As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents GroupControl3 As DevExpress.XtraEditors.GroupControl
-    Friend WithEvents tab1_SupplierFix As DevExpress.XtraTab.XtraTabPage
-    Friend WithEvents tab1_GrpInput As DevExpress.XtraEditors.GroupControl
     Friend WithEvents tab1_lblUnitName As System.Windows.Forms.Label
-    Friend WithEvents tab1_btnAddList As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents tab1_txtName As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents tab1_btnDelList As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents tab1_txtOldName As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents tab1_GrpBtn As DevExpress.XtraEditors.GroupControl
-    Friend WithEvents tab1_btnNew As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents tab1_btnEdit As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents tab1_btnRemove As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents tabControl As DevExpress.XtraTab.XtraTabControl
-    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents txtName As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents grpSupplier As DevExpress.XtraEditors.GroupControl
+    Friend WithEvents txtAddress As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents Label1 As Label
+    Friend WithEvents BtnNew As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents grpMat As DevExpress.XtraEditors.GroupControl
+    Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents sluSubCat As DevExpress.XtraEditors.SearchLookUpEdit
+    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents LabelControl13 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents BtnAdd As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents PnlSave As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents BtnSave As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BtnCancel As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents PnlLeft As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents txtRatio As DevExpress.XtraEditors.SpinEdit
+    Friend WithEvents lblUnit3_name As DevExpress.XtraEditors.LabelControl
 End Class

@@ -197,6 +197,7 @@ Public Class FmgCategory
                             & ",tagID='" & tagID & "'" _
                             & ",Unit3_ID='" & UnitID & "'" _
                             & " Where SubCatID='" & SubCategoryValue & "' AND CatID='" & CategoryValue & "'"
+                        Dim aa As String = SQL
                         With FrmMatList.TreeCategory
                             .SelectedNode.Remove()
                             .BeginUpdate()

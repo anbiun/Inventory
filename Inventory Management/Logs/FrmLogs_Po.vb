@@ -151,11 +151,13 @@ Public Class Grid
                 .HIDE.Columns("SupplierID")
                 .SetCaption()
             End With
-            gridInfo.SetFormat({"Unit3", "Owing"})
+            gridInfo.SetFormat({"Unit3", "Owing", "UnitImport"})
             gridInfo.SetFormat({"DateSave"}, DevExpress.Utils.FormatType.DateTime, "{0:G}")
             .Columns("PoDate").Group()
-            .Columns("PoDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
             .Columns("PoNo").Group()
+            .Columns("PoDate").SortOrder = DevExpress.Data.ColumnSortOrder.Descending
+            .OptionsFilter.AllowAutoFilterConditionChange = DevExpress.Utils.DefaultBoolean.True
+            .OptionsFind.AlwaysVisible = True
             .BestFitColumns()
             .ExpandAllGroups()
         End With
@@ -199,6 +201,7 @@ Public Class Grid
 
     End Sub
 End Class
+
 Public Class SendEdit
     Private _gView As New GridView
     Public Property gControl As GridControl

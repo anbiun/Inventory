@@ -79,7 +79,6 @@ Partial Class FrmPONew
         Me.grpPoList.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.grpPoList.AppearanceCaption.Options.UseFont = True
         Me.grpPoList.AppearanceCaption.Options.UseForeColor = True
-        Me.grpPoList.Controls.Add(Me.sluSubCat)
         Me.grpPoList.Controls.Add(Me.deDelivery)
         Me.grpPoList.Controls.Add(Me.btnNewOrder)
         Me.grpPoList.Controls.Add(Me.sluSupplier)
@@ -87,20 +86,19 @@ Partial Class FrmPONew
         Me.grpPoList.Controls.Add(Me.txtPO)
         Me.grpPoList.Controls.Add(Me.LabelControl11)
         Me.grpPoList.Controls.Add(Me.LabelControl1)
-        Me.grpPoList.Controls.Add(Me.LabelControl3)
         Me.grpPoList.Controls.Add(Me.LabelControl4)
         Me.grpPoList.Controls.Add(Me.LabelControl2)
         Me.grpPoList.Dock = System.Windows.Forms.DockStyle.Top
         Me.grpPoList.Location = New System.Drawing.Point(0, 0)
         Me.grpPoList.Name = "grpPoList"
-        Me.grpPoList.Size = New System.Drawing.Size(366, 247)
+        Me.grpPoList.Size = New System.Drawing.Size(366, 216)
         Me.grpPoList.TabIndex = 20
         Me.grpPoList.Text = "ข้อมูลใบสั่งซื้อ"
         '
         'sluSubCat
         '
         Me.sluSubCat.EditValue = ""
-        Me.sluSubCat.Location = New System.Drawing.Point(142, 171)
+        Me.sluSubCat.Location = New System.Drawing.Point(142, 30)
         Me.sluSubCat.Name = "sluSubCat"
         Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluSubCat.Properties.Appearance.Options.UseFont = True
@@ -142,7 +140,7 @@ Partial Class FrmPONew
         Me.btnNewOrder.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnNewOrder.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.apply_32x32
         Me.btnNewOrder.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.btnNewOrder.Location = New System.Drawing.Point(142, 206)
+        Me.btnNewOrder.Location = New System.Drawing.Point(142, 172)
         Me.btnNewOrder.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnNewOrder.Name = "btnNewOrder"
         Me.btnNewOrder.Size = New System.Drawing.Size(193, 35)
@@ -227,7 +225,7 @@ Partial Class FrmPONew
         Me.LabelControl3.Appearance.Options.UseTextOptions = True
         Me.LabelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.LabelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl3.Location = New System.Drawing.Point(0, 174)
+        Me.LabelControl3.Location = New System.Drawing.Point(0, 33)
         Me.LabelControl3.Name = "LabelControl3"
         Me.LabelControl3.Size = New System.Drawing.Size(127, 21)
         Me.LabelControl3.TabIndex = 20
@@ -294,19 +292,19 @@ Partial Class FrmPONew
         'txtUnit1
         '
         Me.txtUnit1.EditValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtUnit1.Location = New System.Drawing.Point(142, 64)
+        Me.txtUnit1.Location = New System.Drawing.Point(142, 98)
         Me.txtUnit1.Name = "txtUnit1"
         Me.txtUnit1.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUnit1.Properties.Appearance.Options.UseFont = True
         Me.txtUnit1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.txtUnit1.Properties.MaxLength = 6
+        Me.txtUnit1.Properties.MaxLength = 7
         Me.txtUnit1.Size = New System.Drawing.Size(116, 28)
         Me.txtUnit1.TabIndex = 16
         '
         'sluMat
         '
         Me.sluMat.EditValue = ""
-        Me.sluMat.Location = New System.Drawing.Point(142, 30)
+        Me.sluMat.Location = New System.Drawing.Point(142, 64)
         Me.sluMat.Name = "sluMat"
         Me.sluMat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sluMat.Properties.Appearance.Options.UseFont = True
@@ -332,7 +330,7 @@ Partial Class FrmPONew
         Me.lblUnit1.Appearance.Options.UseTextOptions = True
         Me.lblUnit1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.lblUnit1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.lblUnit1.Location = New System.Drawing.Point(52, 67)
+        Me.lblUnit1.Location = New System.Drawing.Point(52, 101)
         Me.lblUnit1.Name = "lblUnit1"
         Me.lblUnit1.Size = New System.Drawing.Size(71, 21)
         Me.lblUnit1.TabIndex = 19
@@ -342,7 +340,7 @@ Partial Class FrmPONew
         '
         Me.lblUnit3_name.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblUnit3_name.Appearance.Options.UseFont = True
-        Me.lblUnit3_name.Location = New System.Drawing.Point(264, 67)
+        Me.lblUnit3_name.Location = New System.Drawing.Point(264, 101)
         Me.lblUnit3_name.Name = "lblUnit3_name"
         Me.lblUnit3_name.Size = New System.Drawing.Size(21, 21)
         Me.lblUnit3_name.TabIndex = 21
@@ -352,7 +350,7 @@ Partial Class FrmPONew
         '
         Me.LabelControl13.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl13.Appearance.Options.UseFont = True
-        Me.LabelControl13.Location = New System.Drawing.Point(74, 33)
+        Me.LabelControl13.Location = New System.Drawing.Point(74, 67)
         Me.LabelControl13.Name = "LabelControl13"
         Me.LabelControl13.Size = New System.Drawing.Size(49, 21)
         Me.LabelControl13.TabIndex = 22
@@ -364,16 +362,18 @@ Partial Class FrmPONew
         Me.grpPoOrder.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.grpPoOrder.AppearanceCaption.Options.UseFont = True
         Me.grpPoOrder.AppearanceCaption.Options.UseForeColor = True
+        Me.grpPoOrder.Controls.Add(Me.sluSubCat)
         Me.grpPoOrder.Controls.Add(Me.LabelControl13)
         Me.grpPoOrder.Controls.Add(Me.btnAdd)
         Me.grpPoOrder.Controls.Add(Me.sluMat)
         Me.grpPoOrder.Controls.Add(Me.lblUnit1)
         Me.grpPoOrder.Controls.Add(Me.txtUnit1)
         Me.grpPoOrder.Controls.Add(Me.lblUnit3_name)
+        Me.grpPoOrder.Controls.Add(Me.LabelControl3)
         Me.grpPoOrder.Dock = System.Windows.Forms.DockStyle.Top
-        Me.grpPoOrder.Location = New System.Drawing.Point(0, 247)
+        Me.grpPoOrder.Location = New System.Drawing.Point(0, 216)
         Me.grpPoOrder.Name = "grpPoOrder"
-        Me.grpPoOrder.Size = New System.Drawing.Size(366, 146)
+        Me.grpPoOrder.Size = New System.Drawing.Size(366, 178)
         Me.grpPoOrder.TabIndex = 20
         Me.grpPoOrder.Text = "เพิ่มรายการวัสดุ"
         '
@@ -386,7 +386,7 @@ Partial Class FrmPONew
         Me.btnAdd.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.btnAdd.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.forward_16x161
         Me.btnAdd.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.btnAdd.Location = New System.Drawing.Point(142, 99)
+        Me.btnAdd.Location = New System.Drawing.Point(142, 133)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(193, 35)
@@ -401,10 +401,10 @@ Partial Class FrmPONew
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(0, 393)
+        Me.PnlSave.Location = New System.Drawing.Point(0, 394)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(366, 144)
+        Me.PnlSave.Size = New System.Drawing.Size(366, 143)
         Me.PnlSave.TabIndex = 23
         Me.PnlSave.Visible = False
         '

@@ -42,6 +42,7 @@ Public Class BindingSet
         If BindingArray.ContainsKey(BindingName) Then Return True
         Return False
     End Function
+
 #Region "StockProcedure"
     Private _LocList As CheckedItemCollection
     Private _CatList As CheckedItemCollection
@@ -144,7 +145,7 @@ Public Class BindingSet
                     Loop
                     If monthVal = 0 And mNumber = 0 Then
                         rows("Allowcolor") = 0
-                        Warn = 0
+                        Warn = -1
                     Else
                         Dozen /= monthVal
                         Warn += Math.Round(Dozen, 1)
@@ -153,7 +154,7 @@ Public Class BindingSet
                     Exit For
                 End If
             Next
-            rows("warn") = Warn
+            rows("warn") = If(Warn < 0, DBNull.Value, Warn)
         Next
         Return tbResult
     End Function

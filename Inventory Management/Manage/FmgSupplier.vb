@@ -1,188 +1,257 @@
-﻿Imports ConDB.Main
-Imports System.Data.SqlClient
+﻿Option Explicit On
+Option Strict On
+Imports ConDB.Main
+Imports DevExpress.Utils.Menu
+Imports DevExpress.XtraGrid
+Imports DevExpress.XtraGrid.Menu
 Imports DevExpress.XtraGrid.Views.Grid
 
 Public Class FmgSupplier
-    Dim dtSupplier As DataTable
-    Dim supplierID As String
+    Dim dtResult As DataTable
+    Dim dtNew, dtSubCat As DataTable
+    Dim SupplierID As String = String.Empty
+    Dim Edit As Boolean = False
+
 #Region "CODE"
     Private Sub FirstQry()
-        If DS.Tables("supplier") IsNot Nothing Then DS.Tables("supplier").Clear()
-        SQL = "select * from tbsupplier"
+        SQL = "SELECT * FROM vwSupplier"
         dsTbl("supplier")
-    End Sub
-    Private Sub showDB()
-        gcList.DataSource = DS.Tables("supplier")
-        With gvList
-            .PopulateColumns()
-            .Columns("supplierID").Caption = "รหัส"
-            .Columns("supplierID").Width = 65
-            .Columns("supplierName").Caption = "ชื่อผู้ขาย"
+        dtResult = DS.Tables("supplier").Copy
+
+        With sluSubCat.Properties
+            SQL = "SELECT SC.CatID+SC.SubCatID SubCatID,SC.SubCatName,U.UnitName FROM tbSubCategory SC
+                   INNER JOIN tbUnit U ON SC.Unit3_ID = U.UnitID"
+            dsTbl("subcat")
+            dtSubCat = DS.Tables("subcat")
+            .DataSource = dtSubCat
+            .DisplayMember = "SubCatName"
+            .ValueMember = "SubCatID"
+            .PopulateViewColumns()
+            gridInfo = New GridCaption(.View)
+            gridInfo.SetCaption()
         End With
+
     End Sub
     Private Sub LoadDef()
-        tab1_btnNew.Enabled = True
-        tab1_btnEdit.Enabled = False
-        tab1_btnRemove.Enabled = False
-        tab1_btnAddList.Enabled = False
-        tab1_btnDelList.Enabled = False
-        tab1_GrpBtn.Enabled = True
-        tab1_GrpInput.Enabled = False
-        tab1_txtName.Text = ""
-        tab1_txtOldName.Visible = False
-        tab1_lblUnitName.Text = "ชื่อผู้ขาย"
-        gvList.OptionsFind.AlwaysVisible = True
-        gcList.Enabled = True
-        btnSave.Enabled = False
+        txtName.Text = String.Empty
+        txtAddress.Text = String.Empty
+        sluSubCat.EditValue = Nothing
+        txtRatio.EditValue = 0
+
+        GVFormat()
+        PnlSave.Visible = False
+        grpSupplier.Enabled = True
+        grpMat.Enabled = False
+        Me.TopMost = False
+
     End Sub
 #End Region
 #Region "Button Control"
-    Private Sub AddList(sender As Object, e As EventArgs) Handles tab1_btnAddList.Click
-        Dim dr As DataRow = Nothing
-        Dim dupField As String
-
-        With dtSupplier
-            'chekDuplicate In DB
-            FoundRow = DS.Tables("supplier").Select("supplierName = '" & tab1_txtName.Text & "'")
-            If FoundRow.Count > 0 Then
-                MessageBox.Show(tab1_txtName.Text & " มีในฐานข้อมูลแล้วไม่สามารถเพิ่มได้อีก", "ซ้ำในฐานข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                Exit Sub
-            End If
-            'chekInput
-            If String.IsNullOrWhiteSpace(tab1_txtName.Text) Then
-                MessageBox.Show("กรุณากรอกข้อมูลให้ครบ", "ข้อมูลไม่ครบ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                Exit Sub
-            End If
-            dr = .NewRow
-            dr("supplierID") = genID()
-            dr("supplierName") = tab1_txtName.Text
-            dupField = "supplierName"
-            tab1_txtName.Text = ""
-
-            For Each DataRow As DataRow In .Rows
-                If String.Equals(dr(dupField), DataRow(dupField)) Then
-                    MessageBox.Show("ไม่สามารถเพิ่มข้อมูลซ้ำกันได้", "ข้อมูลซ้ำกัน", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                    Exit Sub
-                End If
+    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles BtnNew.Click
+        If String.IsNullOrEmpty(txtName.Text) Then txtName.SelectAll() : Return
+        If Edit = False Then
+            dtNew = dtResult.Clone
+            SupplierID = GenID()
+        Else
+            For Each dr As DataRow In dtNew.Rows
+                dr("SupplierName") = txtName.Text
+                dr("SupplierAddress") = txtAddress.Text
             Next
-            .Rows.Add(dr)
-            .AcceptChanges()
-        End With
-        btnSave.Enabled = True
-        gcList.Refresh()
-    End Sub
-    Private Sub DelList(sender As Object, e As EventArgs) Handles tab1_btnDelList.Click
-        If gvList.FocusedRowHandle >= 0 Then
-            dtSupplier.Rows(gvList.FocusedRowHandle).Delete()
-            dtSupplier.AcceptChanges()
-            gcList.Refresh()
-            If gvList.RowCount = 0 Then btnSave.Enabled = False
-            tab1_btnDelList.Enabled = False
         End If
+        gcList.DataSource = dtNew
+        Dim addDelColumn As Func(Of Boolean) = Function()
+                                                   Dim count As Boolean = False
+                                                   For Each colname As DevExpress.XtraGrid.Columns.GridColumn In gvList.Columns
+                                                       If colname.FieldName = "del" Then
+                                                           count = True
+                                                           Exit For
+                                                       End If
+                                                   Next
+                                                   If count = False Then
+                                                       Dim btnDel As New ColumnButton.Editor With {.ToolTip = "ลบรายการนี้", .Field = "del", .Image = My.Resources.remove_16x16}
+                                                       Dim addBtnColumn As New ColumnButton.Main With {.gControl = gcList, .gView = gvList}
+                                                       addBtnColumn.Add(btnDel)
+                                                   End If
+                                               End Function
+        addDelColumn()
+        gvList.ExpandAllGroups()
+        grpSupplier.Enabled = False
+        grpMat.Enabled = True
+        Edit = False
     End Sub
-    Private Sub btnNew(sender As Object, e As EventArgs) Handles tab1_btnNew.Click
-        gvList.FindFilterText = Nothing
-        tab1_GrpInput.Enabled = True
-        tab1_txtName.Text = ""
-        tab1_txtName.ReadOnly = False
-        tab1_btnAddList.Visible = True
-        tab1_btnAddList.Enabled = True
-        tab1_btnDelList.Enabled = False
-        tab1_btnDelList.Visible = True
-        tab1_btnEdit.Enabled = False
-        tab1_btnRemove.Enabled = False
-
-        dtSupplier = DS.Tables("supplier").Copy
-        dtSupplier.Clear()
-        gcList.DataSource = dtSupplier
-        gvList.OptionsFind.AlwaysVisible = False
-    End Sub
-    Private Sub btnCancle_Click(sender As Object, e As EventArgs) Handles btnCancle.Click
-        FirstQry()
-        showDB()
+    Private Sub btnCancle_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
+        Edit = False
         LoadDef()
-        gvList.FindFilterText = Nothing
     End Sub
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim tbDest As String = Nothing
-        Dim fieldList() As String = Nothing
-
-        If tab1_txtOldName.Visible = True Then
-            If MessageBox.Show("ต้องการ เปลี่ยนจาก " & tab1_txtOldName.Text & " เป็น : " & tab1_txtName.Text, "ยืนยันการทำงาน", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No Then
-                Exit Sub
-            Else
-                SQL = "Update tbSupplier Set supplierName='" & tab1_txtName.Text & "' Where supplierID='" & supplierID & "'"
-                dsTbl("Update")
-                FirstQry()
-                btnCancle.PerformClick()
-                Exit Sub
-            End If
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+        If String.IsNullOrEmpty(SupplierID) Then Return
+        SQL = "DELETE FROM tbSupplier WHERE SupplierID ='" & SupplierID & "'
+               DELETE FROM tbSupplier_Detail WHERE SupplierID ='" & SupplierID & "'
+               
+               INSERT INTO tbSupplier (SupplierID,SupplierName,SupplierAddress)
+               VALUES ('" & SupplierID & "','" & txtName.Text & "','" & txtAddress.Text & "')"
+        dsTbl("insert")
+        blkCpy("tbSupplier_Detail", dtNew, {"SupplierID", "SupplierDetailID", "SubCatID", "Ratio"})
+        MessageBox.Show("บันทึกข้อมูลแล้ว", "บันทึกข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        FirstQry()
+        LoadDef()
+    End Sub
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
+        If sluSubCat.EditValue Is Nothing Then Return
+        FoundRow = dtNew.Select("SubCatID ='" & sluSubCat.EditValue.ToString & "'")
+        If FoundRow.Count > 0 Then
+            For Each rows As DataRow In FoundRow
+                If rows("Ratio").ToString = txtRatio.EditValue.ToString Then Return
+            Next
         End If
-        fieldList = {"supplierID", "supplierName"}
-        tbDest = "tbSupplier"
-        blkCpy(tbDest, dtSupplier, fieldList)
-        btnCancle.PerformClick()
+        Dim dr As DataRow
+        dr = dtNew.NewRow
+        dr("SupplierID") = SupplierID
+        dr("SupplierDetailID") = GenID()
+        dr("SupplierName") = txtName.Text
+        dr("SupplierAddress") = txtAddress.Text
+        dr("UnitName") = lblUnit3_name.Text
+        dr("Ratio") = txtRatio.EditValue
+        dr("SubCatName") = sluSubCat.Text
+        dr("SubCatID") = sluSubCat.EditValue
+        dtNew.Rows.Add(dr)
+        PnlSave.Visible = dtNew.Rows.Count > 0
     End Sub
-    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles tab1_btnEdit.Click
-        gcList.Enabled = False
-        tab1_GrpInput.Enabled = True
-        tab1_txtName.ReadOnly = False
-        tab1_txtOldName.Visible = True
-        tab1_lblUnitName.Text = "เปลี่ยนเป็น"
-        tab1_txtOldName.Text = "ชื่อเดิม : " & tab1_txtOldName.Text
-        tab1_txtOldName.ReadOnly = True
-        tab1_btnNew.Enabled = False
-        tab1_btnRemove.Enabled = False
-        btnSave.Enabled = True
+    Private Sub btnEdit()
+        LoadDef()
+        Edit = True
+        FoundRow = dtResult.Select("SupplierID = '" & SupplierID & "'")
+        txtName.Text = FoundRow(0)("SupplierName").ToString
+        txtAddress.Text = FoundRow(0)("SupplierAddress").ToString
+        dtNew = FoundRow.CopyToDataTable
+        gcList.DataSource = dtNew
+        gvList.ExpandAllGroups()
+        PnlSave.Visible = True
     End Sub
-    Private Sub btnUnit_Remove_Click(sender As Object, e As EventArgs) Handles tab1_btnRemove.Click
-        If MessageBox.Show("ยืนยันการลบผู้ขาย " & tab1_txtName.Text & " หรือไม่", "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
-            'clearDS
-            clsDS({"chkuse", "del"})
-            'chkUse
-            SQL = "select supplierID from tbImportList where supplierID='" & supplierID & "'"
-            dsTbl("chkuse")
-            FoundRow = DS.Tables("chkuse").Select("supplierID='" & supplierID & "'")
-            If FoundRow.Count > 0 Then
-                MessageBox.Show("ไม่สามารถลบได้ เนื่องจากมีการใช้งานอยู่", "ลบไม่ได้", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            Else
-                SQL = "Delete From tbSupplier Where supplierID='" & supplierID & "' Delete From tbGroupUnit Where mainUnitID='" & supplierID & "'"
-                dsTbl("del")
-                LoadDef()
-                FirstQry()
-                showDB()
-                gvList.FindFilterText = Nothing
-            End If
-        End If
+    Private Sub btnDel()
+        If String.IsNullOrEmpty(SupplierID) Then Return
+        If MessageBox.Show("ยืนยันการลบรายการหรือไม่ ?", "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then Return
+        SQL = "DELETE FROM tbSupplier WHERE SupplierID ='" & SupplierID & "'
+               DELETE FROM tbSupplier_Detail WHERE SupplierID ='" & SupplierID & "'"
+        dsTbl("del")
+        FirstQry()
+        LoadDef()
     End Sub
 #End Region
-#Region "Common Control"
+
+#Region "Grid"
+    Private Sub GVFormat()
+        gcList.DataSource = dtResult
+        With gvList
+            .PopulateColumns(dtResult)
+            gridInfo = New GridCaption(gvList)
+            With gridInfo
+                .HIDE.Columns("SupplierID")
+                .HIDE.Columns("SupplierDetailID")
+                .HIDE.Columns("SubCatID")
+                .SetCaption()
+            End With
+            With sluSubCat.Properties
+                .PopulateViewColumns()
+                .View.Columns("SubCatID").Visible = False
+                .View.Columns("UnitName").Caption = ""
+                .View.Columns("SubCatName").Caption = "ประเภทวัสดุ"
+            End With
+            .Columns("SupplierName").Group()
+            .Columns("Ratio").Caption = getString("RatioPO")
+            .Columns("SupplierAddress").Caption = "ที่อยู่"
+            .ExpandAllGroups()
+        End With
+
+    End Sub
+    Private Sub RowCellClick(sender As Object, e As RowCellClickEventArgs) Handles gvList.RowCellClick
+        If e.RowHandle <> GridControl.NewItemRowHandle Then
+            If e.Column.FieldName = "del" Then
+                Dim v As GridView = TryCast(sender, GridView)
+                'DT = TryCast(TryCast(View.DataSource, BindingSource).DataSource, DataTable)
+                DT = TryCast(gcList.DataSource, DataTable)
+                DT.Rows(v.GetDataSourceRowIndex(e.RowHandle)).Delete()
+            End If
+        End If
+
+    End Sub
+#End Region
+
+#Region "Right Click On Grid"
+    Private Sub ShowMenu(ByVal hi As ViewInfo.GridHitInfo)
+        Dim menu As GridViewMenu = Nothing
+        If hi.HitTest = ViewInfo.GridHitTest.Row Then
+            menu = New ButtonMenu(hi.View)
+            menu.Init(hi)
+            menu.Show(hi.HitPoint)
+        End If
+    End Sub
+    Private Sub GridMouseDown(sender As Object, e As MouseEventArgs) Handles gvList.MouseDown
+        Dim view As GridView = CType(sender, GridView)
+        If e.Button = MouseButtons.Right AndAlso Edit = False Then
+            SupplierID = GetGroupValue(gvList, gcList, "SupplierName", "SupplierID")
+            If String.IsNullOrEmpty(SupplierID) Then Return
+            ShowMenu(view.CalcHitInfo(New Point(e.X, e.Y)))
+        End If
+    End Sub
+    Private Class ButtonMenu
+        Inherits GridViewMenu
+        Public Sub New(ByVal View As DevExpress.XtraGrid.Views.Grid.GridView)
+            MyBase.New(View)
+        End Sub
+        Protected Overrides Sub CreateItems()
+            Items.Clear()
+            Items.Add(CreateMenuItem("แก้ไข", My.Resources.edit_16x16, "Edit", True))
+            If User.Permission >= UserInfo.UserGroup.Manger Then Items.Add(CreateMenuItem("ลบ", My.Resources.delete_16x16, "Del", True))
+        End Sub
+        Protected Overrides Sub OnMenuItemClick(ByVal sender As Object, ByVal e As EventArgs)
+            If RaiseClickEvent(sender, Nothing) Then Return
+            Dim item As DXMenuItem = CType(sender, DXMenuItem)
+            If item.Tag Is Nothing Then Return
+            If item.Tag.ToString() = "Edit" Then
+                FmgSupplier.btnEdit()
+            ElseIf item.Tag.ToString = "Del" Then
+                FmgSupplier.btnDel()
+            End If
+        End Sub
+        Public Overridable Sub Del()
+            Return
+            Dim PoNo As String
+            PoNo = View.GetFocusedValue.ToString
+            'Dim DV As New DataView(TryCast(gControl.DataSource, DataTable), "PoNo ='" & .PoNo & "'", "", DataViewRowState.CurrentRows)
+            DT = TryCast(TryCast(View.DataSource, BindingSource).DataSource, DataTable)
+            FoundRow = DT.Select("PoNo='" & PoNo & "' AND PoStat <> 0")
+            If FoundRow.Count > 0 Then
+                MsgBox("ลบไม่ได้")
+            Else
+                FoundRow = DT.Select("PoNo='" & PoNo & "'")
+                Dim PoID As String
+                PoID = FoundRow(0)("PoID").ToString
+                If MessageBox.Show("ต้องการลบข้อมูลใบ PO เลขที่ " & PoNo & " หรือไม่ ?", "ยืนยันการลบ", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
+                    SQL = "DELETE FROM tbPo_Detail WHERE PoID = '" & PoID & "'
+                       DELETE FROM tbPo WHERE PoID = '" & PoID & "'"
+                    dsTbl("delPO")
+                    BindInfo.Name = "logpo"
+                    BindInfo.Refresh()
+                    MessageBox.Show("ลบข้อมูลแล้ว", "ลบข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    View.ExpandAllGroups()
+                End If
+            End If
+
+        End Sub
+    End Class
+#End Region
+
+#Region "Other Control"
     Private Sub FmgSupplier_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If DS IsNot Nothing Then DS.Clear()
         FirstQry()
-        showDB()
         LoadDef()
-        gvList.FindFilterText = Nothing
     End Sub
-    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs) Handles gvList.RowCellClick
-        If gvList.FocusedRowHandle >= 0 Then
-            supplierID = gvList.GetRowCellValue(gvList.FocusedRowHandle, "supplierID")
-            tab1_txtName.Text = gvList.GetRowCellValue(gvList.FocusedRowHandle, "supplierName")
-            tab1_txtOldName.Text = tab1_txtName.Text
-            If tab1_GrpInput.Enabled = True Then
-                tab1_btnDelList.Enabled = True
-            Else
-                tab1_btnEdit.Enabled = True
-                tab1_btnRemove.Enabled = True
-                tab1_txtName.ReadOnly = True
-                tab1_btnAddList.Visible = False
-                tab1_btnDelList.Visible = False
-            End If
-        End If
-    End Sub
-    Private Sub txtName_EditValueChanged(sender As Object, e As EventArgs) Handles tab1_txtName.EditValueChanged
-        tab1_btnDelList.Enabled = False
+    Private Sub sluSubCat_EditValueChanged(sender As Object, e As EventArgs) Handles sluSubCat.EditValueChanged
+        If dtSubCat Is Nothing Or sluSubCat.EditValue Is Nothing Then Return
+        FoundRow = dtSubCat.Select("SubCatID ='" & sluSubCat.EditValue.ToString & "'")
+        lblUnit3_name.Text = If(FoundRow.Count > 0, FoundRow(0)("UnitName").ToString, String.Empty)
     End Sub
 #End Region
 End Class

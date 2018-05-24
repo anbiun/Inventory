@@ -14,6 +14,7 @@ Public Class FrmPONew
     Dim dtSupplier, dtMat, dtResult, dtSubCat As New DataTable
     Dim PoID As String
     Property Edit As Boolean = False
+    Dim SubCatID As String
     Sub New()
         loadSuccess = False
         InitializeComponent()
@@ -24,9 +25,10 @@ Public Class FrmPONew
 #Region "Code"
     Private Sub Qry()
         Dim QryList As New Dictionary(Of String, String)
-        QryList.Add("Supplier", "SELECT * FROM tbSupplier ORDER BY SupplierName")
-        QryList.Add("Mat", "SELECT MatID,MatName,Ratio_Name Unit3_Name,CatID+SubCatID IDVal FROM vwMat WHERE Stat <> 0 ORDER BY MatName")
-        QryList.Add("SubCat", "SELECT CatID+SubCatID IDVal, SubCatName FROM tbSubCategory ORDER BY SubCatName")
+        QryList.Add("Supplier", "SELECT SupplierID,SupplierName FROM tbSupplier ORDER BY SupplierName")
+        QryList.Add("Mat", "SELECT MatID,MatName,Ratio,Ratio_Name Unit3_Name,CatID+SubCatID SubCatID FROM vwMat WHERE Stat <> 0 ORDER BY MatName")
+        QryList.Add("SubCat", "SELECT DISTINCT SD.SubCatID,SC.SubCatName,SD.SupplierID,SD.Ratio FROM tbSupplier_Detail SD
+                               INNER JOIN tbSubCategory SC ON SC.CatID+SC.SubCatID = SD.SubCatID ORDER BY SC.SubCatName")
         QryList.Add("PoDetail", "SELECT * FROM tbPo_Detail")
 
         For Each tbName As String In QryList.Keys
@@ -52,22 +54,17 @@ Public Class FrmPONew
         txtPO.Text = String.Empty
         deDate.EditValue = Date.Now
         deDelivery.EditValue = Date.Now
-        LoadComBo()
         gcList.DataSource = dtResult
     End Sub
     Private Sub LoadComBo()
         With sluSupplier.Properties
             .DataSource = dtSupplier
-            .View.PopulateColumns()
-            .DisplayMember = "supplierName"
-            .ValueMember = "supplierID"
-        End With
-
-        With sluSubCat.Properties
-            .DataSource = dtSubCat
-            .View.PopulateColumns()
-            .DisplayMember = "SubCatName"
-            .ValueMember = "IDVal"
+            .View.PopulateColumns(dtSupplier)
+            .DisplayMember = "SupplierName"
+            .ValueMember = "SupplierID"
+            gridInfo = New GridCaption(.View)
+            gridInfo.HIDE.Columns("SupplierID")
+            gridInfo.SetCaption()
         End With
     End Sub
     Private Sub AddRow()
@@ -120,27 +117,6 @@ Public Class FrmPONew
             .SetCaption()
         End With
         gvList.BestFitColumns()
-
-        With sluSupplier.Properties
-            .PopulateViewColumns()
-            gCaption = New GridCaption(.View)
-            gCaption.HIDE.Columns("SupplierID")
-            gCaption.SetCaption()
-        End With
-        With sluSubCat.Properties
-            .PopulateViewColumns()
-            gCaption = New GridCaption(.View)
-            gCaption.HIDE.Columns("IDVal")
-            gCaption.SetCaption()
-        End With
-        With sluMat.Properties
-            .PopulateViewColumns()
-            gCaption = New GridCaption(.View)
-            gCaption.HIDE.Columns("MatID")
-            gCaption.HIDE.Columns("IDval")
-            gCaption.SetCaption()
-        End With
-
     End Sub
 #End Region
 
@@ -157,6 +133,7 @@ Public Class FrmPONew
                          }
         Dim Buttons As New ColumnButton.Main With {.gControl = gcList, .gView = gvList}
         Buttons.Add(btnDel)
+        LoadComBo()
         loadSuccess = True
 
         If Edit Then
@@ -179,27 +156,21 @@ Public Class FrmPONew
         End If
 
     End Sub
-    Private Sub sluSubCat_EditValueChanged(sender As Object, e As EventArgs) Handles sluSubCat.EditValueChanged
-        If loadSuccess = False Then Return
-        FoundRow = dtMat.Select("IDVal = '" & sluSubCat.EditValue.ToString & "'")
-        If FoundRow.Count <= 0 Then Return
-        With sluMat.Properties
-            .DataSource = FoundRow.CopyToDataTable
-            .View.PopulateColumns()
-            .DisplayMember = "MatName"
-            .ValueMember = "MatID"
-        End With
-        lblUnit3_name.Text = FoundRow(0)("Unit3_Name").ToString
-    End Sub
     Private Sub btnNewOrder_Click(sender As Object, e As EventArgs) Handles btnNewOrder.Click
         If txtPO.TextLength <> 5 Or ChkInput(grpPoList) = False Then Return
+        SQL = "SELECT PoNo FROM tbPo WHERE PoNo='" & txtPO.Text & "'"
+        dsTbl("findPO")
+        If DS.Tables("findPO").Rows.Count > 0 Then
+            MessageBox.Show("เลขที่ PO นี้มีการสั่งซื้อไปแล้ว กรุณาแก้ไข", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        txtUnit1.EditValue = 0
         grpPoOrder.Enabled = True
         grpPoList.Enabled = False
         PnlSave.Visible = True
         dtResult.Clear()
         PoID = GenID().ToString
         GVFormat()
-
     End Sub
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         If CInt(txtUnit1.EditValue) <= 0 Or String.IsNullOrEmpty(sluMat.EditValue.ToString) Then Return
@@ -209,6 +180,48 @@ Public Class FrmPONew
     Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged
         txtUnit1.EditValue = If(CInt(txtUnit1.EditValue) < 0, 0, txtUnit1.EditValue)
     End Sub
+    Private Sub sluSupplier_EditValueChanged(sender As Object, e As EventArgs) Handles sluSupplier.EditValueChanged
+        If sluSupplier.EditValue Is Nothing Or String.IsNullOrEmpty(sluSupplier.EditValue.ToString) Then Return
+
+        FoundRow = dtSubCat.Select("SupplierID = '" & sluSupplier.EditValue.ToString & "'")
+        With sluSubCat.Properties
+            If FoundRow.Count > 0 Then
+                .DataSource = FoundRow.CopyToDataTable
+                .View.PopulateColumns(dtSubCat)
+                .DisplayMember = "SubCatName"
+                .ValueMember = "Ratio"
+                gridInfo = New GridCaption(.View)
+                gridInfo.HIDE.Columns("SubCatID")
+                gridInfo.HIDE.Columns("SupplierID")
+                gridInfo.SetCaption()
+                .View.Columns("Ratio").Caption = getString("RatioPO")
+            Else
+                .DataSource = Nothing
+            End If
+        End With
+    End Sub
+    Private Sub sluSubCat_EditValueChanged(sender As Object, e As EventArgs) Handles sluSubCat.EditValueChanged
+        If sluSubCat.EditValue Is Nothing Or String.IsNullOrEmpty(sluSubCat.EditValue.ToString) Then Return
+        SubCatID = SlClick(sluSubCat, "SubCatID")
+        FoundRow = dtMat.Select("SubCatID = '" & SubCatID & "' AND Ratio='" & sluSubCat.EditValue.ToString & "'")
+        With sluMat.Properties
+            If FoundRow.Count > 0 Then
+                .DataSource = FoundRow.CopyToDataTable
+                .View.PopulateColumns(dtMat)
+                .DisplayMember = "MatName"
+                .ValueMember = "MatID"
+                gridInfo = New GridCaption(.View)
+                gridInfo.HIDE.Columns("MatID")
+                gridInfo.HIDE.Columns("SubCatID")
+                gridInfo.SetCaption()
+                .View.Columns("Ratio").Caption = getString("RatioPO")
+                lblUnit3_name.Text = FoundRow(0)("Unit3_Name").ToString
+            Else
+                .DataSource = Nothing
+            End If
+        End With
+    End Sub
+
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         If dtResult.Rows.Count <= 0 Then Return
         If MessageBox.Show("ยืนยันการบันทึกข้อมุล", "บันทึกข้อมูล PO", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) = DialogResult.No Then Return

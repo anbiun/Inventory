@@ -115,7 +115,7 @@ Partial Class FrmMain
         Me.ribbonControl.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.[True]
         Me.ribbonControl.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[True]
         Me.ribbonControl.ShowToolbarCustomizeItem = False
-        Me.ribbonControl.Size = New System.Drawing.Size(1033, 162)
+        Me.ribbonControl.Size = New System.Drawing.Size(1033, 161)
         Me.ribbonControl.StatusBar = Me.ribbonStatusBar
         Me.ribbonControl.Toolbar.ShowCustomizeItem = False
         '
@@ -311,10 +311,6 @@ Partial Class FrmMain
         Me.btnRequsition.Id = 68
         Me.btnRequsition.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.Send
         Me.btnRequsition.ImageOptions.LargeImage = Global.Inventory_Management.My.Resources.Resources.Send
-        Me.btnRequsition.ItemAppearance.Hovered.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnRequsition.ItemAppearance.Hovered.Options.UseFont = True
-        Me.btnRequsition.ItemAppearance.Normal.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.btnRequsition.ItemAppearance.Normal.Options.UseFont = True
         Me.btnRequsition.LargeWidth = 104
         Me.btnRequsition.Name = "btnRequsition"
         '

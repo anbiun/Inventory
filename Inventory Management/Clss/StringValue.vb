@@ -47,7 +47,9 @@
                 .Add("unit", " ")
 #End Region
 #Region "Supplier"
-                .Add("suppliername", "ชื่อผู้ขาย")
+                .Add("SupplierName", "ชื่อผู้ขาย")
+                .Add("SupplierAddress", "ที่อยู่ผู้ขาย")
+
 #End Region
 #Region "หมวดวัสดุหลัก/รอง"
                 .Add("catname", "หมวดวัสดุ")
@@ -86,6 +88,8 @@
                 .Add("PoDate", "วันที่เปิด Po")
                 .Add("Owing", "ค้างส่ง")
                 .Add("DeliveryDate", "กำหนดส่ง")
+                .Add("RatioPO", "ขนาดบรรจุภัณฑ์")
+                .Add("UnitImport", "ส่งแล้ว")
 #End Region
 #Region "Stock"
                 For i As Integer = 1 To 12

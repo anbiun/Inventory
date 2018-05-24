@@ -8,7 +8,7 @@ Imports DevExpress.XtraGrid.Columns
 Imports System.ComponentModel
 
 Public Class FrmMatImport
-    Dim ImportID, PoNo, UnitID, matDeID, MatID, MatName, pieceUnitID, supplierID As String
+    Dim ImportID, PoNo, UnitID, matDeID, MatID, MatName, pieceUnitID, SupplierID As String
     Dim matQty, piece, Price As Double
     Dim Vat As Integer
     Dim ImportDate As DateTime = Today
@@ -33,7 +33,7 @@ Public Class FrmMatImport
             .HIDE.Columns("UserStock_ID")
             .HIDE.Columns("UserApprove_ID")
             .HIDE.Columns("UserApprove")
-            .HIDE.Columns("supplierID")
+            .HIDE.Columns("SupplierID")
             .HIDE.Columns("ImportID")
             .HIDE.Columns("Stat")
             .HIDE.Columns("userapprove_name")
@@ -41,13 +41,13 @@ Public Class FrmMatImport
         End With
         gridInfo = New GridCaption(gvImportOrder)
         With gridInfo
-            .Hide.Columns("matID")
-            .hide.Columns("importorid")
-            .hide.Columns("Unit1_id")
-            .hide.Columns("Importid")
-            .hide.Columns("qtyperunit")
-            .hide.Columns("locid")
-            .hide.Columns("เรโช")
+            .HIDE.Columns("matID")
+            .HIDE.Columns("importorid")
+            .HIDE.Columns("Unit1_id")
+            .HIDE.Columns("Importid")
+            .HIDE.Columns("qtyperunit")
+            .HIDE.Columns("locid")
+            .HIDE.Columns("เรโช")
             .SetCaption()
         End With
         gvImportList.BestFitColumns()
@@ -145,7 +145,7 @@ SubUnit:
     End Sub
     Private Sub editFunc()
         If Button_Edit.State = Buttons.EState.TurnOn Then
-            If chkInput(grpSearch) = False Then
+            If ChkInput(grpSearch) = False Then
                 MessageBox.Show("กรุณากรอกข้อมูลให้ครบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             Else
@@ -238,7 +238,7 @@ SubUnit:
     Private Sub Transfer()
         For Each item As DataRow In dtImportList.Rows
             ImportID = item("ImportID")
-            clsDS({"transfer"})
+            ClsDS({"transfer"})
             SQL = "INSERT INTO tbStock (MatID, Unit1, Unit1_ID, Unit3, TagID, ImportDate, ImportID, LocID)"
             SQL &= " SELECT tbImportOrder.MatID, tbImportOrder.Unit1_Sum AS Unit1, tbImportOrder.Unit1_ID, tbImportOrder.Unit3_Sum AS Unit3,"
             SQL &= " tbImportOrder.TagID, tbImportList.ImportDate, tbImportList.ImportID,'" & User.SelectLoc & "' AS LocID"
@@ -256,7 +256,7 @@ SubUnit:
     End Function
     Private Function FindMissTag(GridValue As GridView, CurrentTag As String) As String
         Dim TagList As New List(Of String)
-        Dim STag As String = slClick(sluMat, "TagID") + User.SelectLoc.Substring(5, 1)
+        Dim STag As String = SlClick(sluMat, "TagID") + User.SelectLoc.Substring(5, 1)
         Dim Ret As String = CurrentTag
         TagList.Add(STag + lblLastTag.Text)
         For i As Integer = 0 To GridValue.RowCount - 1
@@ -296,17 +296,17 @@ SubUnit:
     Private Sub LoadLookUp()
 
         'All ComboBoxData
-        SQL = "select * from tbSupplier"
+        SQL = "select SupplierID,SupplierName from tbSupplier"
         dsTbl("Supplier")
         With sluSupplier.Properties
-            .ValueMember = "supplierID"
-            .DisplayMember = "supplierName"
+            .ValueMember = "SupplierID"
+            .DisplayMember = "SupplierName"
             .DataSource = DS.Tables("Supplier")
             .PopulateViewColumns()
-            .View.Columns("supplierID").Caption = "รหัส"
-            .View.Columns("supplierID").Visible = False
-            .View.Columns("supplierID").Width = 25
-            .View.Columns("supplierName").Caption = getString("supplierName")
+            .View.Columns("SupplierID").Caption = "รหัส"
+            .View.Columns("SupplierID").Visible = False
+            .View.Columns("SupplierID").Width = 25
+            .View.Columns("SupplierName").Caption = getString("SupplierName")
         End With
 
         SQL = "SELECT CatID+SubCatID IDValue,SubCatName,GroupTag FROM tbSubCategory"
@@ -321,13 +321,6 @@ SubUnit:
             .View.Columns("SubCatName").Caption = getString("SubCatName")
             .View.Columns("GroupTag").Visible = False
         End With
-
-        'With sluPO.Properties
-        '    .DataSource = DS.Tables("PoNo")
-        '    .ValueMember = "PoNo"
-        '    .DisplayMember = "PoNo"
-        '    .PopulateViewColumns()
-        'End With
     End Sub
     Private Sub LookUpEditValueChanged(sender As Object, e As EventArgs)
         If LoadSuccess = False Then Exit Sub
@@ -337,14 +330,14 @@ SubUnit:
         If LoadSuccess = False Then Exit Sub
         LoadLookUnit()
         MatID = sluMat.EditValue
-        Ratio = slClick(sluMat, "Ratio")
-        QtyPerUnit = slClick(sluMat, "QtyPerUnit")
+        Ratio = SlClick(sluMat, "Ratio")
+        QtyPerUnit = SlClick(sluMat, "QtyPerUnit")
     End Sub
     Private Sub LoadLookUnit()
         'Dim vw As GridView = sluMat.Properties.View
         'Dim rowHandle As Integer = sluMat.Properties.GetIndexByKeyValue(sluMat.EditValue)
-        Dim subID As String = slClick(sluMat, "SubCatID")
-        Dim uID As String = slClick(sluMat, "Unit3_ID")
+        Dim subID As String = SlClick(sluMat, "SubCatID")
+        Dim uID As String = SlClick(sluMat, "Unit3_ID")
 
         FoundRow = DS.Tables("mainUnit").Select("SubCatID='" & subID & "'")
         If FoundRow.Count > 0 Then
@@ -427,7 +420,7 @@ SubUnit:
         Select Case btn.Name
             Case BtnNew.Name
                 If User.Permission < UserInfo.UserGroup.Manger And txtBillNo.TextLength <> 5 Then MessageBox.Show(LabelControl10.Text & "ไม่ถูกต้อง", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
-                If chkInput(grpSearch, txtImportNote.Name) = False Then Exit Sub
+                If ChkInput(grpSearch, txtImportNote.Name) = False Then Exit Sub
                 If chkDuplicate(Trim(txtBillNo.Text), "ImportList", "ImportDate='" & deImport.EditValue & "' AND BillNo='") = False Then
                     MessageBox.Show("เลขที่เอกสารนี้มีในระบบแล้ว", "เลขที่ซ้ำ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     cancelFunc()
@@ -454,13 +447,13 @@ SubUnit:
                 gcImportList.DataSource = dtImportList
 
                 Dim dtRow As DataRow
-                ImportID = genID()
+                ImportID = GenID()
                 dtRow = dtImportList.NewRow
                 dtRow("ImportDate") = ImportDate
                 dtRow("ImportID") = ImportID
                 dtRow("BillNo") = txtBillNo.Text
-                dtRow("supplierName") = sluSupplier.Text
-                dtRow("supplierID") = sluSupplier.EditValue
+                dtRow("SupplierName") = sluSupplier.Text
+                dtRow("SupplierID") = sluSupplier.EditValue
                 dtRow("UserStock_ID") = User.UserID
                 dtRow("UserStock_Name") = User.UserName
                 dtRow("Notation") = txtImportNote.Text
@@ -519,13 +512,13 @@ SubUnit:
                                                        SQL &= " WHERE PoNo ='" & Pono & "'"
                                                        dsTbl("find")
                                                        If DS.Tables("find").Rows.Count > 0 Then Return True
-                                                       If MessageBox.Show("เลขที่ Po นี้ยังไม่เคยเปิดการสั่งซื้อ ยืนยันการเพิ่มหรือไม่ ?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                                                       If User.Permission >= UserInfo.UserGroup.Manger AndAlso MessageBox.Show("เลขที่ Po นี้ยังไม่เคยเปิดการสั่งซื้อ ยืนยันการเพิ่มหรือไม่ ?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                                                            Return True
                                                        End If
                                                        Return False
                                                    End Function
-        If User.Permission < User.UserGroup.Manger AndAlso findPono(txtPoNo.Text) = False Then Return
-        If txtPoNo.TextLength <> 5 AndAlso User.Permission < User.UserGroup.Manger Then MessageBox.Show("เลขที่ใบ PO ไม่ถูกต้องกรุณาตรวจสอบ", "รูปแบบ PO ไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
+
+        If findPono(txtPoNo.Text) = False Then MessageBox.Show("เลขที่ใบ PO ไม่ถูกต้องกรุณาตรวจสอบ", "รูปแบบ PO ไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
 
         Dim matVal As String = gvImportOrder.GetFocusedRowCellValue("MatID")
         MatID = slClick(sluMat, "MatID")
