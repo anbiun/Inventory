@@ -35,10 +35,11 @@ Namespace POFunction
                                                                 If FoundRow(row)("Stat").ToString = "0" Then
                                                                     Return String.Format("อยู่ระหว่างจัดซื้อ ({0} {1}) {2}", FoundRow(row)("Owing"), UnitName, Delive)
                                                                 Else
-                                                                    UnitName = remUnitName
                                                                     Return String.Format("ค้างส่ง {0} {1} {2}", FoundRow(row)("Owing").ToString, UnitName, Delive)
                                                                 End If
                                                             End Function
+
+                    If FoundRow(i)("Stat").ToString = "1" Then Continue For
                     Result += String.Format(
                         "เลขที่ PO : {0} | {1} {2}",
                         FoundRow(i)("Pono").ToString,

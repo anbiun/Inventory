@@ -109,7 +109,8 @@ SubUnit:
         Next
     End Sub
     Private Sub cancelFunc()
-        'PnlbtnItem.Visible = If(Permission(_Permis) = True, True, False)
+        pnlEdit.Location = New Point(107, 219)
+        BtnDelete.ImageOptions.Image = My.Resources.delete_16x16
         sluSubCat.EditValue = Nothing
         sluMat.EditValue = Nothing
         sluSupplier.EditValue = Nothing
@@ -196,7 +197,6 @@ SubUnit:
         dtImportList = DS.Tables("ImportList").Select("ImportID = '" & gvImportList.GetFocusedRowCellValue("ImportID") & "'").CopyToDataTable
         gcImportList.DataSource = dtImportList
         Button_Edit.State = Buttons.EState.TurnOn
-
     End Sub
     Private Sub RowClickFunc(gv As GridView, Optional ByVal RowNum As Integer = 0)
         'If Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
@@ -240,7 +240,12 @@ SubUnit:
             ImportID = item("ImportID")
             ClsDS({"transfer"})
             SQL = "INSERT INTO tbStock (MatID, Unit1, Unit1_ID, Unit3, TagID, ImportDate, ImportID, LocID)"
-            SQL &= " SELECT tbImportOrder.MatID, tbImportOrder.Unit1_Sum AS Unit1, tbImportOrder.Unit1_ID, tbImportOrder.Unit3_Sum AS Unit3,"
+            SQL &= " SELECT tbImportOrder.MatID,"
+            If Not rdSurPlus.EditValue Then
+                SQL &= "Floor(tbImportOrder.Unit1_Sum) Unit1, tbImportOrder.Unit1_ID, Floor(tbImportOrder.Unit1_Sum) * tbImportOrder.Ratio Unit3,"
+            Else
+                SQL &= "tbImportOrder.Unit1_Sum AS Unit1, tbImportOrder.Unit1_ID, tbImportOrder.Unit3_Sum AS Unit3,"
+            End If
             SQL &= " tbImportOrder.TagID, tbImportList.ImportDate, tbImportList.ImportID,'" & User.SelectLoc & "' AS LocID"
             SQL &= " FROM tbImportOrder INNER JOIN tbImportList ON tbImportOrder.ImportID = tbImportList.ImportID INNER JOIN tbMat ON tbImportOrder.MatID = tbMat.MatID"
             SQL &= " INNER JOIN tbSubCategory ON tbMat.SubCatID = tbSubCategory.SubCatID"
@@ -468,14 +473,13 @@ SubUnit:
                     MessageBox.Show("กรุณาเลือกข้อมูลที่ต้องการแก้ไข", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Exit Sub
                 End If
+                pnlEdit.Location = New Point(108, 182)
+                BtnDelete.ImageOptions.Image = My.Resources.undo_16x16
                 editFunc()
-
-                Exit Sub
-                grpMatImport.Enabled = True
-                PnlSave.Visible = True
-                grpSearch.Enabled = False
-                grpMatImport.Visible = True
+                Return
             Case BtnDelete.Name
+                pnlEdit.Location = New Point(107, 219)
+                BtnDelete.ImageOptions.Image = My.Resources.delete_16x16
                 Dim tagID As String = String.Empty
                 For i As Integer = 0 To gvImportOrder.RowCount - 1
                     If i >= 1 Then tagID += ","
@@ -517,13 +521,12 @@ SubUnit:
                                                        End If
                                                        Return False
                                                    End Function
-
-        If findPono(txtPoNo.Text) = False Then MessageBox.Show("เลขที่ใบ PO ไม่ถูกต้องกรุณาตรวจสอบ", "รูปแบบ PO ไม่ถูกต้อง", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
+        If findPono(txtPoNo.Text) = False Then Return
 
         Dim matVal As String = gvImportOrder.GetFocusedRowCellValue("MatID")
-        MatID = slClick(sluMat, "MatID")
+        MatID = SlClick(sluMat, "MatID")
         If MatID = matVal AndAlso chkUse() = False Then Exit Sub
-        If chkInput(grpMatImport) = False Then Exit Sub
+        If ChkInput(grpMatImport) = False Then Exit Sub
         If Button_Edit.State = Buttons.EState.TurnOn Then
             FoundRow = DS.Tables("ImportOrder").Select("ImportID='" & ImportID & "' AND TagID Like '%" & txtTagID.Text & "'")
             If FoundRow.Count > 0 Then
@@ -544,7 +547,7 @@ Edit:
             .Unit1 = txtUnit1.Value
             .Unit3 = txtUnit3.Value
             .Ratio = Ratio
-            .GroupTag = slClick(sluSubCat, "GroupTag")
+            .GroupTag = SlClick(sluSubCat, "GroupTag")
             If .Result = True Then AddRow()
         End With
 
@@ -566,7 +569,7 @@ Edit:
         Next
 
         Dim Unit1_ID As String = ""
-        Dim ImportOrID As String = genID()
+        Dim ImportOrID As String = GenID()
         Dim TagID As String = Nothing
         Dim dr As DataRow
         If findValue <= 0 Then
@@ -594,7 +597,7 @@ Edit:
                     End If
                 Next
                 '--end chk
-                TagID = slClick(sluMat, "TagID") + User.SelectLoc.Substring(5, 1) + Trim(txtTagID.Text)
+                TagID = SlClick(sluMat, "TagID") + User.SelectLoc.Substring(5, 1) + Trim(txtTagID.Text)
                 dr = .NewRow
                 dr("ImportOrID") = ImportOrID
                 dr("MatName") = sluMat.Text
@@ -731,7 +734,7 @@ Edit:
 
     End Sub
     Private Sub txtBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtBillNo.TextChanged
-        'If Permission(User.Permis) = False OrElse Button_Edit.State = Buttons.EState.TurnOn Then Exit Sub
+        If Button_Edit.State = Buttons.EState.TurnOn Then Return
 
         gcImportList.DataSource = If(String.IsNullOrWhiteSpace(txtBillNo.Text),
                                      search("ImportList", "ImportDate='" & ImportDate & "'", ""),

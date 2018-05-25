@@ -72,8 +72,10 @@ Public Class UserInfo
                 Access = True
                 Permission = UserGroup.Manger
                 FrmMatImport.pnlEdit.Visible = False
+                FrmMatImport.grpSearch.Height = 255
             Case UserGroup.Admin
                 Access = True
+                FrmMatImport.grpSearch.Height = 255
                 Permission = UserGroup.Admin
             Case Else
                 Dim ulv As New UserLevel
