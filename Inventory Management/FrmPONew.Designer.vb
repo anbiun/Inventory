@@ -23,8 +23,6 @@ Partial Class FrmPONew
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.grpPoList = New DevExpress.XtraEditors.GroupControl()
-        Me.sluSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
-        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.deDelivery = New DevExpress.XtraEditors.DateEdit()
         Me.btnNewOrder = New DevExpress.XtraEditors.SimpleButton()
         Me.sluSupplier = New DevExpress.XtraEditors.SearchLookUpEdit()
@@ -33,9 +31,11 @@ Partial Class FrmPONew
         Me.txtPO = New System.Windows.Forms.TextBox()
         Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl4 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.sluSubCat = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.gcList = New DevExpress.XtraGrid.GridControl()
         Me.gvList = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.txtUnit1 = New DevExpress.XtraEditors.SpinEdit()
@@ -52,14 +52,14 @@ Partial Class FrmPONew
         Me.PnlLeft = New DevExpress.XtraEditors.PanelControl()
         CType(Me.grpPoList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpPoList.SuspendLayout()
-        CType(Me.sluSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deDelivery.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deDelivery.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.sluSupplier.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deDate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.sluSubCat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -94,28 +94,6 @@ Partial Class FrmPONew
         Me.grpPoList.Size = New System.Drawing.Size(366, 216)
         Me.grpPoList.TabIndex = 20
         Me.grpPoList.Text = "ข้อมูลใบสั่งซื้อ"
-        '
-        'sluSubCat
-        '
-        Me.sluSubCat.EditValue = ""
-        Me.sluSubCat.Location = New System.Drawing.Point(142, 30)
-        Me.sluSubCat.Name = "sluSubCat"
-        Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sluSubCat.Properties.Appearance.Options.UseFont = True
-        Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.sluSubCat.Properties.NullText = ""
-        Me.sluSubCat.Properties.NullValuePrompt = "กรุณาเลือก"
-        Me.sluSubCat.Properties.NullValuePromptShowForEmptyValue = True
-        Me.sluSubCat.Properties.View = Me.GridView1
-        Me.sluSubCat.Size = New System.Drawing.Size(193, 28)
-        Me.sluSubCat.TabIndex = 13
-        '
-        'GridView1
-        '
-        Me.GridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView1.Name = "GridView1"
-        Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView1.OptionsView.ShowGroupPanel = False
         '
         'deDelivery
         '
@@ -218,19 +196,6 @@ Partial Class FrmPONew
         Me.LabelControl1.TabIndex = 22
         Me.LabelControl1.Text = "วันที่"
         '
-        'LabelControl3
-        '
-        Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl3.Appearance.Options.UseFont = True
-        Me.LabelControl3.Appearance.Options.UseTextOptions = True
-        Me.LabelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.LabelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl3.Location = New System.Drawing.Point(0, 33)
-        Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(127, 21)
-        Me.LabelControl3.TabIndex = 20
-        Me.LabelControl3.Text = "ประเภทวัสดุ"
-        '
         'LabelControl4
         '
         Me.LabelControl4.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -250,6 +215,41 @@ Partial Class FrmPONew
         Me.LabelControl2.Size = New System.Drawing.Size(64, 21)
         Me.LabelControl2.TabIndex = 22
         Me.LabelControl2.Text = "เลขที่ PO"
+        '
+        'sluSubCat
+        '
+        Me.sluSubCat.EditValue = ""
+        Me.sluSubCat.Location = New System.Drawing.Point(142, 30)
+        Me.sluSubCat.Name = "sluSubCat"
+        Me.sluSubCat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sluSubCat.Properties.Appearance.Options.UseFont = True
+        Me.sluSubCat.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.sluSubCat.Properties.NullText = ""
+        Me.sluSubCat.Properties.NullValuePrompt = "กรุณาเลือก"
+        Me.sluSubCat.Properties.NullValuePromptShowForEmptyValue = True
+        Me.sluSubCat.Properties.View = Me.GridView1
+        Me.sluSubCat.Size = New System.Drawing.Size(193, 28)
+        Me.sluSubCat.TabIndex = 13
+        '
+        'GridView1
+        '
+        Me.GridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView1.Name = "GridView1"
+        Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView1.OptionsView.ShowGroupPanel = False
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl3.Appearance.Options.UseFont = True
+        Me.LabelControl3.Appearance.Options.UseTextOptions = True
+        Me.LabelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.LabelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelControl3.Location = New System.Drawing.Point(0, 33)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(127, 21)
+        Me.LabelControl3.TabIndex = 20
+        Me.LabelControl3.Text = "ประเภทวัสดุ"
         '
         'gcList
         '
@@ -467,14 +467,14 @@ Partial Class FrmPONew
         CType(Me.grpPoList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpPoList.ResumeLayout(False)
         Me.grpPoList.PerformLayout()
-        CType(Me.sluSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deDelivery.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deDelivery.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.sluSupplier.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deDate.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deDate.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.sluSubCat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gcList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()

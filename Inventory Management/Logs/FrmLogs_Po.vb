@@ -184,7 +184,7 @@ Public Class Grid
     Private Sub RowCellClick(sender As Object, e As RowCellClickEventArgs)
     End Sub
     Private Sub RowClick(sender As Object, e As RowClickEventArgs)
-        If e.RowHandle = GridControl.NewItemRowHandle Then Return
+        If e.RowHandle = GridControl.NewItemRowHandle Or e.RowHandle = GridControl.AutoFilterRowHandle Then Return
         With EditorPO
             .PoNo = GetGroupValue(_gView, gControl, "PoNo", "PoNo")
             DT = CType(CType(gControl.DataSource, BindingSource).DataSource, DataTable)

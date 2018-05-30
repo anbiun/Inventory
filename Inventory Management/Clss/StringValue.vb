@@ -90,6 +90,10 @@
                 .Add("DeliveryDate", "กำหนดส่ง")
                 .Add("RatioPO", "ขนาดบรรจุภัณฑ์")
                 .Add("UnitImport", "ส่งแล้ว")
+                .Add("postat0", "อยู่ระหว่างจัดซื้อ")
+                .Add("postat1", "จัดส่งครบแล้ว")
+                .Add("postat2", "ค้างส่ง")
+                .Add("Del", "ลบ")
 #End Region
 #Region "Stock"
                 For i As Integer = 1 To 12

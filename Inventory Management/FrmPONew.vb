@@ -1,14 +1,10 @@
 ﻿Option Explicit On
 Option Strict On
 Imports ConDB.Main
-Imports DevExpress.Utils.Menu
-Imports DevExpress.XtraEditors
-Imports DevExpress.XtraEditors.Controls
-Imports DevExpress.XtraEditors.Repository
+Imports DevExpress.XtraEditors.ViewInfo
 Imports DevExpress.XtraGrid
-Imports DevExpress.XtraGrid.Columns
-Imports DevExpress.XtraGrid.Menu
 Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 
 Public Class FrmPONew
     Dim dtSupplier, dtMat, dtResult, dtSubCat As New DataTable
@@ -113,10 +109,14 @@ Public Class FrmPONew
             .ONLY.Columns("MatName")
             .ONLY.Columns("Unit3")
             .ONLY.Columns("Unit3_Name")
-            .ONLY.Columns("Del")
+            .ONLY.Columns("del")
+            .ONLY.Columns("success")
+            .ONLY.Columns("order")
+            .ONLY.Columns("Stat")
             .SetCaption()
         End With
         gvList.BestFitColumns()
+        gvList.Columns("Stat").Width = 120
     End Sub
 #End Region
 
@@ -124,19 +124,17 @@ Public Class FrmPONew
     Private Sub FrmPOInput_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Qry()
         LoadDef()
-        GVFormat()
-        Dim btnDel As New ColumnButton.Editor With {
-                         .Caption = " ",
-                         .ToolTip = "ลบรายการนี้",
-                         .Field = "del",
-                         .Image = My.Resources.remove_16x16
-                         }
-        Dim Buttons As New ColumnButton.Main With {.gControl = gcList, .gView = gvList}
-        Buttons.Add(btnDel)
         LoadComBo()
         loadSuccess = True
 
+        Dim Buttons As New ColumnButton.Main With {.gControl = gcList, .gView = gvList}
+        Dim btnDel As New ColumnButton.Editor With {.ToolTip = "ลบรายการนี้", .Field = "del", .Image = My.Resources.remove_16x16}
+        Dim btnSuccess As New ColumnButton.Editor With {.Field = "success", .ToolTip = getString("postat1"), .Image = My.Resources.postat1_16x16}
+        Dim btnOrder As New ColumnButton.Editor With {.Field = "order", .ToolTip = getString("postat0"), .Image = My.Resources.sales_16x16}
+
         If Edit Then
+            Buttons.Add(btnSuccess)
+            Buttons.Add(btnOrder)
             With EditorPO.setControl
                 .PoNo = txtPO
                 .Supplier = sluSupplier
@@ -150,11 +148,13 @@ Public Class FrmPONew
             dtResult = EditorPO.dtResult
             EditorPO.LoadEdit()
             gvList.BestFitColumns()
+            gvList.Columns("Stat").Width = 120
             grpPoList.Enabled = False
             grpPoOrder.Enabled = True
             PnlSave.Visible = True
         End If
-
+        Buttons.Add(btnDel)
+        GVFormat()
     End Sub
     Private Sub btnNewOrder_Click(sender As Object, e As EventArgs) Handles btnNewOrder.Click
         If txtPO.TextLength <> 5 Or ChkInput(grpPoList) = False Then Return
@@ -176,6 +176,7 @@ Public Class FrmPONew
         If CInt(txtUnit1.EditValue) <= 0 Or String.IsNullOrEmpty(sluMat.EditValue.ToString) Then Return
         AddRow()
         gvList.BestFitColumns()
+        gvList.Columns("Stat").Width = 120
     End Sub
     Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged
         txtUnit1.EditValue = If(CInt(txtUnit1.EditValue) < 0, 0, txtUnit1.EditValue)
@@ -250,9 +251,37 @@ Public Class FrmPONew
         If view.FocusedColumn.FieldName = "del" Then
             If view.GetFocusedRowCellValue("Stat").ToString = "1" Then MessageBox.Show("ไม่สามารถแก้ไขได้ เนื่องจากรายการนี้มีการส่งของแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) : Return
             dtResult.Rows(gvList.GetDataSourceRowIndex(e.RowHandle)).Delete()
-            dtResult.AcceptChanges()
         End If
+        If view.FocusedColumn.FieldName = "success" Then
+            dtResult.Rows(gvList.GetDataSourceRowIndex(e.RowHandle))("Stat") = "1"
+        End If
+        If view.FocusedColumn.FieldName = "order" Then
+            dtResult.Rows(gvList.GetDataSourceRowIndex(e.RowHandle))("Stat") = "0"
+        End If
+        dtResult.AcceptChanges()
         view.RefreshData()
+    End Sub
+    Overridable Sub CustomDrawCell(ByVal sender As Object, ByVal e As Views.Base.RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
+        If e.CellValue Is Nothing Then Exit Sub
+        Dim gcix As GridCellInfo = TryCast(e.Cell, GridCellInfo)
+        Dim infox As TextEditViewInfo = TryCast(gcix.ViewInfo, TextEditViewInfo)
+        If e.Column.FieldName = "Stat" Then
+            e.Column.Width = 120
+            e.DisplayText = String.Empty
+            If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "Stat" Then
+                If e.CellValue.ToString = "1" Then
+                    infox.ContextImage = My.Resources.postat1_16x16
+                    e.DisplayText = getString("postat1")
+                ElseIf e.CellValue.ToString = "2" Then
+                    infox.ContextImage = My.Resources.postat2_16x16
+                    e.DisplayText = getString("postat2")
+                ElseIf e.CellValue.ToString = "0" Then
+                    infox.ContextImage = My.Resources.sales_16x16
+                    e.DisplayText = getString("postat0")
+                End If
+                infox.CalcViewInfo()
+            End If
+        End If
     End Sub
 #End Region
 
