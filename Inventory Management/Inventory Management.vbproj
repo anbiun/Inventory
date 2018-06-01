@@ -456,6 +456,18 @@
     <Compile Include="FrmQCTarget.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reports\ReportViewer.Designer.vb">
+      <DependentUpon>ReportViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReportViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\Report_PO.Designer.vb">
+      <DependentUpon>Report_PO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Report_PO.vb">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dlgProgress.resx">
@@ -536,6 +548,12 @@
     <EmbeddedResource Include="PrintRibbonControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PrintRibbonControllerResources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportViewer.resx">
+      <DependentUpon>ReportViewer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Report_PO.resx">
+      <DependentUpon>Report_PO.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -651,6 +669,8 @@
     <None Include="Resources\postat1_32x32.png" />
     <None Include="Resources\postat2_16x16.png" />
     <None Include="Resources\postat2_32x32.png" />
+    <None Include="Resources\saledetalis_32x32.png" />
+    <None Include="Resources\print_16x16.png" />
     <Content Include="Resources\T.ico" />
     <None Include="Resources\usergroup_32x32.png" />
     <None Include="Resources\usergroup_16x16.png" />
@@ -2713,6 +2733,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,8 @@
 ﻿Option Strict On
 Option Explicit On
 Imports ConDB.Main
+Imports DevExpress.DataAccess.ConnectionParameters
+Imports DevExpress.DataAccess.Sql
 Imports DevExpress.Utils.Menu
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraEditors.ViewInfo
@@ -9,9 +11,10 @@ Imports DevExpress.XtraGrid.Columns
 Imports DevExpress.XtraGrid.Menu
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
+Imports DevExpress.XtraReports.UI
 
 Public Class FrmLogs_Po
-    Dim dtResult As New DataTable
+    Property DtResult As New DataTable
     Dim GridSetting As New Grid
     Private Sub FrmPoList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FirstQry()
@@ -23,9 +26,9 @@ Public Class FrmLogs_Po
         SQL = "SELECT * FROM vwPoList
                ORDER BY PoDate DESC"
         dsTbl("polist")
-        dtResult = DS.Tables("polist").Copy
+        DtResult = DS.Tables("polist").Copy
 
-        gcResult.DataSource = dtResult.Clone
+        gcResult.DataSource = DtResult.Clone
         GridSetting.gControl = gcResult
         GridSetting.gView = gvResult
         GridSetting.Main()
@@ -124,7 +127,6 @@ Public Class FrmLogs_Po
     Private Sub ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbSubCat.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub
-
 End Class
 Public Class Grid
     Property gControl As GridControl
@@ -204,6 +206,7 @@ End Class
 
 Public Class SendEdit
     Private _gView As New GridView
+    Private _PoNo As String
     Public Property gControl As GridControl
     Public Property gView As GridView
         Set(value As GridView)
@@ -217,7 +220,7 @@ Public Class SendEdit
     Private Sub ShowMenu(ByVal hi As GridHitInfo)
         Dim menu As GridViewMenu = Nothing
         If hi.HitTest = DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.Row Then
-            menu = New GridViewColumnButtonMenu(hi.View)
+            menu = New GridViewColumnButtonMenu(hi.View, _PoNo)
             menu.Init(hi)
             menu.Show(hi.HitPoint)
         End If
@@ -225,18 +228,23 @@ Public Class SendEdit
     Private Sub GridMouseDown(sender As Object, e As MouseEventArgs)
         Dim view As GridView = CType(sender, GridView)
         If e.Button = MouseButtons.Right Then
-            If String.IsNullOrEmpty(GetGroupValue(_gView, gControl, "PoNo", "PoNo")) Then Return
+            _PoNo = GetGroupValue(_gView, gControl, "PoNo", "PoNo")
+            If String.IsNullOrEmpty(_PoNo) Then Return
             ShowMenu(view.CalcHitInfo(New Point(e.X, e.Y)))
         End If
     End Sub
 End Class
+
 Public Class GridViewColumnButtonMenu
     Inherits GridViewMenu
-    Public Sub New(ByVal View As DevExpress.XtraGrid.Views.Grid.GridView)
+    Property PoNo As String
+    Public Sub New(ByVal View As DevExpress.XtraGrid.Views.Grid.GridView, Optional PoNo As String = "")
         MyBase.New(View)
+        Me.PoNo = PoNo
     End Sub
     Protected Overrides Sub CreateItems()
         Items.Clear()
+        Items.Add(CreateMenuItem("พิมพ์", My.Resources.print_16x16, "Print", True))
         Items.Add(CreateMenuItem("แก้ไข", My.Resources.edit_16x16, "Edit", True))
         If User.Permission >= UserInfo.UserGroup.Manger Then Items.Add(CreateMenuItem("ลบ", My.Resources.delete_16x16, "Del", True))
     End Sub
@@ -248,6 +256,8 @@ Public Class GridViewColumnButtonMenu
             Edit()
         ElseIf item.Tag.ToString = "Del" Then
             Del()
+        ElseIf item.Tag.ToString = "Print" Then
+            Print()
         End If
     End Sub
     Overridable Sub Edit()
@@ -280,4 +290,52 @@ Public Class GridViewColumnButtonMenu
         End If
 
     End Sub
+    Private Sub Print()
+        Dim getReport As New GetReport With {.PoNo = PoNo}
+        Dim designTool As New ReportDesignTool(getReport.CreateReport())
+        designTool.ShowRibbonDesignerDialog()
+    End Sub
+End Class
+
+Public Class GetReport
+    Property PoNo As String
+
+    Private Function BindToData() As SqlDataSource
+        Dim connectionParameters As New MsSqlConnectionParameters(
+            varIP, varDB.ToString, varUSR.ToString, varPWD.ToString, MsSqlAuthorizationType.SqlServer)
+        Dim df As New SqlDataSource(connectionParameters)
+
+        Dim query As New CustomSqlQuery()
+        query.Name = "custom"
+        query.Sql = "SELECT * FROM vwReport_PO WHERE PoNo='" & PoNo & "'"
+
+        df.Queries.Add(query)
+        df.RebuildResultSchema() ' Make the data source structure displayed 
+
+        Return df
+    End Function
+    Friend Function CreateReport() As XtraReport
+        Dim report As New Report_PO
+
+        ' Assign the data source to the report.
+        report.DataSource = BindToData()
+        report.DataMember = "custom"
+        Return report
+
+        '' Add a detail band to the report.
+        'Dim detailBand As New DetailBand()
+        'detailBand.Height = 50
+        'report.Bands.Add(detailBand)
+
+        '' Create a new label.
+        'Dim label As XRLabel = New XRLabel With {.WidthF = 300}
+        '' Specify the label's binding depending on the data binding mode.
+        'If Settings.Default.UserDesignerOptions.DataBindingMode = DataBindingMode.Bindings Then
+        '    label.DataBindings.Add("Text", Nothing, "customQuery.ProductName")
+        'Else
+        '    label.ExpressionBindings.Add(New ExpressionBinding("BeforePrint", "Text", "[ProductName]"))
+        'End If
+        '' Add the label to the detail band.
+        ' DetailBand.Controls.Add(label)
+    End Function
 End Class
