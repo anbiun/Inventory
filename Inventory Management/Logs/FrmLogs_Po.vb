@@ -307,7 +307,7 @@ Public Class GetReport
 
         Dim query As New CustomSqlQuery()
         query.Name = "custom"
-        query.Sql = "SELECT * FROM vwReport_PO WHERE PoNo='" & PoNo & "'"
+        query.Sql = "SELECT * FROM Report_PO WHERE PoNo='" & PoNo & "'"
 
         df.Queries.Add(query)
         df.RebuildResultSchema() ' Make the data source structure displayed 

@@ -976,11 +976,11 @@ Partial Public Class Report_PO
         'tableCell17
         '
         Me.tableCell17.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
+        Me.tableCell17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "custom.PoNotation")})
         Me.tableCell17.Name = "tableCell17"
         Me.tableCell17.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 3, 0, 100.0!)
         Me.tableCell17.StylePriority.UseBorders = False
         Me.tableCell17.StylePriority.UsePadding = False
-        Me.tableCell17.Text = "[Notation]"
         Me.tableCell17.Weight = 2.239215246405053R
         '
         'tableCell8
@@ -1131,7 +1131,7 @@ Partial Public Class Report_PO
         Me.sqlDataSource1.ConnectionParameters = MsSqlConnectionParameters1
         Me.sqlDataSource1.Name = "sqlDataSource1"
         CustomSqlQuery1.Name = "custom"
-        CustomSqlQuery1.Sql = "SELECT * FROM vwReport_PO WHERE PoNo='15115'"
+        CustomSqlQuery1.Sql = "SELECT * FROM Report_PO WHERE PoNo='15166'"
         Me.sqlDataSource1.Queries.AddRange(New DevExpress.DataAccess.Sql.SqlQuery() {CustomSqlQuery1})
         Me.sqlDataSource1.ResultSchemaSerializable = resources.GetString("sqlDataSource1.ResultSchemaSerializable")
         '

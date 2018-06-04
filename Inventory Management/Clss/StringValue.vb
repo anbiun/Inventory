@@ -94,6 +94,9 @@
                 .Add("postat1", "จัดส่งครบแล้ว")
                 .Add("postat2", "ค้างส่ง")
                 .Add("Del", "ลบ")
+                .Add("MatNotation", "รายละเอียดเพิ่มเติม")
+                .Add("PriceSum", "จำนวนเงิน")
+                .Add("UnitPrice", "ราคา / หน่วย")
 #End Region
 #Region "Stock"
                 For i As Integer = 1 To 12
