@@ -289,7 +289,6 @@ Public Class FrmPONew
         If deDate.EditValue Is Nothing Then Return
         deDelivery.EditValue = DateAdd(DateInterval.Day, 7, CDate(deDate.EditValue))
     End Sub
-
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
         LoadDef()
     End Sub

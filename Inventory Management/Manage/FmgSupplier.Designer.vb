@@ -28,8 +28,18 @@ Partial Class FmgSupplier
         Me.tab1_lblUnitName = New System.Windows.Forms.Label()
         Me.txtName = New DevExpress.XtraEditors.TextEdit()
         Me.grpSupplier = New DevExpress.XtraEditors.GroupControl()
+        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtTerm = New DevExpress.XtraEditors.SpinEdit()
         Me.BtnNew = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtAgent = New DevExpress.XtraEditors.MemoEdit()
         Me.txtAddress = New DevExpress.XtraEditors.MemoEdit()
+        Me.txtFax = New DevExpress.XtraEditors.TextEdit()
+        Me.txtTel = New DevExpress.XtraEditors.TextEdit()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.grpMat = New DevExpress.XtraEditors.GroupControl()
         Me.BtnAdd = New DevExpress.XtraEditors.SimpleButton()
@@ -48,7 +58,13 @@ Partial Class FmgSupplier
         CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grpSupplier, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpSupplier.SuspendLayout()
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl1.SuspendLayout()
+        CType(Me.txtTerm.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAgent.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAddress.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtFax.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTel.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grpMat, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpMat.SuspendLayout()
         CType(Me.txtRatio.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,7 +84,7 @@ Partial Class FmgSupplier
         Me.gcList.Location = New System.Drawing.Point(342, 0)
         Me.gcList.MainView = Me.gvList
         Me.gcList.Name = "gcList"
-        Me.gcList.Size = New System.Drawing.Size(766, 492)
+        Me.gcList.Size = New System.Drawing.Size(1080, 671)
         Me.gcList.TabIndex = 9
         Me.gcList.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvList})
         '
@@ -83,9 +99,9 @@ Partial Class FmgSupplier
         'tab1_lblUnitName
         '
         Me.tab1_lblUnitName.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab1_lblUnitName.Location = New System.Drawing.Point(52, 44)
+        Me.tab1_lblUnitName.Location = New System.Drawing.Point(43, 44)
         Me.tab1_lblUnitName.Name = "tab1_lblUnitName"
-        Me.tab1_lblUnitName.Size = New System.Drawing.Size(83, 22)
+        Me.tab1_lblUnitName.Size = New System.Drawing.Size(92, 22)
         Me.tab1_lblUnitName.TabIndex = 20
         Me.tab1_lblUnitName.Text = "ชื่อผู้ขาย"
         Me.tab1_lblUnitName.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -97,7 +113,7 @@ Partial Class FmgSupplier
         Me.txtName.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtName.Properties.Appearance.Options.UseFont = True
         Me.txtName.Size = New System.Drawing.Size(174, 28)
-        Me.txtName.TabIndex = 23
+        Me.txtName.TabIndex = 0
         '
         'grpSupplier
         '
@@ -105,17 +121,65 @@ Partial Class FmgSupplier
         Me.grpSupplier.AppearanceCaption.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.grpSupplier.AppearanceCaption.Options.UseFont = True
         Me.grpSupplier.AppearanceCaption.Options.UseForeColor = True
+        Me.grpSupplier.Controls.Add(Me.PanelControl1)
         Me.grpSupplier.Controls.Add(Me.BtnNew)
+        Me.grpSupplier.Controls.Add(Me.txtAgent)
         Me.grpSupplier.Controls.Add(Me.txtAddress)
+        Me.grpSupplier.Controls.Add(Me.txtFax)
+        Me.grpSupplier.Controls.Add(Me.txtTel)
+        Me.grpSupplier.Controls.Add(Me.Label3)
         Me.grpSupplier.Controls.Add(Me.txtName)
+        Me.grpSupplier.Controls.Add(Me.Label2)
+        Me.grpSupplier.Controls.Add(Me.Label4)
         Me.grpSupplier.Controls.Add(Me.Label1)
         Me.grpSupplier.Controls.Add(Me.tab1_lblUnitName)
         Me.grpSupplier.Dock = System.Windows.Forms.DockStyle.Top
         Me.grpSupplier.Location = New System.Drawing.Point(2, 2)
         Me.grpSupplier.Name = "grpSupplier"
-        Me.grpSupplier.Size = New System.Drawing.Size(338, 230)
+        Me.grpSupplier.Size = New System.Drawing.Size(338, 456)
         Me.grpSupplier.TabIndex = 24
         Me.grpSupplier.Text = "รายละเอียดผู้ขาย"
+        '
+        'PanelControl1
+        '
+        Me.PanelControl1.Controls.Add(Me.Label5)
+        Me.PanelControl1.Controls.Add(Me.Label6)
+        Me.PanelControl1.Controls.Add(Me.txtTerm)
+        Me.PanelControl1.Location = New System.Drawing.Point(151, 327)
+        Me.PanelControl1.Name = "PanelControl1"
+        Me.PanelControl1.Size = New System.Drawing.Size(174, 76)
+        Me.PanelControl1.TabIndex = 26
+        '
+        'Label5
+        '
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(5, 10)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(164, 22)
+        Me.Label5.TabIndex = 20
+        Me.Label5.Text = "เงื่อนไขการชำระเงิน"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label6
+        '
+        Me.Label6.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(127, 42)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(34, 22)
+        Me.Label6.TabIndex = 20
+        Me.Label6.Text = "วัน"
+        '
+        'txtTerm
+        '
+        Me.txtTerm.EditValue = New Decimal(New Integer() {30, 0, 0, 0})
+        Me.txtTerm.Location = New System.Drawing.Point(68, 39)
+        Me.txtTerm.Name = "txtTerm"
+        Me.txtTerm.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTerm.Properties.Appearance.Options.UseFont = True
+        Me.txtTerm.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.txtTerm.Properties.MaxLength = 6
+        Me.txtTerm.Size = New System.Drawing.Size(53, 28)
+        Me.txtTerm.TabIndex = 5
         '
         'BtnNew
         '
@@ -124,12 +188,21 @@ Partial Class FmgSupplier
         Me.BtnNew.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat
         Me.BtnNew.ImageOptions.Image = Global.Inventory_Management.My.Resources.Resources.apply_32x32
         Me.BtnNew.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleRight
-        Me.BtnNew.Location = New System.Drawing.Point(151, 184)
+        Me.BtnNew.Location = New System.Drawing.Point(151, 410)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BtnNew.Name = "BtnNew"
         Me.BtnNew.Size = New System.Drawing.Size(174, 35)
         Me.BtnNew.TabIndex = 25
         Me.BtnNew.Text = "ตกลง"
+        '
+        'txtAgent
+        '
+        Me.txtAgent.Location = New System.Drawing.Point(151, 249)
+        Me.txtAgent.Name = "txtAgent"
+        Me.txtAgent.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAgent.Properties.Appearance.Options.UseFont = True
+        Me.txtAgent.Size = New System.Drawing.Size(174, 72)
+        Me.txtAgent.TabIndex = 4
         '
         'txtAddress
         '
@@ -138,14 +211,62 @@ Partial Class FmgSupplier
         Me.txtAddress.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAddress.Properties.Appearance.Options.UseFont = True
         Me.txtAddress.Size = New System.Drawing.Size(174, 96)
-        Me.txtAddress.TabIndex = 24
+        Me.txtAddress.TabIndex = 1
+        '
+        'txtFax
+        '
+        Me.txtFax.Location = New System.Drawing.Point(151, 215)
+        Me.txtFax.Name = "txtFax"
+        Me.txtFax.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFax.Properties.Appearance.Options.UseFont = True
+        Me.txtFax.Size = New System.Drawing.Size(174, 28)
+        Me.txtFax.TabIndex = 3
+        '
+        'txtTel
+        '
+        Me.txtTel.Location = New System.Drawing.Point(151, 181)
+        Me.txtTel.Name = "txtTel"
+        Me.txtTel.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTel.Properties.Appearance.Options.UseFont = True
+        Me.txtTel.Size = New System.Drawing.Size(174, 28)
+        Me.txtTel.TabIndex = 2
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(43, 218)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(92, 22)
+        Me.Label3.TabIndex = 20
+        Me.Label3.Text = "โทรสาร."
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label2
+        '
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(43, 184)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(92, 22)
+        Me.Label2.TabIndex = 20
+        Me.Label2.Text = "โทรศัพท์."
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label4
+        '
+        Me.Label4.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(10, 251)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(125, 22)
+        Me.Label4.TabIndex = 20
+        Me.Label4.Text = "บุคคลที่ติดต่อ"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(52, 117)
+        Me.Label1.Location = New System.Drawing.Point(43, 81)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(83, 22)
+        Me.Label1.Size = New System.Drawing.Size(92, 22)
         Me.Label1.TabIndex = 20
         Me.Label1.Text = "ที่อยู่"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -163,7 +284,7 @@ Partial Class FmgSupplier
         Me.grpMat.Controls.Add(Me.LabelControl13)
         Me.grpMat.Controls.Add(Me.lblUnit3_name)
         Me.grpMat.Dock = System.Windows.Forms.DockStyle.Top
-        Me.grpMat.Location = New System.Drawing.Point(2, 232)
+        Me.grpMat.Location = New System.Drawing.Point(2, 458)
         Me.grpMat.Name = "grpMat"
         Me.grpMat.Size = New System.Drawing.Size(338, 156)
         Me.grpMat.TabIndex = 30
@@ -259,10 +380,10 @@ Partial Class FmgSupplier
         Me.PnlSave.Controls.Add(Me.BtnSave)
         Me.PnlSave.Controls.Add(Me.BtnCancel)
         Me.PnlSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlSave.Location = New System.Drawing.Point(2, 388)
+        Me.PnlSave.Location = New System.Drawing.Point(2, 614)
         Me.PnlSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PnlSave.Name = "PnlSave"
-        Me.PnlSave.Size = New System.Drawing.Size(338, 102)
+        Me.PnlSave.Size = New System.Drawing.Size(338, 55)
         Me.PnlSave.TabIndex = 31
         Me.PnlSave.Visible = False
         '
@@ -305,14 +426,14 @@ Partial Class FmgSupplier
         Me.PnlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PnlLeft.Location = New System.Drawing.Point(0, 0)
         Me.PnlLeft.Name = "PnlLeft"
-        Me.PnlLeft.Size = New System.Drawing.Size(342, 492)
+        Me.PnlLeft.Size = New System.Drawing.Size(342, 671)
         Me.PnlLeft.TabIndex = 32
         '
         'FmgSupplier
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1108, 492)
+        Me.ClientSize = New System.Drawing.Size(1422, 671)
         Me.Controls.Add(Me.gcList)
         Me.Controls.Add(Me.PnlLeft)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -324,7 +445,13 @@ Partial Class FmgSupplier
         CType(Me.txtName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grpSupplier, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpSupplier.ResumeLayout(False)
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelControl1.ResumeLayout(False)
+        CType(Me.txtTerm.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAgent.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAddress.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtFax.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTel.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grpMat, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpMat.ResumeLayout(False)
         Me.grpMat.PerformLayout()
@@ -358,4 +485,14 @@ Partial Class FmgSupplier
     Friend WithEvents PnlLeft As DevExpress.XtraEditors.PanelControl
     Friend WithEvents txtRatio As DevExpress.XtraEditors.SpinEdit
     Friend WithEvents lblUnit3_name As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtFax As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents txtTel As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtTerm As DevExpress.XtraEditors.SpinEdit
+    Friend WithEvents txtAgent As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
 End Class

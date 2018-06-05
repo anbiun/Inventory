@@ -49,6 +49,10 @@
 #Region "Supplier"
                 .Add("SupplierName", "ชื่อผู้ขาย")
                 .Add("SupplierAddress", "ที่อยู่ผู้ขาย")
+                .Add("SupplierAgent", "บุคลลที่ติดต่อ")
+                .Add("SupplierContact", "ติดต่อ")
+                .Add("SupplierTerm", "เงื่อนไขการชำระเงิน")
+
 
 #End Region
 #Region "หมวดวัสดุหลัก/รอง"

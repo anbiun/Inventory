@@ -4,6 +4,7 @@ Imports ConDB.Main
 Imports DevExpress.Utils.Menu
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Menu
+Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Views.Grid
 
 Public Class FmgSupplier
@@ -11,7 +12,6 @@ Public Class FmgSupplier
     Dim dtNew, dtSubCat As DataTable
     Dim SupplierID As String = String.Empty
     Dim Edit As Boolean = False
-
 #Region "CODE"
     Private Sub FirstQry()
         SQL = "SELECT * FROM vwSupplier"
@@ -56,6 +56,9 @@ Public Class FmgSupplier
             For Each dr As DataRow In dtNew.Rows
                 dr("SupplierName") = txtName.Text
                 dr("SupplierAddress") = txtAddress.Text
+                dr("SupplierAgent") = txtAgent.Text
+                dr("SupplierContact") = String.Format("{0}{1} {2}{3}", Label2.Text, txtTel.Text, Label3.Text, txtFax.Text)
+                dr("SupplierTerm") = txtTerm.EditValue
             Next
         End If
         gcList.DataSource = dtNew
@@ -88,8 +91,14 @@ Public Class FmgSupplier
         SQL = "DELETE FROM tbSupplier WHERE SupplierID ='" & SupplierID & "'
                DELETE FROM tbSupplier_Detail WHERE SupplierID ='" & SupplierID & "'
                
-               INSERT INTO tbSupplier (SupplierID,SupplierName,SupplierAddress)
-               VALUES ('" & SupplierID & "','" & txtName.Text & "','" & txtAddress.Text & "')"
+               INSERT INTO tbSupplier (SupplierID,SupplierName,SupplierAddress,SupplierContact,SupplierAgent,SupplierTerm)
+               VALUES ('" & SupplierID & "'
+               ,'" & txtName.Text & "'
+               ,'" & txtAddress.Text & "'
+               ,'" & String.Format("{0}{1} {2}{3}", Label2.Text, txtTel.Text, Label3.Text, txtFax.Text) & "'
+               ,'" & txtAgent.Text & "'
+               ,'" & txtTerm.EditValue.ToString & "'
+               )"
         dsTbl("insert")
         blkCpy("tbSupplier_Detail", dtNew, {"SupplierID", "SupplierDetailID", "SubCatID", "Ratio"})
         MessageBox.Show("บันทึกข้อมูลแล้ว", "บันทึกข้อมูล", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -114,6 +123,9 @@ Public Class FmgSupplier
         dr("Ratio") = txtRatio.EditValue
         dr("SubCatName") = sluSubCat.Text
         dr("SubCatID") = sluSubCat.EditValue
+        dr("SupplierAgent") = txtAgent.Text
+        dr("SupplierTerm") = txtTerm.EditValue
+        dr("SupplierContact") = String.Format("{0}{1} {2}{3}", Label2.Text, txtTel.Text, Label3.Text, txtFax.Text)
         dtNew.Rows.Add(dr)
         PnlSave.Visible = dtNew.Rows.Count > 0
     End Sub
@@ -121,8 +133,17 @@ Public Class FmgSupplier
         LoadDef()
         Edit = True
         FoundRow = dtResult.Select("SupplierID = '" & SupplierID & "'")
+
         txtName.Text = FoundRow(0)("SupplierName").ToString
         txtAddress.Text = FoundRow(0)("SupplierAddress").ToString
+        Dim contact As String = FoundRow(0)("SupplierContact").ToString
+        If Not String.IsNullOrEmpty(contact) Then
+            txtFax.Text = Trim(contact.Substring(contact.IndexOf(Label3.Text) + Label3.Text.Length))
+            txtTel.Text = Trim(contact.Substring(contact.IndexOf(Label2.Text) + Label2.Text.Length).Replace(Label3.Text & txtFax.Text, ""))
+        End If
+        txtAgent.Text = FoundRow(0)("SupplierAgent").ToString
+        txtTerm.EditValue = FoundRow(0)("SupplierTerm")
+
         dtNew = FoundRow.CopyToDataTable
         gcList.DataSource = dtNew
         gvList.ExpandAllGroups()
@@ -161,6 +182,8 @@ Public Class FmgSupplier
             .Columns("Ratio").Caption = getString("RatioPO")
             .Columns("SupplierAddress").Caption = "ที่อยู่"
             .ExpandAllGroups()
+            gvList.BestFitColumns()
+            gvList.OptionsFind.AlwaysVisible = True
         End With
 
     End Sub
@@ -174,6 +197,9 @@ Public Class FmgSupplier
             End If
         End If
 
+    End Sub
+    Private Sub CustomDracell(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvList.CustomDrawCell
+        If e.Column.FieldName = "SupplierTerm" Then e.DisplayText = String.Format("{0} วัน", e.CellValue)
     End Sub
 #End Region
 
@@ -252,6 +278,9 @@ Public Class FmgSupplier
         If dtSubCat Is Nothing Or sluSubCat.EditValue Is Nothing Then Return
         FoundRow = dtSubCat.Select("SubCatID ='" & sluSubCat.EditValue.ToString & "'")
         lblUnit3_name.Text = If(FoundRow.Count > 0, FoundRow(0)("UnitName").ToString, String.Empty)
+    End Sub
+    Private Sub FmgSupplier_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTel.KeyPress, txtFax.KeyPress
+        NumOnly(e, {",", "-"})
     End Sub
 #End Region
 End Class

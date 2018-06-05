@@ -115,13 +115,13 @@ Partial Class FrmPONew
         '
         'ceVat
         '
-        Me.ceVat.Location = New System.Drawing.Point(250, 238)
+        Me.ceVat.Location = New System.Drawing.Point(232, 238)
         Me.ceVat.Name = "ceVat"
         Me.ceVat.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!)
         Me.ceVat.Properties.Appearance.Options.UseFont = True
         Me.ceVat.Properties.Caption = "Vat.7%"
         Me.ceVat.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.ceVat.Size = New System.Drawing.Size(85, 25)
+        Me.ceVat.Size = New System.Drawing.Size(103, 25)
         Me.ceVat.TabIndex = 24
         '
         'sluSubCat

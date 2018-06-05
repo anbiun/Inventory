@@ -89,15 +89,10 @@ Module ImModule
         End If
         Return newId
     End Function
-    Public Sub NumOnly(e As KeyPressEventArgs)
+    Public Sub NumOnly(e As KeyPressEventArgs, Optional Without As String() = Nothing)
+        If Without.Contains(e.KeyChar) Then Return
         If e.KeyChar <> ControlChars.Back Then
-            e.Handled = Not (Char.IsDigit(e.KeyChar) Or e.KeyChar = ".")
-        End If
-        Exit Sub
-        If Asc(e.KeyChar) <> 8 Then
-            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 And Asc(e.KeyChar) <> 46 Then
-                e.Handled = True
-            End If
+            e.Handled = Not (Char.IsDigit(e.KeyChar))
         End If
     End Sub
     Friend Function ChkInput(grpBox As GroupControl, Optional Without As String = Nothing) As Boolean

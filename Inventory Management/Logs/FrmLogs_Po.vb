@@ -1,8 +1,6 @@
 ﻿Option Strict On
 Option Explicit On
 Imports ConDB.Main
-Imports DevExpress.DataAccess.ConnectionParameters
-Imports DevExpress.DataAccess.Sql
 Imports DevExpress.Utils.Menu
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraEditors.ViewInfo
@@ -207,6 +205,7 @@ End Class
 Public Class SendEdit
     Private _gView As New GridView
     Private _PoNo As String
+    Private _Access As Boolean = True
     Public Property gControl As GridControl
     Public Property gView As GridView
         Set(value As GridView)
@@ -220,7 +219,7 @@ Public Class SendEdit
     Private Sub ShowMenu(ByVal hi As GridHitInfo)
         Dim menu As GridViewMenu = Nothing
         If hi.HitTest = DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.Row Then
-            menu = New GridViewColumnButtonMenu(hi.View, _PoNo)
+            menu = New GridViewColumnButtonMenu(hi.View, _PoNo, _Access)
             menu.Init(hi)
             menu.Show(hi.HitPoint)
         End If
@@ -229,24 +228,36 @@ Public Class SendEdit
         Dim view As GridView = CType(sender, GridView)
         If e.Button = MouseButtons.Right Then
             _PoNo = GetGroupValue(_gView, gControl, "PoNo", "PoNo")
+            If User.Permission <= UserInfo.UserGroup.Manger Then
+                DT = TryCast(TryCast(gView.DataSource, BindingSource).DataSource, DataTable)
+                FoundRow = DT.Select("PoNo = '" & _PoNo & "' AND PoStat = '1'")
+                _Access = If(FoundRow.Count > 0, False, True)
+            End If
             If String.IsNullOrEmpty(_PoNo) Then Return
             ShowMenu(view.CalcHitInfo(New Point(e.X, e.Y)))
         End If
     End Sub
 End Class
-
 Public Class GridViewColumnButtonMenu
     Inherits GridViewMenu
     Property PoNo As String
-    Public Sub New(ByVal View As DevExpress.XtraGrid.Views.Grid.GridView, Optional PoNo As String = "")
+    Property Access As Boolean
+    Public Sub New(ByVal View As DevExpress.XtraGrid.Views.Grid.GridView, Optional PoNo As String = "", Optional Access As Boolean = False)
         MyBase.New(View)
         Me.PoNo = PoNo
+        Me.Access = Access
     End Sub
     Protected Overrides Sub CreateItems()
         Items.Clear()
-        Items.Add(CreateMenuItem("พิมพ์", My.Resources.print_16x16, "Print", True))
-        Items.Add(CreateMenuItem("แก้ไข", My.Resources.edit_16x16, "Edit", True))
-        If User.Permission >= UserInfo.UserGroup.Manger Then Items.Add(CreateMenuItem("ลบ", My.Resources.delete_16x16, "Del", True))
+
+        Dim PoInfo As New DXSubMenuItem("รายละเอียดใบสั่งซื้อ")
+        Items.Add(PoInfo)
+        PoInfo.Items.Add(CreateMenuItem("ในนาม KIWI", My.Resources.KIW_16x16, "KIWI", True))
+        PoInfo.Items.Add(CreateMenuItem("ในนาม JL", My.Resources.JL_16x16, "JL", True))
+        'Items.Add(CreateMenuItem("รายละเอียดใบสั่งซื้อ", My.Resources.po_16x16, "PoInfo", True))
+
+        Items.Add(CreateMenuItem("แก้ไข", My.Resources.edit_16x16, "Edit", Access))
+        If User.Permission >= UserInfo.UserGroup.Manger Then Items.Add(CreateMenuItem("ลบ", My.Resources.delete_16x16, "Del", Access))
     End Sub
     Protected Overrides Sub OnMenuItemClick(ByVal sender As Object, ByVal e As EventArgs)
         If RaiseClickEvent(sender, Nothing) Then Return
@@ -256,8 +267,8 @@ Public Class GridViewColumnButtonMenu
             Edit()
         ElseIf item.Tag.ToString = "Del" Then
             Del()
-        ElseIf item.Tag.ToString = "Print" Then
-            Print()
+        ElseIf item.Tag.ToString = "KIWI" Or item.Tag.ToString = "JL" Then
+            PoInfo(If(item.Tag.ToString = "KIWI", "002", "001"))
         End If
     End Sub
     Overridable Sub Edit()
@@ -290,52 +301,236 @@ Public Class GridViewColumnButtonMenu
         End If
 
     End Sub
-    Private Sub Print()
-        Dim getReport As New GetReport With {.PoNo = PoNo}
-        Dim designTool As New ReportDesignTool(getReport.CreateReport())
-        designTool.ShowRibbonDesignerDialog()
+    Private Sub PoInfo(ComID As String)
+        Dim getReport As New GetReport With {.PoNo = PoNo, .CompanyID = ComID}
+        If User.Permission < UserInfo.UserGroup.Admin Then
+            Dim ReportViewer As New ReportPrintTool(getReport.CreateReport())
+            ReportViewer.ShowRibbonPreview()
+        Else
+            Dim designTool As New ReportDesignTool(getReport.CreateReport())
+            designTool.ShowRibbonDesignerDialog()
+        End If
     End Sub
 End Class
-
 Public Class GetReport
     Property PoNo As String
+    Property CompanyID As String
 
-    Private Function BindToData() As SqlDataSource
-        Dim connectionParameters As New MsSqlConnectionParameters(
-            varIP, varDB.ToString, varUSR.ToString, varPWD.ToString, MsSqlAuthorizationType.SqlServer)
-        Dim df As New SqlDataSource(connectionParameters)
+    Private Function BindToData() As DataSet
+        Dim Bahttext As New MoneySpell
+        Dim dtResult As New DataTable
+        SQL = String.Format("SELECT * FROM Report_PO WHERE PoNo='{0}'", PoNo)
+        dsTbl("Report")
+        SQL = "SELECT * FROM tbCompany WHERE CoID = '" & CompanyID & "'"
+        dsTbl("Company")
+        dtResult = DS.Tables("Report").Copy
+        dtResult.Columns.Add(New DataColumn() With {.ColumnName = "Bathtext",
+                                      .DataType = GetType(String),
+                                      .DefaultValue = Bahttext.NumberToThaiWord(CDbl(dtResult(0)("GrandTotal").ToString)).ToString})
+        Dim newDS As New DataSet
+        dtResult.TableName = "Report"
+        newDS.Tables.Add(dtResult)
+        newDS.Tables.Add(DS.Tables("Company").Copy)
+        newDS.DataSetName = "DSReport"
 
-        Dim query As New CustomSqlQuery()
-        query.Name = "custom"
-        query.Sql = "SELECT * FROM Report_PO WHERE PoNo='" & PoNo & "'"
-
-        df.Queries.Add(query)
-        df.RebuildResultSchema() ' Make the data source structure displayed 
-
-        Return df
+        Return newDS
     End Function
     Friend Function CreateReport() As XtraReport
         Dim report As New Report_PO
 
         ' Assign the data source to the report.
         report.DataSource = BindToData()
-        report.DataMember = "custom"
+        report.DataMember = "DSReport"
         Return report
+    End Function
+End Class
+Public Class MoneySpell
 
-        '' Add a detail band to the report.
-        'Dim detailBand As New DetailBand()
-        'detailBand.Height = 50
-        'report.Bands.Add(detailBand)
+    Public Function NumberToThaiWord(ByVal InputNumber As Double) As String
+        If InputNumber = 0 Then
+            NumberToThaiWord = "ศูนย์บาทถ้วน"
+            Return NumberToThaiWord
+        End If
 
-        '' Create a new label.
-        'Dim label As XRLabel = New XRLabel With {.WidthF = 300}
-        '' Specify the label's binding depending on the data binding mode.
-        'If Settings.Default.UserDesignerOptions.DataBindingMode = DataBindingMode.Bindings Then
-        '    label.DataBindings.Add("Text", Nothing, "customQuery.ProductName")
-        'Else
-        '    label.ExpressionBindings.Add(New ExpressionBinding("BeforePrint", "Text", "[ProductName]"))
-        'End If
-        '' Add the label to the detail band.
-        ' DetailBand.Controls.Add(label)
+        Dim NewInputNumber As String
+        NewInputNumber = InputNumber.ToString("###0.00")
+
+        If CDbl(NewInputNumber) >= 10000000000000 Then
+            NumberToThaiWord = ""
+            Return NumberToThaiWord
+        End If
+
+        Dim tmpNumber(2) As String
+        Dim FirstNumber As String
+        Dim LastNumber As String
+
+        tmpNumber = NewInputNumber.Split(CChar("."))
+        FirstNumber = tmpNumber(0)
+        LastNumber = tmpNumber(1)
+
+        Dim nLength As Integer = 0
+        nLength = CInt(FirstNumber.Length)
+
+        Dim i As Integer
+        Dim CNumber As Integer = 0
+        Dim CNumberBak As Integer = 0
+        Dim strNumber As String = ""
+        Dim strPosition As String = ""
+        Dim FinalWord As String = ""
+        Dim CountPos As Integer = 0
+
+        For i = nLength To 1 Step -1
+            CNumberBak = CNumber
+            CNumber = CInt(FirstNumber.Substring(CountPos, 1))
+
+            If CNumber = 0 AndAlso i = 7 Then
+                strPosition = "ล้าน"
+            ElseIf CNumber = 0 Then
+                strPosition = ""
+            Else
+                strPosition = PositionToText(i)
+            End If
+
+            If CNumber = 2 AndAlso strPosition = "สิบ" Then
+                strNumber = "ยี่"
+            ElseIf CNumber = 1 AndAlso strPosition = "สิบ" Then
+                strNumber = ""
+            ElseIf CNumber = 1 AndAlso strPosition = "ล้าน" AndAlso nLength >= 8 Then
+                If CNumberBak = 0 Then
+                    strNumber = "หนึ่ง"
+                Else
+                    strNumber = "เอ็ด"
+                End If
+            ElseIf CNumber = 1 AndAlso strPosition = "" AndAlso nLength > 1 Then
+                strNumber = "เอ็ด"
+            Else
+                strNumber = NumberToText(CNumber)
+            End If
+
+            CountPos = CountPos + 1
+
+            FinalWord = FinalWord & strNumber & strPosition
+        Next
+
+        CountPos = 0
+        CNumberBak = 0
+        nLength = CInt(LastNumber.Length)
+
+        Dim Stang As String = ""
+        Dim FinalStang As String = ""
+
+        If CDbl(LastNumber) > 0.0 Then
+            For i = nLength To 1 Step -1
+                CNumberBak = CNumber
+                CNumber = CInt(LastNumber.Substring(CountPos, 1))
+
+                If CNumber = 1 AndAlso i = 2 Then
+                    strPosition = "สิบ"
+                ElseIf CNumber = 0 Then
+                    strPosition = ""
+                Else
+                    strPosition = PositionToText(i)
+                End If
+
+                If CNumber = 2 AndAlso strPosition = "สิบ" Then
+                    Stang = "ยี่"
+                ElseIf CNumber = 1 AndAlso i = 2 Then
+                    Stang = ""
+                ElseIf CNumber = 1 AndAlso strPosition = "" AndAlso nLength > 1 Then
+                    If CNumberBak = 0 Then
+                        Stang = "หนึ่ง"
+                    Else
+                        Stang = "เอ็ด"
+                    End If
+                Else
+                    Stang = NumberToText(CNumber)
+                End If
+
+                CountPos = CountPos + 1
+
+                FinalStang = FinalStang & Stang & strPosition
+            Next
+
+            FinalStang = FinalStang & "สตางค์"
+        Else
+            FinalStang = ""
+        End If
+
+        Dim SubUnit As String
+        If FinalStang = "" Then
+            SubUnit = "บาทถ้วน"
+        Else
+            If CDbl(FirstNumber) <> 0 Then
+                SubUnit = "บาท"
+            Else
+                SubUnit = ""
+            End If
+        End If
+
+        NumberToThaiWord = FinalWord & SubUnit & FinalStang
+    End Function
+    Private Function NumberToText(ByVal CurrentNum As Integer) As String
+        Dim _nText As String = ""
+
+        Select Case CurrentNum
+            Case 0
+                _nText = ""
+            Case 1
+                _nText = "หนึ่ง"
+            Case 2
+                _nText = "สอง"
+            Case 3
+                _nText = "สาม"
+            Case 4
+                _nText = "สี่"
+            Case 5
+                _nText = "ห้า"
+            Case 6
+                _nText = "หก"
+            Case 7
+                _nText = "เจ็ด"
+            Case 8
+                _nText = "แปด"
+            Case 9
+                _nText = "เก้า"
+        End Select
+
+        NumberToText = _nText
+    End Function
+    Private Function PositionToText(ByVal CurrentPos As Integer) As String
+        Dim _nPos As String = ""
+
+        Select Case CurrentPos
+            Case 0
+                _nPos = ""
+            Case 1
+                _nPos = ""
+            Case 2
+                _nPos = "สิบ"
+            Case 3
+                _nPos = "ร้อย"
+            Case 4
+                _nPos = "พัน"
+            Case 5
+                _nPos = "หมื่น"
+            Case 6
+                _nPos = "แสน"
+            Case 7
+                _nPos = "ล้าน"
+            Case 8
+                _nPos = "สิบ"
+            Case 9
+                _nPos = "ร้อย"
+            Case 10
+                _nPos = "พัน"
+            Case 11
+                _nPos = "หมื่น"
+            Case 12
+                _nPos = "แสน"
+            Case 13
+                _nPos = "ล้าน"
+        End Select
+
+        PositionToText = _nPos
     End Function
 End Class
