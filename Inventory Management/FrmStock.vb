@@ -277,7 +277,6 @@ Public Class FrmStock
             End If
         End Try
     End Sub
-
 #End Region
     Dim _XLSGetHeader As Func(Of String) = Function()
                                                SQL = "SELECT MAX(RequestDate) FROM tbRequisition"
@@ -474,6 +473,20 @@ Public Class FrmStock
             lbU1.Text = 0
             lbU2.Text = 0
             lbU3.Text = 0
+        End If
+    End Sub
+End Class
+Public Class Remove
+    Private Sub RemoveRectangle(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvMain.CustomDrawCell
+        Dim v As GridView = TryCast(sender, GridView)
+        If e.Column.VisibleIndex = 0 AndAlso v.IsMasterRowEmpty(e.RowHandle) Then
+            Dim Info As GridCellInfo = e.Cell
+            If Info.CellButtonRect <> Rectangle.Empty Then
+                Info.CellValueRect.X = TryCast(e.Cell, GridCellInfo).CellButtonRect.X
+                Info.CellValueRect.Width += TryCast(e.Cell, GridCellInfo).CellButtonRect.Width
+                Info.CellButtonRect = Rectangle.Empty
+                e = New DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs(e.Cache, Info.CellValueRect, e.Appearance, e.RowHandle, e.Column, e.CellValue, e.DisplayText)
+            End If
         End If
     End Sub
 End Class
