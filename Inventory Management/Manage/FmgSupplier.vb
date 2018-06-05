@@ -2,6 +2,7 @@
 Option Strict On
 Imports ConDB.Main
 Imports DevExpress.Utils.Menu
+Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Menu
 Imports DevExpress.XtraGrid.Views.Base
@@ -38,6 +39,12 @@ Public Class FmgSupplier
         sluSubCat.EditValue = Nothing
         txtRatio.EditValue = 0
 
+        'grpSupplier clearText
+        For Each ctr As Control In grpSupplier.Controls
+            If TypeOf (ctr) Is TextEdit Or TypeOf (ctr) Is MemoEdit Then
+                ctr.Text = String.Empty
+            End If
+        Next
         GVFormat()
         PnlSave.Visible = False
         grpSupplier.Enabled = True
@@ -48,7 +55,7 @@ Public Class FmgSupplier
 #End Region
 #Region "Button Control"
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles BtnNew.Click
-        If String.IsNullOrEmpty(txtName.Text) Then txtName.SelectAll() : Return
+        If ChkInput(grpSupplier) = False Then Return
         If Edit = False Then
             dtNew = dtResult.Clone
             SupplierID = GenID()
