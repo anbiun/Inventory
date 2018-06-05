@@ -324,9 +324,16 @@ Public Class GetReport
         SQL = "SELECT * FROM tbCompany WHERE CoID = '" & CompanyID & "'"
         dsTbl("Company")
         dtResult = DS.Tables("Report").Copy
+        Dim GetGrandTotal As Func(Of Double) = Function()
+                                                   If Not IsNumeric(dtResult(0)("GrandTotal")) Then
+                                                       Return 0
+                                                   Else
+                                                       Return CDbl(dtResult(0)("GrandTotal").ToString)
+                                                   End If
+                                               End Function
         dtResult.Columns.Add(New DataColumn() With {.ColumnName = "Bathtext",
                                       .DataType = GetType(String),
-                                      .DefaultValue = Bahttext.NumberToThaiWord(CDbl(dtResult(0)("GrandTotal").ToString)).ToString})
+                                      .DefaultValue = Bahttext.NumberToThaiWord(GetGrandTotal())})
         Dim newDS As New DataSet
         dtResult.TableName = "Report"
         newDS.Tables.Add(dtResult)
