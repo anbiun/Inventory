@@ -199,7 +199,6 @@ Public Class FrmQCTarget
     Private Sub gvList_Click(sender As Object, e As EventArgs) Handles gvList.Click
         CType(sender, GridView).ShowEditor()
     End Sub
-
     Private Sub gvList_RowCellClick(sender As Object, e As RowCellClickEventArgs) Handles gvList.RowCellClick
         FrmMain.bsiDebug.Caption = "Handle : " & e.RowHandle
     End Sub
