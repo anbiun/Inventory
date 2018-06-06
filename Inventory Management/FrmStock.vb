@@ -54,14 +54,14 @@ Public Class FrmStock
             MasterDetail.Tables.Add(dtMaster)
             MasterDetail.Tables.Add(dtDetail)
 
-            Dim cParent As DataColumn = MasterDetail.Tables("Master").Columns("Indexs")
-            Dim cChild As DataColumn = MasterDetail.Tables("Detail").Columns("Indexs")
-            MasterDetail.Relations.Add("Relation", cParent, cChild)
+            Dim cParent As DataColumn = MasterDetail.Tables("Master").Columns("RelaID")
+            Dim cChild As DataColumn = MasterDetail.Tables("Detail").Columns("RelaID")
+            MasterDetail.Relations.Add("ข้อมูลวัสดุ", cParent, cChild)
 
             'assign
             gcMain.DataSource = MasterDetail.Tables("Master")
             Dim gvDetail As New GridView(gcMain)
-            gcMain.LevelTree.Nodes.Add("Indexs", gvDetail)
+            gcMain.LevelTree.Nodes.Add("RelaID", gvDetail)
             gvDetail.PopulateColumns(MasterDetail.Tables("Detail"))
         End Using
         gvMaster.SetFormat()
@@ -188,23 +188,23 @@ Public Class FrmStock
                     GvSource.ExpandAllGroups()
                     For gvRow As Integer = 0 To GvSource.RowCount - 1
                         'set cell colour
-                        Dim SetCellColor As Func(Of Integer, String) = Function(Row As Integer)
-                                                                           Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "Warn")), 0, gvMain.GetRowCellDisplayText(Row, "Warn"))
-                                                                           Dim Minimum As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(Row, "Warn_Month"))
-                                                                           Dim AllowColor As Integer = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "AllowColor")), 0, gvMain.GetRowCellDisplayText(Row, "AllowColor"))
-                                                                           Dim CellRange As String = String.Format("A{0}:AA{0}", 4 + Row)
-                                                                           With xlWorkSheet
-                                                                               If warn >= 2 Or AllowColor = 0 Then
-                                                                                   .Cells.Range(CellRange).Style = Stock_Normal
-                                                                               ElseIf warn <= 1 AndAlso AllowColor = 1 Then
-                                                                                   .Cells.Range(CellRange).Style = Stock_Danger
-                                                                               Else
-                                                                                   .Cells.Range(CellRange).Style = Stock_Warning
-                                                                               End If
-                                                                           End With
-                                                                           Return Nothing
-                                                                       End Function
-                        SetCellColor(gvRow) 'end
+                        'Dim SetCellColor As Func(Of Integer, String) = Function(Row As Integer)
+                        '                                                   Dim warn As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "Warn")), 0, gvMain.GetRowCellDisplayText(Row, "Warn"))
+                        '                                                   Dim Minimum As Double = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "Warn_Month")), 0, gvMain.GetRowCellDisplayText(Row, "Warn_Month"))
+                        '                                                   Dim AllowColor As Integer = If(String.IsNullOrWhiteSpace(gvMain.GetRowCellDisplayText(Row, "AllowColor")), 0, gvMain.GetRowCellDisplayText(Row, "AllowColor"))
+                        '                                                   Dim CellRange As String = String.Format("A{0}:AA{0}", 4 + Row)
+                        '                                                   With xlWorkSheet
+                        '                                                       If warn >= 2 Or AllowColor = 0 Then
+                        '                                                           .Cells.Range(CellRange).Style = Stock_Normal
+                        '                                                       ElseIf warn <= 1 AndAlso AllowColor = 1 Then
+                        '                                                           .Cells.Range(CellRange).Style = Stock_Danger
+                        '                                                       Else
+                        '                                                           .Cells.Range(CellRange).Style = Stock_Warning
+                        '                                                       End If
+                        '                                                   End With
+                        '                                                   Return Nothing
+                        '                                               End Function
+                        'SetCellColor(gvRow) 'end
                         'If String.IsNullOrEmpty(GvSource.GetRowCellDisplayText(gvRow, 1)) Then
                         '    Continue For
                         'End If
@@ -546,16 +546,63 @@ Public Class FrmStock
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbLoc.ItemCheck, clbSubCat.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub
-    Private Sub cbStat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbStat.SelectedIndexChanged
-        If cbStat.SelectedIndex <> 1 Then
-            lbU1.Text = 0
-            lbU2.Text = 0
-            lbU3.Text = 0
-        End If
-    End Sub
+    Private Class AdJust
+        Property Unit1 As SpinEdit
+        Property Unit3 As SpinEdit
+        Property BtnSave As SimpleButton
+        Property Ratio As Integer
+        Dim U1 As Double = 0
+        Dim U3 As Double = 0
+
+        Protected Friend Sub UnitTextChange(sender As Object, e As EventArgs)
+            If loadSuccess = False Then Return
+            Dim spiCtr As SpinEdit = TryCast(sender, SpinEdit)
+            If spiCtr.Name = Unit1.Name Then
+                Unit3.EditValue = Unit1.EditValue * Ratio
+            Else
+                Unit1.EditValue = Math.Round(Unit3.EditValue / Ratio, 1)
+            End If
+
+        End Sub
+        Protected Friend Sub Save(sender As Object, e As EventArgs)
+            If ChkInput(FrmStock.grpAdjust) = False Then
+                MessageBox.Show("check input", "error", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Exit Sub
+            End If
+
+            Dim stat As Func(Of Integer) = Function()
+                                               If FrmStock.cbStat.Text = "คงเหลือ" Then
+                                                   Return 1
+                                               ElseIf FrmStock.Text = "หมดแล้ว" Then
+                                                   Return 2
+                                               Else
+                                                   Return 0
+                                               End If
+                                           End Function
+            If stat() <> 1 Then
+                U1 = 0
+                U3 = 0
+            Else
+                U1 = CDbl(Unit1.EditValue)
+                U3 = CDbl(Unit3.EditValue)
+            End If
+
+            SQL = "update tbstock"
+            SQL &= " set unit1='" & U1 & "'"
+            SQL &= " ,unit3='" & U3 & "'"
+            SQL &= " ,stat='" & stat() & "'"
+            SQL &= " where tagid='" & FrmStock.lbTagID.Text & "'"
+            SQL &= " and locid='" & FrmStock.LocID & "'"
+            dsTbl("adjust")
+            BindInfo.Excute()
+            FrmStock.gvMain.ExpandAllGroups()
+            FrmStock.gvRowClick(FrmStock.gvMain, Nothing, FrmStock.gvMain.FocusedRowHandle)
+        End Sub
+    End Class
 End Class
+
 Public Class Remove
-    Private Sub RemoveRectangle(sender As Object, e As RowCellCustomDrawEventArgs) Handles gvMain.CustomDrawCell
+    Private Sub RemoveRectangle(sender As Object, e As RowCellCustomDrawEventArgs)
         Dim v As GridView = TryCast(sender, GridView)
         If e.Column.VisibleIndex = 0 AndAlso v.IsMasterRowEmpty(e.RowHandle) Then
             Dim Info As GridCellInfo = e.Cell
@@ -568,6 +615,7 @@ Public Class Remove
         End If
     End Sub
 End Class
+
 
 
 

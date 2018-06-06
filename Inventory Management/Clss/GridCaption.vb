@@ -68,14 +68,15 @@ Public Class GridCaption
             StringKey.Add(Keys)
         End Sub
     End Class
-    Public Sub SetFormatNumber(ColumnsList As String(), Optional FormatString As String = "")
+    Public Sub SetFormat(ColumnsList As String(), Optional FormatType As FormatType = FormatType.Numeric, Optional FormatString As String = "")
 
         For Each items As String In ColumnsList
-            GridViewName.Columns(items).DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+            GridViewName.Columns(items).DisplayFormat.FormatType = FormatType
             GridViewName.Columns(items).DisplayFormat.FormatString = If(String.IsNullOrEmpty(FormatString), "{0:n1}", FormatString)
         Next
 
     End Sub
+
 End Class
 
 'Code สำหรับ GridView หน้า Stock
@@ -93,14 +94,14 @@ Namespace GridStyle
                 .HIDE.Columns("QCWarn")
                 .HIDE.Columns("matid")
                 .HIDE.Columns("AllowColor")
-                .HIDE.Columns("Indexs")
+                .HIDE.Columns("RelaID")
                 .HIDE.Columns("Minimum")
                 .HIDE.Columns("SubMatName")
                 .SetCaption()
                 Dim ColList As String() = {"Unit1", "Unit3", "Dozen", "Warn"}
-                .SetFormatNumber(ColList)
+                .SetFormat(ColList)
                 For i As Integer = 1 To 12
-                    .SetFormatNumber({MonthName(i)}, "{0:n0}")
+                    .SetFormat({MonthName(i)}, FormatType.Numeric, "{0:n0}")
                 Next
             End With
             With Grid
@@ -163,7 +164,7 @@ Namespace GridStyle
                 .HIDE.Columns("QCWarn")
                 .HIDE.Columns("matid")
                 .HIDE.Columns("AllowColor")
-                .HIDE.Columns("Indexs")
+                .HIDE.Columns("RelaID")
                 .HIDE.Columns("Minimum")
                 .HIDE.Columns("SubCatName")
                 .HIDE.Columns("SubMatName")
@@ -171,9 +172,9 @@ Namespace GridStyle
                 .HIDE.Columns("ProductName")
                 .SetCaption()
                 Dim ColList As String() = {"Unit1", "Unit3", "Dozen", "Warn"}
-                .SetFormatNumber(ColList)
+                .SetFormat(ColList)
                 For i As Integer = 1 To 12
-                    .SetFormatNumber({MonthName(i)}, "{0:n0}")
+                    .SetFormat({MonthName(i)}, FormatType.Numeric, "{0:n0}")
                 Next
             End With
             With Grid
