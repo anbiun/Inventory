@@ -90,7 +90,7 @@ Module ImModule
         Return newId
     End Function
     Public Sub NumOnly(e As KeyPressEventArgs, Optional Without As String() = Nothing)
-        If Without.Contains(e.KeyChar) Then Return
+        If Without IsNot Nothing AndAlso Without.Contains(e.KeyChar) Then Return
         If e.KeyChar <> ControlChars.Back Then
             e.Handled = Not (Char.IsDigit(e.KeyChar))
         End If

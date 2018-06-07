@@ -46,10 +46,10 @@ Public Class FrmStock
                 .Excute()
             End With
             '------Table Master
-            Dim dtMaster As DataTable = CType(BindInfo.Result("Master"), BindingSource).DataSource
+            Dim dtMaster As DataTable = TryCast(BindInfo.Result("Master"), BindingSource).DataSource
             dtMaster.TableName = "Master"
             '------Table Detail
-            Dim dtDetail As DataTable = CType(BindInfo.Result("Detail"), BindingSource).DataSource
+            Dim dtDetail As DataTable = TryCast(BindInfo.Result("Detail"), BindingSource).DataSource
             dtDetail.TableName = "Detail"
             MasterDetail.Tables.Add(dtMaster)
             MasterDetail.Tables.Add(dtDetail)
@@ -64,9 +64,9 @@ Public Class FrmStock
             gcMain.LevelTree.Nodes.Add("RelaID", gvDetail)
             gvDetail.PopulateColumns(MasterDetail.Tables("Detail"))
         End Using
-        gvMaster.SetFormat()
         gvMain.PopulateColumns()
         gvMain.BestFitColumns()
+        gvMaster.SetFormat()
         PO = New POFunction.ToolTip
         PO.ToolTipControl = tooltipGcMain
     End Sub
@@ -333,15 +333,13 @@ Public Class FrmStock
             End If
         End Try
     End Sub
+
 #End Region
     Dim _XLSGetHeader As Func(Of String) = Function()
                                                SQL = "SELECT MAX(RequestDate) FROM tbRequisition"
                                                dsTbl("get")
                                                Return DS.Tables("get")(0)(0)
                                            End Function
-    Dim days As String() = {"จันทร์", "อังคาร", "พุทธ", "พฤหัสบดี", "ศุกร์", "เสาร์", "อาทิตย์"}
-    Dim defH As Integer = 25
-    Dim sizeH As Integer = 0
     Private Sub FrmStock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadSuccess = False
         If User.Permission <= UserInfo.UserGroup.Manger Then expandAdjust.Enabled = False
@@ -420,60 +418,6 @@ Public Class FrmStock
             End If
         End If
     End Sub
-    Private Function IsHoliday(ByVal dt As DateTime) As Boolean
-        SQL = "SELECT DISTINCT(ExportDate) FROM Service_Export_Stock"
-        dsTbl("getdate")
-
-        Dim ExportDate As New List(Of String)
-        Dim ExportDay As New List(Of String)
-        For Each item As DataRow In DS.Tables("getdate").Rows
-            If item("ExportDate") IsNot DBNull.Value Then ExportDate.Add(ConvertDate(item("ExportDate")))
-        Next
-
-        If ExportDate.Contains(ConvertDate(dt)) Then Return True
-        'If ExportDay.Contains(dt.DayOfWeek) Then Return True
-        ''the specified date is a Saturday or Holiday
-        'If dt.DayOfWeek = DayOfWeek.Saturday Or dt.DayOfWeek = DayOfWeek.Sunday Then
-        '    Return True
-        'End If
-
-
-        ''New Year's Day
-        'If (dt.Day = 1 And dt.Month = 1) Then Return True
-
-        ''Inauguration Day
-        'If dt.Year >= 1789 And (dt.Year - 1789) Mod 4 = 0 Then
-        '    If dt.Day = 20 And dt.Month = 1 Then Return True
-        'End If
-
-        ''Independence Day
-        'If dt.Day = 4 And dt.Month = 7 Then Return True
-        ''Veterans Day
-        'If dt.Day = 11 And dt.Month = 11 Then Return True
-        ''Christmas
-        'If dt.Day = 25 And dt.Month = 12 Then Return True
-        Return False
-    End Function
-    Private Sub DateEdit_DrawItem(ByVal sender As Object,
-  ByVal e As DevExpress.XtraEditors.Calendar.CustomDrawDayNumberCellEventArgs)
-
-        If Not e.View = DevExpress.XtraEditors.Controls.DateEditCalendarViewType.MonthInfo Then Return
-        'return if a given date is not a holiday
-        'in this case the default drawing will be performed (e.Handled is false)
-        If Not IsHoliday(e.Date) Then Return
-        'highlight the selected date
-        If e.Selected Then e.Graphics.FillRectangle(e.Style.GetBackBrush(e.Cache), e.Bounds)
-        'the brush for painting days
-        Dim brush As Brush = IIf(e.Inactive, Brushes.Blue, Brushes.Blue)
-        'specify formatting attributes for drawing text
-        Dim strFormat As StringFormat = New StringFormat
-        strFormat.Alignment = StringAlignment.Center
-        strFormat.LineAlignment = StringAlignment.Center
-        'draw the day number
-        e.Graphics.DrawString(e.Date.Day.ToString(), e.Style.Font, brush, e.Bounds, strFormat)
-        'no default drawing is required
-        e.Handled = True
-    End Sub
     Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs, Optional RowHandle As Integer = -1) Handles gvAdjust.RowCellClick, gvMain.RowCellClick
         Dim GV As GridView = CType(sender, GridView)
         If GV.FocusedRowHandle < 0 Then Exit Sub
@@ -526,26 +470,10 @@ Public Class FrmStock
             End Select
         End With
     End Sub
-    Private Sub chkDay_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
-        Dim clb As CheckedListBox = CType(sender, CheckedListBox)
-
-        loadSuccess = True
-        If defH = clb.Height Then
-            sizeH = 0
-            For i = 0 To days.Count - 1
-                sizeH += 20
-            Next
-            clb.Size = New System.Drawing.Size(clb.Width, sizeH)
-        End If
-    End Sub
-    Private Sub chkDay_LostFocus(sender As Object, e As EventArgs)
-        loadSuccess = True
-        Dim clb As CheckedListBox = CType(sender, CheckedListBox)
-        clb.Size = New System.Drawing.Size(clb.Width, defH)
-    End Sub
     Private Sub clbLoc_ItemCheck(sender As Object, e As DevExpress.XtraEditors.Controls.ItemCheckEventArgs) Handles clbLoc.ItemCheck, clbSubCat.ItemCheck
         clbInfo.SelectAllCheck(sender, e)
     End Sub
+
     Private Class AdJust
         Property Unit1 As SpinEdit
         Property Unit3 As SpinEdit
@@ -600,22 +528,5 @@ Public Class FrmStock
         End Sub
     End Class
 End Class
-
-Public Class Remove
-    Private Sub RemoveRectangle(sender As Object, e As RowCellCustomDrawEventArgs)
-        Dim v As GridView = TryCast(sender, GridView)
-        If e.Column.VisibleIndex = 0 AndAlso v.IsMasterRowEmpty(e.RowHandle) Then
-            Dim Info As GridCellInfo = e.Cell
-            If Info.CellButtonRect <> Rectangle.Empty Then
-                Info.CellValueRect.X = TryCast(e.Cell, GridCellInfo).CellButtonRect.X
-                Info.CellValueRect.Width += TryCast(e.Cell, GridCellInfo).CellButtonRect.Width
-                Info.CellButtonRect = Rectangle.Empty
-                e = New DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs(e.Cache, Info.CellValueRect, e.Appearance, e.RowHandle, e.Column, e.CellValue, e.DisplayText)
-            End If
-        End If
-    End Sub
-End Class
-
-
 
 

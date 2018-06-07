@@ -208,7 +208,8 @@ Public Class FrmPONew
         Select Case slu.Name
             Case sluSubCat.Name
                 With sluSupplier.Properties
-                    .DataSource = dtSupplier.Select("SubCatID = '" & SubCatID & "'").Take(1).CopyToDataTable
+                    FoundRow = dtSupplier.Select("SubCatID = '" & SubCatID & "'")
+                    .DataSource = If(FoundRow.Count > 0, FoundRow.Take(1).CopyToDataTable, Nothing)
                     .View.PopulateColumns(dtSupplier)
                     .DisplayMember = "SupplierName"
                     .ValueMember = "SupplierID"

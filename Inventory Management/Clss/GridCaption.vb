@@ -4,6 +4,8 @@ Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraEditors
 Imports DevExpress.Utils
+Imports DevExpress.XtraGrid.Views.Base
+Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 
 Public Class GridCaption
     Public HIDE As New SelectColum
@@ -86,6 +88,7 @@ Namespace GridStyle
         Sub New(val As GridView)
             MyBase.New(val)
             AddHandler Grid.CustomDrawCell, AddressOf CustomDrawCell
+            'AddHandler Grid.RowStyle, AddressOf mybase.RowStyle
         End Sub
         Public Overloads Sub SetFormat()
             If Grid.RowCount <= 0 Then Return
@@ -111,40 +114,28 @@ Namespace GridStyle
                 .Columns("SubCatName").Fixed = Columns.FixedStyle.Left
                 .Columns("ProductName").Fixed = Columns.FixedStyle.Left
                 .Columns("Warn").Fixed = Columns.FixedStyle.Left
-                .Columns("ReqToday").Fixed = Columns.FixedStyle.Left
+                .Columns("Warn_Name").Fixed = Columns.FixedStyle.Left
+                .Columns("PoStat").Fixed = Columns.FixedStyle.Left
                 .BestFitColumns()
                 .OptionsView.ShowAutoFilterRow = True
             End With
-            TestCode()
         End Sub
-        Private Sub TestCode()
-            Return
-            For Row As Integer = 0 To Grid.RowCount - 1
-                Dim vInfo As ViewInfo.GridViewInfo = TryCast(Grid.GetViewInfo(), ViewInfo.GridViewInfo)
-                Dim cInfo As ViewInfo.GridCellInfo = vInfo.GetGridCellInfo(Row, Grid.Columns(0))
+        Protected Overloads Sub CustomDrawCell(sender As Object, e As RowCellCustomDrawEventArgs)
+            If e.RowHandle = GridControl.NewItemRowHandle Or e.RowHandle = GridControl.AutoFilterRowHandle Then Return
+            Dim gcix As ViewInfo.GridCellInfo = TryCast(e.Cell, ViewInfo.GridCellInfo)
+            Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
 
-                '-----Master Detail Remove [+] if onerow
-                If cInfo Is Nothing Then Continue For
-                Dim subView As DataView = CType(Grid.GetRow(Row), DataRowView).CreateChildView("Relation")
-                Dim isMasterRow As Boolean = False
-
-                If subView.Count = 1 Then
-                    TryCast(cInfo, ViewInfo.GridCellInfo).CellButtonRect = Rectangle.Empty
+            Dim v As GridView = TryCast(sender, GridView)
+            If e.Column.VisibleIndex = 0 AndAlso v.IsMasterRowEmpty(e.RowHandle) Then
+                Dim Info As GridCellInfo = CType(e.Cell, GridCellInfo)
+                If Info.CellButtonRect <> Rectangle.Empty Then
+                    Info.CellValueRect.X = TryCast(e.Cell, GridCellInfo).CellButtonRect.X
+                    Info.CellValueRect.Width += TryCast(e.Cell, GridCellInfo).CellButtonRect.Width
+                    Info.CellButtonRect = Rectangle.Empty
+                    e = New DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs(e.Cache, Info.CellValueRect, e.Appearance, e.RowHandle, e.Column, e.CellValue, e.DisplayText)
                 End If
-            Next
-        End Sub
-        Protected Overloads Sub CustomDrawCell(ByVal sender As Object, ByVal e As Views.Base.RowCellCustomDrawEventArgs)
-            'Return
-            If e.CellValue Is Nothing Or e.Column.VisibleIndex <> 0 Then Return
-            Dim view As GridView = TryCast(sender, GridView)
-            '-----Master Detail Remove [+] if onerow
-            Dim subView As DataView = CType(Grid.GetRow(e.RowHandle), DataRowView).CreateChildView("Relation")
 
-            If e.Column.VisibleIndex = 0 Then
-                If subView.Count = 1 Then
-                    TryCast(e.Cell, ViewInfo.GridCellInfo).CellButtonRect = Rectangle.Empty
-                Else
-                End If
+
             End If
         End Sub
     End Class
@@ -180,33 +171,32 @@ Namespace GridStyle
             With Grid
                 .Columns("MatName").Fixed = Columns.FixedStyle.Left
                 .Columns("Warn").Fixed = Columns.FixedStyle.Left
-                .Columns("ReqToday").Fixed = Columns.FixedStyle.Left
+                .Columns("Warn_Name").Fixed = Columns.FixedStyle.Left
+                .Columns("PoStat").Fixed = Columns.FixedStyle.Left
                 .BestFitColumns()
                 .OptionsView.ShowAutoFilterRow = True
             End With
 
         End Sub
         Protected Sub CustomDrawCell(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs)
-            If e.CellValue Is Nothing Then Exit Sub
+            If e.RowHandle = GridControl.NewItemRowHandle Or e.RowHandle = GridControl.AutoFilterRowHandle Then Return
+            If e.CellValue Is Nothing Then Return
             Dim gcix As ViewInfo.GridCellInfo = TryCast(e.Cell, ViewInfo.GridCellInfo)
             Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
 
-            If e.Column.FieldName = "ReqToday" Then
+            If e.Column.FieldName = "PoStat" Then
                 e.DisplayText = String.Empty
-                If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "ReqToday" Then
-                    If CInt(TryCast(sender, GridView).GetRowCellValue(e.RowHandle, "AllowColor")) = 0 Then
-                        infox.ContextImage = My.Resources.opportunities_16x16
-                    ElseIf e.CellValue.ToString = "1" Then
-                        infox.ContextImage = My.Resources.apply_16x16
-                    ElseIf e.CellValue.ToString = "2" Then
-                        infox.ContextImage = My.Resources.about_16x16
-                    ElseIf e.CellValue.ToString = "0" Then
-                        infox.ContextImage = Nothing
-                    End If
-                    infox.CalcViewInfo()
+                If CType(sender, GridView).GetRowCellValue(e.RowHandle, "AllowColor").ToString = "0" Then
+                    infox.ContextImage = My.Resources.opportunities_16x16
+                ElseIf e.CellValue.ToString = "1" Then
+                    infox.ContextImage = Nothing
+                ElseIf e.CellValue.ToString = "2" Then
+                    infox.ContextImage = My.Resources.postat2_16x16
+                ElseIf e.CellValue.ToString = "0" Then
+                    infox.ContextImage = My.Resources.sales_16x16
                 End If
+                infox.CalcViewInfo()
             End If
-
             If e.Column.FieldName = "qcnote" Then
                 e.DisplayText = "เป้าQC"
                 If e.RowHandle <> GridControl.NewItemRowHandle AndAlso e.Column.FieldName = "qcnote" Then
@@ -215,21 +205,19 @@ Namespace GridStyle
                     infox.CalcViewInfo()
                 End If
             End If
-            If e.Column.FieldName = "Warn" Then
-                e.DisplayText = e.CellValue.ToString & " เดือน"
-            End If
-
         End Sub
+
         Protected Sub RowStyle(ByVal sender As Object, ByVal e As RowStyleEventArgs)
             Dim View As GridView = TryCast(sender, GridView)
+            If View.GetRowCellValue(e.RowHandle, "Warn") Is DBNull.Value Then Return
             Dim Warn As Double = CDbl(View.GetRowCellValue(e.RowHandle, "Warn"))
             Dim Minimum As Integer = CInt(View.GetRowCellValue(e.RowHandle, "Minimum"))
             Dim AllowColor As Integer = CInt(View.GetRowCellValue(e.RowHandle, "AllowColor"))
             If (e.RowHandle >= 0) Then
                 If IsDBNull(Warn) Then
-                    Warn = 0
+                    Warn = Nothing
                 Else
-                    Warn = If(IsDBNull(Warn), 0, CDbl(Warn))
+                    Warn = If(IsDBNull(Warn), Nothing, CDbl(Warn))
                 End If
                 If IsDBNull(Minimum) Then
                     Minimum = 0
@@ -247,58 +235,5 @@ Namespace GridStyle
                 End If
             End If
         End Sub
-
-        'Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs, Optional RowHandle As Integer = -1) Handles gvAdjust.RowCellClick, gvMain.RowCellClick
-        '    Dim GV As GridView = CType(sender, GridView)
-        '    If GV.FocusedRowHandle < 0 Then Exit Sub
-        '    With GV
-        '        Dim getCellVal As Func(Of String, String) = Function(cells)
-        '                                                        Return .GetRowCellValue(
-        '                                                        If(RowHandle >= 0, RowHandle, e.RowHandle),
-        '                                                        cells)
-        '                                                    End Function
-        '        Select Case .Name
-        '            Case gvMain.Name
-        '                Dim MatID As String = getCellVal("MatID")
-        '                SQL = "SELECT * FROM vwAdjust"
-        '                SQL &= " WHERE MatID = '" & MatID & "'"
-        '                SQL &= " AND " & LocExpr(clbLoc.CheckedItems).Replace("OR", "OR MatID='" & MatID & "' AND")
-
-        '                If clbLoc.CheckedItems.Count <= 0 Then Exit Sub
-        '                gcAdjust.DataSource = dsTbl("AJStock")
-        '                If gvAdjust.RowCount > 0 Then
-        '                    gridInfo = New GridCaption(gvAdjust)
-        '                    With gridInfo
-        '                        .SetCaption()
-        '                        .SetFormatNumber({"Unit1", "Unit3"})
-        '                    End With
-        '                    With gvAdjust
-        '                        .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-        '                        .BestFitColumns()
-        '                    End With
-        '                End If
-
-        '            Case gvAdjust.Name
-        '                Dim Unit1 As Double = getCellVal("Unit1")
-        '                Dim Unit3 As Double = getCellVal("Unit3")
-        '                Unit1 = Math.Round(Unit1, 2)
-        '                Unit3 = Math.Round(Unit3, 2)
-        '                lbMatName.Text = getCellVal("MatName")
-        '                lbTagID.Text = getCellVal("TagID")
-        '                lbRatio.Text = getCellVal("Ratio")
-        '                lbQtyPerUnit.Text = getCellVal("QtyPerUnit")
-
-
-        '                lbUnit1.Text = Unit1
-        '                lbUnit3.Text = Unit3
-        '                txtUnit1.EditValue = Unit1
-        '                txtUnit2.EditValue = Unit3
-
-        '                lbUnit1_Name.Text = getCellVal("Unit1_Name")
-        '                lbUnit3_Name.Text = getCellVal("Unit3_Name")
-        '                LocID = getCellVal("LocID")
-        '        End Select
-        '    End With
-        'End Sub
     End Class
 End Namespace
