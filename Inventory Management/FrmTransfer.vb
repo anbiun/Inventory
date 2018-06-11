@@ -22,7 +22,7 @@ Public Class FrmTransfer
         SQL &= " FROM tbStock AS S INNER JOIN"
         SQL &= " tbMat AS M ON S.MatID = M.MatID INNER JOIN"
         SQL &= " tbUnit AS U1 ON S.Unit1_ID = U1.UnitID INNER JOIN"
-        SQL &= " tbSubCategory AS SC ON M.SubCatID = SC.SubCatID INNER JOIN"
+        SQL &= " tbSubCategory AS SC ON M.SubCatID = SC.SubCatID AND M.CatID = SC.CatID INNER JOIN"
         SQL &= " tbUnit AS U3 ON SC.Unit3_ID = U3.UnitID"
         SQL &= " WHERE S.LocID = '" & User.SelectLoc & "' AND S.Stat <> 0 AND Unit3 > 0.1"
         SQL &= " ORDER BY S.MatID"

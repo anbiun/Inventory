@@ -207,9 +207,12 @@ Public Class FrmPONew
         SubCatID = sluSubCat.EditValue.ToString
         Select Case slu.Name
             Case sluSubCat.Name
+                Dim v As New DataView(dtSupplier)
+                Dim distinct As DataTable = v.ToTable(True, "SupplierName", "SubCatID", "SupplierID")
+
                 With sluSupplier.Properties
-                    FoundRow = dtSupplier.Select("SubCatID = '" & SubCatID & "'")
-                    .DataSource = If(FoundRow.Count > 0, FoundRow.Take(1).CopyToDataTable, Nothing)
+                    FoundRow = distinct.Select("SubCatID = '" & SubCatID & "'")
+                    .DataSource = If(FoundRow.Count > 0, FoundRow.CopyToDataTable, Nothing)
                     .View.PopulateColumns(dtSupplier)
                     .DisplayMember = "SupplierName"
                     .ValueMember = "SupplierID"
@@ -219,9 +222,12 @@ Public Class FrmPONew
                 End With
 
             Case sluSupplier.Name
+                Dim SupplierID As String
+                SupplierID = SlClick(sluSupplier, "SupplierID")
+                If SupplierID Is Nothing Then Return
                 Dim RatioArray As Func(Of String) = Function()
                                                         Dim result As String = String.Empty
-                                                        For Each dr As DataRow In dtSupplier.Select("SubCatID='" & SubCatID & "'")
+                                                        For Each dr As DataRow In dtSupplier.Select("SubCatID='" & SubCatID & "' AND SupplierID ='" & SupplierID & "'")
                                                             If String.IsNullOrEmpty(result) Then
                                                                 result = String.Format("'{0}'", dr("Ratio"))
                                                             Else

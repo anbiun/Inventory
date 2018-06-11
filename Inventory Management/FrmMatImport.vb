@@ -228,8 +228,12 @@ SubUnit:
         End If
         If gvImportOrder.RowCount > 0 Then gvImportOrder.BestFitColumns() : gvImportOrder.Columns("Notation").Width *= 2
         If gvImportOrder.FocusedColumn.FieldName = "del" And dtImportOrder.Rows.Count > 0 Then
-            dtImportOrder.Rows(gv.GetDataSourceRowIndex(rw)).Delete()
-            dtImportOrder.AcceptChanges()
+            Try
+                dtImportOrder.Rows(gv.GetDataSourceRowIndex(rw)).Delete()
+                dtImportOrder.AcceptChanges()
+            Catch ex As Exception
+                Return
+            End Try
         End If
 
         gv.SelectRow(rw)
@@ -238,7 +242,9 @@ SubUnit:
     Private Sub Transfer()
         For Each item As DataRow In dtImportList.Rows
             ImportID = item("ImportID")
-            ClsDS({"transfer"})
+            Dim dbug As String
+            dbug = dtImportOrder.Rows.Count
+
             SQL = "INSERT INTO tbStock (MatID, Unit1, Unit1_ID, Unit3, TagID, ImportDate, ImportID, LocID)"
             SQL &= " SELECT tbImportOrder.MatID,"
             If Not rdSurPlus.EditValue Then
@@ -248,8 +254,9 @@ SubUnit:
             End If
             SQL &= " tbImportOrder.TagID, tbImportList.ImportDate, tbImportList.ImportID,'" & User.SelectLoc & "' AS LocID"
             SQL &= " FROM tbImportOrder INNER JOIN tbImportList ON tbImportOrder.ImportID = tbImportList.ImportID INNER JOIN tbMat ON tbImportOrder.MatID = tbMat.MatID"
-            SQL &= " INNER JOIN tbSubCategory ON tbMat.SubCatID = tbSubCategory.SubCatID"
+            SQL &= " INNER JOIN tbSubCategory ON tbMat.CatID+tbMat.SubCatID = tbSubCategory.CatID+tbSubCategory.SubCatID"
             SQL &= " WHERE (tbImportOrder.ImportID = '" & ImportID & "') "
+            dbug = SQL
             'SQL &= " UPDATE tbImportList SET Stat=1 WHERE ImportID='" & ImportID & "'"
             dsTbl("transfer")
         Next

@@ -100,6 +100,8 @@ Namespace GridStyle
                 .HIDE.Columns("RelaID")
                 .HIDE.Columns("Minimum")
                 .HIDE.Columns("SubMatName")
+                .HIDE.Columns("ProductID")
+                .HIDE.Columns("SubCatID")
                 .SetCaption()
                 Dim ColList As String() = {"Unit1", "Unit3", "Dozen", "Warn"}
                 .SetFormat(ColList)
@@ -124,6 +126,16 @@ Namespace GridStyle
             If e.RowHandle = GridControl.NewItemRowHandle Or e.RowHandle = GridControl.AutoFilterRowHandle Then Return
             Dim gcix As ViewInfo.GridCellInfo = TryCast(e.Cell, ViewInfo.GridCellInfo)
             Dim infox As ViewInfo.TextEditViewInfo = TryCast(gcix.ViewInfo, ViewInfo.TextEditViewInfo)
+
+            If e.Column.FieldName = "PoStat" Then
+                e.DisplayText = String.Empty
+                If CType(sender, GridView).GetRowCellValue(e.RowHandle, "AllowColor").ToString = "0" Then
+                    infox.ContextImage = My.Resources.opportunities_16x16
+                ElseIf e.CellValue.ToString = "3" Then
+                    infox.ContextImage = My.Resources.about_16x16
+                End If
+                infox.CalcViewInfo()
+            End If
 
             Dim v As GridView = TryCast(sender, GridView)
             If e.Column.VisibleIndex = 0 AndAlso v.IsMasterRowEmpty(e.RowHandle) Then

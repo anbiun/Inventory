@@ -45,13 +45,12 @@ Public Class FrmRequisition
         SQL = "SELECT * FROM tbSubMat"
         dsTbl("submat")
 
-        SQL = "SELECT CatID,SubCatID, SubCatName,GroupTag FROM tbSubCategory"
+        SQL = "SELECT CatID+SubCatID SubCatID, SubCatName,GroupTag FROM tbSubCategory"
         With sluSubCat.Properties
             .DataSource = dsTbl("subcat")
             .PopulateViewColumns()
             .DisplayMember = "SubCatName"
             .ValueMember = "SubCatID"
-            .View.Columns("CatID").Visible = False
             .View.Columns("SubCatID").Visible = False
             .View.Columns("GroupTag").Visible = False
             .View.Columns("SubCatName").Caption = getString("subcatname")
@@ -310,7 +309,7 @@ Public Class FrmRequisition
         'AND S.ImportID = O.ImportID "
         SQL &= "LEFT OUTER JOIN CombineSubMatName() SM ON S.MatID = SM.MatID"
 
-        SQL &= " WHERE S.LocID = '" & User.SelectLoc & "' AND SC.SubCatID = '" & sluSubCat.EditValue & "'"
+        SQL &= " WHERE S.LocID = '" & User.SelectLoc & "' AND M.CatID+M.SubCatID = '" & sluSubCat.EditValue & "'"
         SQL &= " AND S.Stat > 0"
         SQL &= " ORDER BY S.MatID"
         Dim sqlDbug As String = SQL

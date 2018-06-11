@@ -256,7 +256,7 @@ Public Class GridViewColumnButtonMenu
         PoInfo.Items.Add(CreateMenuItem("ในนาม JL", My.Resources.JL_16x16, "JL", True))
         'Items.Add(CreateMenuItem("รายละเอียดใบสั่งซื้อ", My.Resources.po_16x16, "PoInfo", True))
 
-        Items.Add(CreateMenuItem("แก้ไข", My.Resources.edit_16x16, "Edit", Access))
+        Items.Add(CreateMenuItem("แก้ไข", My.Resources.edit_16x16, "Edit", False))
         If User.Permission >= UserInfo.UserGroup.Manger Then Items.Add(CreateMenuItem("ลบ", My.Resources.delete_16x16, "Del", Access))
     End Sub
     Protected Overrides Sub OnMenuItemClick(ByVal sender As Object, ByVal e As EventArgs)

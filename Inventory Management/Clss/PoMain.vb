@@ -14,6 +14,11 @@ Namespace POFunction
         End Property
         Private dtPoOrder As DataTable
         Private _toolTip As ToolTipController
+        Property MatID As String
+        Property ProductID As String
+        Property SubCatID As String
+        Property UnitName As String
+
         Sub New()
             Qry()
         End Sub
@@ -22,10 +27,15 @@ Namespace POFunction
             dsTbl("PoDetail")
             dtPoOrder = DS.Tables("PoDetail").Copy
         End Sub
-        Public Function getOwing(matID As String, UnitName As String) As String
+        Public Function getOwing() As String
             '"0302051"
+
             Dim Result As String = String.Empty
-            FoundRow = dtPoOrder.Select("MatID ='" & matID & "'")
+            If String.IsNullOrEmpty(MatID) Then
+                FoundRow = dtPoOrder.Select("ProductID = '" & ProductID & "' AND SubCatID = '" & SubCatID & "'")
+            Else
+                FoundRow = dtPoOrder.Select("MatID ='" & MatID & "'")
+            End If
 
             If FoundRow.Count > 0 Then
                 For i As Integer = 0 To FoundRow.Count - 1

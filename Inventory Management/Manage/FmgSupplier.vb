@@ -112,6 +112,7 @@ Public Class FmgSupplier
         FirstQry()
         LoadDef()
     End Sub
+
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
         If sluSubCat.EditValue Is Nothing Then Return
         FoundRow = dtNew.Select("SubCatID ='" & sluSubCat.EditValue.ToString & "'")

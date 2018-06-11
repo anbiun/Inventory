@@ -282,6 +282,7 @@ Partial Class FrmStock
         Me.btnExportExcel.Size = New System.Drawing.Size(212, 43)
         Me.btnExportExcel.TabIndex = 19
         Me.btnExportExcel.Text = "นำออกข้อมูล Excel"
+        Me.btnExportExcel.Visible = False
         '
         'lbCat
         '

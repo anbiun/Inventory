@@ -33,6 +33,7 @@ Partial Public Class Report_PO
         Me.tableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.tableCell6 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell7 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.tableCell60 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell59 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell9 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell10 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -181,7 +182,7 @@ Partial Public Class Report_PO
         Me.table2.Name = "table2"
         Me.table2.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 2, 0, 100.0!)
         Me.table2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow2})
-        Me.table2.SizeF = New System.Drawing.SizeF(726.0417!, 27.00001!)
+        Me.table2.SizeF = New System.Drawing.SizeF(727.0!, 27.00001!)
         Me.table2.StylePriority.UseBackColor = False
         Me.table2.StylePriority.UseBorders = False
         Me.table2.StylePriority.UseFont = False
@@ -189,7 +190,7 @@ Partial Public Class Report_PO
         '
         'tableRow2
         '
-        Me.tableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.tableCell6, Me.tableCell7, Me.tableCell59, Me.tableCell9, Me.tableCell10, Me.tableCell11})
+        Me.tableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.tableCell6, Me.tableCell7, Me.tableCell60, Me.tableCell59, Me.tableCell9, Me.tableCell10, Me.tableCell11})
         Me.tableRow2.Name = "tableRow2"
         Me.tableRow2.Weight = 11.5R
         '
@@ -208,11 +209,23 @@ Partial Public Class Report_PO
         '
         'tableCell7
         '
-        Me.tableCell7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "custom.MatName")})
+        Me.tableCell7.Borders = DevExpress.XtraPrinting.BorderSide.Left
+        Me.tableCell7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Report.MatName")})
         Me.tableCell7.Name = "tableCell7"
         Me.tableCell7.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 3, 0, 100.0!)
+        Me.tableCell7.StylePriority.UseBorders = False
         Me.tableCell7.StylePriority.UsePadding = False
-        Me.tableCell7.Weight = 1.5533336588541666R
+        Me.tableCell7.Weight = 0.91057889730050867R
+        '
+        'tableCell60
+        '
+        Me.tableCell60.Borders = DevExpress.XtraPrinting.BorderSide.Right
+        Me.tableCell60.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Report.MatNotation")})
+        Me.tableCell60.Name = "tableCell60"
+        Me.tableCell60.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 3, 0, 100.0!)
+        Me.tableCell60.StylePriority.UseBorders = False
+        Me.tableCell60.StylePriority.UsePadding = False
+        Me.tableCell60.Weight = 0.64275512013209724R
         '
         'tableCell59
         '
@@ -224,7 +237,7 @@ Partial Public Class Report_PO
         Me.tableCell59.StylePriority.UsePadding = False
         Me.tableCell59.StylePriority.UseTextAlignment = False
         Me.tableCell59.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.tableCell59.Weight = 0.41722249348958329R
+        Me.tableCell59.Weight = 0.44063420815236487R
         '
         'tableCell9
         '
@@ -236,7 +249,7 @@ Partial Public Class Report_PO
         Me.tableCell9.StylePriority.UsePadding = False
         XrSummary2.FormatString = "{0:#.00}"
         Me.tableCell9.Summary = XrSummary2
-        Me.tableCell9.Weight = 0.19500048828124994R
+        Me.tableCell9.Weight = 0.17151297059875431R
         '
         'tableCell10
         '
@@ -247,7 +260,7 @@ Partial Public Class Report_PO
         Me.tableCell10.StylePriority.UseTextAlignment = False
         Me.tableCell10.Text = "tableCell10"
         Me.tableCell10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.tableCell10.Weight = 0.51580045572916666R
+        Me.tableCell10.Weight = 0.51629379489958749R
         '
         'tableCell11
         '
@@ -257,7 +270,7 @@ Partial Public Class Report_PO
         Me.tableCell11.StylePriority.UsePadding = False
         Me.tableCell11.StylePriority.UseTextAlignment = False
         Me.tableCell11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.tableCell11.Weight = 0.78530957031250015R
+        Me.tableCell11.Weight = 0.79017121199848317R
         '
         'table3
         '
@@ -1269,6 +1282,7 @@ Partial Public Class Report_PO
     Friend WithEvents tableRow2 As DevExpress.XtraReports.UI.XRTableRow
     Friend WithEvents tableCell6 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell7 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents tableCell60 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell59 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell9 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell10 As DevExpress.XtraReports.UI.XRTableCell

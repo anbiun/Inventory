@@ -71,8 +71,11 @@ Public Class FrmStock
         PO.ToolTipControl = tooltipGcMain
     End Sub
     Private Sub gridControl_ViewRegistered(ByVal sender As Object, ByVal e As ViewOperationEventArgs) Handles gcMain.ViewRegistered
-        Dim gvDetail As New GridStyle.DetailGrid(TryCast(e.View, GridView))
-        gvDetail.SetFormat()
+        If e.View.IsDetailView = False Then Return
+        Dim gvDetailStyle As New GridStyle.DetailGrid(TryCast(e.View, GridView))
+        gvDetailStyle.SetFormat()
+
+        AddHandler TryCast(e.View, GridView).RowCellClick, AddressOf gvDetailRowClick
     End Sub
     Private Sub ExportXLS()
         MsgBox("กำลังทำส่วนนี้ line 60")
@@ -399,8 +402,14 @@ Public Class FrmStock
                 Dim MatNumber As String = view.GetRowCellDisplayText(info.RowHandle, "ProductName")
                 Dim text As String = view.GetRowCellDisplayText(info.RowHandle, "SubMatName")
                 Dim cellKey As String = info.RowHandle.ToString() & " - " & info.Column.ToString()
-                Dim Owing As String = PO.getOwing(view.GetRowCellValue(info.RowHandle, "MatID"),
-                                                  view.GetRowCellValue(info.RowHandle, "Unit3_Name"))
+                With PO
+                    .MatID = view.GetRowCellValue(info.RowHandle, "MatID")
+                    .ProductID = view.GetRowCellValue(info.RowHandle, "ProductID")
+                    .SubCatID = view.GetRowCellValue(info.RowHandle, "SubCatID")
+                    .UnitName = view.GetRowCellValue(info.RowHandle, "Unit3_Name")
+                End With
+
+                Dim Owing As String = PO.getOwing()
                 Dim Result As Func(Of String) = Function()
                                                     Dim SubMat As String = MainMat & " เบอร์ร่วมคือ : " & If(String.IsNullOrWhiteSpace(text), "ไม่มี", text)
                                                     SubMat += vbNewLine
@@ -418,7 +427,38 @@ Public Class FrmStock
             End If
         End If
     End Sub
-    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs, Optional RowHandle As Integer = -1) Handles gvAdjust.RowCellClick, gvMain.RowCellClick
+    Private Sub gvDetailRowClick(sender As Object, e As RowCellClickEventArgs)
+        Dim MatID As String
+        If e.RowHandle >= 0 Then
+            MatID = TryCast(sender, GridView).GetRowCellValue(e.RowHandle, "MatID")
+        Else
+            Return
+        End If
+
+        SQL = "SELECT * FROM vwAdjust"
+        SQL &= " WHERE MatID = '" & MatID & "'"
+        SQL &= " AND " & LocExpr(clbLoc.CheckedItems).Replace("OR", "OR MatID='" & MatID & "' AND")
+        If QryAdjust(SQL) = False Then Return
+    End Sub
+    Dim QryAdjust As Func(Of String, Boolean) = Function(SQLString As String)
+                                                    SQL = SQLString
+                                                    If clbLoc.CheckedItems.Count <= 0 Then Return False
+
+                                                    gcAdjust.DataSource = dsTbl("AJStock")
+                                                    If gvAdjust.RowCount > 0 Then
+                                                        gridInfo = New GridCaption(gvAdjust)
+                                                        With gridInfo
+                                                            .SetCaption()
+                                                            .SetFormat({"Unit1", "Unit3"})
+                                                        End With
+                                                        With gvAdjust
+                                                            .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
+                                                            .BestFitColumns()
+                                                        End With
+                                                    End If
+                                                    Return True
+                                                End Function
+    Private Sub gvRowClick(sender As Object, e As RowCellClickEventArgs, Optional RowHandle As Integer = -1) Handles gvMain.RowCellClick, gvAdjust.RowCellClick
         Dim GV As GridView = CType(sender, GridView)
         If GV.FocusedRowHandle < 0 Then Exit Sub
         With GV
@@ -429,24 +469,14 @@ Public Class FrmStock
                                                         End Function
             Select Case .Name
                 Case gvMain.Name
-                    Dim MatID As String = getCellVal("MatID")
-                    SQL = "SELECT * FROM vwAdjust"
-                    SQL &= " WHERE MatID = '" & MatID & "'"
-                    SQL &= " AND " & LocExpr(clbLoc.CheckedItems).Replace("OR", "OR MatID='" & MatID & "' AND")
-
-                    If clbLoc.CheckedItems.Count <= 0 Then Exit Sub
-                    gcAdjust.DataSource = dsTbl("AJStock")
-                    If gvAdjust.RowCount > 0 Then
-                        gridInfo = New GridCaption(gvAdjust)
-                        With gridInfo
-                            .SetCaption()
-                            .SetFormat({"Unit1", "Unit3"})
-                        End With
-                        With gvAdjust
-                            .Columns("MatName").Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-                            .BestFitColumns()
-                        End With
-                    End If
+                    SQL = "SELECT ADJ.* FROM vwAdJust ADJ
+                           INNER JOIN tbMat M ON ADJ.MatID = M.MatID
+                           WHERE M.ProductID = '" & getCellVal("ProductID") & "' AND M.CatID+M.SubCatID ='" & getCellVal("SubCatID") & "'"
+                    Dim newLocExpr As String = LocExpr(clbLoc.CheckedItems)
+                    newLocExpr = newLocExpr.Replace("LocID = ", "")
+                    newLocExpr = newLocExpr.Replace("OR", ",")
+                    SQL &= "AND LocID IN (" & newLocExpr & ")"
+                    If QryAdjust(SQL) = False Then Return
 
                 Case gvAdjust.Name
                     Dim Unit1 As Double = getCellVal("Unit1")
