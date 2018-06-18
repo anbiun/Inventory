@@ -24,6 +24,7 @@ Partial Class FrmStock
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStock))
+        Me.SplashMng = New DevExpress.XtraSplashScreen.SplashScreenManager(Me, GetType(Global.Inventory_Management.LoadingSplash), True, True)
         Me.tooltipGcMain = New DevExpress.Utils.ToolTipController(Me.components)
         Me.gcAdjust = New DevExpress.XtraGrid.GridControl()
         Me.gvAdjust = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -99,6 +100,10 @@ Partial Class FrmStock
         CType(Me.txtUnit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNotation.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'SplashMng
+        '
+        Me.SplashMng.ClosingDelay = 1000
         '
         'tooltipGcMain
         '
@@ -282,7 +287,6 @@ Partial Class FrmStock
         Me.btnExportExcel.Size = New System.Drawing.Size(212, 43)
         Me.btnExportExcel.TabIndex = 19
         Me.btnExportExcel.Text = "นำออกข้อมูล Excel"
-        Me.btnExportExcel.Visible = False
         '
         'lbCat
         '
@@ -852,4 +856,5 @@ Partial Class FrmStock
     Friend WithEvents Label12 As Label
     Friend WithEvents gcMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvMain As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents SplashMng As DevExpress.XtraSplashScreen.SplashScreenManager
 End Class

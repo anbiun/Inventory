@@ -1,6 +1,5 @@
 ﻿Imports DevExpress.Utils
 Imports ConDB.Main
-Imports System.Data.SqlClient
 Imports DevExpress.XtraGrid.Views.Grid
 Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.IO
@@ -9,10 +8,9 @@ Imports System.ComponentModel
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraEditors
-Imports DevExpress.XtraEditors.Repository
-Imports DevExpress.XtraEditors.Controls
 Imports DevExpress
-Imports DevExpress.Xpo
+Imports DevExpress.XtraPrinting
+Imports DevExpress.Export
 
 Public Class FrmStock
     Dim LocID As String
@@ -21,6 +19,8 @@ Public Class FrmStock
     Dim GvSource As New GridView
     Dim PO As POFunction.ToolTip
     Dim gvMaster As GridStyle.MasterGrid
+    Dim bgGetStock As New BackgroundWorker
+    Private Property MasterDetailDS As DataSet
 #Region "Code Side"
     'SetAdjust Control
     Sub New()
@@ -37,8 +37,19 @@ Public Class FrmStock
         AddHandler lbRatio.TextChanged, Sub()
                                             ADJ.Ratio = If(IsNumeric(lbRatio.Text), CInt(lbRatio.Text), 0)
                                         End Sub
+
+        AddHandler bgGetStock.DoWork, AddressOf bgDowork
+        AddHandler bgGetStock.RunWorkerCompleted, AddressOf bgSuccess
     End Sub
-    Private Sub getStockSP()
+    Private Sub bgDowork(sender As Object, e As DoWorkEventArgs)
+        SplashMng.ShowWaitForm()
+        SetMasterDetailData()
+    End Sub
+    Private Sub bgSuccess(sender As Object, e As RunWorkerCompletedEventArgs)
+        SplashMng.CloseWaitForm()
+        BindStock()
+    End Sub
+    Private Sub SetMasterDetailData()
         Using MasterDetail As New DataSet
             With BindInfo
                 .LocCheked = clbLoc.CheckedItems
@@ -57,13 +68,16 @@ Public Class FrmStock
             Dim cParent As DataColumn = MasterDetail.Tables("Master").Columns("RelaID")
             Dim cChild As DataColumn = MasterDetail.Tables("Detail").Columns("RelaID")
             MasterDetail.Relations.Add("ข้อมูลวัสดุ", cParent, cChild)
-
-            'assign
-            gcMain.DataSource = MasterDetail.Tables("Master")
-            Dim gvDetail As New GridView(gcMain)
-            gcMain.LevelTree.Nodes.Add("RelaID", gvDetail)
-            gvDetail.PopulateColumns(MasterDetail.Tables("Detail"))
+            MasterDetailDS = MasterDetail
         End Using
+    End Sub
+    Private Sub BindStock()
+        'assign
+        gcMain.DataSource = MasterDetailDS.Tables("Master")
+        Dim gvDetail As New GridView(gcMain)
+        gcMain.LevelTree.Nodes.Add("RelaID", gvDetail)
+        gvDetail.PopulateColumns(MasterDetailDS.Tables("Detail"))
+
         gvMain.PopulateColumns()
         gvMain.BestFitColumns()
         gvMaster.SetFormat()
@@ -78,42 +92,38 @@ Public Class FrmStock
         AddHandler TryCast(e.View, GridView).RowCellClick, AddressOf gvDetailRowClick
     End Sub
     Private Sub ExportXLS()
-        MsgBox("กำลังทำส่วนนี้ line 60")
-        Dim Dest As String = "C:\Users\d-___\Desktop\000.xlsx"
-        Dim prntngSys As New XtraPrinting.PrintingSystem
-        Dim op As New XtraPrinting.XlsxExportOptionsEx
-        op.ExportType = DevExpress.Export.ExportType.WYSIWYG
+        Dim save As New SaveFileDialog
+        save.Filter = "Excel 97-2003 (*.xls) | *.xls"
+        save.ShowDialog()
+        Dim Dest As String = save.FileName
+        Dim ExpandAll As Func(Of GridView, Boolean) = Function(v As GridView)
+                                                          Dim rowCount As Integer = v.DataRowCount
+                                                          v.BeginInit()
 
-        Using gcGrid As New DevExpress.XtraGrid.GridControl
-            Using gvView As New DevExpress.XtraGrid.Views.Grid.GridView
-                'Dim bV As DevExpress.XtraGrid.Views.Base.BaseView = gvView
+                                                          For i As Integer = 0 To v.DataRowCount
+                                                              v.SetMasterRowExpanded(i, True)
+                                                          Next
+                                                          v.EndInit()
+                                                          Return True
+                                                      End Function
+        If Not String.IsNullOrEmpty(Dest) Then
+            gvMain.Columns("AllowColor").Visible = False
+            gvMain.OptionsPrint.PrintDetails = True
+            gvMain.OptionsPrint.AutoWidth = False
+            gvMain.OptionsPrint.UsePrintStyles = False
+            ExpandAll(gvMain)
+            gvMain.ExportToXls(Dest, New XtraPrinting.XlsExportOptionsEx() With {
+                               .ExportType = DevExpress.Export.ExportType.WYSIWYG,
+                               .AllowFixedColumns = DefaultBoolean.True,
+                               .AllowGrouping = DefaultBoolean.True})
+            If MessageBox.Show("ต้องการเปิด File หรือไม่ ?", "ยืนยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                Process.Start(Dest)
+            End If
+        End If
 
-                '                'gcGrid.BindingContext = New System.Windows.Forms.BindingContext
-                gcGrid.MainView = gvView
-                gvView.GridControl = gcGrid
-                'gcGrid.ViewCollection.AddRange({bV})
-                gcGrid.DataSource = gcMain.DataSource
-                'gcGrid.ForceInitialize()
-                gvView.PopulateColumns()
-                gvView.OptionsView.ColumnAutoWidth = True
-                gvView.BestFitColumns()
-                gvView.OptionsPrint.AutoWidth = True
-                gvView.OptionsPrint.ExpandAllDetails = True
-                gvMain.OptionsPrint.PrintDetails = True
-
-                'DevExpress.Export.ExportSettings.DefaultExportType = DevExpress.Export.ExportType.WYSIWYG
-
-                'AddHandler op.CustomizeCell, Sub(ea)
-                '                                 ea.Formatting.BackColor = Color.Gainsboro
-                '                                 ea.Handled = True
-                '                             End Sub
-                gvView.ExportToXlsx(Dest, op)
-
-            End Using
-        End Using
-        Process.Start(Dest)
         Return
 
+        'code เก่าไม่ใช้แล้ว ยังไม่ลบเผื่อต้องใช้
         If gvMain.RowCount < 1 Then Exit Sub
         Dim saveFileDialog1 As New SaveFileDialog()
         saveFileDialog1.Filter = "Excel 97-2003 (*.xls) |*.xls"
@@ -316,6 +326,7 @@ Public Class FrmStock
                 Process.Start("EXCEL.EXE", """" + SavePath + """")
             End If
         End If
+
     End Sub
     Private Sub releaseObject(ByVal obj As Object)
         Try
@@ -373,15 +384,12 @@ Public Class FrmStock
         loadSuccess = True
     End Sub
     Private Sub btnExPortExcel_Click(sender As Object, e As EventArgs) Handles btnExportExcel.Click
-        'Dim newExport As New newExport.ExportXLS
-        'newExport.Export(gvMain, gcMain)
-        ExportXLS()
-        'newExport()
+        Dim xls As New Export With {.GridView = gvMain}
+        xls.Export()
     End Sub
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         If clbLoc.CheckedItemsCount <= 0 Or clbSubCat.CheckedItemsCount <= 0 Then Exit Sub
-        getStockSP()
-        'getOldStockSP()
+        bgGetStock.RunWorkerAsync()
     End Sub
     Private Sub slCat_EditValueChanged(sender As Object, e As EventArgs) Handles slCat.EditValueChanged
         If loadSuccess = False Then Exit Sub
@@ -555,6 +563,43 @@ Public Class FrmStock
             BindInfo.Excute()
             FrmStock.gvMain.ExpandAllGroups()
             FrmStock.gvRowClick(FrmStock.gvMain, Nothing, FrmStock.gvMain.FocusedRowHandle)
+        End Sub
+    End Class
+
+    Private Class Export
+        Property GridView As GridView
+        Public Sub Export()
+            Dim save As New SaveFileDialog
+            save.Filter = "Excel 97-2003 (*.xls) | *.xls"
+            save.ShowDialog()
+            Dim Dest As String = save.FileName
+            Dim ExpandAll As Func(Of GridView, Boolean) = Function(v As GridView)
+                                                              Dim rowCount As Integer = v.DataRowCount
+                                                              v.BeginInit()
+
+                                                              For i As Integer = 0 To v.DataRowCount
+                                                                  v.SetMasterRowExpanded(i, True)
+                                                              Next
+                                                              v.EndInit()
+                                                              Return True
+                                                          End Function
+            If Not String.IsNullOrEmpty(Dest) Then
+                Dim op As New XlsExportOptionsEx() With {
+                .ExportType = ExportType.WYSIWYG,
+                .AllowGrouping = DefaultBoolean.True,
+                .AllowFixedColumns = DefaultBoolean.True}
+
+                GridView.Columns("AllowColor").Visible = False
+                GridView.OptionsPrint.PrintDetails = True
+                GridView.OptionsPrint.AutoWidth = False
+                GridView.OptionsPrint.UsePrintStyles = False
+                GridView.OptionsPrint.ExpandAllGroups = True
+                ExpandAll(GridView)
+                GridView.ExportToXls(Dest, op)
+                If MessageBox.Show("ต้องการเปิด File หรือไม่ ?", "ยืนยันการทำงาน", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                    Process.Start(Dest)
+                End If
+            End If
         End Sub
     End Class
 End Class

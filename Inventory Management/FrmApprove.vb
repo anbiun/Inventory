@@ -54,7 +54,7 @@ Public Class FrmApprove
 	                INNER JOIN tbImportOrder O ON TFDE.TagID = O.TagID
 	                INNER JOIN tbUnit U1 ON O.Unit1_ID = U1.UnitID 
 	                INNER JOIN tbMat M ON O.MatID = M.MatID 
-	                INNER JOIN tbSubCategory SC ON M.SubCatID = SC.SubCatID 
+	                INNER JOIN tbSubCategory SC ON M.CatID+M.SubCatID = SC.CatID+SC.SubCatID 
 	                INNER JOIN tbUnit U3 ON SC.Unit3_ID = U3.UnitID
                 WHERE TFDE.TransferID = '" & TransferID & "' 
                 ORDER BY M.MatName "

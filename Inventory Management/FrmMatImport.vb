@@ -79,7 +79,8 @@ Public Class FrmMatImport
 MainUnit:
         If DS.Tables("mainUnit") IsNot Nothing Then DS.Tables("mainUnit").Clear()
         SQL = "SELECT tbUnit.UnitID, tbMatUnitFix.SubCatID, tbUnit.UnitName " _
-            & "FROM tbMatUnitFix INNER JOIN tbUnit ON tbMatUnitFix.mainUnitID = tbUnit.UnitID"
+            & "FROM tbMatUnitFix INNER JOIN tbUnit ON tbMatUnitFix.mainUnitID = tbUnit.UnitID
+            order by UnitName"
         dsTbl("mainUnit")
         If Mode <> QryMode.All Then Exit Sub
 
@@ -748,13 +749,7 @@ Edit:
                                      search("ImportList", "BillNo='" & txtBillNo.Text & "'", ""))
     End Sub
 #End Region
-    Private Sub luUnit1_name_EditValueChanged(sender As Object, e As EventArgs) Handles luUnit1_name.EditValueChanged
-        If LoadSuccess = False Then Exit Sub
-        'lblVolume.Text = luUnit1_name.Text
-    End Sub
-    Private Sub rbPerQty_CheckedChanged(sender As Object, e As EventArgs)
-        'lblVolume.Text = luUnit1_name.Text & "ละ"
-    End Sub
+
     Private Sub txtUnit1_EditValueChanged(sender As Object, e As EventArgs) Handles txtUnit1.EditValueChanged, txtUnit3.EditValueChanged
         Dim spiCtr As SpinEdit = CType(sender, SpinEdit)
         If spiCtr.Value < 0 Then spiCtr.Value = 0
@@ -793,6 +788,7 @@ Edit:
         End With
     End Sub
 End Class
+
 Public Class Buttons
     Enum EState
         TurnOn

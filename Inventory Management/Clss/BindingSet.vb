@@ -169,5 +169,3 @@ Public Class BindingSet
     End Function
 #End Region
 End Class
-
-

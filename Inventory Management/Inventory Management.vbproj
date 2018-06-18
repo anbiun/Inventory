@@ -468,6 +468,12 @@
     <Compile Include="Reports\Report_PO.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LoadingSplash.Designer.vb">
+      <DependentUpon>LoadingSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LoadingSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dlgProgress.resx">
@@ -538,6 +544,7 @@
     <EmbeddedResource Include="Manage\FmgUnit.resx">
       <DependentUpon>FmgUnit.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -553,6 +560,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Report_PO.resx">
       <DependentUpon>Report_PO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadingSplash.resx">
+      <DependentUpon>LoadingSplash.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

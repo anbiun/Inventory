@@ -266,7 +266,7 @@ Partial Class FrmMatImport
         '
         'FlowLayoutPanel1
         '
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(53, 140)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(53, 139)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(314, 36)
         Me.FlowLayoutPanel1.TabIndex = 14
